@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="mr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cardinal and Ordinal Numbers Exam - ZP Narsobawadi</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=Hind:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', 'Hind', sans-serif;
+            background-color: #eff6ff;
+        }
+        .main-border {
+            border: 8px double #1e40af;
+        }
+        .cert-border {
+            border: 12px double #b45309;
+            background-color: #fff;
+        }
+        .option-btn {
+            transition: all 0.2s ease;
+        }
+        .option-btn:hover:not(:disabled) {
+            transform: translateY(-2px);
+            background-color: #f0f9ff;
+        }
+        .hidden { display: none; }
+        .fade-in { animation: fadeIn 0.4s ease-out; }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        /* Keep certificate square */
+        .square-cert {
+            width: 100%;
+            max-width: 600px;
+            aspect-ratio: 1 / 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+    </style>
+</head>
+<body class="min-h-screen flex items-center justify-center p-4">
+
+    <div id="welcome-screen" class="max-w-2xl w-full bg-white main-border rounded-3xl p-8 shadow-2xl text-center fade-in">
+        <h1 class="text-3xl font-extrabold text-blue-800 mb-2">जिल्हा परिषद प्राथमिक शाळा नरसोबावाडी</h1>
+        <h2 class="text-xl font-bold text-gray-700 mb-4">इयत्ता 3री व 4थी</h2>
+        
+        <div class="bg-yellow-100 border-2 border-yellow-400 rounded-xl p-4 mb-6">
+            <h3 class="text-2xl font-black text-red-600 uppercase tracking-wider">Cardinal and Ordinal Numbers</h3>
+            <p class="text-blue-700 font-bold">शिष्यवृत्ती विशेष सराव परीक्षा (५० प्रश्न)</p>
+        </div>
+
+        <div class="mb-8 text-left">
+            <label class="block font-bold text-gray-700 mb-2">विद्यार्थ्याचे पूर्ण नाव प्रविष्ट करा:</label>
+            <input type="text" id="studentNameInput" class="w-full p-4 border-2 border-blue-200 rounded-xl focus:border-blue-500 outline-none text-lg" placeholder="उदा. विशाल सचिन शिंदे">
+        </div>
+
+        <div class="text-sm text-blue-600 font-semibold mb-8 bg-blue-50 p-3 rounded-lg">
+            मार्गदर्शक शिक्षक: सचिन शिंदे सर <br>
+            मोबाईल नंबर: 8329 68 44 70
+        </div>
+
+        <button onclick="startExam()" class="bg-blue-600 hover:bg-blue-700 text-white font-black text-2xl py-4 px-12 rounded-full shadow-lg transition-transform active:scale-95">
+            Start Exam 🚀
+        </button>
+    </div>
+
+    <div id="quiz-screen" class="max-w-3xl w-full bg-white main-border rounded-3xl p-6 shadow-2xl hidden fade-in">
+        <div class="border-b-2 border-blue-100 pb-4 mb-6">
+            <h4 class="text-lg font-bold text-blue-800 text-center">जिल्हा परिषद प्राथमिक शाळा नरसोबावाडी</h4>
+            <div class="flex justify-between items-center mt-2 px-2">
+                <span class="bg-blue-100 text-blue-800 text-xs font-bold px-3 py-1 rounded-full">Cardinal & Ordinal Numbers</span>
+                <span class="bg-gray-100 text-gray-800 text-xs font-bold px-3 py-1 rounded-full">इयत्ता 3री व 4थी</span>
+            </div>
+        </div>
+
+        <div id="question-container">
+            <div class="flex justify-between items-center mb-4">
+                <span id="question-number" class="text-blue-600 font-bold bg-blue-50 px-3 py-1 rounded">प्रश्न १/५०</span>
+                <div class="w-1/2 bg-gray-200 h-3 rounded-full overflow-hidden">
+                    <div id="progress-bar" class="bg-blue-600 h-full transition-all duration-300" style="width: 2%"></div>
+                </div>
+                <span id="score-display" class="text-green-600 font-bold">गुण: ०</span>
+            </div>
+            
+            <h3 id="question-text" class="text-xl md:text-2xl font-bold text-gray-800 mb-6 p-4 bg-gray-50 rounded-xl border-l-8 border-blue-600"></h3>
+            
+            <div id="options-grid" class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <!-- Options injected here -->
+            </div>
+
+            <!-- Feedback Area -->
+            <div id="feedback" class="mt-6 p-4 rounded-xl hidden border-2">
+                <p id="feedback-text" class="font-bold text-lg"></p>
+                <p id="explanation-text" class="text-sm mt-1 text-gray-700"></p>
+            </div>
+
+            <div class="mt-8 flex justify-center">
+                <button id="next-btn" onclick="handleNext()" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-10 rounded-xl shadow-md hidden animate-bounce">
+                    पुढील प्रश्न ➔
+                </button>
+                <button id="submit-btn" onclick="showResults()" class="bg-red-600 hover:bg-red-700 text-white font-bold py-3 px-10 rounded-xl shadow-md hidden">
+                    Submit Exam 🏁
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div id="result-screen" class="w-full hidden fade-in flex flex-col items-center">
+        <div id="certificate" class="square-cert cert-border rounded-lg shadow-2xl p-6 md:p-10 relative overflow-hidden mx-auto">
+            <!-- Decorative Corners -->
+            <div class="absolute top-0 left-0 w-20 h-20 border-t-4 border-l-4 border-yellow-600 opacity-30"></div>
+            <div class="absolute bottom-0 right-0 w-20 h-20 border-b-4 border-r-4 border-yellow-600 opacity-30"></div>
+            
+            <div class="text-center">
+                <span class="text-5xl mb-4 block">🏆</span>
+                <h1 class="text-2xl font-black text-blue-900 uppercase">जिल्हा परिषद प्राथमिक शाळा नरसोबावाडी</h1>
+                <p class="text-blue-700 font-bold mt-1">इयत्ता 3री व 4थी</p>
+                <div class="w-24 h-1 bg-yellow-500 mx-auto mt-2"></div>
+            </div>
+
+            <div class="text-center">
+                <h2 class="text-3xl font-black text-yellow-700 underline decoration-double">निकाल पत्रक</h2>
+                <p class="text-gray-500 mt-1 font-bold tracking-widest text-sm">विषय: Cardinal and Ordinal Numbers</p>
+            </div>
+
+            <div class="space-y-4 w-full px-6">
+                <div class="text-center border-b-2 border-dashed border-gray-300 pb-2">
+                    <p class="text-lg">विद्यार्थ्याचे नाव</p>
+                    <p id="res-name" class="text-2xl font-black text-blue-800"></p>
+                </div>
+                
+                <div class="grid grid-cols-2 gap-4 mt-6">
+                    <div class="bg-blue-50 p-3 rounded-xl border-2 border-blue-200 text-center">
+                        <p class="text-xs font-bold text-gray-500 uppercase">मिळालेले गुण</p>
+                        <p id="res-score" class="text-2xl font-black text-blue-700"></p>
+                    </div>
+                    <div class="bg-green-50 p-3 rounded-xl border-2 border-green-200 text-center">
+                        <p class="text-xs font-bold text-gray-500 uppercase">टक्केवारी</p>
+                        <p id="res-percentage" class="text-2xl font-black text-green-700"></p>
+                    </div>
+                </div>
+
+                <div id="achievement-badge" class="mt-4 p-4 rounded-2xl flex flex-col items-center justify-center border-4">
+                    <span id="medal-icon" class="text-5xl mb-2"></span>
+                    <span id="medal-text" class="text-xl font-black text-center leading-tight"></span>
+                </div>
+            </div>
+
+            <div class="pt-4 border-t border-gray-200 w-full flex justify-between items-end">
+                <div class="text-left text-[11px] text-gray-600">
+                    मार्गदर्शक: सचिन शिंदे सर<br>
+                    संपर्क: 8329 68 44 70
+                </div>
+                <div class="text-right">
+                    <p class="text-[11px] font-bold text-gray-700 underline">मुख्याध्यापक स्वाक्षरी</p>
+                </div>
+            </div>
+        </div>
+        
+        <button onclick="location.reload()" class="mt-8 bg-blue-600 text-white font-bold py-4 px-12 rounded-full shadow-lg transition-transform hover:scale-105 active:scale-95">
+            पुन्हा प्रयत्न करा 🔄
+        </button>
+    </div>
+
+    <script>
+        const questions = [
+            { q: "What is the Ordinal Number for '1'?", a: ["First", "One", "Once", "Oneth"], c: 0, r: "१ ला 'First' म्हणतात." },
+            { q: "How many days are in a week? (Answer in Cardinal)", a: ["7th", "Seven", "Seventh", "Seventeen"], c: 1, r: "संख्या विचारली आहे, म्हणून 'Seven' येईल." },
+            { q: "Monday is the ______ day of the week.", a: ["One", "Once", "First", "1stly"], c: 2, r: "वार हा क्रम दाखवतो, म्हणून 'First' (पहिले)." },
+            { q: "Ordinal form of '5' is:", a: ["Fiveth", "Fifteen", "Five", "Fifth"], c: 3, r: "५ ला 'Fifth' म्हणतात, 'Fiveth' नाही." },
+            { q: "Find the Cardinal Number:", a: ["Tenth", "10", "10th", "Third"], c: 1, r: "ज्या संख्येने मोजणी होते ती Cardinal असते." },
+            { q: "What is the Ordinal number for 2?", a: ["Twoth", "Second", "Two", "Twice"], c: 1, r: "२ ला 'Second' म्हणतात." },
+            { q: "Twelve is a ______ number.", a: ["Ordinal", "Cardinal", "Position", "Rank"], c: 1, r: "१२ ही एक संख्या (Cardinal) आहे." },
+            { q: "Ordinal form of 12 is ______.", a: ["Twelveth", "Twelfth", "Twelf", "Twelve"], c: 1, r: "स्पेलिंग लक्षात ठेवा: Twelfth." },
+            { q: "August is the ______ month of the year.", a: ["Eight", "Eighth", "8thly", "Eighty"], c: 1, r: "वर्षातील ८ वा महिना म्हणजे 'Eighth'." },
+            { q: "Which of these is NOT an ordinal number?", a: ["Third", "Fourth", "Four", "First"], c: 2, r: "Four हा Cardinal आहे." },
+            { q: "The word 'Nine' is a ______ number.", a: ["Ordinal", "Cardinal", "Rank", "Count"], c: 1, r: "ही मूळ संख्या आहे." },
+            { q: "The ordinal form for 9 is ______.", a: ["Nineth", "Ninth", "Nine", "9thly"], c: 1, r: "Ninth मध्ये 'e' गाळला जातो." },
+            { q: "I came ______ in the race (Position 3).", a: ["Three", "Third", "Threeth", "Triple"], c: 1, r: "तिसरा क्रमांक म्हणजे 'Third'." },
+            { q: "Cardinal number for 'Twentieth' is:", a: ["12", "20", "2nd", "20th"], c: 1, r: "Twentieth म्हणजे २० वा, त्याची संख्या २०." },
+            { q: "The spelling of 11th is:", a: ["Eleventh", "Eleven", "Elevent", "Eleveenth"], c: 0, r: "Eleventh हे बरोबर आहे." },
+            { q: "How many months in a year? (Answer in Cardinal)", a: ["Twelve", "Twelfth", "12th", "Second"], c: 0, r: "एकुण महिने १२ (Twelve)." },
+            { q: "Friday is the ______ day of the week (if Mon is 1st).", a: ["Five", "Fifth", "Fourth", "Six"], c: 1, r: "शुक्रवार पाचवा (Fifth) दिवस येतो." },
+            { q: "Ordinal form of 100 is:", a: ["Hundred", "Hundredth", "Hundreds", "100"], c: 1, r: "शंभरावा म्हणजे 'Hundredth'." },
+            { q: "Cardinal number for 'Forty-second' is:", a: ["40", "42", "24", "4th"], c: 1, r: "४२ वा म्हणजे संख्या ४२." },
+            { q: "Ordinal number for 11 is:", a: ["Eleventh", "Eleven", "Elevent", "Oneth"], c: 0, r: "Eleventh." },
+            { q: "Which is correct: 4th or 4st?", a: ["4st", "4th", "4rd", "4nd"], c: 1, r: "४ साठी 'th' प्रत्यय लागतो (Fourth)." },
+            { q: "3rd means ______.", a: ["Third", "Threeth", "Three", "Thrice"], c: 0, r: "३ रा म्हणजे Third." },
+            { q: "The rank 'First' belongs to which number?", a: ["0", "2", "1", "10"], c: 2, r: "१ ला 'First' म्हणतात." },
+            { q: "Find the Cardinal number among these:", a: ["50th", "50", "Fifth", "Fiftieth"], c: 1, r: "५० हा Cardinal आहे." },
+            { q: "February is the ______ month.", a: ["Second", "Two", "2", "Twoth"], c: 0, r: "दुसरा महिना Second." },
+            { q: "The spelling of 4 is:", a: ["For", "Four", "Fore", "Fourth"], c: 1, r: "Cardinal spelling 'Four' आहे." },
+            { q: "The spelling of 40 is:", a: ["Fourty", "Forty", "Forte", "Fortieth"], c: 1, r: "लक्षात ठेवा: Forty मध्ये 'u' नसतो." },
+            { q: "The spelling of 14 is:", a: ["Fourteen", "Forten", "Forteen", "Four"], c: 0, r: "Fourteen." },
+            { q: "What suffix is added to 21 to make it ordinal?", a: ["th", "rd", "st", "nd"], c: 2, r: "21st (Twenty-first) म्हणून 'st' लागतो." },
+            { q: "22nd is read as ______.", a: ["Twenty-second", "Twenty-two", "Twenteth", "Two-two"], c: 0, r: "२२ वा." },
+            { q: "23rd is read as ______.", a: ["Twenty-three", "Twenty-thrid", "Twenty-third", "Third"], c: 2, r: "२३ वा." },
+            { q: "Cardinal number for 'Sixteenth' is:", a: ["60", "16", "6", "16th"], c: 1, r: "१६ वा म्हणजे संख्या १६." },
+            { q: "Cardinal number for 'Nineteenth' is:", a: ["9", "90", "19", "19th"], c: 2, r: "१९ वा म्हणजे संख्या १९." },
+            { q: "Ordinal form for 8 is:", a: ["Eight", "Eightth", "Eighth", "8thly"], c: 2, r: "Eighth (एकाच 't' चा वापर)." },
+            { q: "How many fingers on one hand? (Cardinal)", a: ["Five", "Fifth", "5th", "Four"], c: 0, r: "मोजणीसाठी 'Five' वापरतात." },
+            { q: "Which month is the Tenth month?", a: ["October", "August", "December", "Ten"], c: 0, r: "ऑक्टोबर हा १० वा महिना आहे." },
+            { q: "Ordinal for 13 is ______.", a: ["Thirteeth", "Thirteenth", "Thirty", "Third"], c: 1, r: "Thirteenth." },
+            { q: "30th is read as ______.", a: ["Thirty", "Thirtieth", "Thirteeth", "Thirty-th"], c: 1, r: "Thirtieth (तिसावा)." },
+            { q: "In the word 'B-A-N-A-N-A', which letter is 3rd?", a: ["B", "A", "N", "A"], c: 2, r: "B(1), A(2), N(3) - तिसरे अक्षर N आहे." },
+            { q: "In 'SCHOOL', which letter is 1st?", a: ["S", "C", "H", "O"], c: 0, r: "पहिले अक्षर S आहे." },
+            { q: "Cardinal for 'Fiftieth' is:", a: ["15", "5", "50", "500"], c: 2, r: "Fiftieth म्हणजे ५० वा." },
+            { q: "Which is an ordinal number?", a: ["One", "First", "Ten", "Sixty"], c: 1, r: "First हा क्रम आहे." },
+            { q: "The number 1,000 in cardinal is:", a: ["Thousandth", "Thousand", "Hundred", "Ten"], c: 1, r: "Thousand." },
+            { q: "The spelling of 18th is:", a: ["Eighteen", "Eighteenth", "Eighteeth", "18"], c: 1, r: "Eighteenth." },
+            { q: "Saturday is the ______ day (Mon as 1st).", a: ["Sixth", "Seven", "Six", "Fourth"], c: 0, r: "शनिवार सहावा (Sixth) दिवस." },
+            { q: "Which is the ordinal for 15?", a: ["Fiveteen", "Fifteenth", "Fiftieth", "15"], c: 1, r: "Fifteenth." },
+            { q: "7th is the ______ day of week.", a: ["Friday", "Monday", "Sunday", "Saturday"], c: 2, r: "रविवार ७ वा दिवस." },
+            { q: "Find the odd one out:", a: ["First", "Second", "Five", "Tenth"], c: 2, r: "Five हा Cardinal आहे, बाकी सर्व Ordinal आहेत." },
+            { q: "12, 13, 14, 15 are ______ numbers.", a: ["Cardinal", "Ordinal", "Position", "Rank"], c: 0, r: "या मोजण्याच्या संख्या आहेत." },
+            { q: "The last month of the year is ______.", a: ["Twelfth", "Twelve", "Tenth", "Eleventh"], c: 0, r: "डिसेम्बर हा १२ वा (Twelfth) महिना आहे." }
+        ];
+
+        let currentQ = 0;
+        let score = 0;
+        let studentName = "";
+
+        function startExam() {
+            const name = document.getElementById('studentNameInput').value.trim();
+            if (!name) {
+                alert("कृपया तुमचे नाव प्रविष्ट करा!");
+                return;
+            }
+            studentName = name;
+            document.getElementById('welcome-screen').classList.add('hidden');
+            document.getElementById('quiz-screen').classList.remove('hidden');
+            loadQuestion();
+        }
+
+        function loadQuestion() {
+            const q = questions[currentQ];
+            const total = questions.length;
+            
+            document.getElementById('question-number').innerText = `प्रश्न ${currentQ + 1}/${total}`;
+            document.getElementById('question-text').innerText = q.q;
+            document.getElementById('score-display').innerText = `गुण: ${score}`;
+            
+            // Update progress bar
+            const progress = ((currentQ + 1) / total) * 100;
+            document.getElementById('progress-bar').style.width = `${progress}%`;
+            
+            const grid = document.getElementById('options-grid');
+            grid.innerHTML = '';
+            
+            q.a.forEach((opt, idx) => {
+                const btn = document.createElement('button');
+                btn.className = "option-btn w-full p-4 text-left font-bold text-gray-700 bg-white border-2 border-gray-200 rounded-xl shadow-sm";
+                btn.innerText = `${idx + 1}. ${opt}`;
+                btn.onclick = () => checkAnswer(idx, btn);
+                grid.appendChild(btn);
+            });
+
+            document.getElementById('feedback').classList.add('hidden');
+            document.getElementById('next-btn').classList.add('hidden');
+            document.getElementById('submit-btn').classList.add('hidden');
+        }
+
+        function checkAnswer(idx, btn) {
+            const q = questions[currentQ];
+            const btns = document.querySelectorAll('.option-btn');
+            
+            btns.forEach(b => b.disabled = true);
+            
+            const feedback = document.getElementById('feedback');
+            const fText = document.getElementById('feedback-text');
+            const expText = document.getElementById('explanation-text');
+            feedback.classList.remove('hidden');
+
+            if (idx === q.c) {
+                score++;
+                btn.classList.replace('border-gray-200', 'border-green-500');
+                btn.classList.add('bg-green-50', 'text-green-700');
+                feedback.className = "mt-6 p-4 rounded-xl bg-green-50 border-green-500 border-2 fade-in";
+                fText.innerText = "बरोबर उत्तर! 🎉";
+                fText.className = "font-black text-green-700 text-lg";
+                expText.innerText = q.r;
+            } else {
+                btn.classList.replace('border-gray-200', 'border-red-500');
+                btn.classList.add('bg-red-50', 'text-red-700');
+                
+                // Highlight correct
+                btns[q.c].classList.replace('border-gray-200', 'border-green-500');
+                btns[q.c].classList.add('bg-green-50');
+                
+                feedback.className = "mt-6 p-4 rounded-xl bg-red-50 border-red-500 border-2 fade-in";
+                fText.innerText = "चूक! ❌";
+                fText.className = "font-black text-red-700 text-lg";
+                expText.innerHTML = `बरोबर उत्तर आहे: <span class='font-black'>${q.a[q.c]}</span>. <br>${q.r}`;
+            }
+
+            if (currentQ < questions.length - 1) {
+                document.getElementById('next-btn').classList.remove('hidden');
+            } else {
+                document.getElementById('submit-btn').classList.remove('hidden');
+            }
+        }
+
+        function handleNext() {
+            currentQ++;
+            loadQuestion();
+            window.scrollTo(0,0);
+        }
+
+        function showResults() {
+            document.getElementById('quiz-screen').classList.add('hidden');
+            document.getElementById('result-screen').classList.remove('hidden');
+            
+            const percentage = (score / questions.length) * 100;
+            document.getElementById('res-name').innerText = studentName;
+            document.getElementById('res-score').innerText = `${score} / ${questions.length}`;
+            document.getElementById('res-percentage').innerText = `${percentage.toFixed(1)}%`;
+
+            const badge = document.getElementById('achievement-badge');
+            const mIcon = document.getElementById('medal-icon');
+            const mText = document.getElementById('medal-text');
+
+            if (percentage >= 80) {
+                badge.className = "mt-4 p-4 rounded-2xl flex flex-col items-center justify-center border-4 bg-yellow-50 border-yellow-500 text-yellow-800 shadow-lg";
+                mIcon.innerText = "🥇";
+                mText.innerHTML = "Gold Medal + Trophy<br><span class='text-sm font-bold'>उत्कृष्ट कामगिरी!</span>";
+            } else if (percentage >= 60) {
+                badge.className = "mt-4 p-4 rounded-2xl flex flex-col items-center justify-center border-4 bg-gray-50 border-gray-400 text-gray-800 shadow-md";
+                mIcon.innerText = "🥈";
+                mText.innerHTML = "Silver Medal + Trophy<br><span class='text-sm font-bold'>छान प्रयत्न!</span>";
+            } else if (percentage >= 50) {
+                badge.className = "mt-4 p-4 rounded-2xl flex flex-col items-center justify-center border-4 bg-orange-50 border-orange-400 text-orange-800";
+                mIcon.innerText = "🥉";
+                mText.innerHTML = "Bronze Medal + Trophy<br><span class='text-sm font-bold'>चांगली सुधारणा!</span>";
+            } else {
+                badge.className = "mt-4 p-4 rounded-2xl flex flex-col items-center justify-center border-4 bg-pink-50 border-pink-400 text-pink-800";
+                mIcon.innerText = "💐";
+                mText.innerHTML = "अभिनंदन! फुलांचा गुच्छ<br><span class='text-sm font-bold'>पुढील परीक्षेसाठी शुभेच्छा!</span>";
+            }
+        }
+    </script>
+</body>
+</html>
