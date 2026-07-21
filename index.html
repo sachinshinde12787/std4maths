@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html lang="mr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>जि प प्रा शाळा नरसोबावाडी - गणित ऑनलाइन परीक्षा</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #f4f7f6;
+            margin: 0;
+            padding: 15px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 650px;
+            background: #ffffff;
+            border-radius: 12px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.15);
+            padding: 25px;
+            border: 3px solid #2c3e50;
+        }
+
+        .header-title {
+            text-align: center;
+            color: #1a5276;
+            margin-top: 0;
+            margin-bottom: 5px;
+            font-size: 24px;
+        }
+
+        .sub-title {
+            text-align: center;
+            color: #e67e22;
+            margin-top: 0;
+            margin-bottom: 20px;
+            font-size: 18px;
+            border-bottom: 2px dashed #ddd;
+            padding-bottom: 10px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+            color: #333;
+            font-size: 16px;
+        }
+
+        input[type="text"] {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #bdc3c7;
+            border-radius: 6px;
+            font-size: 16px;
+            outline: none;
+        }
+
+        input[type="text"]:focus {
+            border-color: #3498db;
+        }
+
+        .btn {
+            width: 100%;
+            padding: 12px;
+            background-color: #27ae60;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-size: 18px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+
+        .btn:hover {
+            background-color: #219150;
+        }
+
+        .btn-next {
+            background-color: #2980b9;
+            margin-top: 15px;
+            display: none;
+        }
+
+        .btn-next:hover {
+            background-color: #1f618d;
+        }
+
+        .btn-submit {
+            background-color: #c0392b;
+            margin-top: 15px;
+            display: none;
+        }
+
+        .btn-submit:hover {
+            background-color: #962d22;
+        }
+
+        .options-container {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .option-btn {
+            padding: 12px 15px;
+            background-color: #f8f9f9;
+            border: 2px solid #d5dbdb;
+            border-radius: 6px;
+            text-align: left;
+            font-size: 16px;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .option-btn:hover {
+            background-color: #ebedef;
+        }
+
+        .option-btn.correct {
+            background-color: #d4edda !important;
+            border-color: #28a745 !important;
+            color: #155724;
+            font-weight: bold;
+        }
+
+        .option-btn.wrong {
+            background-color: #f8d7da !important;
+            border-color: #dc3545 !important;
+            color: #721c24;
+            font-weight: bold;
+        }
+
+        .feedback-box {
+            margin-top: 15px;
+            padding: 12px;
+            border-radius: 6px;
+            display: none;
+            font-size: 15px;
+            line-height: 1.4;
+        }
+
+        .feedback-box.show-correct {
+            background-color: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+
+        .feedback-box.show-wrong {
+            background-color: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+
+        .progress {
+            font-weight: bold;
+            color: #7f8c8d;
+            margin-bottom: 10px;
+            font-size: 14px;
+        }
+
+        /* Certificate Styling */
+        .certificate {
+            border: 10px double #1a5276;
+            padding: 20px;
+            text-align: center;
+            background: #fffdf5;
+            position: relative;
+            margin-top: 10px;
+        }
+
+        .cert-header {
+            font-size: 22px;
+            color: #1a5276;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .cert-title {
+            font-size: 18px;
+            color: #8e44ad;
+            margin-bottom: 15px;
+            font-weight: bold;
+        }
+
+        .cert-details {
+            font-size: 16px;
+            text-align: left;
+            margin: 15px 0;
+            line-height: 1.8;
+            border-top: 1px solid #ccc;
+            border-bottom: 1px solid #ccc;
+            padding: 10px 0;
+        }
+
+        .reward-box {
+            font-size: 22px;
+            margin: 15px 0;
+            padding: 10px;
+            background: #fef9e7;
+            border: 2px dashed #f1c40f;
+            border-radius: 8px;
+        }
+
+        .footer-info {
+            margin-top: 20px;
+            text-align: right;
+            font-size: 14px;
+            color: #333;
+            font-weight: bold;
+        }
+
+        .hide {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <!-- १. सुरुवातीची स्क्रीन -->
+    <div id="start-screen">
+        <h2 class="header-title">जि प प्रा शाळा नरसोबावाडी</h2>
+        <h3 class="sub-title">इयत्ता तिसरी - गणित <br><small>(तीन अंकी संख्यांची ओळख)</small></h3>
+        
+        <div class="form-group">
+            <label for="student-name">विद्यार्थ्याचे पूर्ण नाव लिहा:</label>
+            <input type="text" id="student-name" placeholder="येथे नाव टाईप करा...">
+        </div>
+        
+        <button class="btn" onclick="startExam()">Start Exam</button>
+    </div>
+
+    <!-- २. परीक्षा स्क्रीन -->
+    <div id="exam-screen" class="hide">
+        <h3 class="header-title">जि प प्रा शाळा नरसोबावाडी</h3>
+        <div class="progress" id="progress-text">प्रश्न १ / ५०</div>
+        
+        <div id="question-text" style="font-size: 18px; font-weight: bold; color: #2c3e50; margin-bottom: 15px;">
+            <!-- प्रश्न येथे दिसेल -->
+        </div>
+
+        <div class="options-container" id="options-container">
+            <!-- पर्याय येथे दिसतील -->
+        </div>
+
+        <div id="feedback-box" class="feedback-box"></div>
+
+        <button id="next-btn" class="btn btn-next" onclick="nextQuestion()">नेक्स्ट क्वेश्चन</button>
+        <button id="submit-btn" class="btn btn-submit" onclick="submitExam()">Submit Exam</button>
+    </div>
+
+    <!-- ३. निकाल / प्रमाणपत्र स्क्रीन -->
+    <div id="result-screen" class="hide">
+        <div class="certificate">
+            <div class="cert-header">🏆 जि प प्रा शाळा नरसोबावाडी</div>
+            <div class="cert-title">गुणवत्ता प्रमाणपत्र</div>
+            
+            <div class="cert-details">
+                <b>परीक्षेचे नाव :</b> इयत्ता तिसरी - गणित (तीन अंकी संख्या)<br>
+                <b>विद्यार्थ्याचे नाव :</b> <span id="res-name" style="color: #1a5276;"></span><br>
+                <b>मिळालेले गुण :</b> <span id="res-score"></span> / ५०<br>
+                <b>टक्केवारी :</b> <span id="res-percentage"></span>%
+            </div>
+
+            <div class="reward-box" id="reward-text">
+                <!-- मेडल/सन्मान येथे दिसेल -->
+            </div>
+
+            <div class="footer-info">
+                मार्गदर्शक शिक्षक : सचिन शिंदे<br>
+                संपर्क : 8329684470
+            </div>
+        </div>
+        <br>
+        <button class="btn" onclick="location.reload()">पुन्हा परीक्षा द्या</button>
+    </div>
+</div>
+
+<script>
+// ५० प्रश्नांचा डेटाबेस
+const questions = [
+    { q: "१० दशक म्हणजे किती?", options: ["१०", "५०", "१००", "१०२०"], ans: 2, exp: "१० दशक म्हणजे १० × १० = १०० होय." },
+    { q: "सर्वात लहान तीन अंकी संख्या कोणती?", options: ["९९", "१००", "१०१", "१११"], ans: 1, exp: "९९ ही दोन अंकी सर्वात मोठी संख्या आहे, त्यानंतर लगेच १०० ही सर्वात लहान ३ अंकी संख्या येते." },
+    { q: "१ शतक म्हणजे किती एकक?", options: ["१०", "१००", "५०", "१"], ans: 1, exp: "१ शतक म्हणजे १०० सुटे एकक एकत्र असणे." },
+    { q: "१० दशक काड्यांचा एक गठ्ठा म्हणजेच काय?", options: ["१ एकक", "१ दशक", "१ शतक", "१ हजार"], ans: 2, exp: "१० दशकांचा मिळून १ शतक बनतो." },
+    { q: "१ शतक म्हणजे किती दशक?", options: ["१ दशक", "१० दशक", "१०० दशक", "५ दशक"], ans: 1, exp: "१ शतक = १० दशक." },
+    { q: "४ शतक म्हणजे किती?", options: ["४", "४०", "४००", "४०००"], ans: 2, exp: "४ शतक = ४ × १०० = ४००." },
+    { q: "६०० ही संख्या अक्षरांत कशी लिहाल?", options: ["चारशे", "पाचशे", "सहाशे", "सातशे"], ans: 2, exp: "६०० म्हणजे 'सहाशे'." },
+    { q: "'सात शतक' म्हणजे अंकांत कोणती संख्या?", options: ["७०", "७००", "७०७", "७७०"], ans: 1, exp: "सात शतक = ७००." },
+    { q: "९०० ही संख्या अक्षरांत कशी लिहितात?", options: ["आठशे", "नऊशे", "शंभर", "दोनशे"], ans: 1, exp: "९०० चे अक्षरी रूप 'नऊशे' असे आहे." },
+    { q: "स्मृतीने ८५ धावा काढल्या, तिचे शतक पूर्ण होण्यासाठी अजून किती धावा लागतील?", options: ["५", "१०", "१५", "२०"], ans: 2, exp: "शतक म्हणजे १००. १०० - ८५ = १५ धावा लागतील." },
+    
+    { q: "१०० आणि ४ मिळून कोणती संख्या बनते?", options: ["१०४", "१४०", "४००", "४०१"], ans: 0, exp: "१०० + ४ = १०४." },
+    { q: "'एकशे सात' ही संख्या अंकांत कशी लिहावी?", options: ["१७०", "१०७", "७०१", "१७७"], ans: 1, exp: "एकशे सात = १०७." },
+    { q: "१०९ या संख्येचे अक्षरी रूप कोणते?", options: ["एकशे नऊ", "एकशे नव्वद", "नऊशे एक", "एकशे एक"], ans: 0, exp: "१०९ = एकशे नऊ." },
+    { q: "'दोनशे वीस' ही संख्या अंकांत कशी लिहितात?", options: ["२०२", "२२०", "२००", "२२२"], ans: 1, exp: "दोनशे वीस = २२०." },
+    { q: "४३६ या संख्येत शतक स्थानावर कोणता अंक आहे?", options: ["६", "३", "४", "०"], ans: 2, exp: "४३६ मध्ये '४' हा शतक स्थानावर (४००) आहे." },
+    { q: "७४४ या संख्येचे अक्षरी रूप कोणते?", options: ["सातशे चार", "सातशे चाळीस", "सातशे चव्वेचाळीस", "चारशे चौर्याहत्तर"], ans: 2, exp: "७४४ = सातशे चव्वेचाळीस." },
+    { q: "३६९ या संख्येत '६' हा अंक कोणत्या स्थानावर आहे?", options: ["एकक", "दशक", "शतक", "हजार"], ans: 1, exp: "३६९ मध्ये ६ हा मध्ये म्हणजेच 'दशक' स्थानावर आहे." },
+    { q: "५८५ ही संख्या अक्षरांत कशी लिहाल?", options: ["पाचशे पंच्याऐंशी", "पाचशे पन्नास", "आठशे पंचावन्न", "पाचशे आठ"], ans: 0, exp: "५८५ = पाचशे पंच्याऐंशी." },
+    { q: "'आठशे एक' ही संख्या अंकांत कशी लिहावी?", options: ["८१०", "८०१", "१८०", "८११"], ans: 1, exp: "आठशे एक = ८०१." },
+    { q: "६६९ या संख्येचे अक्षरी रूप कोणते?", options: ["सहाशे साठ", "सहाशे एकोणसत्तर", "नऊशे सहासष्ट", "सहाशे नव्वद"], ans: 1, exp: "६६९ = सहाशे एकोणसत्तर." },
+
+    { q: "'९ शतक, ९ दशक आणि ९ एकक' मिळून कोणती संख्या बनते?", options: ["९००", "९९०", "९९९", "९०९"], ans: 2, exp: "९०० + ९० + ९ = ९९९." },
+    { q: "५ शतक, ७ दशक आणि ९ एकक = ?", options: ["५७९", "५९७", "७५९", "९७५"], ans: 0, exp: "५०० + ७० + ९ = ५७९." },
+    { q: "५०३ या संख्येत दशक स्थानावर कोणता अंक आहे?", options: ["५", "०", "३", "५०"], ans: 1, exp: "५०३ मध्ये शतक = ५, दशक = ०, एकक = ३." },
+    { q: "४ शतक आणि ७ दशक मिळून कोणती संख्या तयार होते?", options: ["४७", "४०७", "४७०", "७४०"], ans: 2, exp: "४ शतक (४००) + ७ दशक (७०) = ४७०." },
+    { q: "'चारशे शहात्तर' या संख्येत एकक स्थानावर कोणता अंक आहे?", options: ["४", "७", "६", "०"], ans: 2, exp: "चारशे शहात्तर = ४७६. यामध्ये एकक स्थानावर '६' आहे." },
+    { q: "२ शतक + ५ दशक + ० एकक = ?", options: ["२५", "२५०", "२०५", "५२०"], ans: 1, exp: "२०० + ५० + ० = २५०." },
+    { q: "'आठशे सदुसष्ट' ही संख्या अंकांत कशी लिहावी?", options: ["८६७", "८७६", "६८७", "७८६"], ans: 0, exp: "आठशे सदुसष्ट = ८६७." },
+    { q: "'चारशे एकोणपन्नास' या संख्येचे अंकी रूप कोणते?", options: ["४५९", "४४९", "४९४", "४९५"], ans: 1, exp: "चारशे एकोणपन्नास = ४४९." },
+    { q: "'सहाशे एक' ही संख्या अंकांत कशी लिहाल?", options: ["६१०", "६६१", "६०१", "१६०"], ans: 2, exp: "सहाशे एक = ६०१." },
+    { q: "'तीनशे चाळीस' या संख्येचे अंकी रूप कोणते?", options: ["३०४", "३४०", "४३०", "३४४"], ans: 1, exp: "तीनशे चाळीस = ३४०." },
+
+    { q: "मणीताऱ्याच्या 'श' कांडीत ५, 'द' कांडीत ७ आणि 'ए' कांडीत ९ मणी असतील तर संख्या कोणती?", options: ["५७९", "९७५", "७५९", "५९७"], ans: 0, exp: "श=५, द=७, ए=९ म्हणजे ५७९." },
+    { q: "मणीताऱ्याच्या 'श' कांडीत २ आणि 'ए' कांडीत ४ मणी आहेत, 'द' कांडीत मणी नाही. संख्या कोणती?", options: ["२४०", "२४", "२०४", "४०२"], ans: 2, exp: "श=२, द=०, ए=४ म्हणजे २०४." },
+    { q: "मणीताऱ्यात 'श' कांडीत ६, 'द' कांडीत ० आणि 'ए' कांडीत ३ मणी असतील तर संख्या कोणती?", options: ["६३०", "६०३", "३०६", "६३३"], ans: 1, exp: "श=६, द=०, ए=३ म्हणजे ६०३." },
+    { q: "'श' च्या ३ पिशव्या, 'द' च्या ४ माळा आणि २ सुटे मणी असल्यास कोणती संख्या बनते?", options: ["२४३", "३४२", "२३४", "३२४"], ans: 1, exp: "३०० + ४० + २ = ३४२." },
+    { q: "'श' च्या १ पिशवीत किती वस्तू/मणी असतात?", options: ["१०", "५०", "१००", "१०००"], ans: 2, exp: "१ शतक (श) पिशवी = १०० वस्तू." },
+    { q: "'द' च्या १ माळेत किती मणी असतात?", options: ["१", "१०", "१००", "२०"], ans: 1, exp: "१ दशक (द) माळ = १० मणी." },
+    { q: "'श' च्या ५ पिशव्या आणि सुटे ३ मणी असल्यास कोणती संख्या बनेल?", options: ["५३", "५३०", "५०३", "३०५"], ans: 2, exp: "५०० + ३ = ५०३." },
+    { q: "मणीताऱ्यात 'श'=८, 'द'=२, 'ए'=५ असेल, तर वाचन कसे कराल?", options: ["आठशे पंचवीस", "आठशे बाभन्न", "दोनशे पंच्याऐंशी", "पाचशे अ्याऐंशी"], ans: 0, exp: "८२५ चे वाचन 'आठशे पंचवीस' असे होते." },
+    { q: "'श' च्या ७ पिशव्या म्हणजे किती संख्या?", options: ["७", "७०", "७००", "७०७"], ans: 2, exp: "७ शतक पिशव्या = ७००." },
+    { q: "४०० ही संख्या मणीताऱ्यावर दाखवण्यासाठी 'श' कांडीत किती मणी घालावे लागतील?", options: ["०", "४", "४०", "१४"], ans: 1, exp: "शतक (श) कांडीत ४ मणी घातल्यावर ४०० दर्शवले जातात." },
+
+    { q: "७० आणि ३० मिळून किती होतात?", options: ["९०", "१००", "८०", "११०"], ans: 1, exp: "७० + ३० = १००." },
+    { q: "९० आणि १० मिळून किती होतात?", options: ["१००", "८०", "९५", "११०"], ans: 0, exp: "९० + १० = १००." },
+    { q: "८० आणि ______ मिळून १०० होतात.", options: ["१०", "२०", "३०", "४०"], ans: 1, exp: "१०० - ८० = २०." },
+    { q: "५० आणि ५० मिळून किती होतात?", options: ["९०", "१००", "१५०", "२००"], ans: 1, exp: "५० + ५० = १००." },
+    { q: "४३५ या संख्येचे अक्षरी रूप कोणते?", options: ["चारशे पस्तीस", "तीनशे ४५", "चारशे पन्नास", "पाचशे ३४"], ans: 0, exp: "४३५ = चारशे पस्तीस." },
+    { q: "२७९ या संख्येचे अक्षरी रूप कोणते?", options: ["दोनशे एकोणऐंशी", "दोनशे एकोणत्तर", "दोनशे नव्वद", "सातशे एकोणऐंशी"], ans: 0, exp: "२७९ = दोनशे एकोणऐंशी." },
+    { q: "५०८ या संख्येचे अक्षरी रूप कोणते?", options: ["पाचशे ऐंशी", "पाचशे आठ", "आठशे पाच", "पाचशे अठ्ठावन्न"], ans: 1, exp: "५०८ = पाचशे आठ." },
+    { q: "७७७ या संख्येचे अक्षरी रूप कोणते?", options: ["सातशे सत्तर", "सातशे सतत", "सातशे सत्यत्तर", "सातशे सात"], ans: 2, exp: "७७७ = सातशे सत्यत्तर." },
+    { q: "सर्वात मोठी तीन अंकी संख्या कोणती?", options: ["१००", "९००", "९९९", "९९०"], ans: 2, exp: "९९९ ही ३ अंकी सर्वात मोठी संख्या आहे." },
+    { q: "९९ नंतर येणारी पहिली तीन अंकी संख्या कोणती?", options: ["९८", "१००", "१०१", "११०"], ans: 1, exp: "९९ च्या लगेच नंतर १०० येते." }
+];
+
+let currentQuestion = 0;
+let score = 0;
+let studentName = "";
+let answered = false;
+
+function startExam() {
+    const nameInput = document.getElementById("student-name").value.trim();
+    if(nameInput === "") {
+        alert("कृपया विद्यार्थ्याचे नाव टाका!");
+        return;
+    }
+    studentName = nameInput;
+    document.getElementById("start-screen").classList.add("hide");
+    document.getElementById("exam-screen").classList.remove("hide");
+    loadQuestion();
+}
+
+function loadQuestion() {
+    answered = false;
+    const qData = questions[currentQuestion];
+    document.getElementById("progress-text").innerText = `प्रश्न ${currentQuestion + 1} / ${questions.length}`;
+    document.getElementById("question-text").innerText = `प्र. ${currentQuestion + 1}) ${qData.q}`;
+    
+    const optionsContainer = document.getElementById("options-container");
+    optionsContainer.innerHTML = "";
+    
+    const feedbackBox = document.getElementById("feedback-box");
+    feedbackBox.style.display = "none";
+    feedbackBox.className = "feedback-box";
+
+    document.getElementById("next-btn").style.display = "none";
+    document.getElementById("submit-btn").style.display = "none";
+
+    qData.options.forEach((opt, index) => {
+        const btn = document.createElement("button");
+        btn.className = "option-btn";
+        btn.innerText = `(${String.fromCharCode(65 + index)}) ${opt}`;
+        btn.onclick = () => selectOption(index, btn);
+        optionsContainer.appendChild(btn);
+    });
+}
+
+function selectOption(selectedIndex, btnElement) {
+    if(answered) return;
+    answered = true;
+
+    const qData = questions[currentQuestion];
+    const allOptionBtns = document.querySelectorAll(".option-btn");
+    const feedbackBox = document.getElementById("feedback-box");
+
+    if(selectedIndex === qData.ans) {
+        score++;
+        btnElement.classList.add("correct");
+        feedbackBox.innerHTML = `<b>बरोबर उत्तर! 🎉</b><br>${qData.exp}`;
+        feedbackBox.classList.add("show-correct");
+    } else {
+        btnElement.classList.add("wrong");
+        allOptionBtns[qData.ans].classList.add("correct");
+        feedbackBox.innerHTML = `<b>चुकले! ❌</b><br><b>योग्य उत्तर:</b> (${String.fromCharCode(65 + qData.ans)}) ${qData.options[qData.ans]}<br><b>कारण:</b> ${qData.exp}`;
+        feedbackBox.classList.add("show-wrong");
+    }
+    
+    feedbackBox.style.display = "block";
+
+    if(currentQuestion < questions.length - 1) {
+        document.getElementById("next-btn").style.display = "block";
+    } else {
+        document.getElementById("submit-btn").style.display = "block";
+    }
+}
+
+function nextQuestion() {
+    if(currentQuestion < questions.length - 1) {
+        currentQuestion++;
+        loadQuestion();
+    }
+}
+
+function submitExam() {
+    document.getElementById("exam-screen").classList.add("hide");
+    document.getElementById("result-screen").classList.remove("hide");
+
+    document.getElementById("res-name").innerText = studentName;
+    document.getElementById("res-score").innerText = score;
+
+    const percentage = Math.round((score / questions.length) * 100);
+    document.getElementById("res-percentage").innerText = percentage;
+
+    const rewardText = document.getElementById("reward-text");
+
+    if(percentage >= 80) {
+        rewardText.innerHTML = "🥇 <b>Gold Medal + Trophy</b><br><small>उत्कृष्ट कामगिरी! तुमचे अभिनंदन!</small>";
+    } else if(percentage >= 60) {
+        rewardText.innerHTML = "🥈 <b>Silver Medal + Trophy</b><br><small>छान कामगिरी! अशीच प्रगती करा!</small>";
+    } else if(percentage >= 50) {
+        rewardText.innerHTML = "🥉 <b>Bronze Medal + Trophy</b><br><small>चांगला प्रयत्न! आणखी अभ्यास करा!</small>";
+    } else {
+        rewardText.innerHTML = "💐 <b>अभिनंदन! फुलांचा गुच्छ</b><br><small>पुढील परीक्षेसाठी शुभेच्छा!</small>";
+    }
+}
+</script>
+
+</body>
+</html>
