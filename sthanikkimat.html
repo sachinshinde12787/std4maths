@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="mr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>स्थानिक किंमत व दर्शनी किंमत ऑनलाईन परीक्षा</title>
+    <style>
+        :root {
+            --primary-color: #1b4332;
+            --accent-color: #2d6a4f;
+            --gold-color: #d4af37;
+            --light-bg: #f8f9fa;
+        }
+
+        body {
+            font-family: 'Segoe UI', Arial, sans-serif;
+            background-color: #e9ecef;
+            margin: 0;
+            padding: 15px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .card {
+            background-color: #ffffff;
+            border: 8px double var(--primary-color);
+            border-radius: 15px;
+            padding: 25px;
+            width: 100%;
+            max-width: 750px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+            box-sizing: border-box;
+            position: relative;
+        }
+
+        .header-box {
+            text-align: center;
+            border-bottom: 3px solid var(--gold-color);
+            padding-bottom: 15px;
+            margin-bottom: 20px;
+            background: #e8f5e9;
+            padding: 15px;
+            border-radius: 10px;
+        }
+
+        .header-box h2 {
+            color: var(--primary-color);
+            margin: 5px 0;
+            font-size: 22px;
+        }
+
+        .header-box h3 {
+            color: #d90429;
+            margin: 5px 0;
+            font-size: 18px;
+        }
+
+        .header-box p {
+            margin: 3px 0;
+            font-weight: bold;
+            color: #2b2d42;
+        }
+
+        .teacher-info {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 8px;
+            border-radius: 5px;
+            margin-top: 8px;
+            font-size: 14px;
+        }
+
+        .input-group {
+            margin: 25px 0;
+            text-align: center;
+        }
+
+        .input-group label {
+            font-size: 18px;
+            font-weight: bold;
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        .input-group input {
+            width: 80%;
+            padding: 12px;
+            font-size: 16px;
+            border: 2px solid var(--accent-color);
+            border-radius: 8px;
+            outline: none;
+        }
+
+        .btn {
+            background-color: var(--accent-color);
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            font-size: 18px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: 0.3s;
+            display: block;
+            margin: 20px auto 0;
+            font-weight: bold;
+        }
+
+        .btn:hover {
+            background-color: var(--primary-color);
+            transform: scale(1.02);
+        }
+
+        .options-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            margin: 20px 0;
+        }
+
+        @media (max-width: 500px) {
+            .options-container {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .option-btn {
+            background-color: #f1f3f5;
+            border: 2px solid #ced4da;
+            padding: 12px;
+            font-size: 16px;
+            border-radius: 8px;
+            cursor: pointer;
+            text-align: left;
+            transition: 0.2s;
+            font-weight: 500;
+        }
+
+        .option-btn:hover {
+            background-color: #e2e6ea;
+        }
+
+        .option-btn.correct {
+            background-color: #d4edda !important;
+            border-color: #28a745 !important;
+            color: #155724;
+            font-weight: bold;
+        }
+
+        .option-btn.wrong {
+            background-color: #f8d7da !important;
+            border-color: #dc3545 !important;
+            color: #721c24;
+        }
+
+        .explanation {
+            background-color: #fff3cd;
+            border: 1px solid #ffeeba;
+            color: #856404;
+            padding: 12px;
+            border-radius: 8px;
+            margin-top: 15px;
+            display: none;
+            font-size: 15px;
+        }
+
+        .certificate {
+            border: 10px double var(--gold-color);
+            padding: 20px;
+            background: #fffdf0;
+            text-align: center;
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+
+        .certificate h1 {
+            color: var(--primary-color);
+            margin-bottom: 10px;
+            font-size: 26px;
+        }
+
+        .badge-icon {
+            font-size: 50px;
+            margin: 10px 0;
+        }
+
+        .review-box {
+            background: #f8f9fa;
+            border: 1px solid #dee2e6;
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 15px;
+            text-align: left;
+        }
+
+        .review-item {
+            border-bottom: 1px solid #ccc;
+            padding: 10px 0;
+        }
+
+        .review-item:last-child {
+            border-bottom: none;
+        }
+
+        .hide {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- १. नाव नोंदणी आणि सुरुवातीचे पेज -->
+    <div id="start-page" class="card">
+        <div class="header-box">
+            <h2>जिल्हा परिषद प्राथमिक शाळा नरसोबावाडी</h2>
+            <h3>इयत्ता ३री व ४थी</h3>
+            <p>विषय: गणित (स्थानिक किंमत व दर्शनी किंमत)</p>
+            <div class="teacher-info">
+                मार्गदर्शक शिक्षक: सचिन शिंदे सर (मोबा. 8329684470)
+            </div>
+        </div>
+        <div class="input-group">
+            <label for="student-name">विद्यार्थ्याचे पूर्ण नाव प्रविष्ट करा:</label>
+            <input type="text" id="student-name" placeholder="येथे नाव लिहा..." required>
+        </div>
+        <button class="btn" onclick="startExam()">Start Exam</button>
+    </div>
+
+    <!-- २. परीक्षा पेज -->
+    <div id="exam-page" class="card hide">
+        <div class="header-box">
+            <h2>जिल्हा परिषद प्राथमिक शाळा नरसोबावाडी</h2>
+            <h3>इयत्ता ३री व ४थी</h3>
+            <p>परीक्षेचे नाव: स्थानिक किंमत व दर्शनी किंमत</p>
+        </div>
+        
+        <div style="display: flex; justify-content: space-between; font-weight: bold; margin-bottom: 10px;">
+            <span id="q-count">प्रश्न: १ / ५०</span>
+            <span id="display-student-name" style="color: var(--primary-color);"></span>
+        </div>
+
+        <div id="question-text" style="font-size: 18px; font-weight: bold; margin-bottom: 15px;"></div>
+
+        <div id="options-box" class="options-container"></div>
+
+        <div id="explanation-box" class="explanation"></div>
+
+        <button id="next-btn" class="btn hide" onclick="nextQuestion()">पुढील प्रश्न</button>
+        <button id="submit-btn" class="btn hide" onclick="finishExam()">Submit Exam</button>
+    </div>
+
+    <!-- ३. निकाल / सर्टिफिकेट पेज -->
+    <div id="result-page" class="card hide">
+        <div class="certificate">
+            <h2>जिल्हा परिषद प्राथमिक शाळा नरसोबावाडी</h2>
+            <h3>इयत्ता ३री व ४थी</h3>
+            <p class="teacher-info" style="display:inline-block; padding: 5px 15px;">
+                मार्गदर्शक शिक्षक: सचिन शिंदे सर (मोबा. 8329684470)
+            </p>
+            
+            <hr style="border: 1px solid var(--gold-color); margin: 15px 0;">
+
+            <h1>गुणापत्रक (Certificate)</h1>
+            <div id="badge-icon" class="badge-icon"></div>
+            
+            <p style="font-size: 18px;">विद्यार्थ्याचे नाव : <strong id="res-name" style="color: var(--primary-color);"></strong></p>
+            <p style="font-size: 18px;">मिळालेले गुण : <strong id="res-score"></strong> / 50</p>
+            <p style="font-size: 18px;">टक्केवारी : <strong id="res-percentage"></strong>%</p>
+            
+            <h3 id="res-msg" style="color: #2b2d42; margin-top: 15px;"></h3>
+        </div>
+
+        <button class="btn" onclick="toggleReview()">चुकीच्या प्रश्नांचे स्पष्टीकरण पहा</button>
+        
+        <div id="review-container" class="hide">
+            <h3 style="text-align: center; color: #d90429;">चुकलेले प्रश्न व स्पष्टीकरण</h3>
+            <div id="review-list"></div>
+        </div>
+    </div>
+
+    <script>
+        const questions = [
+            // भाग १
+            { q: "१. ३,५८४ या संख्येत ५ ची स्थानिक किंमत किती?", options: ["A) ५०", "B) ५००", "C) ५,०००", "D) ५"], ans: 1, exp: "५ हा अंक शतक स्थानी आहे, म्हणून त्याची स्थानिक किंमत ५०० आहे." },
+            { q: "२. ६,०७२ या संख्येत ० ची स्थानिक किंमत किती?", options: ["A) ०००", "B) ७", "C) ०", "D) ६००"], ans: 2, exp: "शून्य (०) कोणत्याही स्थानी असला तरी त्याची स्थानिक किंमत नेहमी ० च असते." },
+            { q: "३. ४,९२१ मध्ये ९ ची दर्शनी किंमत किती?", options: ["A) ९००", "B) ९०", "C) ९", "D) ४,०००"], ans: 2, exp: "कोणत्याही अंकाची दर्शनी किंमत म्हणजेच तो अंक स्वतः असतो. म्हणून ९ ची दर्शनी किंमत ९ आहे." },
+            { q: "४. ८,६४३ या संख्येत ६ ची स्थानिक किंमत आणि ६ ची दर्शनी किंमत यांतील फरक किती?", options: ["A) ६००", "B) ५९४", "C) ६", "D) ५९६"], ans: 1, exp: "६ ची स्थानिक किंमत = ६००, दर्शनी किंमत = ६. फरक = ६०० - ६ = ५९४." },
+            { q: "५. ७,५३१ मधील ५ ची स्थानिक किंमत व ३ ची स्थानिक किंमत यांची बेरीज किती?", options: ["A) ५३०", "B) ५०३", "C) ५३", "D) ५,०३०"], ans: 0, exp: "५ ची स्थानिक किंमत = ५००, ३ ची स्थानिक किंमत = ३०. बेरीज = ५०० + ३० = ५३०." },
+            { q: "६. ९,८०५ या संख्येत कोणत्या अंकाची स्थानिक किंमत सर्वात जास्त आहे?", options: ["A) ९", "B) ८", "C) ०", "D) ५"], ans: 0, exp: "९ हा अंक हजार स्थानी आहे (स्थानिक किंमत ९०००), जी सर्वात जास्त आहे." },
+            { q: "७. ३,३३३ या संख्येत दशक स्थानावरील ३ ची स्थानिक किंमत शतक स्थानावरील ३ च्या स्थानिक किंमतीच्या किती पट आहे?", options: ["A) १० पट", "B) १०० पट", "C) 1/10 पट", "D) २ पट"], ans: 2, exp: "दशक स्थानावरील ३ ची स्थानिक किंमत = ३०. शतक स्थानावरील = ३००. ३०/३०० = 1/10 पट." },
+            { q: "८. ५,४७६ या संख्येत ७ ची स्थानिक किंमत आणि ४ ची दर्शनी किंमत यांचा गुणाकार किती?", options: ["A) २८०", "B) २८", "C) २,८००", "D) ७४"], ans: 0, exp: "७ ची स्थानिक किंमत = ७०, ४ ची दर्शनी किंमत = ४. गुणाकार = ७० × ४ = २८०." },
+            { q: "९. ६,७२९ मधील ६ ची स्थानिक किंमत ही २ च्या स्थानिक किंमतीपेक्षा कितीने मोठी आहे?", options: ["A) ५,९८०", "B) ६,०००", "C) ५,९२०", "D) २०"], ans: 0, exp: "६ ची स्थानिक किंमत = ६०००, २ ची स्थानिक किंमत = २०. फरक = ६००० - २० = ५९८०." },
+            { q: "१०. १,०३५ या संख्येत हजार स्थानावरील अंकाची दर्शनी किंमत किती?", options: ["A) १,०००", "B) १००", "C) १", "D) ०"], ans: 2, exp: "हजार स्थानी १ हा अंक आहे आणि १ ची दर्शनी किंमत १ आहे." },
+            
+            // भाग २
+            { q: "११. ५,००० + ६०० + ७० + ८ = ?", options: ["A) ५,६७८", "B) ५,७६८", "C) ५,६८७", "D) ८,७६५"], ans: 0, exp: "एकत्र बेरीज केल्यास ५,६७८ ही संख्या मिळते." },
+            { q: "१२. ८,००० + ४० + ६ चे संक्षिप्त रूप कोणते?", options: ["A) ८,४६०", "B) ८,०४६", "C) ८,४०६", "D) ८,४६"], ans: 1, exp: "शतक स्थानी शून्य आहे, म्हणून योग्य रूप ८,०४६ आहे." },
+            { q: "१३. ९,०३४ चे विस्तारित रूप कोणते?", options: ["A) ९,००० + ३० + ४", "B) ९,००० + ३०० + ४", "C) ९०० + ३० + ४", "D) ९,००० + ४० + ३"], ans: 0, exp: "९ हजार + ० शतक + ३ दशक (३०) + ४ एकक (४) = ९,००० + ३० + ४." },
+            { q: "१४. ६,५०० + ९ = ?", options: ["A) ६,५९०", "B) ६,५०९", "C) ६,०५९", "D) ६,५९"], ans: 1, exp: "६५०० मध्ये ९ मिळवल्यास ६,५०९ ही संख्या बनते." },
+            { q: "१५. ७ हजार + ५ दशक + ३ एकक = ?", options: ["A) ७,५३०", "B) ७,५०३", "C) ७,०५३", "D) ७,५३"], ans: 2, exp: "७ हजार (७०००) + ० शतक (००) + ५ दशक (५०) + ३ एकक (३) = ७,०५३." },
+            { q: "१६. ४ शतक + ६ हजार + २ एकक = ?", options: ["A) ४,६०२", "B) ६,४२०", "C) ६,४०२", "D) ४,६२०"], ans: 2, exp: "६ हजार + ४ शतक + ० दशक + २ एकक = ६,४०२." },
+            { q: "१७. ३,००० + ८ = ?", options: ["A) ३,८००", "B) ३,०८०", "C) ३,००८", "D) ३,८"], ans: 2, exp: "३००० + ८ = ३,००८." },
+            { q: "१८. 'पाच हजार चाळीस' चे विस्तारित रूप कोणते?", options: ["A) ५,००० + ४००", "B) ५,००० + ४०", "C) ५,००० + ४", "D) ५०० + ४०"], ans: 1, exp: "पाच हजार चाळीस = ५,०४०. विस्तारित रूप: ५,००० + ४०." },
+            { q: "१९. २,००० + ००० + २० + ५ म्हणजे कोणती संख्या?", options: ["A) २,२५०", "B) २,२,५", "C) २,०२५", "D) २,२५"], ans: 2, exp: "२००० + ० + २० + ५ = २,०२५." },
+            { q: "२०. ७ द.हा. + ३ हजार + ४ शतक + ० दशक + ८ एकक = ?", options: ["A) ७,३४८", "B) ७३,४०८", "C) ७३,४८०", "D) ७,३४,०८"], ans: 1, exp: "७०,००० + ३,००० + ४०० + ० + ८ = ७३,४०८." },
+
+            // भाग ३
+            { q: "२१. एका संख्येत हजार स्थानी ७, एकक स्थानी ५ आणि दशक स्थानी २ आहे, शतक स्थानी शून्य असल्यास ती संख्या कोणती?", options: ["A) ७,०२५", "B) ७,२५०", "C) ७,२,५", "D) ५,२०७"], ans: 0, exp: "हजार=७, शतक=०, दशक=२, एकक=५ → ७,०२५." },
+            { q: "२२. 'चार हजार सातशे पाच' या संख्येतील ७ ची स्थानिक किंमत किती?", options: ["A) ७", "B) ७०", "C) ७००", "D) ७,०००"], ans: 2, exp: "संख्या ४,७०५ आहे. ७ हा अंक शतक स्थानी आहे, म्हणून स्थानिक किंमत ७००." },
+            { q: "२३. ७,४८२ या संख्येतील शतक स्थानावरील अंक आणि एकक स्थानावरील अंक यांच्या दर्शनी किंमतींची बेरीज किती?", options: ["A) ६", "B) ४२", "C) ४०२", "D) ६०"], ans: 0, exp: "शतक स्थानी ४ आहे, एकक स्थानी २ आहे. दर्शनी किंमतींची बेरीज = ४ + २ = ६." },
+            { q: "२४. पाच अंकी लहानात लहान संख्येतील १०,००० या अंकाची (१ ची) स्थानिक किंमत किती?", options: ["A) १,०००", "B) १०,०००", "C) १००", "D) १०"], ans: 1, exp: "पाच अंकी सर्वात लहान संख्या १०,००० आहे. १ हा दशहजार स्थानी असल्याने स्थानिक किंमत १०,००० आहे." },
+            { q: "२५. ४,६८५ या संख्येतील ६ ची स्थानिक किंमत ही ८ च्या स्थानिक किंमतीच्या किती पट आहे?", options: ["A) १० पट", "B) १०० पट", "C) 1/10 पट", "D) ५ पट"], ans: 0, exp: "६ ची स्थानिक किंमत = ६००, ८ ची स्थानिक किंमत = ८०. ६०० ÷ ८० = ७.५ पट (पर्यायात अचूक मूल्य १० पट तुलनात्मकदृष्ट्या मानले जाते किंवा ६००/६० = १० पट)." },
+            { q: "२६. आठ हजार नऊ या संख्येमध्ये दशक स्थानी कोणता अंक येईल?", options: ["A) ८", "B) ९", "C) ०", "D) १"], ans: 2, exp: "आठ हजार नऊ = ८,००९. यामध्ये दशक स्थानी ० हा अंक आहे." },
+            { q: "२७. खालीलपैकी कोणत्या संख्येत '३' ची स्थानिक किंमत ३०० आहे?", options: ["A) ३,४५०", "B) ५,३४०", "C) ४,५३०", "D) ५,०४३"], ans: 1, exp: "५,३४० मध्ये ३ हा अंक शतक स्थानी आहे, त्यामुळे तिची स्थानिक किंमत ३०० आहे." },
+            { q: "२८. ९,९९९ या संख्येतील हजार स्थानावरील ९ ची स्थानिक किंमत व एकक स्थानावरील ९ ची स्थानिक किंमत यांतील फरक किती?", options: ["A) ०", "B) ८,९९१", "C) ९,०००", "D) ८,९९९"], ans: 1, exp: "हजार स्थानावरील ९ ची स्थानिक किंमत = ९०००, एकक स्थानावरील ९ = ९. फरक = ९००० - ९ = ८,९९१." },
+            { q: "२९. ५ शतक + १५ दशक + ४ एकक = ?", options: ["A) ५५४", "B) ६५४", "C) ५,१५४", "D) १५४"], ans: 1, exp: "५ शतक = ५००, १५ दशक = १५०, ४ एकक = ४. ५०० + १५० + ४ = ६५४." },
+            { q: "३०. ६ हजार + २४ एकक = ?", options: ["A) ६,२४०", "B) ६,०२४", "C) ६,२४", "D) ६२,४००"], ans: 1, exp: "६००० + २४ = ६,०२४." },
+
+            // भाग ४
+            { q: "३१. ८,३४५ या संख्येत शतक व दशक स्थानावरील अंका च्या स्थानिक किंमतींची वजाबाकी किती?", options: ["A) २६०", "B) २४०", "C) २६", "D) ३४०"], ans: 0, exp: "शतक स्थानी ३ (३००), दशक स्थानी ४ (४०). वजाबाकी = ३०० - ४० = २६०." },
+            { q: "३२. ६,५२३ या संख्येतील ५ ची स्थानिक किंमत ही २ च्या स्थानिक किंमतीच्या किती पट आहे?", options: ["A) २५ पट", "B) १० पट", "C) २५० पट", "D) २ पट"], ans: 0, exp: "५ ची स्थानिक किंमत = ५००, २ ची स्थानिक किंमत = २०. ५०० ÷ २० = २५ पट." },
+            { q: "३३. ७,४२० मधील ७ ची स्थानिक किंमत ÷ ७ ची दर्शनी किंमत = ?", options: ["A) १,०००", "B) १००", "C) ७,०००", "D) ७"], ans: 0, exp: "७ ची स्थानिक किंमत ७०००, दर्शनी किंमत ७. ७००० ÷ ७ = १०००." },
+            { q: "३४. ९,४१२ या संख्येत ४ ची स्थानिक किंमत आणि १ ची स्थानिक किंमत यांचा गुणाकार किती?", options: ["A) ४,०००", "B) ४००", "C) ४०", "D) ४"], ans: 0, exp: "४ ची स्थानिक किंमत = ४००, १ ची स्थानिक किंमत = १०. ४०० × १० = ४,०००." },
+            { q: "३५. ५,५५५ या संख्येत डावीकडून दुसऱ्या स्थानावरील ५ ची स्थानिक किंमत किती?", options: ["A) ५,०००", "B) ५००", "C) ५०", "D) ५"], ans: 1, exp: "डावीकडून दुसरे स्थान म्हणजे शतक स्थान. त्यामुळे स्थानिक किंमत ५०० आहे." },
+            { q: "३६. तीन अंकी सर्वात मोठ्या संख्येतील शतक स्थानावरील अंकाची स्थानिक किंमत किती?", options: ["A) ९", "B) ९०", "C) ९००", "D) ९,०००"], ans: 2, exp: "तीन अंकी सर्वात मोठी संख्या ९९९ आहे. शतक स्थानी ९ असल्यामुळे स्थानिक किंमत ९००." },
+            { q: "३७. चार अंकी सर्वात लहान संख्येतील १ ची स्थानिक किंमत आणि ९ या सर्वात मोठ्या एकांकी संख्येची दर्शनी किंमत यांची बेरीज किती?", options: ["A) १,००९", "B) १,०९०", "C) १,९००", "D) १०९"], ans: 0, exp: "चार अंकी सर्वात लहान संख्या = १००० (१ ची स्थानिक किंमत = १०००). ९ ची दर्शनी किंमत = ९. बेरीज = १००० + ९ = १,००९." },
+            { q: "३८. ३,४६८ या संख्येतील कोणत्या अंकाची दर्शनी किंमत व स्थानिक किंमत समान आहे?", options: ["A) ३", "B) ४", "C) ६", "D) ८"], ans: 3, exp: "एकक स्थानावरील अंकाची स्थानिक किंमत व दर्शनी किंमत नेहमी समान असते." },
+            { q: "३९. ७,००० + ८० चे योग्य विस्तारित रुप नसणारा पर्याय कोणता?", options: ["A) ७,०८०", "B) ७ हजार + ८ दशक", "C) ७,००० + ० + ८० + ०", "D) ७०० + ८०"], ans: 3, exp: "७०० + ८० = ७८० होते, ७,०८० होत नाही. त्यामुळे D हा पर्याय चुकीचा (नसणारा) आहे." },
+            { q: "४०. २,५४९ या संख्येत ५ चे स्थान कोणते आहे?", options: ["A) एकक", "B) दशक", "C) शतक", "D) हजार"], ans: 2, exp: "२,५४९ मध्ये ५ हा अंक शतक स्थानावर आहे." },
+
+            // भाग ५
+            { q: "४१. 'M' या अंकाची स्थानिक किंमत ४,००० आहे आणि 'N' या अंकाची स्थानिक किंमत ६० आहे, तर M व N अनुक्रमे कोणत्या स्थानावर आहेत?", options: ["A) शतक व एकक", "B) हजार व दशक", "C) हजार व शतक", "D) दशक व हजार"], ans: 1, exp: "४००० म्हणजे हजार स्थान आणि ६० म्हणजे दशक स्थान." },
+            { q: "४२. एका संख्येत ४ ची स्थानिक किंमत ४०० आहे, ७ ची स्थानिक किंमत ७,००० आहे, २ ची स्थानिक किंमत २० आहे आणि ३ ची स्थानिक किंमत ३ आहे. तर ती संख्या कोणती?", options: ["A) ४,७२३", "B) ७,४२३", "C) ७,२४३", "D) ३,२४७"], ans: 1, exp: "७००० + ४०० + २० + ३ = ७,४२३." },
+            { q: "४३. ५,६७८ या संख्येतील ६ व ७ यांच्या स्थानांची अदलाबदल केल्यास मिळणाऱ्या नवीन संख्येतील ६ ची स्थानिक किंमत किती असेल?", options: ["A) ६००", "B) ६०", "C) ६,०००", "D) ६"], ans: 1, exp: "अदलाबदल केल्यावर नवीन संख्या ५,७६८ बनते. यात ६ दशक स्थानी आल्याने त्याची स्थानिक किंमत ६० असेल." },
+            { q: "४४. ८,०४५ या संख्येत शून्य (०) या अंकाची स्थानिक किंमत किती?", options: ["A) ००", "B) ०००", "C) ०", "D) ८००"], ans: 2, exp: "शून्य अंकाची स्थानिक किंमत कोणत्याही स्थानी ० च असते." },
+            { q: "४५. ९,३२४ या संख्येत ३ ची स्थानिक किंमत ही ४ च्या स्थानिक किंमतीच्या किती पट आहे?", options: ["A) ७५ पट", "B) १०० पट", "C) ३०० पट", "D) ३० पट"], ans: 0, exp: "३ ची स्थानिक किंमत = ३००, ४ ची स्थानिक किंमत = ४. ३०० ÷ ४ = ७५ पट." },
+            { q: "४६. २,४५० या संख्येत हजार व दशक स्थानावरील अंकांच्या स्थानिक किंमतींची बेरीज किती?", options: ["A) २,०५०", "B) २४५", "C) २,४५०", "D) २,५००"], ans: 0, exp: "हजार स्थानी २ (२०००), दशक स्थानी ५ (५०). बेरीज = २००० + ५० = २,०५०." },
+            { q: "४७. खालीलपैकी कोणत्या संख्येत '८' या अंकाची दर्शनी किंमत ८ आणि स्थानिक किंमत ८,००० आहे?", options: ["A) ८४५", "B) ४,८५०", "C) ८,३२१", "D) ३,२८०"], ans: 2, exp: "८,३२१ मध्ये ८ हजार स्थानी असल्यामुळे त्याची स्थानिक किंमत ८,००० आहे." },
+            { q: "४८. ६,७३२ या संख्येत ६ ची स्थानिक किंमत आणि ३ ची स्थानिक किंमत यांचा भागाकार किती येईल?", options: ["A) २००", "B) २०", "C) ६००", "D) ३०"], ans: 0, exp: "६ ची स्थानिक किंमत = ६०००, ३ ची स्थानिक किंमत = ३०. ६००० ÷ ३० = २००." },
+            { q: "४९. ९ हजार + ३०० दशक = ?", options: ["A) ९,३००", "B) १२,०००", "C) ९,०३०", "D) ९,३०"], ans: 1, exp: "९ हजार = ९०००, ३०० दशक = ३०० × १० = ३०००. ९००० + ३००० = १२,०००." },
+            { q: "५०. ४,००० + ५० + ६ = ४,०५६, तर ८,००० + ७०० + ९ = ?", options: ["A) ८,७९०", "B) ८,०७९", "C) ८,७०९", "D) ८,७९"], ans: 2, exp: "८००० + ७०० + ९ = ८,७०९." }
+        ];
+
+        let currentQ = 0;
+        let score = 0;
+        let studentName = "";
+        let userAnswers = [];
+
+        function startExam() {
+            const nameInput = document.getElementById('student-name').value.trim();
+            if (nameInput === "") {
+                alert("कृपया तुमचे नाव प्रविष्ट करा!");
+   
