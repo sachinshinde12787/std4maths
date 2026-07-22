@@ -1,0 +1,555 @@
+<!DOCTYPE html>
+<html lang="mr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ऑनलाइन परीक्षा - स्थानिक व दर्शनी किंमत</title>
+    <style>
+        :root {
+            --primary-color: #1e3a8a;
+            --accent-color: #f59e0b;
+            --bg-gradient: linear-gradient(135deg, #e0f2fe 0%, #fef3c7 100%);
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: var(--bg-gradient);
+            min-height: 100vh;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .card {
+            background: #ffffff;
+            border: 8px double var(--primary-color);
+            border-radius: 20px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+            width: 100%;
+            max-width: 650px;
+            padding: 25px;
+            box-sizing: border-box;
+            text-align: center;
+            position: relative;
+        }
+
+        /* Headers */
+        .header-title {
+            color: var(--primary-color);
+            font-size: 24px;
+            font-weight: bold;
+            margin: 0 0 5px 0;
+        }
+
+        .header-sub {
+            color: #4b5563;
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+
+        .guide-info {
+            background-color: #f3f4f6;
+            border-radius: 8px;
+            padding: 8px;
+            font-size: 15px;
+            color: #1f2937;
+            margin-bottom: 15px;
+        }
+
+        .exam-title-badge {
+            background: var(--accent-color);
+            color: #ffffff;
+            padding: 8px 15px;
+            border-radius: 20px;
+            display: inline-block;
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+
+        hr {
+            border: 0;
+            height: 2px;
+            background: var(--primary-color);
+            margin: 15px 0 25px 0;
+        }
+
+        /* Form Controls */
+        .input-group {
+            margin: 20px 0;
+            text-align: left;
+        }
+
+        label {
+            display: block;
+            font-size: 18px;
+            font-weight: bold;
+            color: #374151;
+            margin-bottom: 8px;
+        }
+
+        input[type="text"] {
+            width: 100%;
+            padding: 12px;
+            font-size: 18px;
+            border: 2px solid #cbd5e1;
+            border-radius: 10px;
+            box-sizing: border-box;
+            outline: none;
+        }
+
+        input[type="text"]:focus {
+            border-color: var(--primary-color);
+        }
+
+        .btn {
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            font-size: 16px;
+            font-weight: bold;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            margin: 5px;
+        }
+
+        .btn:hover {
+            background: #1d4ed8;
+            transform: translateY(-2px);
+        }
+
+        .btn-warning {
+            background: #d97706;
+        }
+
+        .btn-warning:hover {
+            background: #b45309;
+        }
+
+        .btn:disabled {
+            background: #9ca3af;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        /* Quiz Section */
+        .question-box {
+            text-align: left;
+            font-size: 20px;
+            font-weight: bold;
+            color: #1e293b;
+            margin-bottom: 20px;
+        }
+
+        .options-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .option-btn {
+            background: #f8fafc;
+            border: 2px solid #cbd5e1;
+            border-radius: 10px;
+            padding: 12px;
+            font-size: 18px;
+            font-weight: 600;
+            cursor: pointer;
+            text-align: left;
+            transition: all 0.2s;
+        }
+
+        .option-btn:hover:not(:disabled) {
+            background: #e2e8f0;
+            border-color: var(--primary-color);
+        }
+
+        .option-btn.correct {
+            background-color: #dcfce7 !important;
+            border-color: #22c55e !important;
+            color: #15803d;
+        }
+
+        .option-btn.wrong {
+            background-color: #fee2e2 !important;
+            border-color: #ef4444 !important;
+            color: #b91c1c;
+        }
+
+        .explanation-box {
+            background-color: #fef2f2;
+            border-left: 5px solid #ef4444;
+            padding: 12px;
+            border-radius: 5px;
+            text-align: left;
+            margin-bottom: 20px;
+            display: none;
+            font-size: 16px;
+            color: #991b1b;
+        }
+
+        /* Certificate / Result */
+        .certificate-card {
+            width: 100%;
+            max-width: 500px;
+            aspect-ratio: 1 / 1;
+            margin: 0 auto 20px auto;
+            border: 10px ridge #d97706;
+            background: #fffdf0;
+            padding: 20px;
+            box-sizing: border-box;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            border-radius: 15px;
+        }
+
+        .cert-header {
+            border-bottom: 2px dashed #d97706;
+            padding-bottom: 10px;
+        }
+
+        .cert-body {
+            text-align: left;
+            font-size: 18px;
+            line-height: 1.8;
+            color: #334155;
+        }
+
+        .cert-honour {
+            font-size: 22px;
+            font-weight: bold;
+            color: #b45309;
+            margin-top: 10px;
+            text-align: center;
+        }
+
+        /* Wrong Answers List Section */
+        .wrong-answers-container {
+            margin-top: 20px;
+            background: #ffffff;
+            border: 2px solid #ef4444;
+            border-radius: 12px;
+            padding: 15px;
+            text-align: left;
+            max-width: 500px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .wrong-item {
+            border-bottom: 1px solid #e2e8f0;
+            padding: 10px 0;
+        }
+
+        .wrong-item:last-child {
+            border-bottom: none;
+        }
+
+        .wrong-q-title {
+            font-weight: bold;
+            color: #1e293b;
+            margin-bottom: 5px;
+        }
+
+        .user-ans {
+            color: #dc2626;
+            font-weight: 600;
+        }
+
+        .correct-ans {
+            color: #16a34a;
+            font-weight: 600;
+        }
+
+        .exp-text {
+            font-size: 14px;
+            color: #64748b;
+            margin-top: 4px;
+        }
+
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- १. पहिले पेज (Welcome Screen) -->
+    <div id="welcome-screen" class="card">
+        <h1 class="header-title">जिल्हा परिषद प्राथमिक शाळा नरसोबावाडी</h1>
+        <div class="header-sub">इयत्ता ३री व ४थी</div>
+        <div class="guide-info">मार्गदर्शक शिक्षक: सचिन शिंदे सर (मोबा. 8329 68 44 70)</div>
+        <hr>
+        <div class="exam-title-badge">🏆 ऑनलाइन परीक्षा: स्थानिक किंमत व दर्शनी किंमत</div>
+        
+        <div class="input-group">
+            <label for="student-name">विद्यार्थ्याचे पूर्ण नाव टाका:</label>
+            <input type="text" id="student-name" placeholder="उदा. आरव सचिन शिंदे" required>
+        </div>
+        
+        <button class="btn" onclick="startExam()">Start Exam ➔</button>
+    </div>
+
+    <!-- २. परीक्षा पेज (Exam Screen) -->
+    <div id="exam-screen" class="card hidden">
+        <h2 class="header-title" style="font-size: 20px;">जिल्हा परिषद प्राथमिक शाळा नरसोबावाडी</h2>
+        <div class="header-sub" style="font-size: 16px;">इयत्ता ३री व ४थी | घटक: स्थानिक व दर्शनी किंमत</div>
+        <hr style="margin: 10px 0 15px 0;">
+
+        <div style="display: flex; justify-content: space-between; font-weight: bold; color: #64748b; margin-bottom: 10px;">
+            <span id="q-count">प्रश्न १ / ५</span>
+            <span id="student-display-name"></span>
+        </div>
+
+        <div id="question-text" class="question-box">प्रश्नाचे नाव इथे येईल...</div>
+
+        <div class="options-grid" id="options-container">
+            <!-- पर्यायांची बटणे JavaScript मधून येतील -->
+        </div>
+
+        <div id="explanation" class="explanation-box"></div>
+
+        <button id="next-btn" class="btn" onclick="nextQuestion()" disabled>पुढील प्रश्न ➔</button>
+    </div>
+
+    <!-- ३. निकाल पेज (Certificate Style) -->
+    <div id="result-screen" class="card hidden" style="border: none; background: transparent; box-shadow: none;">
+        <div class="certificate-card">
+            <div class="cert-header">
+                <div style="font-size: 30px;">🏆</div>
+                <h2 style="color: #b45309; margin: 0; font-size: 20px;">जिल्हा परिषद प्राथमिक शाळा नरसोबावाडी</h2>
+                <div style="font-weight: bold; font-size: 14px; color: #475569;">इयत्ता ३री व ४थी</div>
+                <div style="font-size: 12px; color: #64748b; margin-top: 4px;">मार्गदर्शक शिक्षक: सचिन शिंदे सर (8329 68 44 70)</div>
+            </div>
+
+            <div class="cert-body">
+                <div style="text-align: center; font-weight: bold; font-size: 18px; color: #1e3a8a; margin-bottom: 10px;">
+                    गुणपत्रिका व सन्मानपत्र
+                </div>
+                <div><b>परीक्षेचे नाव:</b> स्थानिक व दर्शनी किंमत</div>
+                <div><b>विद्यार्थ्याचे नाव:</b> <span id="cert-name" style="color: #1e3a8a; font-weight: bold;"></span></div>
+                <div><b>मिळालेले गुण:</b> <span id="cert-score"></span> / <span id="cert-total"></span></div>
+                <div><b>टक्केवारी:</b> <span id="cert-percentage"></span>%</div>
+                
+                <div class="cert-honour" id="cert-honour-text">
+                    <!-- सन्मान संदेश इथे दिसेल -->
+                </div>
+            </div>
+
+            <div style="font-size: 12px; color: #94a3b8; border-top: 1px solid #cbd5e1; padding-top: 5px;">
+                अभिनंदन! पुढील वाटचालीस शुभेच्छा!
+            </div>
+        </div>
+
+        <!-- सर्टिफिकेट खालील बटणे -->
+        <div>
+            <button id="show-wrong-btn" class="btn btn-warning" onclick="toggleWrongAnswers()">चुकलेल्या प्रश्नांची यादी 📋</button>
+            <button class="btn" onclick="location.reload()">पुन्हा परीक्षा द्या 🔄</button>
+        </div>
+
+        <!-- चुकलेल्या प्रश्नांचा विभाग (सुरवातीला लपवलेला) -->
+        <div id="wrong-answers-sec" class="wrong-answers-container hidden">
+            <h3 style="margin-top: 0; color: #dc2626; border-bottom: 2px solid #fee2e2; padding-bottom: 8px;">
+                ❌ चुकलेले प्रश्न व स्पष्टीकरण
+            </h3>
+            <div id="wrong-list"></div>
+        </div>
+    </div>
+
+    <script>
+        // १. प्रश्नसंच (Questions Array)
+        const questions = [
+            {
+                q: "४८६ या संख्येत ८ ची स्थानिक किंमत किती?",
+                options: ["८००", "८०", "८", "४००"],
+                correct: 1,
+                exp: "८ हा अंक दशक स्थानी आहे, म्हणून ८ ची स्थानिक किंमत ८० आहे."
+            },
+            {
+                q: "५३२ या संख्येत ५ ची दर्शनी किंमत किती?",
+                options: ["५००", "५०", "५", "२"],
+                correct: 2,
+                exp: "अंकाची दर्शनी किंमत ही त्या अंकाचे मूलारूप असते, म्हणून ५ ची दर्शनी किंमत ५ च राहील."
+            },
+            {
+                q: "७०४ चे विस्तारित रूप कोणते?",
+                options: ["७०० + ४", "७० + ४", "७०० + ४०", "७ + ४"],
+                correct: 0,
+                exp: "७ शतक (७००) + ० दशक (००) + ४ एकक (४) = ७०० + ४"
+            },
+            {
+                q: "३,५८४ या संख्येत ५ ची स्थानिक किंमत किती?",
+                options: ["५०", "५००", "५०००", "५"],
+                correct: 1,
+                exp: "५ हा अंक शतक स्थानी आहे, म्हणून त्याची स्थानिक किंमत ५०० आहे."
+            },
+            {
+                q: "६,२५ मध्ये २ ची स्थानिक किंमत किती?",
+                options: ["२", "२०", "२००", "६०"],
+                correct: 1,
+                exp: "२ हा अंक दशक स्थानी आहे, म्हणून २ ची स्थानिक किंमत २० आहे."
+            }
+        ];
+
+        let currentQuestion = 0;
+        let score = 0;
+        let studentName = "";
+        let wrongAnswersList = []; // चुकलेल्या प्रश्नांची नोंद ठेवण्यासाठी
+
+        // २. परीक्षा सुरू करणे
+        function startExam() {
+            const nameInput = document.getElementById('student-name').value.trim();
+            if (nameInput === "") {
+                alert("कृपया विद्यार्थ्याचे नाव टाका!");
+                return;
+            }
+            studentName = nameInput;
+            document.getElementById('student-display-name').innerText = studentName;
+            document.getElementById('welcome-screen').classList.add('hidden');
+            document.getElementById('exam-screen').classList.remove('hidden');
+            loadQuestion();
+        }
+
+        // ३. प्रश्न लोड करणे
+        function loadQuestion() {
+            const qData = questions[currentQuestion];
+            document.getElementById('q-count').innerText = `प्रश्न ${currentQuestion + 1} / ${questions.length}`;
+            document.getElementById('question-text').innerText = `${currentQuestion + 1}. ${qData.q}`;
+            
+            const optionsContainer = document.getElementById('options-container');
+            optionsContainer.innerHTML = "";
+
+            qData.options.forEach((option, index) => {
+                const button = document.createElement('button');
+                button.className = 'option-btn';
+                button.innerText = `${String.fromCharCode(65 + index)}) ${option}`;
+                button.onclick = () => selectOption(index);
+                optionsContainer.appendChild(button);
+            });
+
+            document.getElementById('explanation').style.display = 'none';
+            const nextBtn = document.getElementById('next-btn');
+            nextBtn.disabled = true;
+            
+            if (currentQuestion === questions.length - 1) {
+                nextBtn.innerText = "Submit Exam ➔";
+            } else {
+                nextBtn.innerText = "पुढील प्रश्न ➔";
+            }
+        }
+
+        // ४. उत्तर निवडणे व तपासणे
+        function selectOption(selectedIndex) {
+            const qData = questions[currentQuestion];
+            const buttons = document.querySelectorAll('.option-btn');
+            const expBox = document.getElementById('explanation');
+
+            buttons.forEach(btn => btn.disabled = true);
+
+            if (selectedIndex === qData.correct) {
+                buttons[selectedIndex].classList.add('correct');
+                score++;
+                expBox.style.display = 'none';
+            } else {
+                buttons[selectedIndex].classList.add('wrong');
+                buttons[qData.correct].classList.add('correct');
+                expBox.innerHTML = `❌ <b>चुकीचे उत्तर!</b><br><b>स्पष्टीकरण:</b> ${qData.exp}`;
+                expBox.style.display = 'block';
+
+                // चुकलेला प्रश्न नोंदवून ठेवणे
+                wrongAnswersList.push({
+                    qNo: currentQuestion + 1,
+                    question: qData.q,
+                    userAns: qData.options[selectedIndex],
+                    correctAns: qData.options[qData.correct],
+                    exp: qData.exp
+                });
+            }
+
+            document.getElementById('next-btn').disabled = false;
+        }
+
+        // ५. पुढील प्रश्न किंवा निकाल
+        function nextQuestion() {
+            currentQuestion++;
+            if (currentQuestion < questions.length) {
+                loadQuestion();
+            } else {
+                showResult();
+            }
+        }
+
+        // ६. निकाल दाखवणे
+        function showResult() {
+            document.getElementById('exam-screen').classList.add('hidden');
+            document.getElementById('result-screen').classList.remove('hidden');
+
+            const total = questions.length;
+            const percentage = Math.round((score / total) * 100);
+
+            document.getElementById('cert-name').innerText = studentName;
+            document.getElementById('cert-score').innerText = score;
+            document.getElementById('cert-total').innerText = total;
+            document.getElementById('cert-percentage').innerText = percentage;
+
+            const honourBox = document.getElementById('cert-honour-text');
+
+            if (percentage >= 80) {
+                honourBox.innerHTML = "🥇 Gold Medal + Trophy <br><span style='font-size:16px; color:#16a34a;'>उत्कृष्ट कामगिरी!</span>";
+            } else if (percentage >= 60) {
+                honourBox.innerHTML = "🥈 Silver Medal + Trophy <br><span style='font-size:16px; color:#16a34a;'>छान कामगिरी!</span>";
+            } else if (percentage >= 50) {
+                honourBox.innerHTML = "🥉 Bronze Medal + Trophy <br><span style='font-size:16px; color:#ca8a04;'>छाना प्रयत्न!</span>";
+            } else {
+                honourBox.innerHTML = "💐 अभिनंदन! फुलांचा गुच्छ <br><span style='font-size:16px; color:#dc2626;'>पुढील परीक्षेसाठी शुभेच्छा!</span>";
+            }
+
+            // चुकलेल्या प्रश्नांची यादी तयार करणे
+            renderWrongList();
+        }
+
+        // ७. चुकलेल्या प्रश्नांची यादी स्क्रीनवर दाखवणे
+        function renderWrongList() {
+            const listContainer = document.getElementById('wrong-list');
+            const wrongBtn = document.getElementById('show-wrong-btn');
+            listContainer.innerHTML = "";
+
+            if (wrongAnswersList.length === 0) {
+                listContainer.innerHTML = "<p style='color: #16a34a; font-weight: bold;'>अभिनंदन! तुमचे सर्व प्रश्न बरोबर आहेत! 👏</p>";
+                return;
+            }
+
+            wrongAnswersList.forEach(item => {
+                const div = document.createElement('div');
+                div.className = 'wrong-item';
+                div.innerHTML = `
+                    <div class="wrong-q-title">प्रश्न ${item.qNo}: ${item.question}</div>
+                    <div>तुमचे उत्तर: <span class="user-ans">${item.userAns}</span></div>
+                    <div>बरोबर उत्तर: <span class="correct-ans">${item.correctAns}</span></div>
+                    <div class="exp-text"><b>स्पष्टीकरण:</b> ${item.exp}</div>
+                `;
+                listContainer.appendChild(div);
+            });
+        }
+
+        // ८. चुकलेल्या प्रश्नांची यादी दाखवणे / लपवणे Toggle
+        function toggleWrongAnswers() {
+            const sec = document.getElementById('wrong-answers-sec');
+            if (sec.classList.contains('hidden')) {
+                sec.classList.remove('hidden');
+                sec.scrollIntoView({ behavior: 'smooth' });
+            } else {
+                sec.classList.add('hidden');
+            }
+        }
+    </script>
+</body>
+</html>
