@@ -1,0 +1,543 @@
+<!DOCTYPE html>
+<html lang="mr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>शिष्यवृत्ती परीक्षा - स्पर्धा परीक्षा मार्गदर्शन केंद्र, जेऊर</title>
+    <style>
+        :root {
+            --primary-color: #1a237e;
+            --secondary-color: #28a745;
+            --danger-color: #dc3545;
+            --bg-color: #f4f7f6;
+        }
+
+        body {
+            font-family: 'Segoe UI', Arial, sans-serif;
+            background-color: var(--bg-color);
+            margin: 0;
+            padding: 15px;
+            display: flex;
+            justify-content: center;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 750px;
+            background: #ffffff;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+            padding: 20px;
+            box-sizing: border-box;
+        }
+
+        .header {
+            text-align: center;
+            border-bottom: 2px solid var(--primary-color);
+            padding-bottom: 12px;
+            margin-bottom: 20px;
+        }
+
+        .header h1 {
+            color: var(--primary-color);
+            margin: 0;
+            font-size: 22px;
+        }
+
+        .header h2 {
+            color: #d81b60;
+            margin: 6px 0 0 0;
+            font-size: 18px;
+        }
+
+        .screen {
+            display: none;
+        }
+
+        .active {
+            display: block;
+        }
+
+        /* Start Screen */
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 8px;
+            color: #333;
+        }
+
+        input[type="text"], input[type="tel"] {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            box-sizing: border-box;
+            font-size: 16px;
+        }
+
+        .btn {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            font-size: 16px;
+            font-weight: bold;
+            border-radius: 6px;
+            cursor: pointer;
+            width: 100%;
+            transition: 0.3s;
+        }
+
+        .btn:hover {
+            opacity: 0.9;
+        }
+
+        /* Question Screen */
+        .q-header {
+            display: flex;
+            justify-content: space-between;
+            font-weight: bold;
+            color: #555;
+            margin-bottom: 15px;
+            background: #e8eaf6;
+            padding: 10px;
+            border-radius: 6px;
+        }
+
+        .question-text {
+            font-size: 18px;
+            font-weight: bold;
+            color: #222;
+            margin-bottom: 15px;
+            line-height: 1.5;
+        }
+
+        .options-container {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .option-btn {
+            background-color: #f8f9fa;
+            border: 2px solid #e0e0e0;
+            padding: 12px 15px;
+            border-radius: 6px;
+            text-align: left;
+            font-size: 16px;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .option-btn:hover:not([disabled]) {
+            background-color: #e3f2fd;
+            border-color: #2196f3;
+        }
+
+        .option-btn.correct {
+            background-color: #d4edda !important;
+            border-color: #28a745 !important;
+            color: #155724;
+            font-weight: bold;
+        }
+
+        .option-btn.wrong {
+            background-color: #f8d7da !important;
+            border-color: #dc3545 !important;
+            color: #721c24;
+            font-weight: bold;
+        }
+
+        .explanation {
+            margin-top: 15px;
+            padding: 12px;
+            border-radius: 6px;
+            background-color: #fff3cd;
+            border-left: 5px solid #ffc107;
+            color: #856404;
+            display: none;
+            font-size: 15px;
+            line-height: 1.4;
+        }
+
+        .controls {
+            margin-top: 20px;
+            display: flex;
+            justify-content: flex-end;
+        }
+
+        /* Certificate / Result Style */
+        .certificate {
+            border: 8px double var(--primary-color);
+            padding: 20px;
+            background: #fff;
+            text-align: center;
+            border-radius: 8px;
+            position: relative;
+        }
+
+        .cert-header {
+            color: var(--primary-color);
+            font-size: 20px;
+            font-weight: bold;
+            margin-bottom: 15px;
+            border-bottom: 1px solid #ddd;
+            padding-bottom: 10px;
+        }
+
+        .cert-details {
+            text-align: left;
+            margin: 15px 0;
+            font-size: 16px;
+            line-height: 1.8;
+        }
+
+        .badge-icon {
+            font-size: 50px;
+            margin: 10px 0;
+        }
+
+        .performance-tag {
+            font-size: 18px;
+            font-weight: bold;
+            color: #d81b60;
+            margin-bottom: 15px;
+        }
+
+        .teachers-footer {
+            margin-top: 25px;
+            padding-top: 15px;
+            border-top: 2px dashed #ccc;
+            display: flex;
+            justify-content: space-between;
+            text-align: left;
+            font-size: 14px;
+        }
+
+        .teacher-box {
+            width: 48%;
+        }
+
+        .review-section {
+            margin-top: 30px;
+            text-align: left;
+        }
+
+        .review-section h3 {
+            color: var(--danger-color);
+            border-bottom: 2px solid var(--danger-color);
+            padding-bottom: 5px;
+        }
+
+        .wrong-item {
+            background: #fff0f0;
+            border: 1px solid #ffcdd2;
+            padding: 12px;
+            border-radius: 6px;
+            margin-bottom: 12px;
+        }
+
+        .wrong-q {
+            font-weight: bold;
+            color: #b71c1c;
+            margin-bottom: 5px;
+        }
+
+        .wrong-exp {
+            font-size: 14px;
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <!-- Header Present on All Screens -->
+    <div class="header">
+        <h1>स्पर्धा परीक्षा मार्गदर्शन केंद्र, जेऊर</h1>
+        <h2>शिष्यवृत्ती परीक्षा इयत्ता चौथी थोडे वेगळे प्रश्न</h2>
+    </div>
+
+    <!-- 1. Start Screen -->
+    <div id="start-screen" class="screen active">
+        <div class="form-group">
+            <label for="student-name">विद्यार्थ्याचे नाव:</label>
+            <input type="text" id="student-name" placeholder="पूर्ण नाव प्रविष्ट करा" required>
+        </div>
+        <div class="form-group">
+            <label for="student-phone">मोबाईल नंबर:</label>
+            <input type="tel" id="student-phone" placeholder="१० अंकी मोबाईल नंबर" required>
+        </div>
+        <button class="btn" onclick="startExam()">Start Exam</button>
+
+        <div class="teachers-footer">
+            <div class="teacher-box">
+                <strong>मार्गदर्शक शिक्षक :</strong> सचिन शिंदे<br>
+                <strong>संपर्क :</strong> 8329684470
+            </div>
+            <div class="teacher-box" style="text-align: right;">
+                <strong>मार्गदर्शक शिक्षक :</strong> सतीश चिंदे<br>
+                <strong>संपर्क :</strong> 8208167846
+            </div>
+        </div>
+    </div>
+
+    <!-- 2. Question Screen -->
+    <div id="quiz-screen" class="screen">
+        <div class="q-header">
+            <span id="q-count">प्रश्न १ / ५०</span>
+            <span id="score-live">गुण: ०</span>
+        </div>
+        <div id="question-text" class="question-text"></div>
+        <div id="options-container" class="options-container"></div>
+        <div id="explanation" class="explanation"></div>
+        <div class="controls">
+            <button id="next-btn" class="btn" style="display:none;" onclick="nextQuestion()">नेक्स्ट क्वेश्चन</button>
+            <button id="submit-btn" class="btn" style="display:none; background-color: var(--secondary-color);" onclick="submitExam()">Submit Exam</button>
+        </div>
+    </div>
+
+    <!-- 3. Result Screen (Certificate Style) -->
+    <div id="result-screen" class="screen">
+        <div class="certificate">
+            <div class="cert-header">स्पर्धा परीक्षा मार्गदर्शन केंद्र, जेऊर</div>
+            <div style="font-size: 18px; font-weight: bold; color: #333;">गुणवत्ता प्रमाणपत्र</div>
+            
+            <div class="cert-details">
+                <b>परीक्षेचे नाव :</b> शिष्यवृत्ती परीक्षा इयत्ता चौथी थोडे वेगळे प्रश्न<br>
+                <b>विद्यार्थ्याचे नाव :</b> <span id="res-name"></span><br>
+                <b>मोबाईल नंबर :</b> <span id="res-phone"></span><br>
+                <b>मिळालेले गुण :</b> <span id="res-score"></span> / <span id="res-total"></span><br>
+                <b>टक्केवारी :</b> <span id="res-percent"></span>%
+            </div>
+
+            <div class="badge-icon" id="res-badge">🏆</div>
+            <div class="performance-tag" id="res-performance"></div>
+
+            <div class="teachers-footer">
+                <div class="teacher-box">
+                    <strong>मार्गदर्शक शिक्षक :</strong> सचिन शिंदे<br>
+                    <strong>संपर्क :</strong> 8329684470
+                </div>
+                <div class="teacher-box" style="text-align: right;">
+                    <strong>मार्गदर्शक शिक्षक :</strong> सतीश चिंदे<br>
+                    <strong>संपर्क :</strong> 8208167846
+                </div>
+            </div>
+        </div>
+
+        <!-- Wrong Questions & Explanations Review -->
+        <div id="review-container" class="review-section"></div>
+    </div>
+</div>
+<script>
+const questionsData = [
+    // Section 1: Feb/Leap Year (10 Qs)
+    { q: "१. सन २०१६ या लीप वर्षात १ फेब्रुवारीला सोमवार असल्यास, त्या महिन्यात कोणता वार ५ वेळा आला असेल?", options: ["१) रविवार", "२) सोमवार", "३) मंगळवार", "४) शनिवार"], ans: 1, exp: "स्पष्टीकरण: २०१६ हे लीप वर्ष असल्याने फेब्रुवारीत २९ दिवस असतात. २९ दिवसांच्या महिन्यात १ तारखेचा वार ५ वेळा येतो. म्हणून सोमवार ५ वेळा येईल." },
+    { q: "२. खालीलपैकी कोणत्या वर्षात फेब्रुवारी महिन्यात एकही वार ५ वेळा येणार नाही?", options: ["१) २०००", "२) २०२४", "३) २०२०", "४) २०१८"], ans: 3, exp: "स्पष्टीकरण: २०१८ हे सामान्य वर्ष आहे. सामान्य वर्षाच्या फेब्रुवारीत २८ दिवस असतात, त्यामुळे प्रत्येक वार ४ वेळाच येतो, एकही वार ५ वेळा येत नाही." },
+    { q: "३. एका वर्षाच्या फेब्रुवारी महिन्यात मंगळवार हा वार ५ वेळा आला. तर ते वर्ष खालीलपैकी कोणते असू शकते?", options: ["१) २०१३", "२) २०१५", "३) २०२०", "४) २०२३"], ans: 2, exp: "स्पष्टीकरण: फेब्रुवारीत एखादा वार ५ वेळा येण्यासाठी ते लीप वर्ष असणे आवश्यक आहे. दिलेल्या पर्यायांपैकी २०२० हेच लीप वर्ष आहे." },
+    { q: "४. सामान्य वर्षात (Non-leap year) फेब्रुवारी महिन्यात कोणता वार ५ वेळा येतो?", options: ["१) १ तारखेचा वार", "२) २८ तारखेचा वार", "३) कोणताही वार ५ वेळा येत नाही", "४) रविवारी"], ans: 2, exp: "स्पष्टीकरण: सामान्य वर्षात फेब्रुवारी महिन्यात २८ दिवस असतात, त्यामुळे सर्व वार ४ वेळाच येतात. कोणताही वार ५ वेळा येत नाही." },
+    { q: "५. सन २०२८ च्या फेब्रुवारी महिन्यात जर २९ तारखेला गुरुवार असेल, तर त्या महिन्यात १ तारखेला कोणता वार असेल?", options: ["१) बुधवार", "२) गुरुवार", "३) शुक्रवार", "४) मंगळवार"], ans: 1, exp: "स्पष्टीकरण: २९ दिवसांच्या महिन्यात १ तारीख आणि २९ तारीख या दोन्ही दिवशी एकच वार असतो. २९ ला गुरुवार तर १ ला सुद्धा गुरुवारच असेल." },
+    { q: "६. खालील विधानांपैकी अयोग्य विधान कोणते?", options: ["१) लीप वर्षातील फेब्रुवारी महिन्यात २९ दिवस असतात.", "२) लीप वर्षाच्या फेब्रुवारी महिन्यात १ तारखेचा वार ५ वेळा येतो.", "३) सामान्य वर्षातील फेब्रुवारी महिन्यात प्रत्येक वार ४ वेळाच येतो.", "४) सामान्य वर्षाच्या फेब्रुवारी महिन्यात १ तारखेचा वार ५ वेळा येतो."], ans: 3, exp: "स्पष्टीकरण: विधान ४ चुकीचे आहे, कारण सामान्य वर्षात फेब्रुवारी महिन्यात १ तारखेचा वार ४ वेळाच येतो, ५ वेळा नाही." },
+    { q: "७. सन २०२४ च्या फेब्रुवारी महिन्यात १ तारखेला गुरुवार होता. तर त्या महिन्यात ५ वेळा आलेला वार कोणता?", options: ["१) बुधवार", "२) गुरुवार", "३) शुक्रवार", "४) शनिवार"], ans: 1, exp: "स्पष्टीकरण: २०२४ हे लीप वर्ष आहे (२९ दिवस). १ तारखेचा वार (गुरुवार) ५ वेळा येईल." },
+    { q: "८. सन २०३२ या लीप वर्षाच्या फेब्रुवारी महिन्यात एकूण किती दिवस असे असतात ज्यांचा वार ५ वेळा येतो?", options: ["१) ० दिवस", "२) १ दिवस", "३) २ दिवस", "४) ३ दिवस"], ans: 1, exp: "स्पष्टीकरण: २९ दिवसांच्या फेब्रुवारी महिन्यात फक्त १ तारखेचा (केवळ १च दिवस) वार ५ वेळा येतो." },
+    { q: "९. खाली दिलेल्या वर्षांपैकी कोणत्या वर्षात फेब्रुवारी महिन्यात कोणत्याही एका वाराची ५ वेळा पुनरावृत्ती होईल?", options: ["१) १९००", "२) १९९६", "३) २०२१", "४) २०३१"], ans: 1, exp: "स्पष्टीकरण: १९९६ हे लीप वर्ष आहे (४ ने भाग जातो). त्यामुळे यात फेब्रुवारीमध्ये १ वार ५ वेळा येईल. (टीप: १९०० हे शतकी वर्ष असून ४०० ने भाग जात नसल्याने सामान्य वर्ष आहे)." },
+    { q: "१०. एका लीप वर्षात १ फेब्रुवारीला शनिवार होता, तर २५ फेब्रुवारीला कोणता वार असेल?", options: ["१) मंगळवार", "२) बुधवार", "३) सोमवार", "४) शनिवार"], ans: 0, exp: "स्पष्टीकरण: १ + ७ = ८, ८ + ७ = १५, १५ + ७ = २२ तारीख. २२ तारखेला शनिवार. २३=रविवार, २४=सोमवार, २५=मंगळवार." },
+
+    // Section 2: BODMAS Simplification (10 Qs)
+    { q: "१. १५ × ४ + २५ - ५ × १० = किती?", options: ["१) ३५", "२) २५", "३) ३५०", "४) ४५"], ans: 1, exp: "स्पष्टीकरण: (१५×४) + २५ - (५×१०) = ६० + २५ - ५० = ८५ - ५० = ३५." },
+    { q: "२. २४ ÷ ६ × ३ + १८ - १२ = किती?", options: ["१) १८", "२) ६", "३) २४", "४) ३०"], ans: 0, exp: "स्पष्टीकरण: (२४÷६)×३ + १८ - १२ = ४×३ + १८ - १२ = १२ + १८ - १२ = १८." },
+    { q: "३. ९ × ९ - ९ + ९ ÷ ९ = किती?", options: ["१) १", "२) ७३", "३) ८१", "४) ९"], ans: 1, exp: "स्पष्टीकरण: ९×९ - ९ + (९÷९) = ८१ - ९ + १ = ७२ + १ = ७३." },
+    { q: "४. ५० - १० × ४ + २० ÷ ४ = किती?", options: ["१) १५", "२) २५", "३) ४५", "४) ५"], ans: 0, exp: "स्पष्टीकरण: ५० - (१०×४) + (२०÷४) = ५० - ४० + ५ = १० + ५ = १५." },
+    { q: "५. १२ + ८ × ५ - ३६ ÷ ६ = किती?", options: ["१) ९४", "२) ४६", "३) ३०", "४) २४"], ans: 1, exp: "स्पष्टीकरण: १२ + (८×५) - (३६÷६) = १२ + ४० - ६ = ५२ - ६ = ४६." },
+    { q: "६. १४ × ३ - २४ ÷ ४ + ५ = किती?", options: ["१) ४१", "२) २०", "३) ५५", "४) २३"], ans: 0, exp: "स्पष्टीकरण: (१४×३) - (२४÷४) + ५ = ४२ - ६ + ५ = ३६ + ५ = ४१." },
+    { q: "७. १६ ÷ २ × ४ - ३० + १० = किती?", options: ["१) १२", "२) २", "३) ४२", "४) २०"], ans: 0, exp: "स्पष्टीकरण: (१६÷२)×४ - ३० + १० = ८×४ - ३० + १० = ३२ - ३० + १० = २ + १० = १२." },
+    { q: "८. १८ × ४ + १२ - १५ × ४ = किती?", options: ["१) २४", "२) ०", "३) ३०", "४) ३६"], ans: 0, exp: "स्पष्टीकरण: (१८×४) + १२ - (१५×४) = ७२ + १२ - ६० = ८४ - ६० = २४." },
+    { q: "९. २५ + ५ × ५ - ५० ÷ २ = किती?", options: ["१) ५०", "२) २५", "३) ५", "४) ०"], ans: 1, exp: "स्पष्टीकरण: २५ + (५×५) - (५०÷२) = २५ + २५ - २५ = २५." },
+    { q: "१०. ७ × ८ + १४ - २१ ÷ ३ = किती?", options: ["१) ६३", "२) ४९", "३) ५६", "४) ६५"], ans: 0, exp: "स्पष्टीकरण: (७×८) + १४ - (२१÷३) = ५६ + १४ - ७ = ७० - ७ = ६३." },
+
+    // Section 3: Money Word Problems (10 Qs)
+    { q: "१. रमेशजवळ २५,००० रुपये होते. त्याने त्यातील १२,५०० रुपयांचा मोबाईल आणि साडेचार हजार रुपयांचे घड्याळ खरेदी केले, तर त्याच्याकडे किती रुपये शिल्लक राहिले?", options: ["१) ८,००० रु.", "२) ७,५०० रु.", "३) ८,५०० रु.", "४) ७,००० रु."], ans: 0, exp: "स्पष्टीकरण: साडेचार हजार = ४,५०० रु. एकूण खर्च = १२,५०० + ४,५०० = १७,००० रु. शिल्लक = २५,००० - १७,००० = ८,००० रु." },
+    { q: "२. एका व्यापाऱ्याने ४५,००० रुपयांच्या मालापैकी २२,४०० रुपयांचे गव्हाचे पोते आणि पावणेचौदा हजार रुपयांची साखरेची पोती खरेदी केली. तर त्याच्याकडे किती रक्कम शिल्लक राहिली?", options: ["१) ८,८५० रु.", "२) ९,६०० रु.", "३) ८,८०० रु.", "४) ९,३५० रु."], ans: 0, exp: "स्पष्टीकरण: पावणेचौदा हजार = १३,७५० रु. एकूण खर्च = २२,४०० + १३,७५० = ३६,१५० रु. शिल्लक = ४५,००० - ३६,१५० = ८,८५० रु." },
+    { q: "३. सीमाकडे ५०,००० रुपये बचत होती. तिने २८,९०० रुपयांचे सोन्याचे नाणे व साडेअकरा हजार रुपयांचे कपडे खरेदी केले, तर तिच्याकडे किती रुपये शिल्लक राहिले?", options: ["१) ९,६०० रु.", "२) १०,६०० रु.", "३) ९,५०० रु.", "४) १०,४०० रु."], ans: 0, exp: "स्पष्टीकरण: साडेअकरा हजार = ११,५०० रु. एकूण खर्च = २८,९०० + ११,५०० = ४०,४०० रु. शिल्लक = ५०,००० - ४०,४०० = ९,६०० रु." },
+    { q: "४. एका शाळेच्या स्नेहसंमेलनासाठी ६०,००० रुपये निधी जमा झाला. त्यातून ३२,५०० रुपये मंचाच्या सजावटीवर आणि सव्वापंधरा हजार रुपये अल्पोपहारावर खर्च झाले, तर किती निधी शिल्लक राहिला?", options: ["१) १२,२५० रु.", "२) १२,००० रु.", "३) १२,७५० रु.", "४) १३,२५० रु."], ans: 0, exp: "स्पष्टीकरण: सव्वापंधरा हजार = १५,२५० रु. एकूण खर्च = ३२,५०० + १५,२५० = ४७,७५० रु. शिल्लक = ६०,००० - ४७,७५० = १२,२५० रु." },
+    { q: "५. गणेशने बँकेतून ८०,००० रुपये काढले. त्यापैकी त्याने ४३,६०० रुपयांची दुचाकीची डागडुजी केली आणि साडेबावीस हजार रुपये शेतीकामासाठी दिले, तर त्याच्याकडे किती रुपये उरले?", options: ["१) १३,९०० रु.", "२) १४,४०० रु.", "३) १३,६०० रु.", "४) १४,९०० रु."], ans: 0, exp: "स्पष्टीकरण: साडेबावीस हजार = २२,५०० रु. एकूण खर्च = ४३,६०० + २२,५०० = ६६,१०० रु. शिल्लक = ८०,००० - ६६,१०० = १३,९०० रु." },
+    { q: "६. अजयने ३५,००० रुपयांपैकी १६,८०० रुपयांचा लॅपटॉप व साडेआठ हजार रुपयांचा प्रिंटर विकत घेतला, तर त्याच्याकडे किती रक्कम शिल्लक उरली?", options: ["१) ९,७०० रु.", "२) ९,९०० रु.", "३) १०,७०० रु.", "४) ८,७०० रु."], ans: 0, exp: "स्पष्टीकरण: साडेआठ हजार = ८,५०० रु. एकूण खर्च = १६,८०० + ८,५०० = २५,३०० रु. शिल्लक = ३५,००० - २५,३०० = ९,७०० रु." },
+    { q: "७. एका शेतकर्‍याकडे ७५,००० रुपये होते. त्याने ३८,७०० रुपयांचे खत आणि साडेअठरा हजार रुपयांचे बियाणे खरेदी केले, तर त्याच्याकडे किती रुपये शिल्लक राहतील?", options: ["१) १७,८०० रु.", "२) १७,५०० रु.", "३) १८,००० रु.", "४) १६,८०० रु."], ans: 0, exp: "स्पष्टीकरण: साडेअठरा हजार = १८,५०० रु. एकूण खर्च = ३८,७०० + १८,५०० = ५७,२०० रु. शिल्लक = ७५,००० - ५७,२०० = १७,८०० रु." },
+    { q: "८. प्रविणने ९०,००० रुपयांमधून ५२,४०० रुपयांचा फ्रीज आणि पावणेअठ्ठावीस हजार रुपयांचे वॉशिंग मशीन खरेदी केले, तर त्याच्याजवळ किती रुपये उरतील?", options: ["१) १०,१५० रु.", "२) ९,८५० रु.", "३) १०,३५० रु.", "४) ९,६०० रु."], ans: 1, exp: "स्पष्टीकरण: पावणेअठ्ठावीस हजार = २७,७५० रु. एकूण खर्च = ५२,४०० + २७,७५० = ८०,१५० रु. शिल्लक = ९०,००० - ८०,१५० = ९,८५० रु." },
+    { q: "९. संगीताकडे ४०,००० रुपये होते. तिने १८,३५० रुपयांची शिलाई मशीन आणि साडेचौदा हजार रुपयांचे इतर साहित्य खरेदी केले, तर तिच्याकडे किती रुपये शिल्लक राहतील?", options: ["१) ७,१५० रु.", "२) ७,३०० रु.", "३) ६,८५० रु.", "४) ७,२५० रु."], ans: 0, exp: "स्पष्टीकरण: साडेचौदा हजार = १४,५०० रु. एकूण खर्च = १८,३५० + १४,५०० = ३२,८५० रु. शिल्लक = ४०,००० - ३२,८५० = ७,१५० रु." },
+    { q: "१०. एका दुकानदाराने १,००,००० रुपयांपैकी ५८,९०० रुपयांचे सामान खरेदी केले व साडेतेरा हजार रुपये भाड्यापोटी दिले, तर त्याच्याकडे किती रक्कम शिल्लक राहिली?", options: ["१) २७,६०० रु.", "२) २८,६०० रु.", "३) २७,४०० रु.", "४) २६,६०० रु."], ans: 0, exp: "स्पष्टीकरण: साडेतेरा हजार = १३,५०० रु. एकूण खर्च = ५८,९०० + १३,५०० = ७२,४०० रु. शिल्लक = १,००,००० - ७२,४०० = २७,६०० रु." },
+
+    // Section 4: Weights/Measures Problems (10 Qs)
+    { q: "१. अमोलने दुकानातून सव्वादोन कि.ग्रॅ. गव्हाचे पीठ आणि पाऊण कि.ग्रॅ. मैदा आणला, तर त्याने एकूण किती वजन माल आणला?", options: ["१) २.५ कि.ग्रॅ.", "२) ३ कि.ग्रॅ.", "३) ३.५ कि.ग्रॅ.", "४) २.७५ कि.ग्रॅ."], ans: 1, exp: "स्पष्टीकरण: सव्वादोन = २.२५ कि.ग्रॅ., पाऊण = ०.७५ कि.ग्रॅ. एकूण = २.२५ + ०.७५ = ३.०० कि.ग्रॅ." },
+    { q: "२. आईने बाजारातून साडेतीन कि.ग्रॅ. बटाटे, पावणेदोन कि.ग्रॅ. कांदे आणि अर्धा कि.ग्रॅ. टोमॅटो खरेदी केले, तर भाजीपाल्याचे एकूण वजन किती?", options: ["१) ५.५ कि.ग्रॅ.", "२) ५.७५ कि.ग्रॅ.", "३) ६ कि.ग्रॅ.", "४) ६.२५ कि.ग्रॅ."], ans: 1, exp: "स्पष्टीकरण: साडेतीन = ३.५०, पावणेदोन = १.७५, अर्धा = ०.५०. एकूण = ३.५० + १.७५ + ०.५० = ५.७५ कि.ग्रॅ." },
+    { q: "३. एका किराणा दुकानातून ३५०० ग्रॅम तांदूळ आणि साडेचार कि.ग्रॅ. डाळ खरेदी केली, तर एकूण खरेदी किती ग्रॅम झाली?", options: ["१) ८००० ग्रॅम", "२) ७५०० ग्रॅम", "३) ८५०० ग्रॅम", "४) ७००० ग्रॅम"], ans: 0, exp: "स्पष्टीकरण: साडेचार कि.ग्रॅ. = ४५०० ग्रॅम. एकूण = ३५०० ग्रॅम + ४५०० ग्रॅम = ८००० ग्रॅम." },
+    { q: "४. एका मिठाईच्या दुकानातून सव्वातीन कि.ग्रॅ. पेढे, पावणेचार कि.ग्रॅ. बर्फी आणि अर्धा कि.ग्रॅ. गुलाबजाम घेतले, तर एकूण मिठाईचे वजन किती?", options: ["१) ७.५ कि.ग्रॅ.", "२) ७ कि.ग्रॅ.", "३) ८ कि.ग्रॅ.", "४) ८.५ कि.ग्रॅ."], ans: 0, exp: "स्पष्टीकरण: सव्वातीन = ३.२५, पावणेचार = ३.७५, अर्धा = ०.५०. एकूण = ३.२५ + ३.७५ + ०.५० = ७.५० कि.ग्रॅ." },
+    { q: "५. राजूने दुकानातून सव्वादोन कि.ग्रॅ. साखर आणली. त्यातील पावणेदोन कि.ग्रॅ. साखर वापरली, तर किती साखर शिल्लक राहिली?", options: ["१) ७५० ग्रॅम", "२) २५० ग्रॅम", "३) ५०० ग्रॅम", "४) १ कि.ग्रॅ."], ans: 2, exp: "स्पष्टीकरण: सव्वादोन = २.२५० कि.ग्रॅ., पावणेदोन = १.७५० कि.ग्रॅ. शिल्लक = २.२५० - १.७५० = ०.५०० कि.ग्रॅ. = ५०० ग्रॅम." },
+    { q: "६. एका पिशवीत पाऊण कि.ग्रॅ. सफरचंद, सव्वा कि.ग्रॅ. संत्री आणि अडीच कि.ग्रॅ. डाळिंबे आहेत, तर त्या पिशवीतील फळांचे एकूण वजन किती?", options: ["१) ४.२५ कि.ग्रॅ.", "२) ४.५ कि.ग्रॅ.", "३) ४.७५ कि.ग्रॅ.", "४) ५ कि.ग्रॅ."], ans: 1, exp: "स्पष्टीकरण: पाऊण = ०.७५, सव्वा = १.२५, अडीच = २.५०. एकूण = ०.७५ + १.२५ + २.५० = ४.५० कि.ग्रॅ." },
+    { q: "७. ६०५० ग्रॅम वजनाची वस्तू म्हणजे खालीलपैकी किती वजन?", options: ["१) ६ कि.ग्रॅ. ५० ग्रॅम", "२) ६ कि.ग्रॅ. ५०० ग्रॅम", "३) ६० कि.ग्रॅ. ५ ग्रॅम", "४) ६० कि.ग्रॅ. ५० ग्रॅम"], ans: 0, exp: "स्पष्टीकरण: ६०५० ग्रॅम ÷ १००० = ६ कि.ग्रॅ. आणि ५० ग्रॅम." },
+    { q: "८. सीमाने ५ कि.ग्रॅ. वजनाच्या गुळाच्या ढेपीतून पावणेतीन कि.ग्रॅ. गूळ वापरला, तर तिच्याकडे किती गूळ शिल्लक राहिला?", options: ["१) २ कि.ग्रॅ.", "२) २.२५ कि.ग्रॅ.", "३) २.५ कि.ग्रॅ.", "४) १.७५ कि.ग्रॅ."], ans: 1, exp: "स्पष्टीकरण: पावणेतीन = २.७५ कि.ग्रॅ. शिल्लक = ५.०० - २.७५ = २.२५ कि.ग्रॅ." },
+    { q: "९. पावणेआठ कि.ग्रॅ. आणि साडेतीन कि.ग्रॅ. यांची एकूण बेरीज किती कि.ग्रॅ. होईल?", options: ["१) ११.२५ कि.ग्रॅ.", "२) ११.५ कि.ग्रॅ.", "३) १०.७५ कि.ग्रॅ.", "४) ११.७५ कि.ग्रॅ."], ans: 0, exp: "स्पष्टीकरण: पावणेआठ = ७.७५, साडेतीन = ३.५०. बेरीज = ७.७५ + ३.५० = ११.२५ कि.ग्रॅ." },
+    { q: "१०. एका शेतकऱ्याने २ कि.ग्रॅ. २५० ग्रॅम काजू आणि १ कि.ग्रॅ. ७५० ग्रॅम बदाम खरेदी केले, तर त्याने एकूण किती कि.ग्रॅ. सुकामेवा विकत घेतला?", options: ["१) ३.५ कि.ग्रॅ.", "२) ४ कि.ग्रॅ.", "३) ४.५ कि.ग्रॅ.", "४) ३.७५ कि.ग्रॅ."], ans: 1, exp: "स्पष्टीकरण: २.२५० + १.७५० = ४.००० कि.ग्रॅ. = ४ कि.ग्रॅ." },
+
+    // Section 5: Equation Sign Insertion (10 Qs)
+    { q: "१. '१२ ☐ २४ ☐ २ ☐ ५ ☐ ५' या समीकरणात चौकटींच्या जागी चिन्हांचा कोणता क्रम योग्य ठरेल?", options: ["१) =, ÷, +, -", "२) ÷, =, +, -", "३) +, ×, -, =", "४) =, ×, ÷, +"], ans: 0, exp: "स्पष्टीकरण: १२ = २४ ÷ २ + ५ - ५ ➔ १२ = १२ + ५ - ५ ➔ १२ = १२ (योग्य)." },
+    { q: "२. '८ ☐ ३ ☐ ३० ☐ १२ ☐ ६' या समीकरणासाठी योग्य चिन्हांचा पर्याय निवडा:", options: ["१) ×, ÷, =, +", "२) ×, =, -, +", "३) +, ×, =, -", "४) ÷, =, +, -"], ans: 1, exp: "स्पष्टीकरण: ८ × ३ = ३० - १२ + ६ ➔ २४ = ३० - १२ + ६ ➔ २४ = १८ + ६ ➔ २४ = २४ (योग्य)." },
+    { q: "३. '४० ☐ ५ ☐ २ ☐ २ ☐ ५' या पदावलीत चौकटींत कोणती चिन्हे क्रमाने येतील?", options: ["१) ÷, +, =, ×", "२) ÷, ×, =, +", "३) =, ÷, +, ×", "४) +, ÷, ×, ="], ans: 0, exp: "स्पष्टीकरण: ४० ÷ ५ + २ = २ × ५ ➔ ८ + २ = १० ➔ १० = १० (योग्य)." },
+    { q: "४. '० ☐ २५ ☐ ५ ☐ ४ ☐ २०' या विधानातील चौकटींत क्रमाने येणारी चिन्हे शोधा:", options: ["१) ÷, ×, -, =", "२) =, ÷, ×, -", "३) ×, ÷, =, -", "४) =, +, ×, -"], ans: 1, exp: "स्पष्टीकरण: ० = २५ ÷ ५ × ४ - २० ➔ ० = ५ × ४ - २० ➔ ० = २० - २० ➔ ० = ० (योग्य)." },
+    { q: "५. '१५ ☐ ३ ☐ १० ☐ ८ ☐ ३' हे समीकरण बरोबर येण्यासाठी चिन्हांचा योग्य पर्याय निवडा:", options: ["१) ÷, =, -, +", "२) ÷, ×, =, -", "३) =, ÷, -, +", "४) ×, =, +, -"], ans: 0, exp: "स्पष्टीकरण: १५ ÷ ३ = १० - ८ + ३ ➔ ५ = १० - ८ + ३ ➔ ५ = २ + ३ ➔ ५ = ५ (योग्य)." },
+    { q: "६. '६ ☐ ४ ☐ १४ ☐ ५ ☐ २' या समीकरणात चौकटीतील चिन्हांचा योग्य क्रम कोणता?", options: ["१) ×, +, =, ÷", "२) ×, -, =, ×", "३) =, ×, -, ÷", "४) -, ×, =, +"], ans: 1, exp: "स्पष्टीकरण: ६ × ४ - १४ = ५ × २ ➔ २४ - १४ = १० ➔ १० = १० (योग्य)." },
+    { q: "७. '१५ ☐ ३० ☐ ६ ☐ ४ ☐ ५' या समीकरणात उजवी आणि डावी बाजू समान होण्यासाठी कोणता क्रम वापरावा?", options: ["१) ÷, ×, -, =", "२) =, ÷, ×, -", "३) =, ×, ÷, +", "४) ×, =, ÷, -"], ans: 1, exp: "स्पष्टीकरण: १५ = ३० ÷ ६ × ४ - ५ ➔ १५ = ५ × ४ - ५ ➔ १५ = २० - ५ ➔ १५ = १५ (योग्य)." },
+    { q: "८. '२० ☐ ५ ☐ ३ ☐ ४ ☐ ३' या समीकरणासाठी योग्य चिन्हांचा पर्याय निवडा:", options: ["१) -, =, ×, +", "२) +, =, ×, -", "३) ÷, =, +, ×", "४) =, -, ×, +"], ans: 0, exp: "स्पष्टीकरण: २० - ५ = ३ × ४ + ३ ➔ १५ = १२ + ३ ➔ १५ = १५ (योग्य)." },
+    { q: "९. '१८ ☐ २ ☐ ६ ☐ ३ ☐ ५' या पदावलीत चौकटींच्या जागी चिन्हांचा कोणता क्रम योग्य ठरेल?", options: ["१) ÷, ×, =, +", "२) ÷, +, =, ×", "३) =, ÷, +, ×", "४) +, ÷, =, ×"], ans: 1, exp: "स्पष्टीकरण: १८ ÷ २ + ६ = ३ × ५ ➔ ९ + ६ = १५ ➔ १५ = १५ (योग्य)." },
+    { q: "१०. '२४ ☐ ६ ☐ ३ ☐ ५ ☐ ७' ही पदावली योग्य ठरवण्यासाठी कोणती चिन्हे वापरावी लागतील?", options: ["१) ÷, ×, -, =", "२) =, ÷, ×, -", "३) ÷, =, ×, -", "४) ×, ÷, =, -"], ans: 0, exp: "स्पष्टीकरण: २४ ÷ ६ × ३ - ५ = ७ ➔ ४ × ३ - ५ = ७ ➔ १२ - ५ = ७ ➔ ७ = ७ (योग्य)." }
+];
+let currentQuestionIndex = 0;
+let score = 0;
+let studentName = "";
+let studentPhone = "";
+let userAnswers = [];
+
+function startExam() {
+    studentName = document.getElementById('student-name').value.trim();
+    studentPhone = document.getElementById('student-phone').value.trim();
+
+    if (studentName === "" || studentPhone === "") {
+        alert("कृपया नाव आणि मोबाईल नंबर अचूक प्रविष्ट करा!");
+        return;
+    }
+
+    if(studentPhone.length < 10) {
+        alert("कृपया valid १० अंकी मोबाईल नंबर प्रविष्ट करा!");
+        return;
+    }
+
+    document.getElementById('start-screen').classList.remove('active');
+    document.getElementById('quiz-screen').classList.add('active');
+    loadQuestion();
+}
+
+function loadQuestion() {
+    const qData = questionsData[currentQuestionIndex];
+    document.getElementById('q-count').innerText = `प्रश्न ${currentQuestionIndex + 1} / ${questionsData.length}`;
+    document.getElementById('score-live').innerText = `गुण: ${score}`;
+    document.getElementById('question-text').innerText = qData.q;
+    
+    const optionsContainer = document.getElementById('options-container');
+    optionsContainer.innerHTML = "";
+    
+    const expDiv = document.getElementById('explanation');
+    expDiv.style.display = 'none';
+    expDiv.innerHTML = "";
+
+    document.getElementById('next-btn').style.display = 'none';
+    document.getElementById('submit-btn').style.display = 'none';
+
+    qData.options.forEach((opt, index) => {
+        const btn = document.createElement('button');
+        btn.className = 'option-btn';
+        btn.innerText = opt;
+        btn.onclick = () => selectOption(index);
+        optionsContainer.appendChild(btn);
+    });
+}
+
+function selectOption(selectedIndex) {
+    const qData = questionsData[currentQuestionIndex];
+    const buttons = document.querySelectorAll('.option-btn');
+    
+    // Disable all buttons after selection
+    buttons.forEach(btn => btn.disabled = true);
+
+    const isCorrect = (selectedIndex === qData.ans);
+    userAnswers.push({
+        question: qData.q,
+        selected: selectedIndex,
+        correct: qData.ans,
+        isCorrect: isCorrect,
+        exp: qData.exp
+    });
+
+    if (isCorrect) {
+        buttons[selectedIndex].classList.add('correct');
+        score++;
+        document.getElementById('score-live').innerText = `गुण: ${score}`;
+    } else {
+        buttons[selectedIndex].classList.add('wrong');
+        buttons[qData.ans].classList.add('correct');
+        
+        // Show Explanation only if Wrong Answer
+        const expDiv = document.getElementById('explanation');
+        expDiv.innerHTML = `<strong>स्पष्टीकरण:</strong> ${qData.exp}`;
+        expDiv.style.display = 'block';
+    }
+
+    // Navigation buttons
+    if (currentQuestionIndex < questionsData.length - 1) {
+        document.getElementById('next-btn').style.display = 'block';
+    } else {
+        document.getElementById('submit-btn').style.display = 'block';
+    }
+}
+
+function nextQuestion() {
+    currentQuestionIndex++;
+    loadQuestion();
+}
+
+function submitExam() {
+    document.getElementById('quiz-screen').classList.remove('active');
+    document.getElementById('result-screen').classList.add('active');
+
+    const total = questionsData.length;
+    const percentage = Math.round((score / total) * 100);
+
+    document.getElementById('res-name').innerText = studentName;
+    document.getElementById('res-phone').innerText = studentPhone;
+    document.getElementById('res-score').innerText = score;
+    document.getElementById('res-total').innerText = total;
+    document.getElementById('res-percent').innerText = percentage;
+
+    const badgeEl = document.getElementById('res-badge');
+    const perfEl = document.getElementById('res-performance');
+
+    if (percentage >= 80) {
+        badgeEl.innerText = "🥇 🏆";
+        perfEl.innerText = "उत्कृष्ट कामगिरी! (Gold Medal + Trophy)";
+    } else if (percentage >= 60) {
+        badgeEl.innerText = "🥈 🏆";
+        perfEl.innerText = "छान कामगिरी! (Silver Medal + Trophy)";
+    } else if (percentage >= 50) {
+        badgeEl.innerText = "🥉 🏆";
+        perfEl.innerText = "अभिनंदन! (Bronze Medal + Trophy)";
+    } else {
+        badgeEl.innerText = "💐";
+        perfEl.innerText = "अभिनंदन! फुलांचा गुच्छ व पुढील परीक्षेसाठी शुभेच्छा!";
+    }
+
+    // Display Wrong Questions Review Section
+    const reviewContainer = document.getElementById('review-container');
+    const wrongAnswers = userAnswers.filter(a => !a.isCorrect);
+
+    if (wrongAnswers.length > 0) {
+        let reviewHTML = `<h3>चुकलेले प्रश्न आणि त्यांचे स्पष्टीकरण:</h3>`;
+        wrongAnswers.forEach((item, idx) => {
+            reviewHTML += `
+                <div class="wrong-item">
+                    <div class="wrong-q">${item.question}</div>
+                    <div class="wrong-exp">${item.exp}</div>
+                </div>
+            `;
+        });
+        reviewContainer.innerHTML = reviewHTML;
+    } else {
+        reviewContainer.innerHTML = `<h3 style="color:var(--secondary-color);">अभिनंदन! तुमचे सर्व प्रश्न बरोबर आहेत.</h3>`;
+    }
+}
+</script>
+</body>
+</html>
