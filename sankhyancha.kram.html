@@ -1,0 +1,559 @@
+<!DOCTYPE html>
+<html lang="mr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>मोठी व लहान संख्या, चढता उतरता क्रम - ऑनलाईन टेस्ट</title>
+    <style>
+        :root {
+            --primary-color: #1e88e5;
+            --secondary-color: #1565c0;
+            --success-color: #2e7d32;
+            --error-color: #c62828;
+            --bg-color: #f4f7f6;
+            --card-bg: #ffffff;
+        }
+
+        * {
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: #333;
+            padding: 15px;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: var(--card-bg);
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            width: 100%;
+            flex: 1;
+        }
+
+        .header-section {
+            border-bottom: 2px solid #e0e0e0;
+            padding-bottom: 15px;
+            margin-bottom: 20px;
+        }
+
+        .school-title {
+            color: var(--secondary-color);
+            font-size: 22px;
+            font-weight: bold;
+            text-align: left;
+            margin-bottom: 10px;
+        }
+
+        .creator-info {
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            gap: 12px;
+            background: #eef7ff;
+            padding: 10px 15px;
+            border-radius: 8px;
+            border-left: 4px solid var(--primary-color);
+        }
+
+        .creator-details {
+            text-align: right;
+            font-size: 14px;
+            line-height: 1.4;
+        }
+
+        .creator-img {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid var(--primary-color);
+        }
+
+        .exam-title {
+            text-align: center;
+            font-size: 20px;
+            color: #2c3e50;
+            margin: 20px 0;
+            padding: 10px;
+            background: #e8f5e9;
+            border-radius: 6px;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            font-size: 16px;
+        }
+
+        .btn {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            font-size: 18px;
+            border-radius: 6px;
+            cursor: pointer;
+            width: 100%;
+            transition: background-color 0.3s;
+            font-weight: bold;
+            margin-top: 10px;
+        }
+
+        .btn:hover {
+            background-color: var(--secondary-color);
+        }
+
+        .btn:disabled {
+            background-color: #ccc;
+            cursor: not-allowed;
+        }
+
+        /* Question Styles */
+        .question-card {
+            display: none;
+        }
+
+        .question-card.active {
+            display: block;
+        }
+
+        .q-header {
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 15px;
+            color: #1a237e;
+        }
+
+        .options-grid {
+            display: grid;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+
+        .option-btn {
+            background: #f8f9fa;
+            border: 2px solid #e9ecef;
+            padding: 12px 15px;
+            border-radius: 6px;
+            text-align: left;
+            font-size: 16px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .option-btn:hover {
+            background: #e3f2fd;
+            border-color: #90caf9;
+        }
+
+        .option-btn.selected-correct {
+            background-color: #c8e6c9 !important;
+            border-color: var(--success-color) !important;
+            color: #1b5e20;
+            font-weight: bold;
+        }
+
+        .option-btn.selected-wrong {
+            background-color: #ffcdd2 !important;
+            border-color: var(--error-color) !important;
+            color: #b71c1c;
+            font-weight: bold;
+        }
+
+        .option-btn.show-correct {
+            background-color: #c8e6c9 !important;
+            border-color: var(--success-color) !important;
+        }
+
+        .explanation-box {
+            display: none;
+            background: #fff3e0;
+            border-left: 4px solid #ff9800;
+            padding: 12px;
+            border-radius: 4px;
+            margin-bottom: 15px;
+            font-size: 15px;
+            color: #e65100;
+        }
+
+        /* Certificate Styles */
+        .certificate {
+            display: none;
+            border: 10px double var(--secondary-color);
+            padding: 25px;
+            background: #fff;
+            text-align: center;
+            border-radius: 8px;
+            box-shadow: inset 0 0 10px rgba(0,0,0,0.05);
+        }
+
+        .cert-header {
+            font-size: 20px;
+            color: var(--secondary-color);
+            margin-bottom: 15px;
+            font-weight: bold;
+        }
+
+        .score-display {
+            font-size: 32px;
+            font-weight: bold;
+            color: var(--primary-color);
+            margin: 15px 0;
+        }
+
+        .medal-badge {
+            font-size: 22px;
+            padding: 12px;
+            margin: 15px 0;
+            border-radius: 8px;
+            font-weight: bold;
+        }
+
+        .bg-gold { background: #fff8e1; color: #f57f17; border: 1px solid #ffe082; }
+        .bg-silver { background: #eceff1; color: #455a64; border: 1px solid #b0bec5; }
+        .bg-bronze { background: #efebe9; color: #4e342e; border: 1px solid #d7ccc8; }
+        .bg-appreciation { background: #f3e5f5; color: #7b1fa2; border: 1px solid #e1bee7; }
+
+        .footer-note {
+            text-align: center;
+            font-size: 14px;
+            color: #666;
+            margin-top: 20px;
+            padding-top: 10px;
+            border-top: 1px solid #eee;
+        }
+
+        #wrong-questions-section {
+            display: none;
+            margin-top: 20px;
+            text-align: left;
+        }
+
+        .wrong-item {
+            background: #fff8f8;
+            border: 1px solid #ffcdd2;
+            padding: 12px;
+            border-radius: 6px;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <!-- Header -->
+    <div class="header-section">
+        <div class="school-title">जिल्हा परिषद प्राथमिक शाळा नरसोबावाडी संचलित</div>
+        <div class="creator-info">
+            <div class="creator-details">
+                <strong>संकल्पना व निर्मिती</strong><br>
+                श्री सचिन शिंदे सर<br>
+                जि. प. प्रा. शाळा नरसोबावाडी<br>
+                मो. ८३२९६८४४७०
+            </div>
+            <!-- Google Drive image wrapper -->
+            <img class="creator-img" src="https://lh3.googleusercontent.com/d/1pkldnaLRyqBtfgiQKwtbeSSfXhENzbOm" alt="सचिन शिंदे सर">
+        </div>
+    </div>
+
+    <!-- Student Info Screen -->
+    <div id="start-screen">
+        <div class="exam-title">परीक्षेचे नाव: मोठी व लहान संख्या, चढता उतरता क्रम</div>
+        <form id="student-form" onsubmit="startExam(event)">
+            <div class="form-group">
+                <label for="s-name">विद्यार्थ्याचे नाव:</label>
+                <input type="text" id="s-name" required placeholder="पूर्ण नाव टाका">
+            </div>
+            <div class="form-group">
+                <label for="s-mobile">मोबाईल नंबर:</label>
+                <input type="tel" id="s-mobile" pattern="[0-9]{10}" required placeholder="१० अंकी मोबाईल नंबर">
+            </div>
+            <button type="submit" class="btn">EXAM START</button>
+        </form>
+    </div>
+
+    <!-- Question Container Screen -->
+    <div id="quiz-screen" style="display: none;">
+        <div id="questions-container"></div>
+        <button id="next-btn" class="btn" onclick="nextQuestion()" disabled>नेक्स्ट प्रश्न</button>
+        <button id="submit-btn" class="btn" style="display:none; background-color: var(--success-color);" onclick="submitExam()">SUBMIT EXAM</button>
+    </div>
+
+    <!-- Certificate / Result Screen -->
+    <div id="certificate-screen" class="certificate">
+        <div class="cert-header">🏆 जिल्हा परिषद प्राथमिक शाळा नरसोबावाडी संचालित 🏆</div>
+        <h3 style="color: #555; margin-bottom: 10px;">गुणपत्रक व सन्मानपत्र</h3>
+        
+        <p><strong>परीक्षेचे नाव:</strong> मोठी व लहान संख्या, चढता उतरता क्रम</p>
+        <p><strong>विद्यार्थ्याचे नाव:</strong> <span id="cert-name" style="color:var(--secondary-color); font-weight:bold;"></span></p>
+        
+        <div class="score-display">
+            मिळालेले गुण: <span id="cert-score">0</span> / १००
+            <div style="font-size: 16px; color: #666; margin-top: 5px;">(टक्केवारी: <span id="cert-percent">0</span>%)</div>
+        </div>
+
+        <div id="cert-medal" class="medal-badge"></div>
+
+        <div class="creator-info" style="margin-top: 25px;">
+            <div class="creator-details">
+                <strong>संकल्पना व निर्मिती</strong><br>
+                श्री सचिन शिंदे सर<br>
+                जि. प. प्रा. शाळा नरसोबावाडी<br>
+                मो. ८३२९६८४४७०
+            </div>
+            <img class="creator-img" src="https://lh3.googleusercontent.com/d/1pkldnaLRyqBtfgiQKwtbeSSfXhENzbOm" alt="सचिन शिंदे सर">
+        </div>
+
+        <button id="show-wrong-btn" class="btn" style="margin-top: 20px; background-color: #e65100;" onclick="toggleWrongQuestions()">चुकलेले प्रश्न व मार्गदर्शन पहा</button>
+
+        <div id="wrong-questions-section">
+            <h4 style="color: var(--error-color); margin-bottom: 10px; border-bottom: 1px solid #ccc; padding-bottom: 5px;">चुकलेले प्रश्न आणि त्यांचे स्पष्टीकरण:</h4>
+            <div id="wrong-list"></div>
+        </div>
+    </div>
+
+    <div class="footer-note">
+        टेस्ट निर्मिती व संकल्पना श्री सचिन शिंदे मोबाईल नंबर 83 29 68 44 70
+    </div>
+  </div>
+  <script>
+// 50 Questions Data Source with exact requested option answers distribution
+const questionsData = [
+  { q: "४, ८, २, ९ या अंकांचा प्रत्येकी एकदाच वापर करून तयार होणारी सर्वात मोठी ४-अंकी संख्या कोणती?", opts: ["९८२४", "८९४२", "९८४२", "९४८२"], ans: 3, exp: "सर्वात मोठी संख्या बनवताना अंक उतरत्या क्रमाने लावतात: ९८४२." },
+  { q: "५, ०, ३, ७ या अंकांचा वापर करून तयार होणारी सर्वात लहान ४-अंकी संख्या कोणती?", opts: ["०३५७", "३०५७", "३५०७", "३५७०"], ans: 2, exp: "शून्य सुरुवातीला ठेवल्यास ३-अंकी संख्या बनते, म्हणून ३ नंतर ० ठेवावा: ३०५७." },
+  { q: "६, १, ९, ४, ५ या अंकांचा प्रत्येकी एकदाच वापर करून सर्वात मोठी ५-अंकी संख्या बनवा.", opts: ["९५६४१", "९६५४१", "९६४५१", "९६५१४"], ans: 2, exp: "अंक उतरत्या क्रमाने मांडल्यास: ९६५४१." },
+  { q: "२, ०, ८, ४, १ या अंकांचा वापर करून तयार होणारी लहानात लहान ५-अंकी संख्या कोणती?", opts: ["१०२४८", "०१२४८", "१०४२८", "१२०४८"], ans: 1, exp: "अंक चढत्या क्रमाने मांडताना ० दुसऱ्या स्थानावर ठेवावा: १०२४८." },
+  { q: "७, ३, ५, २ या अंकांचा वापर करून तयार होणारी सर्वात मोठी व सर्वात लहान ४-अंकी संख्या यांतील फरक किती?", opts: ["५१७५", "५२७५", "५३६५", "५०७५"], ans: 1, exp: "मोठी संख्या: ७५३२, लहान संख्या: २३५७. फरक: ७५३२ - २३५७ = ५१७५." },
+  { q: "४, ०, ९, १ या अंकांचा वापर करून तयार होणाऱ्या सर्वात मोठ्या व सर्वात लहान ४-अंकी संख्येची बेरीज किती?", opts: ["१०५४९", "१०४९५", "१०३५९", "१०४५९"], ans: 4, exp: "मोठी संख्या: ९४१०, लहान संख्या: १०४९. बेरीज: ९४१० + १०४९ = १०४५९." },
+  { q: "८, ३, ०, ५, १, ९ या सर्व अंकांचा वापर करून तयार होणारी लहानात लहान ६-अंकी संख्या कोणती?", opts: ["०१३५८९", "१०३८५९", "१०३५८९", "१०३५९८"], ans: 3, exp: "लहानात लहान ६-अंकी संख्या: १०३५८९." },
+  { q: "४, ७, २, ९, ०, ६ या अंकांचा प्रत्येकी एकदाच वापर करून तयार होणारी सर्वात मोठी ६-अंकी संख्या कोणती?", opts: ["९७६४२०", "९७६४०२", "९७४६२०", "९६७४२०"], ans: 1, exp: "उतरत्या क्रमाने मांडणी: ९७६४२०." },
+  { q: "५, २, ८, ३ या अंकांचा वापर करून तयार होणारी सर्वात लहान सम (Even) संख्या कोणती?", opts: ["२५३८", "२३८५", "२३५८", "३२५८"], ans: 3, exp: "शेवटी सम अंक (८) ठेवून लहान संख्या बनवणे: २३५८." },
+  { q: "६, ९, ४, १ या अंकांचा वापर करून तयार होणारी सर्वात मोठी विषम (Odd) संख्या कोणती?", opts: ["९६१४", "९६४१", "९४६१", "६९४१"], ans: 2, exp: "मोठी विषम संख्या: ९६४१." },
+  { q: "८, ०, ५, ३, ९ या अंकांचा वापर करून तयार होणारी मोठ्यात मोठी ५-अंकी संख्या कोणती?", opts: ["९८५०३", "९८३५०", "९८५३०", "९५८३०"], ans: 3, exp: "मोठी संख्या: ९८५३०." },
+  { q: "९, ०, ०, ४ या अंकांचा वापर करून तयार होणारी लहानात लहान ४-अंकी संख्या कोणती?", opts: ["००४९", "४००९", "४०९०", "४९००"], ans: 2, exp: "लहान संख्या: ४००९." },
+  { q: "६, २, ९, १, ० या अंकांचा वापर करून तयार होणाऱ्या सर्वात मोठ्या व सर्वात लहान ५-अंकी संख्यांमधील फरक किती?", opts: ["८५४९१", "८५९४१", "८६९४१", "८५९१४"], ans: 2, exp: "९६२१० - १०२६९ = ८५९४१." },
+  { q: "५, ८, ४, ३ या अंकांचा वापर करून सर्वात मोठी ४-अंकी संख्या तयार करताना हजार स्थानी कोणता अंक येईल?", opts: ["८", "५", "४", "३"], ans: 1, exp: "सर्वात मोठा अंक (८) हजार स्थानी येईल." },
+  { q: "२, ४, ७, ०, १ या अंकांचा वापर करून तयार होणारी लहानात लहान ५-अंकी विषम संख्या कोणती?", opts: ["०१२४७", "१०४२७", "१०२७४", "१०२४७"], ans: 4, exp: "शेवटी विषम अंक (७) ठेवून लहान संख्या: १०२४७." },
+  { q: "३, ७, ९ या अंकांपैकी कोणत्याही अंकाची पुनरावृत्ती करून तयार होणारी सर्वात मोठी ४-अंकी संख्या कोणती? (प्रत्येक अंक किमान एकदा वापरावा)", opts: ["९७३९", "९७९३", "९९३७", "९९७३"], ans: 4, exp: "सर्वात मोठ्या अंकाची पुनरावृत्ती करावी: ९९७३." },
+  { q: "१, ०, ५ या अंकांचा वापर करून (अंकांची पुनरावृत्ती करून) तयार होणारी लहानात लहान ४-अंकी संख्या कोणती? (प्रत्येक अंक किमान एकदा वापरावा)", opts: ["१००५", "१०५०", "१५००", "०१०५"], ans: 1, exp: "शून्याची पुनरावृत्ती केल्यास लहानात लहान संख्या १००५ बनते." },
+  { q: "४, ८, १, ३, ०, ७ या अंकांचा वापर करून तयार होणारी लहानात लहान ६-अंकी संख्या कोणती?", opts: ["१०४३७८", "०१३४७८", "१०३४७८", "१०३४८७"], ans: 3, exp: "योग्य क्रम: १०३४७८." },
+  { q: "४-अंकी सर्वात मोठी संख्या आणि ४-अंकी सर्वात लहान संख्या यांतील फरक किती?", opts: ["९०००", "८९९०", "८९९९", "८९००"], ans: 3, exp: "९९९९ - १००० = ८९९९." },
+  { q: "५-अंकी सर्वात मोठी संख्या व ५-अंकी सर्वात लहान संख्या यांची बेरीज किती येईल?", opts: ["१०९९९९", "१०९९००", "१०९९९०", "१००९९९"], ans: 1, exp: "९९९९९ + १०००० = १०९९९९." },
+  { q: "६, २, ८ या अंकांचा वापर करून व अंकाची पुनरावृत्ती करून तयार होणारी सर्वात मोठी ५-अंकी संख्या कोणती? (सर्व अंक वापरणे आवश्यक)", opts: ["८८६२८", "८६८८२", "८८८२६", "८८८६२"], ans: 4, exp: "८ या अंकाची ३ वेळा पुनरावृत्ती: ८८८६२." },
+  { q: "४, ०, ९ या अंकांचा वापर करून व अंकांची पुनरावृत्ती करून तयार होणारी सर्वात लहान ५-अंकी संख्या कोणती?", opts: ["४००९०", "४०००९", "४०९००", "०४००९"], ans: 2, exp: "० ची पुनरावृत्ती करून लहान संख्या: ४०००९." },
+  { q: "१, ५, ९, ३ या अंकांचा वापर करून तयार होणाऱ्या सर्वात मोठ्या ४-अंकी संख्येच्या दशक स्थानी कोणता अंक असेल?", opts: ["९", "५", "३", "१"], ans: 3, exp: "मोठी संख्या: ९५३१. दशक स्थानी ३ आहे." },
+  { q: "७, २, ०, ४ या अंकांचा वापर करून तयार होणाऱ्या लहानात लहान ४-अंकी संख्येच्या एकक स्थानी कोणता अंक येईल?", opts: ["०", "२", "४", "७"], ans: 4, exp: "लहान संख्या: २०४७. एकक स्थानी ७ येईल." },
+  { q: "३, ८, ५, ६ या अंकांचा वापर करून तयार होणारी सर्वात मोठी सम संख्या कोणती?", opts: ["८६५३", "६५३८", "८६३५", "८५३६"], ans: 4, exp: "शेवटी ६ ठेवून मोठी सम संख्या: ८५३६." },
+  { q: "४५,६७८ आणि ४५,७६८ या संख्यांमध्ये योग्य चिन्ह कोणते येईल?  ४५,६७८  _____  ४५,७६८", opts: [">", "=", "<", "यांपैकी नाही"], ans: 3, exp: "४५,६७८ हे ४५,७६८ पेक्षा लहान आहे (<)." },
+  { q: "खालीलपैकी सर्वात लहान संख्या कोणती? \n३४,५१२; ३४,१५२; ३४,२५१; ३४,५२१", opts: ["३४,५१२", "३४,२५१", "३४,१५२", "३४,५२१"], ans: 3, exp: "३४,१५२ ही सर्वात लहान संख्या आहे." },
+  { q: "खालीलपैकी सर्वात मोठी संख्या कोणती? \n८९,७६५; ८९,६७५; ८९,७५६; ८९,५७६", opts: ["८९,६७५", "८९,७६५", "८९,७५६", "८९,५७६"], ans: 2, exp: "८९,७६५ ही सर्वात मोठी संख्या आहे." },
+  { q: "१२,४५०; १२,०४५; १२,५०४; १२,४०५ या संख्यांचा चढता क्रम (Ascending order) कोणता योग्य आहे?", opts: ["१२,०४५ < १२,४५० < १२,४०५ < १२,५०४", "१२,०४५ < १२,४०५ < १२,४५० < १२,५०४", "१२,४०५ < १२,०४५ < १२,४५० < १२,५०४", "१२,५०४ < १२,४५० < १२,४०५ < १२,०४५"], ans: 2, exp: "चढता क्रम (लहान ते मोठा): १२,०४५ < १२,४०५ < १२,४५० < १२,५०४." },
+  { q: "७८,९०१; ७८,१०९; ७८,९१०; ७८,०९१ या संख्यांचा उतरता क्रम (Descending order) कोणता योग्य आहे?", opts: ["७८,९०१ > ७८,९१० > ७८,१०९ > ७८,०९१", "७८,९१० > ७८,१०९ > ७८,९०१ > ७८,०९१", "७८,०९१ > ७८,१०९ > ७८,९०१ > ७८,९१०", "७८,९१० > ७८,९०१ > ७८,१०९ > ७८,०९१"], ans: 4, exp: "उतरता क्रम (मोठा ते लहान): ७८,९१० > ७८,९०१ > ७८,१०९ > ७८,०९१." },
+  { q: "खालीलपैकी कोणते विधान सत्य (बरोबर) आहे?", opts: ["५४,३२१ < ५४,१२३", "२३,८९० = २३,९८०", "४१,५०६ > ४१,६०५", "६७,४३२ > ६७,४२३"], ans: 4, exp: "६७,४३२ हे ६७,४२३ पेक्षा मोठे आहे हे विधान बरोबर आहे." },
+  { q: "५४,३_२ > ५४,३६२ या विधानात रिकाम्या जागी कोणता अंक आल्यास विधान बरोबर ठरेल?", opts: ["४", "५", "७", "६"], ans: 3, exp: "रिकाम्या जागी ६ पेक्षा मोठा अंक म्हणजे ७ ठेवल्यास ५४,३७२ > ५४,३६२ बनेल." },
+  { q: "१५,६७०; १५,०६७; १५,७६०; १५,६०७ या संख्या चढत्या क्रमाने लावल्यास दुसऱ्या क्रमांकावर कोणती संख्या येईल?", opts: ["१५,६७०", "१५,०६७", "१५,६०७", "१५,७६०"], ans: 3, exp: "चढता क्रम: १५,०६७, १५,६०७, १५,६७०, १५,७६०. दुसरा क्रमांक: १५,६०७." },
+  { q: "९३,२४५; ९३,५२४; ९३,४२५; ९३,२५४ या संख्या उतरत्या क्रमाने लावल्यास पहिल्या क्रमांकावर कोणती संख्या येईल?", opts: ["९३,२४५", "९३,४२५", "९३,२५४", "९३,५२४"], ans: 4, exp: "सर्वात मोठी संख्या प्रथम येईल: ९३,५२४." },
+  { q: "५,६७,८९०  _____  ५,६७,९०८ या चौकटीत योग्य चिन्ह निवडा.", opts: [">", "<", "=", "सांगता येत नाही"], ans: 2, exp: "५,६७,८९० हे ५,६७,९०८ पेक्षा लहान आहे (<)." },
+  { q: "१,००,००० (लहानात लहान ६-अंकी संख्या) आणि ९९,९९९ (मोठ्यात मोठी ५-अंकी संख्या) यांमध्ये कोणता संबंध योग्य आहे?", opts: ["१,००,००० < ९९,९९९", "१,००,००० = ९९,९९९", "यांपैकी एकही नाही", "१,००,००० > ९९,९९९"], ans: 4, exp: "६-अंकी संख्या नेहमी ५-अंकी संख्येपेक्षा मोठी असते." },
+  { q: "४३,२१०; ४३,०१२; ४३,२०१; ४३,१०२ या संख्या चढत्या क्रमाने मांडल्यास शेवटी (शेवटच्या स्थानावर) कोणती संख्या येईल?", opts: ["४३,०१२", "४३,२०१", "४३,१०२", "४३,२१०"], ans: 4, exp: "सर्वात मोठी संख्या (४३,२१०) शेवटी येईल." },
+  { q: "६१,२३४; ६१,४३२; ६१,३४२; ६१,२४३ या संख्या उतरत्या क्रमाने लावल्यास तिसऱ्या स्थानावर कोणती संख्या येईल?", opts: ["६१,२४३", "६१,४३२", "६१,३४२", "६१,२३४"], ans: 1, exp: "उतरता क्रम: ६१,४३२ > ६१,३४२ > ६१,२४३ > ६१,२३४. तिसरी संख्या: ६१,२४३." },
+  { q: "खालीलपैकी कोणता चढता क्रम चुकीचा आहे?", opts: ["१०,००० < २०,००० < ३०,०००", "२५,४०० < २५,५०० < २५,६००", "१५,२०० < १५,३०० < १५,१००", "४०,१०० < ४०,२०० < ४०,३००"], ans: 3, exp: "१५,३०० नंतर १५,१०० ठेवल्याने हा क्रम चुकीचा आहे." },
+  { q: "२४,५००; २४,६००; २४,७००; २४,८०० हा संख्यांचा क्रम कोणता आहे?", opts: ["उतरता क्रम", "समान क्रम", "अनियमित क्रम", "चढता क्रम"], ans: 4, exp: "संख्या वाढत जात असल्याने हा चढता क्रम आहे." },
+  { q: "८,००९; ८,०९०; ८,९००; ८,०९९ यांपैकी सर्वात मोठी संख्या कोणती?", opts: ["८,९००", "८,००९", "८,०९०", "८,०९९"], ans: 1, exp: "८,९०० ही सर्वात मोठी संख्या आहे." },
+  { q: "७०,००७; ७०,०७०; ७०,७००; ७७,००० यांपैकी सर्वात लहान संख्या कोणती?", opts: ["७०,०७०", "७०,७००", "७०,००७", "७७,०००"], ans: 3, exp: "७०,००७ ही लहानात लहान संख्या आहे." },
+  { q: "८८,८८८ > ८८,८०८ > ८८,०८८ > ८०,८८८ हा संख्यांचा कोणता क्रम दर्शवतो?", opts: ["उतरता क्रम", "चढता क्रम", "चुकीचा क्रम", "समान क्रम"], ans: 1, exp: "> चिन्हामुळे हा उतरता क्रम आहे." },
+  { q: "११,१११ < ११,२११ < ______ < ११,४११ या चढत्या क्रमातील रिकाम्या जागी कोणती संख्या येईल?", opts: ["११,३११", "११,०११", "११,१५०", "११,५११"], ans: 1, exp: "योग्य चढता क्रम: ११,३११." },
+  { q: "५०,००० > ४०,००० > ______ > २०,००० या उतरत्या क्रमातील रिकाम्या जागी कोणती संख्या योग्य राहील?", opts: ["४५,०००", "३०,०००", "१५,०००", "६०,०००"], ans: 2, exp: "योग्य उतरता क्रम: ३०,०००." },
+  { q: "खालीलपैकी कोणत्या दोन संख्यांची बेरीज सर्वात मोठी येईल?", opts: ["५,००० + ४,०००", "७,००० + ३,०००", "६,००० + ३,०००", "४,५०० + ४,५००"], ans: 2, exp: "७,००० + ३,००० = १०,००० (सर्वात मोठी बेरीज)." },
+  { q: "९९,९०९  _____  ९९,९९० यातील मोकळ्या चौकटीत योग्य चिन्ह निवडा.", opts: [">", "<", "=", "सांगता येत नाही"], ans: 2, exp: "९९,९०९ हे ९९,९९० पेक्षा लहान आहे (<)." },
+  { q: "खालीलपैकी कोणता उतरता क्रम बरोबर आहे?", opts: ["५०,००० > ४०,००० > ३०,००० > २०,०००", "२०,००० > ३०,००० > ४०,००० > ५०,०००", "३०,००० > ५०,००० > ४०,००० > २०,०००", "४०,००० > ३०,००० > ५०,००० > २०,०००"], ans: 1, exp: "पर्याय १ मधील उतरता क्रम अचूक आहे." },
+  { q: "२,३४५; २,३५४; २,४३५; २,४५३ या संख्या कोणत्या क्रमाने मांडल्या आहेत?", opts: ["चढता क्रम", "उतरता क्रम", "अनियमित क्रम", "उलट क्रम"], ans: 1, exp: "संख्या लहान ते मोठ्या क्रमाने आहेत (चढता क्रम)." },
+  { q: "१,००,००१ आणि १,००,०१० यांच्यातील योग्य संबंध दर्शवणारे चिन्ह कोणते?", opts: [">", "=", "यांपैकी नाही", "<"], ans: 4, exp: "१,००,००१ हे १,००,०१० पेक्षा लहान आहे (<)." }
+];
+  </script>
+  <script>
+let currentQIndex = 0;
+let userAnswers = new Array(questionsData.length).fill(null);
+let studentName = "";
+let studentMobile = "";
+
+function renderQuestions() {
+    const container = document.getElementById("questions-container");
+    container.innerHTML = "";
+
+    questionsData.forEach((qData, qIdx) => {
+        const qCard = document.createElement("div");
+        qCard.className = `question-card ${qIdx === 0 ? 'active' : ''}`;
+        qCard.id = `q-card-${qIdx}`;
+
+        let optsHtml = "";
+        qData.opts.forEach((optText, oIdx) => {
+            optsHtml += `
+                <button class="option-btn" id="opt-${qIdx}-${oIdx+1}" onclick="selectOption(${qIdx}, ${oIdx+1})">
+                    ${oIdx+1}) ${optText}
+                </button>
+            `;
+        });
+
+        qCard.innerHTML = `
+            <div class="q-header">प्रश्न ${qIdx + 1} / ५०: ${qData.q}</div>
+            <div class="options-grid">${optsHtml}</div>
+            <div class="explanation-box" id="exp-${qIdx}">
+                <strong>स्पष्टीकरण:</strong> ${qData.exp}
+            </div>
+        `;
+        container.appendChild(qCard);
+    });
+}
+
+function startExam(e) {
+    e.preventDefault();
+    studentName = document.getElementById("s-name").value.trim();
+    studentMobile = document.getElementById("s-mobile").value.trim();
+
+    if(!studentName || !studentMobile) {
+        alert("कृपया सर्व माहिती भरा.");
+        return;
+    }
+
+    document.getElementById("start-screen").style.display = "none";
+    document.getElementById("quiz-screen").style.display = "block";
+    renderQuestions();
+}
+
+function selectOption(qIdx, selectedOpt) {
+    if (userAnswers[qIdx] !== null) return; // Prevent changing answer
+
+    userAnswers[qIdx] = selectedOpt;
+    const correctOpt = questionsData[qIdx].ans;
+    const expBox = document.getElementById(`exp-${qIdx}`);
+
+    // Update styling for options
+    for (let i = 1; i <= 4; i++) {
+        const btn = document.getElementById(`opt-${qIdx}-${i}`);
+        btn.disabled = true;
+        
+        if (i === selectedOpt) {
+            if (selectedOpt === correctOpt) {
+                btn.classList.add("selected-correct");
+            } else {
+                btn.classList.add("selected-wrong");
+            }
+        }
+        if (i === correctOpt && selectedOpt !== correctOpt) {
+            btn.classList.add("show-correct");
+        }
+    }
+
+    // Show explanation if answered wrongly
+    if (selectedOpt !== correctOpt) {
+        expBox.style.display = "block";
+    }
+
+    // Enable Next or Submit button
+    if (qIdx === questionsData.length - 1) {
+        document.getElementById("submit-btn").style.display = "block";
+        document.getElementById("next-btn").style.display = "none";
+    } else {
+        document.getElementById("next-btn").disabled = false;
+    }
+}
+
+function nextQuestion() {
+    document.getElementById(`q-card-${currentQIndex}`).classList.remove("active");
+    currentQIndex++;
+    document.getElementById(`q-card-${currentQIndex}`).classList.add("active");
+    document.getElementById("next-btn").disabled = true;
+}
+
+function submitExam() {
+    let score = 0;
+    userAnswers.forEach((ans, idx) => {
+        if (ans === questionsData[idx].ans) {
+            score += 2; // 2 marks per question
+        }
+    });
+
+    const percentage = (score / 100) * 100;
+
+    document.getElementById("quiz-screen").style.display = "none";
+    document.getElementById("certificate-screen").style.display = "block";
+
+    document.getElementById("cert-name").innerText = studentName;
+    document.getElementById("cert-score").innerText = score;
+    document.getElementById("cert-percent").innerText = percentage.toFixed(1);
+
+    const medalDiv = document.getElementById("cert-medal");
+    if (percentage >= 90) {
+        medalDiv.className = "medal-badge bg-gold";
+        medalDiv.innerHTML = "🥇 Gold Medal + Trophy <br> उत्कृष्ट कामगिरी! तुझे मनापासून अभिनंदन!";
+    } else if (percentage >= 80) {
+        medalDiv.className = "medal-badge bg-silver";
+        medalDiv.innerHTML = "🥈 Silver Medal + Trophy <br> खूप छान कामगिरी! अभिनंदन!";
+    } else if (percentage >= 70) {
+        medalDiv.className = "medal-badge bg-bronze";
+        medalDiv.innerHTML = "🥉 Bronze Medal + Trophy <br> छान प्रयत्न! अभिनंदन!";
+    } else {
+        medalDiv.className = "medal-badge bg-appreciation";
+        medalDiv.innerHTML = "💐 अभिनंदन! फुलांचा गुच्छ व पुढील परीक्षेसाठी शुभेच्छा!";
+    }
+
+    // Prepare wrong questions list
+    const wrongList = document.getElementById("wrong-list");
+    wrongList.innerHTML = "";
+    let wrongCount = 0;
+
+    questionsData.forEach((q, idx) => {
+        if (userAnswers[idx] !== q.ans) {
+            wrongCount++;
+            const item = document.createElement("div");
+            item.className = "wrong-item";
+            item.innerHTML = `
+                <strong>प्रश्न ${idx+1}:</strong> ${q.q}<br>
+                <span style="color:var(--error-color);">तुमचे उत्तर: ${userAnswers[idx] ? q.opts[userAnswers[idx]-1] : 'सोडून दिले'}</span> | 
+                <span style="color:var(--success-color);">बरोबर उत्तर: ${q.opts[q.ans-1]}</span><br>
+                <small style="color:#e65100;"><strong>मार्गदर्शन/स्पष्टीकरण:</strong> ${q.exp}</small>
+            `;
+            wrongList.appendChild(item);
+        }
+    });
+
+    if (wrongCount === 0) {
+        wrongList.innerHTML = "<p style='color:var(--success-color);'>अभिनंदन! तुमचा एकही प्रश्न चुकलेला नाही!</p>";
+    }
+}
+
+function toggleWrongQuestions() {
+    const section = document.getElementById("wrong-questions-section");
+    if (section.style.display === "none" || section.style.display === "") {
+        section.style.display = "block";
+    } else {
+        section.style.display = "none";
+    }
+}
+</script>
+</body>
+</html>
