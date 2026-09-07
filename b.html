@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="mr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ऑनलाईन चाचणी - जि. प. प्रा. शाळा नरसोबावाडी</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Arial, sans-serif; }
+    body { background-color: #f0f4f8; color: #333; padding: 15px; }
+    .card { background: #fff; max-width: 800px; margin: 0 auto; padding: 25px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
+    .header-info { text-align: center; border-bottom: 2px solid #2c3e50; padding-bottom: 15px; margin-bottom: 20px; }
+    .header-info h2 { color: #2c3e50; font-size: 22px; margin-bottom: 5px; }
+    .header-info h3 { color: #e67e22; font-size: 18px; }
+    .creator-profile { display: flex; align-items: center; justify-content: flex-end; margin-top: 15px; background: #fff8ec; padding: 10px; border-radius: 8px; border-right: 4px solid #e67e22; }
+    .creator-profile img { width: 60px; height: 60px; border-radius: 50%; object-fit: cover; margin-left: 12px; border: 2px solid #e67e22; }
+    .creator-text { text-align: right; font-size: 13px; line-height: 1.4; color: #444; }
+    .form-group { margin-bottom: 15px; }
+    .form-group label { display: block; margin-bottom: 5px; font-weight: bold; }
+    .form-group input { width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 6px; font-size: 15px; }
+    .btn { background-color: #27ae60; color: white; padding: 12px 25px; border: none; border-radius: 6px; cursor: pointer; font-size: 16px; font-weight: bold; width: 100%; margin-top: 15px; transition: 0.3s; }
+    .btn:hover { background-color: #219150; }
+    .btn:disabled { background-color: #bdc3c7; cursor: not-allowed; }
+    .footer-text { text-align: center; margin-top: 20px; font-size: 14px; color: #555; font-weight: 500; border-top: 1px dashed #ccc; padding-top: 10px; }
+    .timer { font-size: 18px; font-weight: bold; color: #c0392b; text-align: right; margin-bottom: 15px; }
+    .question-box { font-size: 18px; font-weight: bold; margin-bottom: 15px; color: #2c3e50; }
+    .options-container { display: flex; flex-direction: column; gap: 10px; }
+    .option-btn { padding: 12px; border: 2px solid #3498db; background: white; border-radius: 6px; cursor: pointer; text-align: left; font-size: 16px; transition: 0.2s; }
+    .option-btn:hover { background-color: #ebf5fb; }
+    .option-btn.selected { background-color: #3498db; color: white; border-color: #2980b9; }
+    .hidden { display: none; }
+    .certificate { border: 8px double #d4af37; padding: 25px; background: #fffdf5; border-radius: 4px; position: relative; text-align: center; margin-top: 10px; }
+    .cert-title { color: #8b0000; font-size: 24px; font-weight: bold; margin-bottom: 15px; }
+    .cert-details { font-size: 16px; text-align: left; margin: 20px 0; line-height: 1.8; }
+    .score-badge { font-size: 28px; color: #27ae60; font-weight: bold; margin: 15px 0; }
+    .achievement { font-size: 22px; font-weight: bold; color: #d4af37; margin-bottom: 15px; }
+  </style>
+</head>
+<body>
+
+  <div id="start-screen" class="card">
+    <div class="header-info">
+      <h2>जिल्हा परिषद प्राथमिक शाळा नरसोबावाडी संचलित</h2>
+      <h3>ऑनलाइन चाचणी</h3>
+    </div>
+
+    <form id="student-form">
+      <div class="form-group">
+        <label>परीक्षेचे नाव:</label>
+        <input type="text" id="examName" value="आंतरराष्ट्रीय संख्या चिन्हे, वाचन लेखन, दर्शन किंमत,स्थानिक किंमत, विस्तारित मांडणी" required>
+      </div>
+      <div class="form-group">
+        <label>विद्यार्थ्याचे नाव:</label>
+        <input type="text" id="studentName" placeholder="पूर्ण नाव टाका" required>
+      </div>
+      <div class="form-group">
+        <label>शाळेचे नाव:</label>
+        <input type="text" id="schoolName" placeholder="शाळेचे नाव टाका" required>
+      </div>
+      <div class="form-group">
+        <label>केंद्र:</label>
+        <input type="text" id="centerName" placeholder="केंद्राचे नाव टाका" required>
+      </div>
+      <div class="form-group">
+        <label>मोबाईल नंबर:</label>
+        <input type="tel" id="mobileNo" pattern="[0-9]{10}" placeholder="१० अंकी मोबाईल नंबर" required>
+      </div>
+
+      <div class="creator-profile">
+        <div class="creator-text">
+          <b>संकल्पना व निर्मिती</b><br>
+          श्री सचिन शिंदे सर<br>
+          जि प प्रा शाळा नरसोबावाडी<br>
+          मो. ८३ २९ ६८ ४४ ७०
+        </div>
+        <img src="https://drive.google.com/file/d/1pkldnaLRyqBtfgiQKwtbeSSfXhENzbOm/view?usp=drivesdk" alt="सचिन शिंदे सर">
+      </div>
+
+      <div class="footer-text">
+        टेस्ट निर्मिती व संकल्पना श्री सचिन शिंदे मोबाईल नंबर 83 29 68 44 70
+      </div>
+
+      <button type="submit" class="btn">EXAM START</button>
+    </form>
+  </div>
+
+  <div id="exam-screen" class="card hidden">
+    <div class="timer" id="timer">वेळ: ६०:००</div>
+    <div id="question-number" style="font-weight: bold; color: #7f8c8d; margin-bottom: 5px;"></div>
+    <div class="question-box" id="question-text"></div>
+    <div class="options-container" id="options-box"></div>
+
+    <button id="next-btn" class="btn" disabled>नेक्स्ट</button>
+    <button id="submit-btn" class="btn hidden" style="background-color: #e74c3c;">SUBMIT EXAM</button>
+
+    <div class="footer-text">
+      टेस्ट निर्मिती व संकल्पना श्री सचिन शिंदे मोबाईल नंबर 83 29 68 44 70
+    </div>
+  </div>
+
+  <div id="result-screen" class="card hidden">
+    <div class="certificate">
+      <div class="cert-title">🏆 जिल्हा परिषद प्राथमिक शाळा नरसुगवाडी संचालित</div>
+      <hr style="border: 1px solid #d4af37; margin-bottom: 15px;">
+      
+      <div class="cert-details">
+        <b>परीक्षेचे नाव:</b> <span id="res-exam"></span><br>
+        <b>विद्यार्थ्याचे नाव:</b> <span id="res-name"></span><br>
+        <b>शाळेचे नाव:</b> <span id="res-school"></span><br>
+        <b>केंद्र:</b> <span id="res-center"></span>
+      </div>
+
+      <div class="score-badge">
+        मिळालेले गुण: <span id="res-score"></span> / १२०
+      </div>
+
+      <div class="achievement" id="res-honor"></div>
+
+      <div class="creator-profile">
+        <div class="creator-text">
+          <b>संकल्पना व निर्मिती</b><br>
+          श्री सचिन शिंदे सर<br>
+          जि प प्रा शाळा नरसोबावाडी<br>
+          मो. ८३ २९ ६८ ४४ ७०
+        </div>
+        <img src="https://drive.google.com/file/d/1pkldnaLRyqBtfgiQKwtbeSSfXhENzbOm/view?usp=drivesdk" alt="सचिन शिंदे सर">
+      </div>
+    </div>
+    </div>
+      <script>
+    // सर्व ६० प्रश्न डेटा (प्रत्येक प्रश्नाला २ गुण)
+    const questions = [
+      // घटक १: आंतरराष्ट्रीय संख्याचिन्हे (५ अंकी)
+      { q: "देवनागरी संख्याचिन्ह '४५,६७८' हे आंतरराष्ट्रीय संख्याचिन्हात कसे लिहिले जाते?", options: ["45,678", "54,678", "45,768", "45,687"], ans: 0 },
+      { q: "आंतरराष्ट्रीय संख्याचिन्हातील '78,901' ही संख्या देवनागरीत कशी लिहाल?", options: ["६८,९०१", "७८,९०१", "८७,९०१", "७८,०९१"], ans: 1 },
+      { q: "देवनागरी संख्या '३०,५०९' चे आंतरराष्ट्रीय संख्याचिन्हात योग्य रूप कोणते?", options: ["39,050", "30,509", "90,305", "30,590"], ans: 1 },
+      { q: "'95,234' ही आंतरराष्ट्रीय संख्या देवनागरीत कशी लिहाल?", options: ["९२,५३४", "९५,२३४", "५९,२३४", "९५,३२४"], ans: 1 },
+      { q: "'पंचवीस हजार चारशे पंचावन्न' ही संख्या आंतरराष्ट्रीय संख्याचिन्हात कशी लिहाल?", options: ["25,455", "25,405", "52,455", "25,545"], ans: 0 },
+      { q: "'80,412' या आंतरराष्ट्रीय संख्येचे योग्य अक्षरी वाचन कोणते?", options: ["एंशी हजार चारशे बारा", "एंशी हजार चारशे एकवीस", "आठ हजार चारशे बारा", "एंशी हजार बारा"], ans: 0 },
+      { q: "'सहाचाळीस हजार सहाशे सत्तर' ही संख्या आंतरराष्ट्रीय संख्याचिन्हात कशी लिहाल?", options: ["46,607", "46,670", "64,670", "46,760"], ans: 1 },
+      { q: "आंतरराष्ट्रीय संख्याचिन्हातील '12,345' ही संख्या देवनागरी चिन्हात कशी दिसेल?", options: ["१२,३४५", "५४,३२१", "१२,४३५", "२१,३४५"], ans: 0 },
+      { q: "देवनागरी संख्या '५८,९१२' आंतरराष्ट्रीय संख्याचिन्हात लिहा.", options: ["58,912", "59,812", "58,192", "85,912"], ans: 0 },
+      { q: "आंतरराष्ट्रीय संख्या '20,500' चे देवनागरी रूप कोणते?", options: ["२०,५००", "२०,००५", "२५,०००", "५०,०२०"], ans: 0 },
+      { q: "देवनागरीतील 'नव्वद हजार नऊशे नव्वद' ही संख्या आंतरराष्ट्रीय संख्याचिन्हात कशी लिहाल?", options: ["90,909", "90,990", "99,099", "90,900"], ans: 1 },
+      { q: "'63,120' ही संख्या देवनागरी अक्षरांत कशी लिहाल?", options: ["त्र्याऐंशी हजार एकशे वीस", "त्रेसष्ट हजार एकशे वीस", "छत्तीस हजार एकशे वीस", "त्रेसष्ट हजार दोनशे दहा"], ans: 1 },
+      { q: "'सत्तर हजार सातशे नऊ' ही संख्या आंतरराष्ट्रीय संख्याचिन्हात कोणती?", options: ["70,790", "70,709", "77,009", "70,907"], ans: 1 },
+      { q: "देवनागरी संख्याचिन्ह '१०,१०१' चे आंतरराष्ट्रीय रूप कोणते?", options: ["11,001", "10,101", "10,011", "10,110"], ans: 1 },
+      { q: "'50,008' ही आंतरराष्ट्रीय संख्या देवनागरी संख्याचिन्हात कशी लिहाल?", options: ["५०,००८", "५०,०८०", "५८,०००", "८०,००५"], ans: 0 },
+
+      // घटक २: पाच अंकांपर्यंतच्या संख्यांचे वाचन व लेखन
+      { q: "'२५,३४०' या संख्येचे अचूक अक्षरी वाचन कोणते?", options: ["पंचवीस हजार तीनशे चार", "पंचवीस हजार तीनशे चाळीस", "पंचान्न हजार तीनशे चाळीस", "पंचवीस हजार चाळीस"], ans: 1 },
+      { q: "'पंचेचाळीस हजार सहाशे नऊ' ही संख्या अंकांमध्ये कशी लिहाल?", options: ["४५,६९०", "४५,६०९", "५४,६०९", "४५,०६९"], ans: 1 },
+      { q: "५ अंकी लहानात लहान संख्या कोणती?", options: ["१०,०००", "९९,९९९", "११,१११", "१००,००"], ans: 0 },
+      { q: "५ अंकी सर्वात मोठी संख्या कोणती?", options: ["९०,०००", "९९,९९९", "१००,०००", "९९,९९०"], ans: 1 },
+      { q: "'७०,००५' या संख्येचे वाचन कसे कराल?", options: ["सत्तर हजार पाचशे", "सत्तर हजार पाच", "सात हजार पाच", "सत्तर हजार पन्नास"], ans: 1 },
+      { q: "'एंशी हजार चारशे पंधरा' ही संख्या अंकात कशी लिहावी?", options: ["८०,४५१", "८०,४१५", "८४,०१५", "८०,१४५"], ans: 1 },
+      { q: "'९९,०९०' या संख्येचे अक्षरी रूप कोणते?", options: ["नव्व्याण्णव हजार नव्वद", "नव्व्याण्णव हजार नऊ", "नव्व्याण्णव हजार नऊशे", "नव्वद हजार नऊशे नव्वद"], ans: 0 },
+      { q: "'साठ हजार सहा' ही संख्या अंकांमध्ये कशी लिहाल?", options: ["६०,६००", "६०,००६", "६०,०६०", "६६,०००"], ans: 1 },
+      { q: "'३४,५०१' या संख्येचे अचूक वाचन कोणते?", options: ["चौतीस हजार पाचशे एक", "चौतीस हजार पन्नास", "चौतीस हजार पाचशे दहा", "चौतीस हजार एकशे पाच"], ans: 0 },
+      { q: "'पन्नास हजार पन्नास' ही संख्या अंकात कशी दर्शवाल?", options: ["५०,५००", "५०,०५०", "५५,०००", "५०,००५"], ans: 1 },
+      { q: "'१२,३४५' या संख्येचे योग्य वाचन कोणते?", options: ["बारा हजार तीनशे पंचेचाळीस", "एकवीस हजार तीनशे पंचेचाळीस", "बारा हजार चारशे पस्तीस", "बारा हजार तीनशे चोपन्न"], ans: 0 },
+      { q: "'अठ्ठावीस हजार नऊशे नव्वद' ही संख्या अंकात कोणती?", options: ["२८,९०९", "२८,९९०", "८२,९९०", "२८,०९९"], ans: 1 },
+      { q: "'४०,४०४' या संख्येचे वाचन कसे कराल?", options: ["चाळीस हजार चारशे चार", "चाळीस हजार चाळीस", "चार हजार चारशे चार", "चाळीस हजार चार"], ans: 0 },
+      { q: "'सत्त्याण्णव हजार शंभर' ही संख्या अंकात कशी लिहाल?", options: ["९७,१००", "९७,०१०", "७९,१००", "९७,००१"], ans: 0 },
+      { q: "'१५,०००' या संख्येचे वाचन कोणते?", options: ["पंधरा हजार", "पन्नास हजार", "पाच हजार", "पंधरा शे"], ans: 0 },
+
+      // घटक ३: स्थानिक किंमत व दर्शनी किंमत
+      { q: "'५४,३२१' या संख्येत '४' या अंकाची स्थानिक किंमत किती?", options: ["४००", "४,०००", "४०", "४"], ans: 1 },
+      { q: "'६७,८९०' या संख्येत '८' या अंकाची दर्शनी किंमत किती?", options: ["८००", "८", "८०", "८,०००"], ans: 1 },
+      { q: "'३५,५४२' या संख्येत डावीकडील '५' ची स्थानिक किंमत किती?", options: ["५,०००", "५००", "५०", "५"], ans: 0 },
+      { q: "'४८,२०५' या संख्येत '०' ची स्थानिक किंमत काय असेल?", options: ["००", "०", "१००", "१०"], ans: 1 },
+      { q: "'७९,६४३' या संख्येत '७' ची स्थानिक किंमत आणि दर्शनी किंमत यातील फरक किती?", options: ["६९,९९३", "७०,०००", "६९,९३०", "७,०००"], ans: 0 },
+      { q: "कोणत्याही संख्येतील कोणत्या स्थानावरील अंकाची स्थानिक किंमत आणि दर्शनी किंमत नेहमी समान असते?", options: ["दशक स्थान", "एकक स्थान", "शतक स्थान", "हजार स्थान"], ans: 1 },
+      { q: "'९२,४१५' या संख्येत शतक स्थानावरील अंकाची स्थानिक किंमत किती?", options: ["४,०००", "४००", "४०", "४"], ans: 1 },
+      { q: "'८५,३६२' या संख्येत '८' ची स्थानिक किंमत किती?", options: ["८,०००", "८०,०००", "८००", "८०"], ans: 1 },
+      { q: "'२६,५७४' या संख्येत दशहजार स्थानावर कोणता अंक आहे?", options: ["६", "२", "५", "७"], ans: 1 },
+      { q: "'५१,०८९' या संख्येत '८' या अंकाची स्थानिक किंमत कोणती?", options: ["८०", "८००", "८", "८,०००"], ans: 0 },
+      { q: "'६३,७८५' या संख्येत '३' ची स्थानिक किंमत कोणती?", options: ["३०,०००", "३,०००", "३००", "३०"], ans: 1 },
+      { q: "'१८,४२९' या संख्येत '४' ची दर्शनी किंमत काय आहे?", options: ["४००", "४", "४०", "४,०००"], ans: 1 },
+      { q: "'४४,४४४' या संख्येत दशक स्थानावरील अंकाची स्थानिक किंमत काय?", options: ["४००", "४०", "४,०००", "४"], ans: 1 },
+      { q: "'९०,३४५' या संख्येत '९' ची स्थानिक किंमत किती?", options: ["९,०००", "९०,०००", "९००", "९०"], ans: 1 },
+      { q: "'१३,७५२' या संख्येत दशक स्थानी असणाऱ्या अंकाची दर्शनी किंमत कोणती?", options: ["५०", "५", "७", "३"], ans: 1 },
+
+      // घटक ४: विस्तारित मांडणी
+      { q: "'४०,००० + ५,००० + ६०० + ३० + २' या विस्तारित मांडणीवरून कोणती संख्या बनते?", options: ["४५,६३२", "४५,०६३", "५४,६३२", "४५,६०३"], ans: 0 },
+      { q: "'७२,५०९' या संख्येची योग्य विस्तारित मांडणी कोणती?", options: ["७०,००० + २,००० + ५०० + ९", "७०,००० + २०० + ५०० + ९०", "७,००० + २५०० + ९", "७०,००० + २०,००० + ५०० + ९"], ans: 0 },
+      { q: "'६०,००० + ३०० + ५' या विस्तारित मांडणीवरून तयार होणारी संख्या कोणती?", options: ["६३,००५", "६०,३०५", "६३,५००", "६०,३५०"], ans: 1 },
+      { q: "'९८,४१०' या संख्येची विस्तारित मांडणी कोणती?", options: ["९०,००० + ८,००० + ४०० + १०", "९०,००० + ८०० + ४० + १०", "९,००० + ८०० + ४०० + १०", "९०,००० + ८,००० + ४० + १०"], ans: 0 },
+      { q: "'८०,००० + ७' या मांडणीची संख्या कोणती?", options: ["८०,००७", "८०,०७०", "८७,०००", "८०,७००"], ans: 0 },
+      { q: "'२३,००४' या संख्येची विस्तारित मांडणी कोणती?", options: ["२०,००० + ३,००० + ४", "२०,००० + ३०० + ४", "२,००० + ३,००० + ४", "२०,००० + ३,००० + ४०"], ans: 0 },
+      { q: "'५०,००० + ४,००० + २०' या विस्तारित रूपाची संख्या कोणती?", options: ["५४,२००", "५४,०२०", "५४,००२", "४५,०२०"], ans: 1 },
+      { q: "'३०,००० + ३,००० + ३०० + ३० + ३' ही कोणाची विस्तारित मांडणी आहे?", options: ["३३,३३३", "३०,३३३", "३३,००३", "३३,३०३"], ans: 0 },
+      { q: "'१०,००० + ९०० + ९' या विस्तारित रूपाची संख्या कोणती?", options: ["१०,९०९", "१९,००९", "१०,९९०", "१०,०९९"], ans: 0 },
+      { q: "'५६,४००' या संख्येची विस्तारित मांडणी कोणती?", options: ["५०,००० + ६,००० + ४००", "५०,००० + ६०० + ४०", "५,००० + ६,००० + ४००", "५०,००० + ६,००० + ४"], ans: 0 },
+      { q: "'७०,००० + ४,००० + १०० + २' या विस्तारित मांडणीवरून संख्या शोधा.", options: ["७४,१०२", "७४,१२०", "७४,०१२", "४७,१०२"], ans: 0 },
+      { q: "'८९,०५०' ची योग्य विस्तारित मांडणी कोणती?", options: ["८०,००० + ९,००० + ५०", "८०,००० + ९०० + ५०", "८,००० + ९,००० + ५०", "८०,००० + ९,००० + ५"], ans: 0 },
+      { q: "'२०,००० + २०' या विस्तारित मांडणीची संख्या कोणती?", options: ["२०,०२०", "२०,२००", "२,०२०", "२०,००२"], ans: 0 },
+      { q: "'४०,००० + ८,००० + ७०० + ५' या मांडणीची संख्या कोणती?", options: ["४८,७०५", "४८,७५०", "४८,५०७", "८४,७०५"], ans: 0 },
+      { q: "'९९,९०९' या संख्येची विस्तारित मांडणी कोणती?", options: ["९०,००० + ९,००० + ९०० + ९", "९०,००० + ९,००० + ९० + ९", "९०,००० + ९०० + ९", "९,००० + ९,००० + ९०० + ९"], ans: 0 }
+    ];
+            let currentQ = 0;
+    let score = 0;
+    let userAnswers = new Array(questions.length).fill(null);
+    let timeLeft = 3600; // ६० मिनिटे
+    let timerInterval;
+
+    const studentForm = document.getElementById('student-form');
+    const startScreen = document.getElementById('start-screen');
+    const examScreen = document.getElementById('exam-screen');
+    const resultScreen = document.getElementById('result-screen');
+    
+    const questionText = document.getElementById('question-text');
+    const questionNumber = document.getElementById('question-number');
+    const optionsBox = document.getElementById('options-box');
+    const nextBtn = document.getElementById('next-btn');
+    const submitBtn = document.getElementById('submit-btn');
+    const timerDisplay = document.getElementById('timer');
+
+    studentForm.addEventListener('submit', function(e) {
+      e.preventDefault();
+      startScreen.classList.add('hidden');
+      examScreen.classList.remove('hidden');
+      startTimer();
+      loadQuestion();
+    });
+
+    function startTimer() {
+      timerInterval = setInterval(() => {
+        let minutes = Math.floor(timeLeft / 60);
+        let seconds = timeLeft % 60;
+        seconds = seconds < 10 ? '0' + seconds : seconds;
+        timerDisplay.textContent = `वेळ: ${minutes}:${seconds}`;
+        
+        if (timeLeft <= 0) {
+          clearInterval(timerInterval);
+          finishExam();
+        }
+        timeLeft--;
+      }, 1000);
+    }
+
+    function loadQuestion() {
+      nextBtn.disabled = true;
+      const q = questions[currentQ];
+      questionNumber.textContent = `प्रश्न ${currentQ + 1} / ${questions.length}`;
+      questionText.textContent = `प्र. ${currentQ + 1}) ${q.q}`;
+      optionsBox.innerHTML = '';
+
+      q.options.forEach((opt, index) => {
+        const btn = document.createElement('button');
+        btn.className = 'option-btn';
+        btn.textContent = `(${String.fromCharCode(65 + index)}) ${opt}`;
+        
+        if (userAnswers[currentQ] === index) {
+          btn.classList.add('selected');
+          nextBtn.disabled = false;
+        }
+
+        btn.onclick = () => {
+          document.querySelectorAll('.option-btn').forEach(b => b.classList.remove('selected'));
+          btn.classList.add('selected');
+          userAnswers[currentQ] = index;
+          nextBtn.disabled = false;
+        };
+        optionsBox.appendChild(btn);
+      });
+
+      if (currentQ === questions.length - 1) {
+        nextBtn.classList.add('hidden');
+        submitBtn.classList.remove('hidden');
+      } else {
+        nextBtn.classList.remove('hidden');
+        submitBtn.classList.add('hidden');
+      }
+    }
+
+    nextBtn.addEventListener('click', () => {
+      if (currentQ < questions.length - 1) {
+        currentQ++;
+        loadQuestion();
+      }
+    });
+
+    submitBtn.addEventListener('click', () => {
+      clearInterval(timerInterval);
+      finishExam();
+    });
+
+    function finishExam() {
+      // गुणांची गणना (प्रत्येक प्रश्नाला २ गुण)
+      score = 0;
+      userAnswers.forEach((ans, index) => {
+        if (ans === questions[index].ans) {
+          score += 2;
+        }
+      });
+
+      examScreen.classList.add('hidden');
+      resultScreen.classList.remove('hidden');
+
+      // निकाल स्क्रीनवर माहिती भरणे
+      document.getElementById('res-exam').textContent = document.getElementById('examName').value;
+      document.getElementById('res-name').textContent = document.getElementById('studentName').value;
+      document.getElementById('res-school').textContent = document.getElementById('schoolName').value;
+      document.getElementById('res-center').textContent = document.getElementById('centerName').value;
+      document.getElementById('res-score').textContent = score;
+
+      // टक्केवारी व सन्मान निश्चिती
+      const percentage = (score / 120) * 100;
+      const honorBox = document.getElementById('res-honor');
+
+      if (percentage >= 80) {
+        honorBox.innerHTML = "🥇 Gold Medal + Trophy<br><small style='font-size:16px; color:#555;'>उत्कृष्ट कामगिरी!</small>";
+      } else if (percentage >= 60) {
+        honorBox.innerHTML = "🥈 Silver Medal + Trophy<br><small style='font-size:16px; color:#555;'>छान प्रयत्न!</small>";
+      } else if (percentage >= 50) {
+        honorBox.innerHTML = "🥉 Bronze Medal + Trophy<br><small style='font-size:16px; color:#555;'>चांगला प्रयत्न!</small>";
+      } else {
+        honorBox.innerHTML = "💐 अभिनंदन! फुलांचा गुच्छ<br><small style='font-size:16px; color:#555;'>पुढील परीक्षेसाठी शुभेच्छा</small>";
+      }
+    }
+  </script>
+</body>
+</html>
