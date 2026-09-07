@@ -1,0 +1,585 @@
+<!DOCTYPE html>
+<html lang="mr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ऑनलाईन गणित सराव परीक्षा</title>
+    <style>
+        :root {
+            --primary-color: #1a73e8;
+            --secondary-color: #0d47a1;
+            --bg-color: #f4f7f6;
+            --card-bg: #ffffff;
+            --text-color: #333333;
+            --border-color: #cccccc;
+        }
+
+        body {
+            font-family: 'Segoe UI', Arial, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            margin: 0;
+            padding: 15px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 800px;
+            background: var(--card-bg);
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+            padding: 25px;
+            box-sizing: border-box;
+            position: relative;
+        }
+
+        .header-section {
+            text-align: center;
+            border-bottom: 2px solid var(--primary-color);
+            padding-bottom: 15px;
+            margin-bottom: 20px;
+        }
+
+        .school-title {
+            color: var(--secondary-color);
+            font-size: 22px;
+            font-weight: bold;
+            margin: 0 0 10px 0;
+        }
+
+        .exam-title {
+            color: #d32f2f;
+            font-size: 16px;
+            font-weight: 600;
+            margin: 5px 0;
+            line-height: 1.4;
+        }
+
+        .creator-box {
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            margin-top: 15px;
+            font-size: 14px;
+            text-align: right;
+            background: #eef5ff;
+            padding: 8px 12px;
+            border-radius: 8px;
+        }
+
+        .creator-box img {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-left: 10px;
+            border: 2px solid var(--primary-color);
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+            text-align: left;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            font-size: 16px;
+            box-sizing: border-box;
+        }
+
+        .btn {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            font-size: 16px;
+            font-weight: bold;
+            border-radius: 6px;
+            cursor: pointer;
+            width: 100%;
+            margin-top: 15px;
+            transition: background 0.3s;
+        }
+
+        .btn:hover {
+            background-color: var(--secondary-color);
+        }
+
+        .btn:disabled {
+            background-color: #ccc;
+            cursor: not-allowed;
+        }
+
+        .btn-secondary {
+            background-color: #f57c00;
+            margin-top: 15px;
+        }
+
+        .btn-secondary:hover {
+            background-color: #e65100;
+        }
+
+        .footer-text {
+            text-align: center;
+            font-size: 14px;
+            color: #555;
+            margin-top: 25px;
+            padding-top: 10px;
+            border-top: 1px dashed var(--border-color);
+            font-weight: 500;
+        }
+
+        .question-box {
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+
+        .options-container {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .option-btn {
+            background: #f9f9f9;
+            border: 2px solid #e0e0e0;
+            padding: 12px 15px;
+            border-radius: 8px;
+            text-align: left;
+            font-size: 16px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .option-btn:hover:not(:disabled) {
+            background: #eef5ff;
+            border-color: var(--primary-color);
+        }
+
+        .option-btn.correct {
+            background-color: #d4edda !important;
+            border-color: #28a745 !important;
+            color: #155724 !important;
+            font-weight: bold;
+        }
+
+        .option-btn.wrong {
+            background-color: #f8d7da !important;
+            border-color: #dc3545 !important;
+            color: #721c24 !important;
+            font-weight: bold;
+        }
+
+        .explanation-box {
+            margin-top: 15px;
+            padding: 12px 15px;
+            background-color: #e8f4f8;
+            border-left: 5px solid #17a2b8;
+            border-radius: 4px;
+            font-size: 15px;
+            color: #0c5460;
+        }
+
+        .progress-bar {
+            font-size: 14px;
+            color: #666;
+            margin-bottom: 15px;
+            text-align: right;
+        }
+
+        .certificate-container {
+            border: 8px double #1a73e8;
+            padding: 30px;
+            background: #fffdf7;
+            border-radius: 10px;
+            text-align: center;
+            position: relative;
+        }
+
+        .cert-header {
+            font-size: 22px;
+            color: #0d47a1;
+            font-weight: bold;
+        }
+
+        .cert-score {
+            font-size: 26px;
+            color: #2e7d32;
+            margin: 15px 0;
+            font-weight: bold;
+        }
+
+        .cert-badge {
+            font-size: 22px;
+            margin: 20px 0;
+            padding: 15px;
+            border-radius: 8px;
+            background: #fff8e1;
+            border: 1px solid #ffe082;
+            display: inline-block;
+        }
+
+        .review-card {
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 15px;
+            background: #fff;
+            text-align: left;
+        }
+
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    
+    <!-- PAGE 1: START PAGE -->
+    <div id="start-page">
+        <div class="header-section">
+            <h2 class="school-title">जिल्हा परिषद प्राथमिक शाळा नरसोबावाडी संचलित</h2>
+            <div class="exam-title">परीक्षेचे नाव: आंतरराष्ट्रीय व देवनागरी संख्याचिन्हे वाचन लेखन स्थानिक किंमत दर्शनी किंमत विस्तारित मांडणी</div>
+        </div>
+
+        <div class="form-group">
+            <label for="studentName">विद्यार्थ्याचे नाव:</label>
+            <input type="text" id="studentName" placeholder="पूर्ण नाव टाका">
+        </div>
+
+        <div class="form-group">
+            <label for="mobileNumber">मोबाईल नंबर:</label>
+            <input type="tel" id="mobileNumber" maxlength="10" placeholder="१० अंकी मोबाईल नंबर">
+        </div>
+
+        <button class="btn" onclick="startExam()">EXAM START</button>
+
+        <div class="creator-box">
+            <div>
+                <strong>संकल्पना व निर्मिती</strong><br>
+                श्री सचिन शिंदे सर<br>
+                जि प प्रा शाळा नरसोबावाडी<br>
+                मोबाईल नंबर: 83 29 68 44 70
+            </div>
+            <img src="https://drive.google.com/thumbnail?id=1pkldnaLRyqBtfgiQKwtbeSSfXhENzbOm&sz=w200" alt="सचिन शिंदे सर">
+        </div>
+    </div>
+
+    <!-- PAGE 2: EXAM PAGE -->
+    <div id="exam-page" class="hidden">
+        <div class="header-section" style="padding-bottom: 5px; margin-bottom: 10px;">
+            <div class="progress-bar" id="progress-text">प्रश्न १ / ६०</div>
+        </div>
+
+        <div class="question-box" id="question-text"></div>
+        <div class="options-container" id="options-box"></div>
+        
+        <div id="explanation-box" class="explanation-box hidden"></div>
+
+        <button class="btn" id="next-btn" disabled onclick="nextQuestion()">नेक्स्ट (Next)</button>
+        <button class="btn" id="submit-btn" style="background-color: #2e7d32;" class="hidden" onclick="submitExam()">SUBMIT EXAM</button>
+    </div>
+
+    <!-- PAGE 3: CERTIFICATE PAGE -->
+    <div id="certificate-page" class="hidden">
+        <div class="certificate-container">
+            <div class="cert-header">🏆 जिल्हा परिषद प्राथमिक शाळा नरसोबावाडी संचलित</div>
+            <hr style="border: 1px solid #1a73e8; margin: 15px 0;">
+            
+            <p style="font-size: 15px; margin: 5px 0;"><strong>परीक्षेचे नाव:</strong> आंतरराष्ट्रीय व देवनागरी संख्याचिन्हे वाचन लेखन स्थानिक किंमत दर्शनी किंमत विस्तारित मांडणी</p>
+            <p style="font-size: 18px; margin: 15px 0;">हे प्रमाणपत्र देऊन गौरविण्यात येते की,</p>
+            <h3 id="cert-student-name" style="color: #d32f2f; font-size: 24px; margin: 5px 0;"></h3>
+            
+            <div class="cert-score" id="cert-score-text"></div>
+            <div class="cert-badge" id="cert-badge-text"></div>
+
+            <div class="creator-box" style="margin-top: 25px;">
+                <div>
+                    <strong>संकल्पना व निर्मिती</strong><br>
+                    श्री सचिन शिंदे सर<br>
+                    जि प प्रा शाळा नरसोबावाडी<br>
+                    मोबाईल नंबर: 83 29 68 44 70
+                </div>
+                <img src="https://drive.google.com/thumbnail?id=1pkldnaLRyqBtfgiQKwtbeSSfXhENzbOm&sz=w200" alt="सचिन शिंदे सर">
+            </div>
+        </div>
+
+        <button class="btn btn-secondary" id="review-btn" onclick="showReviewPage()">चुकलेले प्रश्न व स्पष्टीकरण पहा 🔍</button>
+    </div>
+
+    <!-- PAGE 4: REVIEW WRONG QUESTIONS PAGE -->
+    <div id="review-page" class="hidden">
+        <h3 style="color: #d32f2f; text-align: center;">चुकलेल्या प्रश्नांचे स्पष्टीकरण</h3>
+        <div id="review-container"></div>
+        <button class="btn" onclick="backToCertificate()">प्रमाणपत्राकडे परत जा 📜</button>
+    </div>
+
+    <!-- FOOTER -->
+    <div class="footer-text">
+        टेस्ट निर्मिती व संकल्पना श्री सचिन शिंदे मोबाईल नंबर 83 29 68 44 70
+    </div>
+
+</div>
+<script>
+const questionsData = [
+    { q: "१) '४५,७८२' ही संख्या आंतरराष्ट्रीय संख्याचिन्हांत कशी लिहिली जाईल?", options: ["(1) 45,782", "(2) 54,782", "(3) 45,872", "(4) 45,728"], ans: 0, exp: "४५,७८२ या देवनागरी अंकांचे आंतरराष्ट्रीय रूप 45,782 आहे." },
+    { q: "२) '89,012' ही संख्या देवनागरी संख्याचिन्हांत कशी लिहिली जाईल?", options: ["(1) ८९,१०२", "(2) ८९,०१२", "(3) ९८,०१२", "(4) ८९,२०१"], ans: 1, exp: "89,012 याचे देवनागरी रूप ८९,०१२ असे होते." },
+    { q: "३) '६०,४०५' या संख्येचे आंतरराष्ट्रीय संख्याचिन्हातील योग्य रूप कोणते?", options: ["(1) 60,450", "(2) 60,045", "(3) 60,405", "(4) 64,005"], ans: 2, exp: "६०,४०५ चे आंतरराष्ट्रीय रूप 60,405 आहे." },
+    { q: "४) '12,345' ही संख्या देवनागरी संख्याचिन्हात कशी लिहाल?", options: ["(1) २१,३४५", "(2) १२,५४३", "(3) १३,२४५", "(4) १२,३४५"], ans: 3, exp: "12,345 चे देवनागरी रूप १२,३४५ आहे." },
+    { q: "५) देवनागरीतील '७८,९०१' आणि आंतरराष्ट्रीय मधील '78,901' यांच्यात कोणता फरक आहे?", options: ["(1) मूल्याचा फरक आहे", "(2) फक्त लेखन पद्धती (चिन्हांचा) फरक आहे", "(3) दोन्ही संख्या वेगळ्या आहेत", "(4) यांपैकी काहीही नाही"], ans: 1, exp: "संख्या समान आहेत, केवळ लिहायची चिन्हे (लिपी) वेगळी आहेत." },
+    { q: "६) '३४,५६७' या संख्येतील सर्व अंक आंतरराष्ट्रीय चिन्हांत लिहिल्यास ती संख्या कोणती होईल?", options: ["(1) 34,576", "(2) 34,567", "(3) 43,567", "(4) 35,467"], ans: 1, exp: "३४,५६७ आंतरराष्ट्रीय रूपात 34,567 अशी लिहिली जाते." },
+    { q: "७) '90,009' ही संख्या देवनागरीत कशी लिहाल?", options: ["(1) ९०,००९", "(2) ९०,०९०", "(3) ९९,०००", "(4) ९०,९००"], ans: 0, exp: "90,009 ही संख्या देवनागरीत ९०,००९ अशी लिहितात." },
+    { q: "८) 'पन्नास हजार चारशे दोन' ही संख्या आंतरराष्ट्रीय संख्याचिन्हांत कोणती?", options: ["(1) 50,420", "(2) 50,402", "(3) 54,002", "(4) 50,042"], ans: 1, exp: "पन्नास हजार (50,000) + चारशे (400) + दोन (2) = 50,402." },
+    { q: "९) '२५,६३४' या संख्येचे आंतरराष्ट्रीय रूप ओळखा.", options: ["(1) 25,364", "(2) 52,634", "(3) 25,634", "(4) 25,643"], ans: 2, exp: "२५,६३४ चे आंतरराष्ट्रीय रूप 25,634 आहे." },
+    { q: "१०) '71,829' ही संख्या देवनागरी संख्याचिन्हात कशी लिहाल?", options: ["(1) ७१,८९२", "(2) १७,८२९", "(3) ७१,२८९", "(4) ७१,८२९"], ans: 3, exp: "71,829 देवनागरीत ७१,८२९ असे लिहिले जाते." },
+    { q: "११) '४५,२०९' या संख्येचे अक्षरी लेखन कोणते?", options: ["(1) पंचेचाळीस हजार दोनशे नव्वद", "(2) पंचेचाळीस हजार दोनशे नऊ", "(3) पंचेचाळीस हजार वीस", "(4) पंचान्न हजार दोनशे नऊ"], ans: 1, exp: "४५,२०९ = पंचेचाळीस हजार दोनशे नऊ." },
+    { q: "१२) 'चौऱ्यांशी हजार सात' ही संख्या अंकात कशी लिहावी?", options: ["(1) ८४,००७", "(2) ८४,०७०", "(3) ८४,७००", "(4) ४८,००७"], ans: 0, exp: "चौऱ्यांशी हजार (८४,०००) + सात (७) = ८४,००७." },
+    { q: "१३) '99,999' या संख्येचे योग्य अक्षरी रूप कोणते?", options: ["(1) नऊ हजार नऊशे नव्वद", "(2) नव्वद हजार नऊशे नव्वद", "(3) नव्व्याण्णव हजार नऊशे नव्व्याण्णव", "(4) नऊ लाख नऊ हजार"], ans: 2, exp: "99,999 म्हणजे नव्व्याण्णव हजार नऊशे नव्व्याण्णव." },
+    { q: "१४) पाच अंकी सर्वात मोठी संख्या कोणती?", options: ["(1) १०,०००", "(2) ९०,०००", "(3) ९९,०००", "(4) ९९,९९९"], ans: 3, exp: "पाच अंकी सर्वात मोठी संख्या ९९,९९९ आहे." },
+    { q: "१५) पाच अंकी सर्वात लहान संख्या कोणती?", options: ["(1) ११,१११", "(2) १०,०००", "(3) ९९,९९९", "(4) १००,००"], ans: 1, exp: "पाच अंकी सर्वात लहान संख्या १०,००० आहे." },
+    { q: "१६) 'सहात्थर हजार चारशे पन्नास' ही संख्या अंकात कोणती?", options: ["(1) ७६,४०५", "(2) ७६,४५०", "(3) ६७,४५०", "(4) ७६,५४०"], ans: 1, exp: "सहात्थर हजार (७६,०००) + चारशे पन्नास (४५०) = ७६,४५०." },
+    { q: "१७) '३०,००५' या संख्येचे अक्षरी वाचन कोणते?", options: ["(1) तीस हजार पाचशे", "(2) तीन हजार पाच", "(3) तीस हजार पाच", "(4) तीन लाख पाच"], ans: 2, exp: "३०,००५ चे वाचन तीस हजार पाच असे होते." },
+    { q: "१८) 'एकसष्ठ हजार नऊ' ही संख्या आंतरराष्ट्रीय अंकात कशी लिहाल?", options: ["(1) 61,009", "(2) 61,090", "(3) 61,900", "(4) 16,009"], ans: 0, exp: "एकसष्ठ हजार (61,000) + नऊ (9) = 61,009." },
+    { q: "१९) '८२,१०१' या संख्येचे वाचन कोणते?", options: ["(1) व्यांशी हजार एकशे एक", "(2) ऐंशी हजार एकशे एक", "(3) बासष्ठ हजार एकशे एक", "(4) व्यांशी हजार एकशे दहा"], ans: 0, exp: "८२,१०१ म्हणजे व्यांशी हजार एकशे एक." },
+    { q: "२०) 'सत्तेचाळीस हजार तीनशे बारा' ही संख्या देवनागरी अंकात कशी लिहाल?", options: ["(1) ४७,३२१", "(2) ४७,३१२", "(3) ७४,३१२", "(4) ४७,२१३"], ans: 1, exp: "सत्तेचाळीस हजार तीनशे बारा = ४७,३१२." },
+    { q: "२१) '५४,३२१' या संख्येतील '५' या अंकाची स्थानिक किंमत किती?", options: ["(1) ५००", "(2) ५,०००", "(3) ५०,०००", "(4) ५"], ans: 2, exp: "'५' हा अंक दशहजार स्थानी असल्याने स्थानिक किंमत ५ × १०,००० = ५०,०००." },
+    { q: "२२) '78,945' या संख्येतील '9' या अंकाची स्थानिक किंमत कोणती?", options: ["(1) 900", "(2) 90", "(3) 9,000", "(4) 90,000"], ans: 0, exp: "'9' हा अंक शतक स्थानी असल्याने स्थानिक किंमत 9 × 100 = 900." },
+    { q: "२३) '६३,२०५' या संख्येतील '०' या अंकाची स्थानिक किंमत किती?", options: ["(1) १०", "(2) १००", "(3) ०", "(4) ०००"], ans: 2, exp: "शून्य (०) कोणत्याही स्थानी असला तरी त्याची स्थानिक किंमत नेहमी ० असते." },
+    { q: "२४) '४५,६७८' या संख्येतील हजार स्थानच्या अंकाची स्थानिक किंमत सांगा.", options: ["(1) ४०,०००", "(2) ५,०००", "(3) ६००", "(4) ७०"], ans: 1, exp: "हजार स्थानी '५' हा अंक आहे, त्याची स्थानिक किंमत ५,००० आहे." },
+    { q: "२५) '92,384' या संख्येतील दशक स्थानच्या अंकाची स्थानिक किंमत कोणती?", options: ["(1) 80", "(2) 800", "(3) 8", "(4) 8,000"], ans: 0, exp: "दशक स्थानी '8' आहे, त्याची स्थानिक किंमत 8 × 10 = 80." },
+    { q: "२६) '८८,८८८' या संख्येतील दशहजार स्थानावरील '८' आणि शतक स्थानावरील '८' यांच्या स्थानिक किंमतीतील फरक किती?", options: ["(1) ८०,०००", "(2) ७९,८००", "(3) ७९,२००", "(4) ८,०००"], ans: 2, exp: "दशहजार स्थानाची किंमत ८०,००० आणि शतक स्थानाची ८००. फरक = ८०,००० - ८०० = ७९,२००." },
+    { q: "२७) '34,567' या संख्येतील '3' आणि '7' यांच्या स्थानिक किंमतींची बेरीज किती?", options: ["(1) 30,007", "(2) 30,070", "(3) 3,007", "(4) 30,700"], ans: 0, exp: "'3' ची स्थानिक किंमत 30,000 आणि '7' ची 7. बेरीज = 30,000 + 7 = 30,007." },
+    { q: "२८) '१२,३४५' मध्ये शतक स्थानी कोणता अंक आहे आणि त्याची स्थानिक किंमत किती?", options: ["(1) अंक ३, स्थानिक किंमत ३०", "(2) अंक ३, स्थानिक किंमत ३००", "(3) अंक २, स्थानिक किंमत २०००", "(4) अंक ४, स्थानिक किंमत ४०"], ans: 1, exp: "शतक स्थानी '३' आहे आणि त्याची स्थानिक किंमत ३०० आहे." },
+    { q: "२९) '60,708' या संख्येतील '7' ची स्थानिक किंमत किती?", options: ["(1) 7,000", "(2) 70", "(3) 700", "(4) 7"], ans: 2, exp: "'7' शतक स्थानी असल्याने त्याची स्थानिक किंमत 700 आहे." },
+    { q: "३०) '९५,४३२' या संख्येतील दशहजार स्थानचा अंक कोणता?", options: ["(1) ५", "(2) ४", "(3) ३", "(4) ९"], ans: 3, exp: "डव्या बाजूने पहिला अंक '९' हा दशहजार स्थानी आहे." },
+    { q: "३१) '६७,८९०' या संख्येतील '७' या अंकाची दर्शनी किंमत किती?", options: ["(1) ७,०००", "(2) ७", "(3) ७०", "(4) ७००"], ans: 1, exp: "दर्शनी किंमत म्हणजे अंकाचे मूळ रूप, म्हणून '७' ची दर्शनी किंमत ७ च राहील." },
+    { q: "३२) '45,213' या संख्येतील '4' या अंकाची दर्शनी किंमत कोणती?", options: ["(1) 40,000", "(2) 4,000", "(3) 4", "(4) 40"], ans: 2, exp: "'4' ची दर्शनी किंमत 4 आहे." },
+    { q: "३३) '८९,०३४' या संख्येतील '०' ची दर्शनी किंमत किती?", options: ["(1) ०", "(2) १००", "(3) १०", "(4) १"], ans: 0, exp: "'०' ची दर्शनी किंमत नेहमी ० असते." },
+    { q: "३४) कोणत्याही अंकाची दर्शनी किंमत आणि स्थानिक किंमत कोणत्या स्थानी समान असते?", options: ["(1) शतक स्थानी", "(2) दशक स्थानी", "(3) हजार स्थानी", "(4) एकक स्थानी"], ans: 3, exp: "एकक स्थानच्या अंकाची स्थानिक किंमत व दर्शनी किंमत नेहमी समान असते." },
+    { q: "३५) '72,951' या संख्येतील '9' या अंकाची दर्शनी किंमत आणि स्थानिक किंमत यांतील फरक किती?", options: ["(1) 891", "(2) 900", "(3) 899", "(4) 0"], ans: 2, exp: "स्थानिक किंमत = 900, दर्शनी किंमत = 9. फरक = 900 - 9 = 899." },
+    { q: "३६) '५४,३२१' या संख्येतील '३' या अंकाची दर्शनी किंमत सांगा.", options: ["(1) ३००", "(2) ३", "(3) ३०", "(4) ३,०००"], ans: 1, exp: "'३' ची दर्शनी किंमत ३ आहे." },
+    { q: "३७) '19,876' या संख्येतील '8' या अंकाची दर्शनी किंमत काय असेल?", options: ["(1) 8", "(2) 800", "(3) 80", "(4) 8,000"], ans: 0, exp: "'8' ची दर्शनी किंमत 8 आहे." },
+    { q: "३८) '२३,४५६' मधील हजार स्थानच्या अंकाची दर्शनी किंमत कोणती?", options: ["(1) ३,०००", "(2) ३", "(3) ३०", "(4) ३००"], ans: 1, exp: "हजार स्थानी '३' आहे, त्याची दर्शनी किंमत ३ आहे." },
+    { q: "३९) दर्शनी किंमत म्हणजे काय?", options: ["(1) अंकाचे संख्येतील स्थान", "(2) अंकाचे स्वतःचे मूळ मूल्य", "(3) अंकाला १० ने गुणिले की येणारे मूल्य", "(4) अंकाचे विस्तारित रूप"], ans: 1, exp: "दर्शनी किंमत म्हणजे त्या अंकाचे स्वतःचे मूळ मूल्य." },
+    { q: "४०) '65,432' या संख्येतील '6' ची दर्शनी किंमत आणि '2' ची दर्शनी किंमत यांचा गुणाकार किती?", options: ["(1) 12,000", "(2) 12", "(3) 120", "(4) 62"], ans: 1, exp: "'6' ची दर्शनी किंमत 6 आणि '2' ची दर्शनी किंमत 2. गुणाकार = 6 × 2 = 12." },
+    { q: "४१) '४०,००० + ५,००० + ६०० + ७० + ८' या विस्तारित रूपावरून कोणती संख्या बनते?", options: ["(1) ४५,६७८", "(2) ५४,६७८", "(3) ४५,७६८", "(4) ४५,६८७"], ans: 0, exp: "सर्व संख्यांची बेरीज केल्यास ४५,६७८ मिळते." },
+    { q: "४२) '70,000 + 8,000 + 90 + 5' या विस्तारित रूपाची योग्य संख्या कोणती?", options: ["(1) 78,950", "(2) 78,095", "(3) 78,905", "(4) 70,895"], ans: 1, exp: "शतक स्थानी काही नाही म्हणजे 0. बेरीज = 78,095." },
+    { q: "४३) '५३,२०४' या संख्येची योग्य विस्तारित मांडणी कोणती?", options: ["(1) ५०,००० + ३,००० + २०० + ४", "(2) ५०,००० + ३,००० + २०० + ४०", "(3) ५,००० + ३०० + २० + ४", "(4) ५०,००० + ३०० + २० + ४"], ans: 0, exp: "५३,२०४ = ५०,००० + ३,००० + २०० + ० + ४ = ५०,००० + ३,००० + २०० + ४." },
+    { q: "४४) '99,009' ची विस्तारित मांडणी कोणती?", options: ["(1) 90,000 + 9,000 + 90", "(2) 90,000 + 900 + 9", "(3) 90,000 + 9,000 + 9", "(4) 9,000 + 900 + 9"], ans: 2, exp: "99,009 = 90,000 + 9,000 + 9." },
+    { q: "४५) '८०,००० + ७०० + ५' यापासून तयार होणारी संख्या कोणती?", options: ["(1) ८७,००५", "(2) ८०,७०५", "(3) ८७,५००", "(4) ८०,०्त५"], ans: 1, exp: "८०,००० + ७०० + ५ = ८०,७०५." },
+    { q: "४६) '६२,५१०' ची योग्य विस्तारित मांडणी ओळखा.", options: ["(1) ६०,००० + २,००० + ५०० + १०", "(2) ६०,००० + २,००० + ५०० + १", "(3) ६,००० + २०० + ५० + १०", "(4) ६०,००० + २०० + ५० + १०"], ans: 0, exp: "६२,५१० = ६०,००० + २,००० + ५०० + १०." },
+    { q: "४७) '10,000 + 2,000 + 300 + 40 + 5' ही विस्तारित मांडणी कोणत्या संख्येची आहे?", options: ["(1) 12,345", "(2) 15,342", "(3) 21,345", "(4) 12,435"], ans: 0, exp: "सर्व मूल्यांची एकत्र बेरीज 12,345 होते." },
+    { q: "४८) '३४,०००' या संख्येची विस्तारित मांडणी कोणती?", options: ["(1) ३०,००० + ४,०००", "(2) ३,००० + ४,०००", "(3) ३०,००० + ४००", "(4) ३४,००० + ०"], ans: 0, exp: "३४,००० = ३०,००० + ४,०००." },
+    { q: "४९) '50,000 + 500 + 5' या विस्तारित रूपावरून मिळणारी संख्या कोणती?", options: ["(1) 55,500", "(2) 50,505", "(3) 55,005", "(4) 50,550"], ans: 1, exp: "50,000 + 500 + 5 = 50,505." },
+    { q: "५०) '७०,००० + ९,००० + ३०० + २०' या विस्तारित मांडणीची संख्या कोणती?", options: ["(1) ७९,३२०", "(2) ७९,३०२", "(3) ७९,०३२", "(4) ९७,३२०"], ans: 0, exp: "७०,००० + ९,००० + ३०० + २० = ७९,३२०." },
+    { q: "५१) '25,483' या संख्येतील '5' ची स्थानिक किंमत आणि दर्शनी किंमत यांतील फरक किती?", options: ["(1) 4,995", "(2) 5,000", "(3) 4,900", "(4) 5,005"], ans: 0, exp: "स्थानिक किंमत = 5,000, दर्शनी किंमत = 5. फरक = 5,000 - 5 = 4,995." },
+    { q: "५२) '४, ५, ०, ७, २' हे अंक प्रत्येकी एकदाच वापरून तयार होणारी सर्वात मोठी ५ अंकी संख्या देवनागरीत कोणती?", options: ["(1) ७५,४२०", "(2) ७५,४०२", "(3) ७४,५२०", "(4) २४,५७०"], ans: 0, exp: "अंक उतरत्या क्रमाने लावल्यास: ७, ५, ४, २, ० = ७५,४२०." },
+    { q: "५३) '3, 0, 1, 8, 6' हे अंक प्रत्येकी एकदाच वापरून तयार होणारी सर्वात लहान ५ अंकी संख्या आंतरराष्ट्रीय अंकात कोणती?", options: ["(1) 01,368", "(2) 10,368", "(3) 10,638", "(4) 13,068"], ans: 1, exp: "शून्य डावीकडे प्रथम न ठेवता चढता क्रम: 1, 0, 3, 6, 8 = 10,368." },
+    { q: "५४) '६७,४५२' या संख्येतील '६' ची स्थानिक किंमत आणि '२' ची स्थानिक किंमत यांची बेरीज किती?", options: ["(1) ६०,००२", "(2) ६२,०००", "(3) ६०,२००", "(4) ६०,०२०"], ans: 0, exp: "'६' ची स्थानिक किंमत ६०,००० व '२' ची २. बेरीज = ६०,००२." },
+    { q: "५५) 'ऐंशी हजार आठ' ही संख्या विस्तारित रूपात कशी लिहाल?", options: ["(1) ८०,००० + ८००", "(2) ८०,००० + ८", "(3) ८,००० + ८", "(4) ८०,००० + ८०"], ans: 1, exp: "ऐंशी हजार आठ = ८०,००० + ८." },
+    { q: "५६) '43,210' या संख्येतील सर्व अंकांच्या दर्शनी किंमतींची बेरीज किती?", options: ["(1) 10", "(2) 43", "(3) 15", "(4) 20"], ans: 2, exp: "दर्शनी किंमतींची बेरीज = 4 + 3 + 2 + 1 + 0 = 15." },
+    { q: "५७) 'पंचान्न हजार पाचशे पंचान्न' ही संख्या आंतरराष्ट्रीय अंकांत कशी लिहाल?", options: ["(1) 55,555", "(2) 50,555", "(3) 55,505", "(4) 55,055"], ans: 0, exp: "पंचान्न हजार पाचशे पंचान्न = 55,555." },
+    { q: "५८) '८९,४७५' या संख्येतील शतक स्थानाचा अंक आंतरराष्ट्रीय चिन्हात कोणता?", options: ["(1) 8", "(2) 9", "(3) 4", "(4) 7"], ans: 2, exp: "शतक स्थानी '४' आहे, त्याचे आंतरराष्ट्रीय रूप 4 आहे." },
+    { q: "५९) '60,000 + 400 + 2' ही विस्तारित मांडणी देवनागरी अंकांत कोणत्या संख्येची आहे?", options: ["(1) ६०,४२०", "(2) ६०,४०२", "(3) ६४,००२", "(4) ६०,००४"], ans: 1, exp: "60,000 + 400 + 2 = 60,402. देवनागरीत: ६०,४०२." },
+    { q: "६०) पाच अंकी सर्वात लहान संख्या आणि पाच अंकी सर्वात मोठी संख्या यांच्यातील फरक किती?", options: ["(1) ९९,९९९", "(2) ९०,०००", "(3) ८०,०००", "(4) ८९,९९९"], ans: 3, exp: "सर्वात मोठी = ९९,९९९, सर्वात लहान = १०,०००. फरक = ९९,९९९ - १०,००० = ८९,९९९." }
+];
+let currentQuestionIndex = 0;
+let userAnswers = new Array(questionsData.length).fill(null);
+let studentNameVal = "";
+
+function startExam() {
+    studentNameVal = document.getElementById("studentName").value.trim();
+    let mobileVal = document.getElementById("mobileNumber").value.trim();
+
+    if (studentNameVal === "" || mobileVal === "") {
+        alert("कृपया नाव आणि मोबाईल नंबर पूर्ण भरा!");
+        return;
+    }
+
+    if (mobileVal.length !== 10 || isNaN(mobileVal)) {
+        alert("कृपया अचूक १० अंकी मोबाईल नंबर टाका!");
+        return;
+    }
+
+    document.getElementById("start-page").classList.add("hidden");
+    document.getElementById("exam-page").classList.remove("hidden");
+    
+    loadQuestion();
+}
+
+function loadQuestion() {
+    let qData = questionsData[currentQuestionIndex];
+    document.getElementById("progress-text").innerText = `प्रश्न ${currentQuestionIndex + 1} / ${questionsData.length}`;
+    document.getElementById("question-text").innerText = qData.q;
+
+    let optionsBox = document.getElementById("options-box");
+    optionsBox.innerHTML = "";
+    
+    let expBox = document.getElementById("explanation-box");
+    expBox.classList.add("hidden");
+    expBox.innerHTML = "";
+
+    let answered = userAnswers[currentQuestionIndex] !== null;
+
+    qData.options.forEach((opt, index) => {
+        let btn = document.createElement("button");
+        btn.className = "option-btn";
+        btn.innerText = opt;
+
+        if (answered) {
+            btn.disabled = true;
+            if (index === qData.ans) {
+                btn.classList.add("correct");
+            }
+            if (userAnswers[currentQuestionIndex] === index && index !== qData.ans) {
+                btn.classList.add("wrong");
+            }
+        }
+
+        btn.onclick = () => selectOption(index);
+        optionsBox.appendChild(btn);
+    });
+
+    if (answered) {
+        expBox.innerHTML = "<strong>स्पष्टीकरण:</strong> " + qData.exp;
+        expBox.classList.remove("hidden");
+    }
+
+    let nextBtn = document.getElementById("next-btn");
+    let submitBtn = document.getElementById("submit-btn");
+
+    nextBtn.disabled = !answered;
+
+    if (currentQuestionIndex === questionsData.length - 1) {
+        nextBtn.classList.add("hidden");
+        submitBtn.classList.remove("hidden");
+        submitBtn.disabled = !answered;
+    } else {
+        nextBtn.classList.remove("hidden");
+        submitBtn.classList.add("hidden");
+    }
+}
+
+function selectOption(index) {
+    if (userAnswers[currentQuestionIndex] !== null) return;
+
+    userAnswers[currentQuestionIndex] = index;
+    let qData = questionsData[currentQuestionIndex];
+    let options = document.querySelectorAll(".option-btn");
+
+    options.forEach((btn, idx) => {
+        btn.disabled = true;
+        if (idx === qData.ans) {
+            btn.classList.add("correct");
+        }
+        if (idx === index && index !== qData.ans) {
+            btn.classList.add("wrong");
+        }
+    });
+
+    let expBox = document.getElementById("explanation-box");
+    expBox.innerHTML = "<strong>स्पष्टीकरण:</strong> " + qData.exp;
+    expBox.classList.remove("hidden");
+
+    document.getElementById("next-btn").disabled = false;
+    document.getElementById("submit-btn").disabled = false;
+}
+
+function nextQuestion() {
+    if (currentQuestionIndex < questionsData.length - 1) {
+        currentQuestionIndex++;
+        loadQuestion();
+    }
+}
+
+function submitExam() {
+    let score = 0;
+    userAnswers.forEach((ans, index) => {
+        if (ans === questionsData[index].ans) {
+            score += 2;
+        }
+    });
+
+    let totalMarks = questionsData.length * 2;
+    let percentage = (score / totalMarks) * 100;
+
+    document.getElementById("exam-page").classList.add("hidden");
+    document.getElementById("certificate-page").classList.remove("hidden");
+
+    document.getElementById("cert-student-name").innerText = studentNameVal;
+    document.getElementById("cert-score-text").innerText = `प्राप्त गुण: ${score} / ${totalMarks} (${percentage.toFixed(2)}%)`;
+
+    let badgeText = "";
+    if (percentage >= 90) {
+        badgeText = "🥇 Gold Medal + Trophy<br><span style='font-size:16px; color:#555;'>अत्युत्कृष्ट कामगिरी! अभिनंदन!</span>";
+    } else if (percentage >= 80) {
+        badgeText = "🥈 Silver Medal + Trophy<br><span style='font-size:16px; color:#555;'>उत्कृष्ट कामगिरी! अभिनंदन!</span>";
+    } else if (percentage >= 70) {
+        badgeText = "🥉 Bronze Medal + Trophy<br><span style='font-size:16px; color:#555;'>छान प्रयत्न! अभिनंदन!</span>";
+    } else {
+        badgeText = "💐 अभिनंदन!<br><span style='font-size:16px; color:#555;'>फुलांचा गुच्छ व पुढील परीक्षेसाठी मनःपूर्वक शुभेच्छा!</span>";
+    }
+
+    document.getElementById("cert-badge-text").innerHTML = badgeText;
+}
+
+function showReviewPage() {
+    let container = document.getElementById("review-container");
+    container.innerHTML = "";
+
+    let wrongCount = 0;
+
+    userAnswers.forEach((ans, index) => {
+        if (ans !== questionsData[index].ans) {
+            wrongCount++;
+            let qData = questionsData[index];
+
+            let card = document.createElement("div");
+            card.className = "review-card";
+
+            let userSelected = ans !== null ? qData.options[ans] : "उत्तर दिलेले नाही";
+            let correctSelected = qData.options[qData.ans];
+
+            card.innerHTML = `
+                <div style="font-weight:bold; color:#333;">${qData.q}</div>
+                <div style="color:#d32f2f; margin-top:5px;">❌ तुमचे उत्तर: ${userSelected}</div>
+                <div style="color:#2e7d32; margin-top:2px;">✅ बरोबर उत्तर: ${correctSelected}</div>
+                <div class="explanation-box" style="margin-top:8px;"><strong>मार्गदर्शन / स्पष्टीकरण:</strong> ${qData.exp}</div>
+            `;
+
+            container.appendChild(card);
+        }
+    });
+
+    if (wrongCount === 0) {
+        container.innerHTML = "<h4 style='color:#2e7d32; text-align:center;'>अभिनंदन! तुमचा एकही प्रश्न चुकलेला नाही.</h4>";
+    }
+
+    document.getElementById("certificate-page").classList.add("hidden");
+    document.getElementById("review-page").classList.remove("hidden");
+}
+
+function backToCertificate() {
+    document.getElementById("review-page").classList.add("hidden");
+    document.getElementById("certificate-page").classList.remove("hidden");
+}
+</script>
+
+</body>
+</html>
