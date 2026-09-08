@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="mr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>आकृत्या - ऑनलाइन टेस्ट</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+    body {
+      background-color: #f0f4f8;
+      margin: 0;
+      padding: 15px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+    }
+    .container {
+      background: #ffffff;
+      width: 100%;
+      max-width: 800px;
+      border-radius: 12px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+      padding: 25px;
+      position: relative;
+    }
+    .header-title {
+      text-align: center;
+      color: #1a365d;
+      font-size: 24px;
+      font-weight: bold;
+      margin-bottom: 20px;
+      border-bottom: 2px solid #e2e8f0;
+      padding-bottom: 10px;
+    }
+    .creator-box {
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      gap: 12px;
+      background: #f7fafc;
+      padding: 10px 15px;
+      border-radius: 8px;
+      border: 1px solid #e2e8f0;
+      margin-bottom: 20px;
+      text-align: right;
+    }
+    .creator-img {
+      width: 65px;
+      height: 65px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 2px solid #3182ce;
+    }
+    .creator-info {
+      font-size: 14px;
+      line-height: 1.4;
+      color: #2d3748;
+    }
+    .form-group {
+      margin-bottom: 18px;
+    }
+    .form-group label {
+      display: block;
+      margin-bottom: 6px;
+      font-weight: bold;
+      color: #4a5568;
+    }
+    .form-group input {
+      width: 100%;
+      padding: 12px;
+      border: 1px solid #cbd5e0;
+      border-radius: 6px;
+      font-size: 16px;
+    }
+    .btn {
+      background-color: #3182ce;
+      color: white;
+      padding: 12px 24px;
+      border: none;
+      border-radius: 6px;
+      font-size: 18px;
+      cursor: pointer;
+      width: 100%;
+      font-weight: bold;
+      transition: background 0.2s;
+    }
+    .btn:hover {
+      background-color: #2b6cb0;
+    }
+    .btn:disabled {
+      background-color: #cbd5e0;
+      cursor: not-allowed;
+    }
+    .footer-text {
+      text-align: center;
+      margin-top: 25px;
+      font-size: 15px;
+      color: #718096;
+      border-top: 1px solid #edf2f7;
+      padding-top: 12px;
+      font-weight: 500;
+    }
+    .hidden {
+      display: none;
+    }
+    .question-box {
+      font-size: 19px;
+      font-weight: bold;
+      margin-bottom: 18px;
+      color: #2d3748;
+      background: #ebf8ff;
+      padding: 15px;
+      border-left: 5px solid #3182ce;
+      border-radius: 4px;
+    }
+    .options-container {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-bottom: 18px;
+    }
+    .option-btn {
+      padding: 14px;
+      border: 2px solid #e2e8f0;
+      border-radius: 8px;
+      background: white;
+      text-align: left;
+      font-size: 16px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .option-btn:hover:not(:disabled) {
+      background-color: #edf2f7;
+    }
+    .option-btn.correct {
+      background-color: #c6f6d5 !important;
+      border-color: #38a169 !important;
+      color: #22543d;
+      font-weight: bold;
+    }
+    .option-btn.incorrect {
+      background-color: #fed7d7 !important;
+      border-color: #e53e3e !important;
+      color: #742a2a;
+      font-weight: bold;
+    }
+    .explanation-box {
+      margin-bottom: 18px;
+      padding: 12px 15px;
+      background-color: #fffaf0;
+      border: 1px solid #feebc8;
+      border-left: 4px solid #dd6b20;
+      border-radius: 6px;
+      color: #7b341e;
+      font-size: 15px;
+    }
+    
+    /* Certificate Styles */
+    .certificate-box {
+      border: 8px double #2b6cb0;
+      padding: 25px;
+      background: #fff;
+      border-radius: 8px;
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    .cert-title {
+      font-size: 22px;
+      color: #1a365d;
+      font-weight: bold;
+      margin-bottom: 10px;
+    }
+    .cert-marks {
+      font-size: 32px;
+      color: #2b6cb0;
+      font-weight: bold;
+      margin: 15px 0;
+    }
+    .cert-honor {
+      font-size: 22px;
+      font-weight: bold;
+      color: #2d3748;
+      margin-bottom: 20px;
+    }
+    .review-item {
+      border-bottom: 1px solid #e2e8f0;
+      padding: 12px 0;
+      text-align: left;
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  
+  <!-- १. सुरुवातीचे पेज (Welcome Page) -->
+  <div id="start-page">
+    <div class="header-title">🏆 जिल्हा परिषद प्राथमिक शाळा नरसोबावाडी संचलित</div>
+    
+    <div class="creator-box">
+      <div class="creator-info">
+        <strong>संकल्पना व निर्मिती</strong><br>
+        श्री सचिन शिंदे सर<br>
+        जि प प्रा शाळा नरसोबावाडी<br>
+        मोबाईल नंबर: 83 29 68 44 70
+      </div>
+      <img src="https://lh3.googleusercontent.com/d/1pkldnaLRyqBtfgiQKwtbeSSfXhENzbOm" alt="श्री सचिन शिंदे" class="creator-img">
+    </div>
+
+    <h2 style="text-align:center; color:#2b6cb0; margin-bottom:20px;">परीक्षेचे नाव: आकृत्या</h2>
+
+    <form id="student-form">
+      <div class="form-group">
+        <label for="student-name">विद्यार्थ्याचे नाव:</label>
+        <input type="text" id="student-name" required placeholder="पूर्ण नाव टाका">
+      </div>
+      <div class="form-group">
+        <label for="student-mobile">मोबाईल नंबर:</label>
+        <input type="tel" id="student-mobile" required pattern="[0-9]{10}" placeholder="१० अंकी मोबाईल नंबर">
+      </div>
+      <button type="submit" class="btn" style="margin-top:15px;">EXAM START</button>
+    </form>
+    
+    <div class="footer-text">
+      टेस्ट निर्मिती व संकल्पना श्री सचिन शिंदे मोबाईल नंबर 83 29 68 44 70
+    </div>
+  </div>
+
+  <!-- २. परीक्षा पेज (Quiz Page) -->
+  <div id="quiz-page" class="hidden">
+    <div style="display:flex; justify-content:space-between; margin-bottom:10px; font-weight:bold; color:#4a5568;">
+      <span id="question-count">प्रश्न १ / ३०</span>
+      <span>प्रत्येक प्रश्न: २ गुण</span>
+    </div>
+
+    <div id="question-text" class="question-box"></div>
+    <div id="options-box" class="options-container"></div>
+    <div id="explanation-box" class="explanation-box hidden"></div>
+
+    <button id="next-btn" class="btn" disabled>नेक्स्ट</button>
+    <button id="submit-btn" class="btn hidden">Submit Exam</button>
+
+    <div class="footer-text">
+      टेस्ट निर्मिती व संकल्पना श्री सचिन शिंदे मोबाईल नंबर 83 29 68 44 70
+    </div>
+  </div>
+
+  <!-- ३. निकाल पेज (Certificate Page) -->
+  <div id="result-page" class="hidden">
+    <div class="certificate-box">
+      <div class="cert-title">🏆 जिल्हा परिषद प्राथमिक शाळा नरसोबावाडी संचलित</div>
+      <p style="font-size:16px; margin: 5px 0;"><strong>परीक्षेचे नाव:</strong> आकृत्या</p>
+      <p style="font-size:18px; margin: 5px 0;"><strong>विद्यार्थ्याचे नाव:</strong> <span id="cert-student-name"></span></p>
+      
+      <div class="cert-marks" id="cert-marks-text">मिळालेले गुण: 0 / 60</div>
+      <div class="cert-honor" id="cert-honor-text"></div>
+
+      <div class="creator-box" style="margin-top:20px; background:#fff;">
+        <div class="creator-info">
+          <strong>संकल्पना व निर्मिती</strong><br>
+          श्री सचिन शिंदे सर<br>
+          जि प प्रा शाळा नरसोबावाडी<br>
+          मोबाईल नंबर: 83 29 68 44 70
+        </div>
+        <img src="https://lh3.googleusercontent.com/d/1pkldnaLRyqBtfgiQKwtbeSSfXhENzbOm" alt="श्री सचिन शिंदे" class="creator-img">
+      </div>
+    </div>
+
+    <button id="review-btn" class="btn" style="background-color:#dd6b20; margin-bottom:15px;">चुकलेले प्रश्न व मार्गदर्शन पहा</button>
+
+    <div id="review-section" class="hidden" style="margin-top:20px;">
+      <h3 style="color:#e53e3e; border-bottom:2px solid #e53e3e; padding-bottom:5px;">चुकलेले प्रश्न आणि स्पष्टीकरण:</h3>
+      <div id="review-list"></div>
+    </div>
+
+    <div class="footer-text">
+      टेस्ट निर्मिती व संकल्पना श्री सचिन शिंदे मोबाईल नंबर 83 29 68 44 70
+    </div>
+  </div>
+
+</div>
+<script>
+// ३० प्रश्नांचा संच (प्रत्येक प्रश्नाला २ गुण)
+const questionsData = [
+  { q: "१. त्रिकोणाला एकूण किती बाजू असतात?", options: ["(A) २", "(B) ३", "(C) ४", "(D) ५"], correct: 1, exp: "त्रिकोणाला एकूण ३ बाजू असतात." },
+  { q: "२. त्रिकोणाला एकूण किती शिरोबिंदू असतात?", options: ["(A) २", "(B) ३", "(C) ४", "(D) ६"], correct: 1, exp: "त्रिकोणाला एकूण ३ शिरोबिंदू असतात." },
+  { q: "३. त्रिकोणाला एकूण किती कोन असतात?", options: ["(A) २", "(B) ३", "(C) ४", "(D) ५"], correct: 1, exp: "त्रिकोणाला ३ कोन असतात." },
+  { q: "४. त्रिकोणाच्या तिन्ही कोनांच्या मापांची बेरीज किती असते?", options: ["(A) ९०°", "(B) १८०°", "(C) २७०°", "(D) ३६०°"], correct: 1, exp: "कोणत्याही त्रिकोणाच्या तिन्ही अंतःकोनांची बेरीज १८०° असते." },
+  { q: "५. आयताला एकूण किती बाजू असतात?", options: ["(A) ३", "(B) ४", "(C) ५", "(D) ६"], correct: 1, exp: "आयताला ४ बाजू असतात." },
+  { q: "६. आयताला एकूण किती शिरोबिंदू असतात?", options: ["(A) ३", "(B) ४", "(C) ५", "(D) ८"], correct: 1, exp: "आयताला ४ कोपरे (शिरोबिंदू) असतात." },
+  { q: "७. आयताचा प्रत्येक कोन किती अंशाचा असतो?", options: ["(A) ४५°", "(B) ६०°", "(C) ९०°", "(D) १८०°"], correct: 2, exp: "आयताचा प्रत्येक कोन काटकोन म्हणजेच ९०° चा असतो." },
+  { q: "८. आयताच्या समोरासमोरील बाजू कशा असतात?", options: ["(A) असमान", "(B) समान लांबीच्या", "(C) दुप्पट", "(D) यांपैकी नाही"], correct: 1, exp: "आयताच्या समोरासमोरील बाजू समान लांबीच्या असतात." },
+  { q: "९. चौरसाला एकूण किती बाजू असतात?", options: ["(A) ३", "(B) ४", "(C) ५", "(D) ६"], correct: 1, exp: "चौरसाला ४ बाजू असतात." },
+  { q: "१०. चौरसाच्या सर्व बाजूंच्या लांबीबाबत काय सत्य आहे?", options: ["(A) सर्व बाजू असमान असतात", "(B) सर्व बाजू समान लांबीच्या असतात", "(C) फक्त २ बाजू समान असतात", "(D) यांपैकी नाही"], correct: 1, exp: "चौरसाच्या चारही बाजू समान लांबीच्या असतात." },
+  { q: "११. चौरसाला एकूण किती शिरोबिंदू असतात?", options: ["(A) ३", "(B) ४", "(C) ५", "(D) ६"], correct: 1, exp: "चौरसाला ४ शिरोबिंदू असतात." },
+  { q: "१२. चौरसाचा प्रत्येक कोन कोणत्या प्रकारचा असतो?", options: ["(A) लघुकोन", "(B) काटकोन", "(C) विशालकोन", "(D) सरळकोन"], correct: 1, exp: "चौरसाचे सर्व कोन ९०° चे म्हणजेच काटकोन असतात." },
+  { q: "१३. वर्तुळाला एकूण किती सरळ बाजू असतात?", options: ["(A) ०", "(B) १", "(C) २", "(D) ४"], correct: 0, exp: "वर्तुळाला एकही सरळ बाजू नसते." },
+  { q: "१४. वर्तुळाला एकूण किती शिरोबिंदू (कोपरे) असतात?", options: ["(A) ०", "(B) १", "(C) २", "(D) अनंत"], correct: 0, exp: "वर्तुळ ही वक्राकार आकृती असल्याने तिला एकही शिरोबिंदू नसतो." },
+  { q: "१५. वर्तुळाची कडा कोणत्या प्रकारची असते?", options: ["(A) सरळ रेषा", "(B) वक्र रेषा", "(C) तुटक रेषा", "(D) यांपैकी नाही"], correct: 1, exp: "वर्तुळाची कडा वक्राकार (वक्र रेषा) असते." },
+  { q: "१६. पंचकोनाला एकूण किती बाजू असतात?", options: ["(A) ४", "(B) ५", "(C) ६", "(D) ७"], correct: 1, exp: "पंचकोनाला ५ बाजू असतात." },
+  { q: "१७. पंचकोनाला एकूण किती शिरोबिंदू असतात?", options: ["(A) ४", "(B) ५", "(C) ६", "(D) ८"], correct: 1, exp: "पंचकोनाला ५ शिरोबिंदू असतात." },
+  { q: "१८. पंचकोनात एकूण किती कोन तयार होतात?", options: ["(A) ४", "(B) ५", "(C) ६", "(D) ७"], correct: 1, exp: "पंचकोनात एकूण ५ कोन असतात." },
+  { q: "१९. नियमबद्ध पंचकोनाच्या (Regular Pentagon) सर्व बाजू कशा असतात?", options: ["(A) समान", "(B) असमान", "(C) त्रिकोणी", "(D) वर्तुळाकार"], correct: 0, exp: "नियमबद्ध पंचकोनाच्या सर्व ५ बाजू समान लांबीच्या असतात." },
+  { q: "२०. षटकोनाला एकूण किती बाजू असतात?", options: ["(A) ५", "(B) ६", "(C) ७", "(D) ८"], correct: 1, exp: "षटकोनाला ६ बाजू असतात." },
+  { q: "२१. षटकोनाला एकूण किती शिरोबिंदू असतात?", options: ["(A) ५", "(B) ६", "(C) ७", "(D) १२"], correct: 1, exp: "षटकोनाला ६ शिरोबिंदू असतात." },
+  { q: "२२. षटकोनामध्ये एकूण किती कोन असतात?", options: ["(A) ५", "(B) ६", "(C) ७", "(D) ८"], correct: 1, exp: "षटकोनामध्ये ६ कोन असतात." },
+  { q: "२३. ज्या आकृतीला ३ बाजू आणि ३ शिरोबिंदू असतात, त्या आकृतीला काय म्हणतात?", options: ["(A) आयत", "(B) चौरस", "(C) त्रिकोण", "(D) पंचकोन"], correct: 2, exp: "३ बाजू असणाऱ्या बंदिस्त आकृतीला त्रिकोण म्हणतात." },
+  { q: "२४. चारही कोन काटकोन असणाऱ्या आणि समोरासमोरील बाजू समान असणाऱ्या आकृतीला काय म्हणतात?", options: ["(A) त्रिकोण", "(B) आयत", "(C) पंचकोन", "(D) वर्तुळ"], correct: 1, exp: "आयताचे सर्व कोन काटकोन व समोरासमोरील बाजू समान असतात." },
+  { q: "२५. ज्या बंदिस्त आकृतीला एकही सरळ बाजू व शिरोबिंदू नसतो, ती आकृती कोणती?", options: ["(A) चौरस", "(B) षटकोन", "(C) वर्तुळ", "(D) त्रिकोण"], correct: 2, exp: "वर्तुळाला सरळ बाजू किंवा शिरोबिंदू नसतो." },
+  { q: "२६. ६ बाजू आणि ६ शिरोबिंदू असणाऱ्या बहुभुजाकृतीला काय म्हणतात?", options: ["(A) पंचकोन", "(B) षटकोन", "(C) आयत", "(D) अष्टकोन"], correct: 1, exp: "६ बाजू असणाऱ्या आकृतीला षटकोन म्हणतात." },
+  { q: "२७. चौरसाच्या चारही कोनांच्या मापांची बेरीज किती असते?", options: ["(A) १८०°", "(B) २७०°", "(C) ३६०°", "(D) ५४०°"], correct: 2, exp: "चौरसाचे ४ कोन (४ x ९०°) = ३६०° असतात." },
+  { q: "२८. ५ बाजू असणाऱ्या बंदिस्त आकृतीला काय म्हणतात?", options: ["(A) चौकोन", "(B) पंचकोन", "(C) षटकोन", "(D) त्रिकोण"], correct: 1, exp: "५ बाजू असणाऱ्या आकृतीला पंचकोन म्हणतात." },
+  { q: "२९. आयताच्या चारही कोनांच्या मापांची एकूण बेरीज किती असते?", options: ["(A) १८०°", "(B) २४०°", "(C) ३६०°", "(D) ४००°"], correct: 2, exp: "आयताच्या चारही कोनांची (४ x ९०°) बेरीज ३६०° असते." },
+  { q: "३०. चार समान बाजू आणि चार शिरोबिंदू असणाऱ्या आकृतीला काय म्हणतात?", options: ["(A) आयत", "(B) चौरस", "(C) त्रिकोण", "(D) षटकोन"], correct: 1, exp: "चारही बाजू समान असणाऱ्या चौकोनाला चौरस म्हणतात." }
+];
+// राज्य आणि व्हेरिएबल्स
+let currentQuestionIndex = 0;
+let score = 0;
+let userAnswers = [];
+let studentDetails = { name: "", mobile: "" };
+
+// DOM Elements
+const startPage = document.getElementById('start-page');
+const quizPage = document.getElementById('quiz-page');
+const resultPage = document.getElementById('result-page');
+
+const studentForm = document.getElementById('student-form');
+const questionCountEl = document.getElementById('question-count');
+const questionTextEl = document.getElementById('question-text');
+const optionsBox = document.getElementById('options-box');
+const explanationBox = document.getElementById('explanation-box');
+const nextBtn = document.getElementById('next-btn');
+const submitBtn = document.getElementById('submit-btn');
+
+// १. स्टार्ट फॉर्म सबमिट
+studentForm.addEventListener('submit', function(e) {
+  e.preventDefault();
+  studentDetails.name = document.getElementById('student-name').value;
+  studentDetails.mobile = document.getElementById('student-mobile').value;
+
+  startPage.classList.add('hidden');
+  quizPage.classList.remove('hidden');
+  loadQuestion();
+});
+
+// २. प्रश्न लोड करणे
+function loadQuestion() {
+  const currentQ = questionsData[currentQuestionIndex];
+  questionCountEl.innerText = `प्रश्न ${currentQuestionIndex + 1} / ${questionsData.length}`;
+  questionTextEl.innerText = currentQ.q;
+  
+  optionsBox.innerHTML = '';
+  explanationBox.classList.add('hidden');
+  explanationBox.innerText = '';
+  nextBtn.disabled = true;
+
+  currentQ.options.forEach((opt, index) => {
+    const btn = document.createElement('button');
+    btn.className = 'option-btn';
+    btn.innerText = opt;
+    btn.addEventListener('click', () => selectOption(index));
+    optionsBox.appendChild(btn);
+  });
+
+  if (currentQuestionIndex === questionsData.length - 1) {
+    nextBtn.classList.add('hidden');
+    submitBtn.classList.remove('hidden');
+    submitBtn.disabled = true;
+  }
+}
+
+// ३. पर्याय निवडल्यावर
+function selectOption(selectedIndex) {
+  const currentQ = questionsData[currentQuestionIndex];
+  const buttons = optionsBox.querySelectorAll('.option-btn');
+  
+  // बटणे डिसेबल करणे
+  buttons.forEach(btn => btn.disabled = true);
+
+  const isCorrect = selectedIndex === currentQ.correct;
+  userAnswers.push({
+    question: currentQ.q,
+    options: currentQ.options,
+    selected: selectedIndex,
+    correct: currentQ.correct,
+    explanation: currentQ.exp,
+    isCorrect: isCorrect
+  });
+
+  if (isCorrect) {
+    buttons[selectedIndex].classList.add('correct');
+    score += 2; // प्रत्येक प्रश्नाला २ गुण
+  } else {
+    buttons[selectedIndex].classList.add('incorrect');
+    buttons[currentQ.correct].classList.add('correct');
+    
+    // स्पष्टीकरण दाखवणे
+    explanationBox.innerText = "स्पष्टीकरण: " + currentQ.exp;
+    explanationBox.classList.remove('hidden');
+  }
+
+  nextBtn.disabled = false;
+  submitBtn.disabled = false;
+}
+
+// ४. नेक्स्ट बटण
+nextBtn.addEventListener('click', () => {
+  currentQuestionIndex++;
+  loadQuestion();
+});
+
+// ५. सबमिट बटण
+submitBtn.addEventListener('click', showResult);
+
+// ६. निकाल दाखवणे
+function showResult() {
+  quizPage.classList.add('hidden');
+  resultPage.classList.remove('hidden');
+
+  document.getElementById('cert-student-name').innerText = studentDetails.name;
+  
+  const totalMaxMarks = questionsData.length * 2; // ६० गुण
+  document.getElementById('cert-marks-text').innerText = `मिळालेले गुण: ${score} / ${totalMaxMarks}`;
+
+  const percentage = (score / totalMaxMarks) * 100;
+  const honorEl = document.getElementById('cert-honor-text');
+
+  if (percentage >= 90) {
+    honorEl.innerHTML = "🥇 Gold Medal + Trophy <br><span style='font-size:16px; color:#38a169;'>अतिउत्कृष्ट कामगिरी!</span>";
+  } else if (percentage >= 80) {
+    honorEl.innerHTML = "🥈 Silver Medal + Trophy <br><span style='font-size:16px; color:#3182ce;'>अभिनंदन! खूप छान कामगिरी!</span>";
+  } else if (percentage >= 70) {
+    honorEl.innerHTML = "🥉 Bronze Medal + Trophy <br><span style='font-size:16px; color:#dd6b20;'>छान प्रयत्न!</span>";
+  } else {
+    honorEl.innerHTML = "💐 अभिनंदन! फुलांचा गुच्छ व <br><span style='color:#e53e3e;'>\"पुढील परीक्षेसाठी शुभेच्छा\"</span>";
+  }
+}
+
+// ७. चुकलेले प्रश्न दाखवणे
+document.getElementById('review-btn').addEventListener('click', function() {
+  const reviewSection = document.getElementById('review-section');
+  const reviewList = document.getElementById('review-list');
+  
+  reviewList.innerHTML = '';
+  const wrongAnswers = userAnswers.filter(ans => !ans.isCorrect);
+
+  if (wrongAnswers.length === 0) {
+    reviewList.innerHTML = "<p style='color:#38a169; font-weight:bold;'>अभिनंदन! तुमचा एकही प्रश्न चुकला नाही.</p>";
+  } else {
+    wrongAnswers.forEach((item, idx) => {
+      const div = document.createElement('div');
+      div.className = 'review-item';
+      div.innerHTML = `
+        <p style="font-weight:bold; color:#2d3748;">${item.question}</p>
+        <p style="color:#e53e3e; margin:3px 0;">तुमचे उत्तर: ${item.options[item.selected]}</p>
+        <p style="color:#38a169; margin:3px 0;">बरोबर उत्तर: ${item.options[item.correct]}</p>
+        <p style="color:#dd6b20; font-size:14px; margin-top:5px; background:#fffaf0; padding:6px; border-radius:4px;">💡 मार्गदर्शन/स्पष्टीकरण: ${item.explanation}</p>
+      `;
+      reviewList.appendChild(div);
+    });
+  }
+
+  reviewSection.classList.remove('hidden');
+  this.style.display = 'none'; // बटण लपवणे
+});
+</script>
+
+</body>
+</html>
