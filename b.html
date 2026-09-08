@@ -1,0 +1,566 @@
+<!DOCTYPE html>
+<html lang="mr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>काही कठीण पातळीचे प्रश्न - ऑनलाइन टेस्ट</title>
+    <style>
+        :root {
+            --primary-color: #1e3c72;
+            --secondary-color: #2a5298;
+            --accent-color: #ff9800;
+            --bg-color: #f4f7f6;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-color);
+            margin: 0;
+            padding: 15px;
+            color: #333;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: #ffffff;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            position: relative;
+        }
+
+        .header-title {
+            text-align: center;
+            color: var(--primary-color);
+            border-bottom: 2px solid var(--secondary-color);
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+        }
+
+        .creator-info {
+            background-color: #eef2f5;
+            padding: 12px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
+
+        .creator-text {
+            font-size: 14px;
+            line-height: 1.5;
+            text-align: right;
+        }
+
+        .creator-photo {
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid var(--primary-color);
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 10px;
+            box-sizing: border-box;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            font-size: 16px;
+        }
+
+        .btn {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: bold;
+            width: 100%;
+            transition: 0.3s;
+        }
+
+        .btn:hover {
+            background-color: var(--secondary-color);
+        }
+
+        .btn:disabled {
+            background-color: #cccccc;
+            cursor: not-allowed;
+        }
+
+        .footer-note {
+            text-align: center;
+            font-size: 14px;
+            color: #555;
+            margin-top: 25px;
+            border-top: 1px solid #ddd;
+            padding-top: 10px;
+            font-weight: 500;
+        }
+
+        .option-btn {
+            background-color: #f8f9fa;
+            border: 2px solid #e9ecef;
+            padding: 12px;
+            margin: 8px 0;
+            width: 100%;
+            text-align: left;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: 0.2s;
+        }
+
+        .option-btn:hover {
+            background-color: #e2e6ea;
+        }
+
+        .option-btn.correct {
+            background-color: #d4edda !important;
+            border-color: #28a745 !important;
+            color: #155724;
+            font-weight: bold;
+        }
+
+        .option-btn.incorrect {
+            background-color: #f8d7da !important;
+            border-color: #dc3545 !important;
+            color: #721c24;
+        }
+
+        .explanation-box {
+            background-color: #fff3cd;
+            border-left: 4px solid #ffc107;
+            padding: 10px 15px;
+            margin: 15px 0;
+            border-radius: 4px;
+            display: none;
+            font-size: 15px;
+        }
+
+        /* Certificate Styling */
+        .certificate-container {
+            border: 10px double var(--primary-color);
+            padding: 30px;
+            background: #fffdf7;
+            border-radius: 4px;
+            text-align: center;
+            position: relative;
+            display: none;
+        }
+
+        .certificate-title {
+            color: var(--primary-color);
+            font-size: 22px;
+            font-weight: bold;
+        }
+
+        .score-box {
+            font-size: 32px;
+            font-weight: bold;
+            color: #d9534f;
+            margin: 15px 0;
+        }
+
+        .award-badge {
+            font-size: 24px;
+            font-weight: bold;
+            margin: 15px 0;
+            padding: 10px;
+            background-color: #f0f0f0;
+            border-radius: 8px;
+            display: inline-block;
+        }
+
+        .wrong-q-card {
+            background: #fff;
+            border: 1px solid #dc3545;
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 6px;
+            text-align: left;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    
+    <!-- १. पहिला टप्पा - नोंदणी पेज -->
+    <div id="start-page">
+        <div class="header-title">
+            <h2>जिल्हा परिषद प्राथमिक शाळा नरसोबावाडी संचलित</h2>
+            <h3>परीक्षेचे नाव: काही कठीण पातळीचे प्रश्न</h3>
+        </div>
+
+        <div class="creator-info">
+            <img src="https://drive.google.com/file/d/1pkldnaLRyqBtfgiQKwtbeSSfXhENzbOm/view?usp=drivesdk" alt="श्री सचिन शिंदे सर" class="creator-photo" onerror="this.src='https://via.placeholder.com/70'">
+            <div class="creator-text">
+                <strong>संकल्पना व निर्मिती</strong><br>
+                श्री सचिन शिंदे सर<br>
+                जि प प्रा शाळा नरसोबावाडी<br>
+                मोबाईल नंबर: 83 29 68 44 70
+            </div>
+        </div>
+
+        <form id="student-form" onsubmit="startExam(event)">
+            <div class="form-group">
+                <label for="student-name">विद्यार्थ्याचे नाव:</label>
+                <input type="text" id="student-name" required placeholder="पूर्ण नाव टाका">
+            </div>
+            <div class="form-group">
+                <label for="mobile-number">मोबाईल नंबर:</label>
+                <input type="tel" id="mobile-number" pattern="[0-9]{10}" required placeholder="10 अंकी मोबाईल नंबर">
+            </div>
+            <button type="submit" class="btn" style="margin-top: 15px;">EXAM START</button>
+        </form>
+
+        <div class="footer-note">
+            टेस्ट निर्मिती व संकल्पना श्री सचिन शिंदे मोबाईल नंबर 83 29 68 44 70
+        </div>
+    </div>
+        <!-- २. दुसरा टप्पा - परीक्षा पेज -->
+    <div id="exam-page" style="display: none;">
+        <div style="display: flex; justify-content: space-between; font-weight: bold; margin-bottom: 15px;">
+            <span id="question-count">प्रश्न १ / २०</span>
+            <span>प्रत्येक प्रश्नाला: २ गुण</span>
+        </div>
+
+        <div id="question-container">
+            <h3 id="question-text">प्रश्न येथे दिसेल</h3>
+            <div id="options-container"></div>
+            
+            <div id="explanation-box" class="explanation-box">
+                <strong>स्पष्टीकरण: </strong><span id="explanation-text"></span>
+            </div>
+        </div>
+
+        <button id="next-btn" class="btn" onclick="nextQuestion()" disabled style="margin-top: 20px;">नेक्स्ट</button>
+        <button id="submit-btn" class="btn" onclick="submitExam()" style="display: none; margin-top: 20px; background-color: #28a745;">SUBMIT EXAM</button>
+
+        <div class="footer-note">
+            टेस्ट निर्मिती व संकल्पना श्री सचिन शिंदे मोबाईल नंबर 83 29 68 44 70
+        </div>
+    </div>
+
+    <!-- ३. तिसरा टप्पा - निकाल (Certificate Style) -->
+    <div id="certificate-page" class="certificate-container">
+        <div class="certificate-title">
+            🏆 जिल्हा परिषद प्राथमिक शाळा नरसोबावाडी संचालित
+        </div>
+        
+        <p style="margin: 5px 0;"><strong>परीक्षेचे नाव:</strong> काही कठीण पातळीचे प्रश्न</p>
+        <hr>
+        
+        <p style="font-size: 18px;">प्रमाणित करण्यात येते की,</p>
+        <h2 id="cert-student-name" style="color: var(--primary-color); margin: 5px 0;">विद्यार्थ्याचे नाव</h2>
+        <p>यांनी सदर परीक्षा यशस्वीरीत्या पूर्ण केली आहे.</p>
+
+        <div class="score-box">
+            गुण: <span id="cert-score">0</span> / 40 (<span id="cert-percentage">0</span>%)
+        </div>
+
+        <div id="cert-award" class="award-badge">
+            <!-- ट्रॉफी व मेडल येथे दिसेल -->
+        </div>
+
+        <div style="margin-top: 25px; display: flex; justify-content: space-between; align-items: center;">
+            <div style="text-align: left;">
+                <button class="btn" onclick="showWrongQuestions()" style="background-color: #dc3545; width: auto; font-size: 14px;">चुकलेले प्रश्न व मार्गदर्शन पहा</button>
+            </div>
+            
+            <div class="creator-text">
+                <strong>संकल्पना व निर्मिती</strong><br>
+                श्री सचिन शिंदे सर<br>
+                जि प प्रा शाळा नरसोबावाडी<br>
+                मोबाईल नंबर: 83 29 68 44 70
+            </div>
+        </div>
+
+        <div class="footer-note" style="margin-top: 15px;">
+            टेस्ट निर्मिती व संकल्पना श्री सचिन शिंदे मोबाईल नंबर 83 29 68 44 70
+        </div>
+    </div>
+
+    <!-- ४. चौथा टप्पा - चुकलेल्या प्रश्नांचे स्पष्टीकरण दालन -->
+    <div id="review-page" style="display: none; margin-top: 20px;">
+        <h3 style="color: #dc3545; border-bottom: 2px solid #dc3545; padding-bottom: 5px;">चुकलेले प्रश्न आणि स्पष्टीकरण (मार्गदर्शन):</h3>
+        <div id="wrong-questions-list"></div>
+        <button class="btn" onclick="backToCertificate()" style="margin-top: 15px; background-color: var(--primary-color);">प्रमाणपत्राकडे परत जा</button>
+    </div>
+
+</div>
+<script>
+    // प्रश्नपेढी (२० प्रश्न - प्रत्येकी २ गुण, एकूण ४० गुण)
+    const questions = [
+        {
+            q: "1) 4 सेकंदात एक पिशवी याप्रमाणे 1 तास 20 मिनिटांत एकूण किती पिशव्या भरल्या जातील?",
+            options: ["1,200", "1,500", "1,250", "800"],
+            correct: 0,
+            exp: "1 तास 20 मिनिटे = 80 मिनिटे = 80 × 60 = 4800 सेकंद. पिशव्या = 4800 ÷ 4 = 1,200."
+        },
+        {
+            q: "2) 5 सेकंदात एक बाटली याप्रमाणे 2 तासांत एकूण किती बाटल्या भरल्या जातील?",
+            options: ["1,440", "720", "1,200", "2,400"],
+            correct: 0,
+            exp: "2 तास = 120 मिनिटे = 120 × 60 = 7200 सेकंद. बाटल्या = 7200 ÷ 5 = 1,440."
+        },
+        {
+            q: "3) 8 सेकंदात एक पाकीट याप्रमाणे 40 मिनिटांत एकूण किती पाकिटे पॅक होतील?",
+            options: ["400", "300", "500", "600"],
+            correct: 1,
+            exp: "40 मिनिटे = 40 × 60 = 2400 सेकंद. पाकिटे = 2400 ÷ 8 = 300."
+        },
+        {
+            q: "4) 15 सेकंदात एक डबा याप्रमाणे 3 तासांत एकूण किती डबे तयार होतील?",
+            options: ["600", "720", "480", "1,080"],
+            correct: 1,
+            exp: "3 तास = 180 मिनिटे = 180 × 60 = 10800 सेकंद. डबे = 10800 ÷ 15 = 720."
+        },
+        {
+            q: "5) 10 सेकंदात एक पेन याप्रमाणे 1 तास 15 मिनिटांत एकूण किती पेने तयार होतील?",
+            options: ["450", "500", "350", "600"],
+            correct: 0,
+            exp: "1 तास 15 मिनिटे = 75 मिनिटे = 75 × 60 = 4500 सेकंद. पेने = 4500 ÷ 10 = 450."
+        },
+        {
+            q: "6) दुपारनंतर 2 वा. 15 मिनिटांनी चित्रपट सुरू झाला. चित्रपट 2 तास 45 मिनिटांचा असल्यास तो किती वाजता संपेल?",
+            options: ["4 वा. 30 मि.", "5 वा.", "4 वा. 45 मि.", "5 वा. 15 मि."],
+            correct: 1,
+            exp: "2 वा 15 मि + 2 तास 45 मि = 4 वा 60 मि = सायंकाळी 5 वाजता."
+        },
+        {
+            q: "7) सकाळी 10 वा. 30 मिनिटांनी सुरू झालेली स्पर्धा 3 तास 20 मिनिटे चालली, तर स्पर्धा किती वाजता संपली?",
+            options: ["दुपारी 1 वा. 50 मि.", "दुपारी 2 वा.", "दुपारी 1 वा. 30 मि.", "दुपारी 2 वा. 10 मि."],
+            correct: 0,
+            exp: "10:30 + 3 तास 20 मि = 13:50 म्हणजेच दुपारी 1 वा. 50 मि."
+        },
+        {
+            q: "8) दुपारी 12 वा. 45 मिनिटांनी बस प्रवासाला निघाली. प्रवास 4 तास 15 मिनिटांचा असेल, तर बस अंतिम ठिकाणी किती वाजता पोहोचेल?",
+            options: ["सायंकाळी 4 वा.", "सायंकाळी 5 वा.", "सायंकाळी 5 वा. 15 मि.", "सायंकाळी 4 वा. 30 मि."],
+            correct: 1,
+            exp: "12:45 + 4 तास 15 मि = 16:60 म्हणजेच सायंकाळी 5:00 वाजता."
+        },
+        {
+            q: "9) सकाळी 8 वा. 15 मिनिटांनी सुरू झालेला सामना 2 तास 50 मिनिटे चालला, तर सामना किती वाजता संपला?",
+            options: ["सकाळी 11 वा. 5 मि.", "सकाळी 10 वा. 55 मि.", "सकाळी 11 वा. 15 मि.", "सकाळी 10 वा. 45 मि."],
+            correct: 0,
+            exp: "8:15 + 2 तास 50 मि = 10:65 = सकाळी 11 वा. 05 मि."
+        },
+        {
+            q: "10) दुपारनंतर 3 वा. 40 मिनिटांनी सुरू झालेला तास 1 तास 35 मिनिटांचा होता, तर तास किती वाजता संपला?",
+            options: ["सायंकाळी 5 वा. 15 मि.", "सायंकाळी 5 वा. 25 मि.", "सायंकाळी 4 वा. 45 मि.", "सायंकाळी 5 वा. 35 मि."],
+            correct: 0,
+            exp: "3:40 + 1 तास 35 मि = 4:75 = सायंकाळी 5 वा. 15 मि."
+        },
+        {
+            q: "11) 7 4/9 या व्यवहारी अपूर्णांकाचे अंशाधिक अपूर्णांकातील रूप खालीलपैकी कोणते?",
+            options: ["67/9", "28/9", "63/9", "32/9"],
+            correct: 0,
+            exp: "(7 × 9) + 4 = 63 + 4 = 67/9."
+        },
+        {
+            q: "12) 12 3/5 या अपूर्णांकाचे अंशाधिक अपूर्णांकात रूपांतर करा.",
+            options: ["63/5", "36/5", "60/5", "53/5"],
+            correct: 0,
+            exp: "(12 × 5) + 3 = 60 + 3 = 63/5."
+        },
+        {
+            q: "13) 8 5/13 या मिश्र अपूर्णांकाचे अंशाधिक अपूर्णांकात रूप कोणते होईल?",
+            options: ["109/13", "104/13", "95/13", "40/13"],
+            correct: 0,
+            exp: "(8 × 13) + 5 = 104 + 5 = 109/13."
+        },
+        {
+            q: "14) 15 2/7 या अपूर्णांकाचे अंशाधिक अपूर्णांकातील रूप लिहा.",
+            options: ["105/7", "107/7", "30/7", "102/7"],
+            correct: 1,
+            exp: "(15 × 7) + 2 = 105 + 2 = 107/7."
+        },
+        {
+            q: "15) 6 8/11 या अपूर्णांकाचे अंशाधिक अपूर्णांकात रूप खालीलपैकी कोणते?",
+            options: ["48/11", "74/11", "66/11", "58/11"],
+            correct: 1,
+            exp: "(6 × 11) + 8 = 66 + 8 = 74/11."
+        },
+        {
+            q: "16) एका मैदानाच्या कुंपणाच्या खर्चासाठी अयाजने 2/9 भाग, रहीमने 3/9 भाग खर्च दिला व उरलेला ₹ 24,000 खर्च जॉनने केला, तर कुंपणाचा एकूण खर्च किती?",
+            options: ["₹ 54,000", "₹ 48,000", "₹ 36,000", "₹ 45,000"],
+            correct: 0,
+            exp: "एकूण भाग 9 पैकी अयाज+रहीम = 5/9. उरलेला भाग = 4/9. 4/9 = 24000, म्हणून एकूण खर्च = 24000 × 9 ÷ 4 = ₹ 54,000."
+        },
+        {
+            q: "17) एका कार्यक्रमासाठी अजयने 1/8 भाग आणि विजयने 3/8 भाग वर्गणी दिली. उर्वरित ₹ 20,000 रक्कम संजयने दिली, तर कार्यक्रमाचा एकूण खर्च किती?",
+            options: ["₹ 30,000", "₹ 40,000", "₹ 50,000", "₹ 60,000"],
+            correct: 1,
+            exp: "एकूण भाग 8 पैकी अजय+विजय = 4/8. उरलेला भाग = 4/8 (म्हणजेच अर्धा). 1/2 भाग = 20000, म्हणून एकूण खर्च = ₹ 40,000."
+        },
+        {
+            q: "18) विहिरीच्या दुरुस्तीसाठी रमेशने 1/5 भाग व सुरेशने 2/5 भाग रक्कम दिली. उरलेली ₹ 18,000 रक्कम गणेशने दिली, तर दुरुस्तीचा एकूण खर्च किती?",
+            options: ["₹ 45,000", "₹ 36,000", "₹ 30,000", "₹ 60,000"],
+            correct: 0,
+            exp: "एकूण भाग 5 पैकी रमेश+सुरेश = 3/5. उरलेला भाग = 2/5. 2/5 = 18000, म्हणून 1/5 = 9000. एकूण खर्च = 9000 × 5 = ₹ 45,000."
+        },
+        {
+            q: "19) वाचनालयाच्या पुस्तकांसाठी 3/10 भाग निधी शासनाकडून, 2/10 भाग निधी ग्रामपंचायतीकडून मिळाला आणि उरलेला ₹ 25,000 निधी लोकवर्गणीतून जमा झाला, तर एकूण किती रुपयांची पुस्तके खरेदी केली?",
+            options: ["₹ 50,000", "₹ 60,000", "₹ 75,000", "₹ 40,000"],
+            correct: 0,
+            exp: "जमा भाग = 5/10. उरलेला भाग = 5/10 (अर्धा). 1/2 = 25000, म्हणून एकूण खरेदी = ₹ 50,000."
+        },
+        {
+            q: "20) एका सहलीच्या एकूण खर्चापैकी 1/6 भाग खर्च शिक्षकांनी केला, 3/6 भाग खर्च पालकांनी केला व उरलेला ₹ 12,000 खर्च विद्यार्थ्यांनी केला, तर सहलीचा एकूण खर्च किती?",
+            options: ["₹ 36,000", "₹ 24,000", "₹ 48,000", "₹ 30,000"],
+            correct: 0,
+            exp: "शिक्षक+पालक = 4/6. उरलेला विद्यार्थ्यांचा भाग = 2/6 = 1/3. 1/3 = 12000, म्हणून एकूण खर्च = 12000 × 3 = ₹ 36,000."
+        }
+    ];
+
+    let currentQIndex = 0;
+    let score = 0;
+    let studentName = "";
+    let userAnswers = [];
+
+    function startExam(e) {
+        e.preventDefault();
+        studentName = document.getElementById('student-name').value;
+        document.getElementById('start-page').style.display = 'none';
+        document.getElementById('exam-page').style.display = 'block';
+        loadQuestion();
+    }
+
+    function loadQuestion() {
+        const qData = questions[currentQIndex];
+        document.getElementById('question-count').innerText = `प्रश्न ${currentQIndex + 1} / ${questions.length}`;
+        document.getElementById('question-text').innerText = qData.q;
+        
+        const optionsDiv = document.getElementById('options-container');
+        optionsDiv.innerHTML = '';
+
+        document.getElementById('explanation-box').style.display = 'none';
+        document.getElementById('next-btn').disabled = true;
+
+        qData.options.forEach((opt, idx) => {
+            const btn = document.createElement('button');
+            btn.className = 'option-btn';
+            btn.innerText = opt;
+            btn.onclick = () => selectOption(idx);
+            optionsDiv.appendChild(btn);
+        });
+    }
+
+    function selectOption(selectedIdx) {
+        const qData = questions[currentQIndex];
+        const buttons = document.querySelectorAll('.option-btn');
+
+        // सर्व बटणे डिसेबल करणे
+        buttons.forEach(b => b.disabled = true);
+
+        userAnswers[currentQIndex] = selectedIdx;
+
+        if (selectedIdx === qData.correct) {
+            buttons[selectedIdx].classList.add('correct');
+            score += 2; // २ गुण
+        } else {
+            buttons[selectedIdx].classList.add('incorrect');
+            buttons[qData.correct].classList.add('correct');
+            
+            // चुकीचे उत्तर दिल्यास स्पष्टीकरण दाखवणे
+            document.getElementById('explanation-text').innerText = qData.exp;
+            document.getElementById('explanation-box').style.display = 'block';
+        }
+
+        // नेक्श किंवा सबमिट बटण Active करणे
+        if (currentQIndex < questions.length - 1) {
+            document.getElementById('next-btn').disabled = false;
+        } else {
+            document.getElementById('next-btn').style.display = 'none';
+            document.getElementById('submit-btn').style.display = 'block';
+        }
+    }
+
+    function nextQuestion() {
+        currentQIndex++;
+        loadQuestion();
+    }
+
+    function submitExam() {
+        document.getElementById('exam-page').style.display = 'none';
+        document.getElementById('certificate-page').style.display = 'block';
+
+        const totalMarks = questions.length * 2;
+        const percentage = Math.round((score / totalMarks) * 100);
+
+        document.getElementById('cert-student-name').innerText = studentName;
+        document.getElementById('cert-score').innerText = score;
+        document.getElementById('cert-percentage').innerText = percentage;
+
+        const awardDiv = document.getElementById('cert-award');
+        
+        // कामगिरीनुसार सन्मान
+        if (percentage >= 90) {
+            awardDiv.innerHTML = "🥇 Gold Medal + Trophy <br><small>अतिउत्कृष्ट कामगिरी!</small>";
+            awardDiv.style.color = "#d4af37";
+        } else if (percentage >= 80) {
+            awardDiv.innerHTML = "🥈 Silver Medal + Trophy <br><small>उत्कृष्ट कामगिरी!</small>";
+            awardDiv.style.color = "#aaa9ad";
+        } else if (percentage >= 70) {
+            awardDiv.innerHTML = "🥉 Bronze Medal + Trophy <br><small>छान कामगिरी!</small>";
+            awardDiv.style.color = "#cd7f32";
+        } else {
+            awardDiv.innerHTML = "💐 अभिनंदन! <br><small>फुलांचा गुच्छ व पुढील परीक्षेसाठी शुभेच्छा!</small>";
+            awardDiv.style.color = "#28a745";
+        }
+    }
+
+    function showWrongQuestions() {
+        document.getElementById('certificate-page').style.display = 'none';
+        document.getElementById('review-page').style.display = 'block';
+
+        const listDiv = document.getElementById('wrong-questions-list');
+        listDiv.innerHTML = '';
+
+        let wrongCount = 0;
+
+        questions.forEach((q, idx) => {
+            if (userAnswers[idx] !== q.correct) {
+                wrongCount++;
+                const card = document.createElement('div');
+                card.className = 'wrong-q-card';
+                card.innerHTML = `
+                    <p><strong>प्रश्न:</strong> ${q.q}</p>
+                    <p style="color: #dc3545;"><strong>तुमचे उत्तर:</strong> ${userAnswers[idx] !== undefined ? q.options[userAnswers[idx]] : 'सोडून दिला'}</p>
+                    <p style="color: #28a745;"><strong>योग्य उत्तर:</strong> ${q.options[q.correct]}</p>
+                    <p style="background-color: #e9ecef; padding: 8px; border-radius: 4px;"><strong>मार्गदर्शन / स्पष्टीकरण:</strong> ${q.exp}</p>
+                `;
+                listDiv.appendChild(card);
+            }
+        });
+
+        if (wrongCount === 0) {
+            listDiv.innerHTML = "<h4 style='color: #28a745;'>अभिनंदन! तुमचे सर्व प्रश्न बरोबर आले आहेत.</h4>";
+        }
+    }
+
+    function backToCertificate() {
+        document.getElementById('review-page').style.display = 'none';
+        document.getElementById('certificate-page').style.display = 'block';
+    }
+</script>
+
+</body>
+</html>
