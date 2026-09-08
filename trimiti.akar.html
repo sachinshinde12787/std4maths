@@ -1,0 +1,518 @@
+<!DOCTYPE html>
+<html lang="mr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>त्रिमितीय आकार - ऑनलाइन टेस्ट</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+    body {
+      background-color: #f0f4f8;
+      margin: 0;
+      padding: 15px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+    }
+    .container {
+      background: #ffffff;
+      width: 100%;
+      max-width: 800px;
+      border-radius: 12px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+      padding: 25px;
+      position: relative;
+    }
+    .header-title {
+      text-align: center;
+      color: #1a365d;
+      font-size: 24px;
+      font-weight: bold;
+      margin-bottom: 20px;
+      border-bottom: 2px solid #e2e8f0;
+      padding-bottom: 10px;
+    }
+    .creator-box {
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      gap: 12px;
+      background: #f7fafc;
+      padding: 10px 15px;
+      border-radius: 8px;
+      border: 1px solid #e2e8f0;
+      margin-bottom: 20px;
+      text-align: right;
+    }
+    .creator-img {
+      width: 65px;
+      height: 65px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 2px solid #3182ce;
+    }
+    .creator-info {
+      font-size: 14px;
+      line-height: 1.4;
+      color: #2d3748;
+    }
+    .form-group {
+      margin-bottom: 18px;
+    }
+    .form-group label {
+      display: block;
+      margin-bottom: 6px;
+      font-weight: bold;
+      color: #4a5568;
+    }
+    .form-group input {
+      width: 100%;
+      padding: 12px;
+      border: 1px solid #cbd5e0;
+      border-radius: 6px;
+      font-size: 16px;
+    }
+    .btn {
+      background-color: #3182ce;
+      color: white;
+      padding: 12px 24px;
+      border: none;
+      border-radius: 6px;
+      font-size: 18px;
+      cursor: pointer;
+      width: 100%;
+      font-weight: bold;
+      transition: background 0.2s;
+    }
+    .btn:hover {
+      background-color: #2b6cb0;
+    }
+    .btn:disabled {
+      background-color: #cbd5e0;
+      cursor: not-allowed;
+    }
+    .footer-text {
+      text-align: center;
+      margin-top: 25px;
+      font-size: 15px;
+      color: #718096;
+      border-top: 1px solid #edf2f7;
+      padding-top: 12px;
+      font-weight: 500;
+    }
+    .hidden {
+      display: none;
+    }
+    .question-box {
+      font-size: 19px;
+      font-weight: bold;
+      margin-bottom: 18px;
+      color: #2d3748;
+      background: #ebf8ff;
+      padding: 15px;
+      border-left: 5px solid #3182ce;
+      border-radius: 4px;
+    }
+    .options-container {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-bottom: 18px;
+    }
+    .option-btn {
+      padding: 14px;
+      border: 2px solid #e2e8f0;
+      border-radius: 8px;
+      background: white;
+      text-align: left;
+      font-size: 16px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .option-btn:hover:not(:disabled) {
+      background-color: #edf2f7;
+    }
+    .option-btn.correct {
+      background-color: #c6f6d5 !important;
+      border-color: #38a169 !important;
+      color: #22543d;
+      font-weight: bold;
+    }
+    .option-btn.incorrect {
+      background-color: #fed7d7 !important;
+      border-color: #e53e3e !important;
+      color: #742a2a;
+      font-weight: bold;
+    }
+    .explanation-box {
+      margin-bottom: 18px;
+      padding: 12px 15px;
+      background-color: #fffaf0;
+      border: 1px solid #feebc8;
+      border-left: 4px solid #dd6b20;
+      border-radius: 6px;
+      color: #7b341e;
+      font-size: 15px;
+    }
+    
+    /* Certificate Styles */
+    .certificate-box {
+      border: 8px double #2b6cb0;
+      padding: 25px;
+      background: #fff;
+      border-radius: 8px;
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    .cert-title {
+      font-size: 22px;
+      color: #1a365d;
+      font-weight: bold;
+      margin-bottom: 10px;
+    }
+    .cert-marks {
+      font-size: 32px;
+      color: #2b6cb0;
+      font-weight: bold;
+      margin: 15px 0;
+    }
+    .cert-honor {
+      font-size: 22px;
+      font-weight: bold;
+      color: #2d3748;
+      margin-bottom: 20px;
+    }
+    .review-item {
+      border-bottom: 1px solid #e2e8f0;
+      padding: 12px 0;
+      text-align: left;
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  
+  <!-- १. सुरुवातीचे पेज (Welcome Page) -->
+  <div id="start-page">
+    <div class="header-title">🏆 जिल्हा परिषद प्राथमिक शाळा नरसोबावाडी संचलित</div>
+    
+    <div class="creator-box">
+      <div class="creator-info">
+        <strong>संकल्पना व निर्मिती</strong><br>
+        श्री सचिन शिंदे सर<br>
+        जि प प्रा शाळा नरसोबावाडी<br>
+        मोबाईल नंबर: 83 29 68 44 70
+      </div>
+      <img src="https://lh3.googleusercontent.com/d/1pkldnaLRyqBtfgiQKwtbeSSfXhENzbOm" alt="श्री सचिन शिंदे" class="creator-img">
+    </div>
+
+    <h2 style="text-align:center; color:#2b6cb0; margin-bottom:20px;">परीक्षेचे नाव: त्रिमितीय आकार</h2>
+
+    <form id="student-form">
+      <div class="form-group">
+        <label for="student-name">विद्यार्थ्याचे नाव:</label>
+        <input type="text" id="student-name" required placeholder="पूर्ण नाव टाका">
+      </div>
+      <div class="form-group">
+        <label for="student-mobile">मोबाईल नंबर:</label>
+        <input type="tel" id="student-mobile" required pattern="[0-9]{10}" placeholder="१० अंकी मोबाईल नंबर">
+      </div>
+      <button type="submit" class="btn" style="margin-top:15px;">EXAM START</button>
+    </form>
+    
+    <div class="footer-text">
+      टेस्ट निर्मिती व संकल्पना श्री सचिन शिंदे मोबाईल नंबर 83 29 68 44 70
+    </div>
+  </div>
+
+  <!-- २. परीक्षा पेज (Quiz Page) -->
+  <div id="quiz-page" class="hidden">
+    <div style="display:flex; justify-content:space-between; margin-bottom:10px; font-weight:bold; color:#4a5568;">
+      <span id="question-count">प्रश्न १ / ७५</span>
+      <span>प्रत्येक प्रश्न: २ गुण</span>
+    </div>
+
+    <div id="question-text" class="question-box"></div>
+    <div id="options-box" class="options-container"></div>
+    <div id="explanation-box" class="explanation-box hidden"></div>
+
+    <button id="next-btn" class="btn" disabled>नेक्स्ट</button>
+    <button id="submit-btn" class="btn hidden">Submit Exam</button>
+
+    <div class="footer-text">
+      टेस्ट निर्मिती व संकल्पना श्री सचिन शिंदे मोबाईल नंबर 83 29 68 44 70
+    </div>
+  </div>
+
+  <!-- ३. निकाल पेज (Certificate Page) -->
+  <div id="result-page" class="hidden">
+    <div class="certificate-box">
+      <div class="cert-title">🏆 जिल्हा परिषद प्राथमिक शाळा नरसोबावाडी संचालित</div>
+      <p style="font-size:16px; margin: 5px 0;"><strong>परीक्षेचे नाव:</strong> त्रिमितीय आकार</p>
+      <p style="font-size:18px; margin: 5px 0;"><strong>विद्यार्थ्याचे नाव:</strong> <span id="cert-student-name"></span></p>
+      
+      <div class="cert-marks" id="cert-marks-text">मिळालेले गुण: 0 / 150</div>
+      <div class="cert-honor" id="cert-honor-text"></div>
+
+      <div class="creator-box" style="margin-top:20px; background:#fff;">
+        <div class="creator-info">
+          <strong>संकल्पना व निर्मिती</strong><br>
+          श्री सचिन शिंदे सर<br>
+          जि प प्रा शाळा नरसोबावाडी<br>
+          मोबाईल नंबर: 83 29 68 44 70
+        </div>
+        <img src="https://lh3.googleusercontent.com/d/1pkldnaLRyqBtfgiQKwtbeSSfXhENzbOm" alt="श्री सचिन शिंदे" class="creator-img">
+      </div>
+    </div>
+
+    <button id="review-btn" class="btn" style="background-color:#dd6b20; margin-bottom:15px;">चुकलेले प्रश्न व मार्गदर्शन पहा</button>
+
+    <div id="review-section" class="hidden" style="margin-top:20px;">
+      <h3 style="color:#e53e3e; border-bottom:2px solid #e53e3e; padding-bottom:5px;">चुकलेले प्रश्न आणि स्पष्टीकरण:</h3>
+      <div id="review-list"></div>
+    </div>
+
+    <div class="footer-text">
+      टेस्ट निर्मिती व संकल्पना श्री सचिन शिंदे मोबाईल नंबर 83 29 68 44 70
+    </div>
+  </div>
+
+</div>
+<script>
+// ७५ प्रश्नांचा संच (प्रत्येक प्रश्नाला २ गुण)
+const questionsData = [
+  { q: "१. इष्टिकाचितीला एकूण किती शिरोबिंदू (कोपरे) असतात?", options: ["(A) ६", "(B) ८", "(C) १२", "(D) १०"], correct: 1, exp: "इष्टिकाचितीला ८ शिरोबिंदू (कोपरे) असतात." },
+  { q: "२. घनाला (Cube) एकूण किती कडा असतात?", options: ["(A) ८", "(B) १०", "(C) १२", "(D) १४"], correct: 2, exp: "घनाला एकूण १२ कडा असतात." },
+  { q: "३. इष्टिकाचितीला एकूण किती पृष्ठे असतात?", options: ["(A) ४", "(B) ६", "(C) ८", "(D) १२"], correct: 1, exp: "इष्टिकाचितीला ६ सपाट पृष्ठे असतात." },
+  { q: "४. घनाची सर्व पृष्ठे कोणत्या आकाराची असतात?", options: ["(A) आयताकृती", "(B) चौरसाकृती", "(C) त्रिकोणाकृती", "(D) वर्तुळाकार"], correct: 1, exp: "घनाची सर्व ६ पृष्ठे समान चौरसाकृती असतात." },
+  { q: "५. इष्टिकाचितीची सर्व पृष्ठे कोणत्या आकाराची असतात?", options: ["(A) चौरसाकृती", "(B) आयताकृती", "(C) त्रिकोणाकृती", "(D) वर्तुळाकार"], correct: 1, exp: "इष्टिकाचितीची सर्व पृष्ठे आयताकृती असतात." },
+  { q: "६. ज्या त्रिमितीय आकाराची सर्व ६ पृष्ठे समान चौरसाकृती असतात, त्याला काय म्हणतात?", options: ["(A) इष्टिकाचिती", "(B) घन", "(C) चिती", "(D) सूची"], correct: 1, exp: "सर्व पृष्ठे समान चौरसाकृती असलेला आकार म्हणजे 'घन' होय." },
+  { q: "७. इष्टिकाचिती आणि घनामध्ये एकूण शिरोबिंदूंची संख्या कशी असते?", options: ["(A) वेगळी", "(B) घनामध्ये जास्त", "(C) इष्टिकाचितीमध्ये जास्त", "(D) समान"], correct: 3, exp: "दोन्हींनाही प्रत्येकी ८ शिरोबिंदू असतात, म्हणजेच संख्या समान असते." },
+  { q: "८. इष्टिकाचितीच्या एका शिरोबिंदूवर किती कडा येऊन मिळतात?", options: ["(A) २", "(B) ३", "(C) ४", "(D) ५"], correct: 1, exp: "इष्टिकाचितीच्या प्रत्येक कोपऱ्यावर (शिरोबिंदूवर) ३ कडा एकत्र येतात." },
+  { q: "९. घनाला एकूण किती सपाट पृष्ठे असतात?", options: ["(A) ४", "(B) ६", "(C) ८", "(D) १२"], correct: 1, exp: "घनाला ६ सपाट पृष्ठे असतात." },
+  { q: "१०. फासा (Dice) हा कोणता आकार दर्शवतो?", options: ["(A) घन", "(B) इष्टिकाचिती", "(C) शंकू", "(D) दंडगोल"], correct: 0, exp: "खेळातील ठोकळा/फासा हा घनाकृती असतो." },
+  { q: "११. दंडगोलाला (वृत्तचिती) एकूण किती सपाट पृष्ठे असतात?", options: ["(A) ०", "(B) १", "(C) २", "(D) ३"], correct: 2, exp: "दंडगोलाला वरचे आणि खालचे मिळून २ सपाट वर्तुळाकार पृष्ठे असतात." },
+  { q: "१२. दंडगोलाला एकूण किती वक्र पृष्ठे असतात?", options: ["(A) १", "(B) २", "(C) ३", "(D) ०"], correct: 0, exp: "दंडगोलाला १ वक्र पृष्ठ असते." },
+  { q: "१३. दंडगोलाला एकूण किती कडा असतात?", options: ["(A) ०", "(B) १", "(C) २", "(D) ३"], correct: 2, exp: "दंडगोलाला २ वक्र कडा असतात." },
+  { q: "१४. दंडगोलाला एकूण किती शिरोबिंदू असतात?", options: ["(A) ०", "(B) १", "(C) २", "(D) ३"], correct: 0, exp: "दंडगोलाला एकही शिरोबिंदू (कोन) नसतो." },
+  { q: "१५. दंडगोलाची सपाट पृष्ठे कोणत्या आकाराची असतात?", options: ["(A) आयताकृती", "(B) चौरसाकृती", "(C) त्रिकोणाकृती", "(D) वर्तुळाकार"], correct: 3, exp: "दंडगोलाची दोन्ही सपाट पृष्ठे वर्तुळाकार असतात." },
+  { q: "१६. पिंप (Drum) हा कोणता आकार दर्शवतो?", options: ["(A) घन", "(B) इष्टिकाचिती", "(C) दंडगोल", "(D) शंकू"], correct: 2, exp: "पिंप हे दंडगोलाचे उत्तम उदाहरण आहे." },
+  { q: "१७. शंकूला एकूण किती शिरोबिंदू असतात?", options: ["(A) ०", "(B) १", "(C) २", "(D) ३"], correct: 1, exp: "शंकूला टोकावर १ शिरोबिंदू असतो." },
+  { q: "१८. शंकूला एकूण किती कडा असतात?", options: ["(A) ०", "(B) १", "(C) २", "(D) ३"], correct: 1, exp: "शंकूला तळाशी १ वर्तुळाकार वक्र कडा असते." },
+  { q: "१९. शंकूला एकूण किती वक्र पृष्ठे असतात?", options: ["(A) १", "(B) २", "(C) ३", "(D) ०"], correct: 0, exp: "शंकूला १ वक्र पृष्ठ असते." },
+  { q: "२०. शंकूला एकूण किती सपाट पृष्ठे असतात?", options: ["(A) ०", "(B) १", "(C) २", "(D) ३"], correct: 1, exp: "शंकूचा तळ सपाट वर्तुळाकार १ पृष्ठ असतो." },
+  { q: "२१. शंकूच्या तळाचा पृष्ठभाग कोणत्या आकाराचा असतो?", options: ["(A) आयताकृती", "(B) त्रिकोणाकृती", "(C) चौरसाकृती", "(D) वर्तुळाकार"], correct: 3, exp: "शंकूच्या तळाचा भाग वर्तुळाकार असतो." },
+  { q: "२२. विदूषकाची टोपी हा कोणता आकार आहे?", options: ["(A) गोल", "(B) शंकू", "(C) दंडगोल", "(D) सूची"], correct: 1, exp: "विदूषकाची टोपी शंकूच्या आकाराची असते." },
+  { q: "२३. आईस्क्रीमचा कोन कोणत्या आकाराचे उदाहरण आहे?", options: ["(A) शंकू", "(B) चिती", "(C) गोल", "(D) दंडगोल"], correct: 0, exp: "आईस्क्रीमचा कोन हे शंकूचे उदाहरण आहे." },
+  { q: "२४. गोलाला (Sphere) एकूण किती पृष्ठे असतात?", options: ["(A) ०", "(B) १", "(C) २", "(D) ३"], correct: 1, exp: "गोलाला १ वक्र पृष्ठ असते." },
+  { q: "२५. गोलाला असणारे पृष्ठ कोणत्या प्रकारचे असते?", options: ["(A) सपाट", "(B) वक्र", "(C) त्रिकोणी", "(D) चौकोनी"], correct: 1, exp: "गोलाचे संपूर्ण पृष्ठ वक्राकार असते." },
+  { q: "२६. गोलाला एकूण किती शिरोबिंदू असतात?", options: ["(A) ०", "(B) १", "(C) २", "(D) असंख्य"], correct: 0, exp: "गोलाला एकही शिरोबिंदू नसतो." },
+  { q: "२७. गोलाला एकूण किती कडा असतात?", options: ["(A) ०", "(B) १", "(C) २", "(D) असंख्य"], correct: 0, exp: "गोलाला एकही कडा नसते." },
+  { q: "२८. चेंडू (Ball) हा कोणता आकार आहे?", options: ["(A) वर्तुळ", "(B) गोल", "(C) दंडगोल", "(D) शंकू"], correct: 1, exp: "चेंडू हा ३D त्रिमितीय 'गोल' आकार आहे." },
+  { q: "२९. चितीच्या (Prism) तळाचा आणि वरचा पृष्ठभाग एकमेकांशी कसा असतो?", options: ["(A) समान आकाराचा", "(B) लहान-मोठा", "(C) नेहमी वर्तुळाकार", "(D) नेहमी त्रिकोणी"], correct: 0, exp: "चितीचे दोन्ही तळ तंतोतंत समान असतात." },
+  { q: "३०. चितीची उभी पृष्ठे नेहमी कोणत्या आकाराची असतात?", options: ["(A) त्रिकोणाकृती", "(B) आयताकृती", "(C) वर्तुळाकार", "(D) पंचकोनी"], correct: 1, exp: "चितीची उभी पृष्ठे नेहमी आयताकृती असतात." },
+  { q: "३१. त्रिकोणी चितीला एकूण किती पृष्ठे असतात?", options: ["(A) ३", "(B) ४", "(C) ५", "(D) ६"], correct: 2, exp: "त्रिकोणी चितीला २ त्रिकोणी + ३ आयताकृती = ५ पृष्ठे असतात." },
+  { q: "३२. त्रिकोणी चितीला एकूण किती शिरोबिंदू असतात?", options: ["(A) ४", "(B) ५", "(C) ६", "(D) ८"], correct: 2, exp: "त्रिकोणी चितीला ६ शिरोबिंदू असतात." },
+  { q: "३३. त्रिकोणी चितीला एकूण किती कडा असतात?", options: ["(A) ६", "(B) ८", "(C) ९", "(D) १२"], correct: 2, exp: "त्रिकोणी चितीला एकूण ९ कडा असतात." },
+  { q: "३४. त्रिकोणी चितीची उभी पृष्ठे किती असतात?", options: ["(A) २", "(B) ३", "(C) ४", "(D) ५"], correct: 1, exp: "त्रिकोणी चितीला ३ उभी आयताकृती पृष्ठे असतात." },
+  { q: "३५. चौरसाकृती चिती म्हणजेच खालीलपैकी कोणता आकार होय?", options: ["(A) घन किंवा इष्टिकाचिती", "(B) शंकू", "(C) त्रिकोणी सूची", "(D) गोल"], correct: 0, exp: "चौरसाकृती चिती म्हणजेच घन किंवा इष्टिकाचिती होय." },
+  { q: "३६. पंचकोनी चितीला एकूण किती शिरोबिंदू असतात?", options: ["(A) ५", "(B) ७", "(C) १०", "(D) १५"], correct: 2, exp: "पंचकोनी चितीला (५x२) = १० शिरोबिंदू असतात." },
+  { q: "३७. पंचकोनी चितीला एकूण किती कडा असतात?", options: ["(A) १०", "(B) १२", "(C) १५", "(D) २०"], correct: 2, exp: "पंचकोनी चितीला (५x३) = १५ कडा असतात." },
+  { q: "३८. पंचकोनी चितीला एकूण किती पृष्ठे असतात?", options: ["(A) ५", "(B) ६", "(C) ७", "(D) ८"], correct: 2, exp: "पंचकोनी चितीला ५ उभी + २ तळ = ७ पृष्ठे असतात." },
+  { q: "३९. षटकोनी चितीला एकूण किती शिरोबिंदू असतात?", options: ["(A) ६", "(B) ८", "(C) १२", "(D) १८"], correct: 2, exp: "षटकोनी चितीला (६x२) = १२ शिरोबिंदू असतात." },
+  { q: "४०. षटकोनी चितीला एकूण किती कडा असतात?", options: ["(A) १२", "(B) १४", "(C) १६", "(D) १८"], correct: 3, exp: "षटकोनी चितीला (६x३) = १८ कडा असतात." },
+  { q: "४१. षटकोनी चितीला एकूण किती पृष्ठे असतात?", options: ["(A) ६", "(B) ७", "(C) ८", "(D) १०"], correct: 2, exp: "षटकोनी चितीला ६ उभी + २ तळ = ८ पृष्ठे असतात." },
+  { q: "४२. ज्या चितीचा तळ पंचकोनी असतो, तिची उभी पृष्ठे किती असतात?", options: ["(A) ४", "(B) ५", "(C) ६", "(D) ७"], correct: 1, exp: "जितक्या बाजूंचा तळ, तितकीच उभी आयताकृती पृष्ठे (५) असतात." },
+  { q: "४३. ज्या चितीचा तळ षटकोनी असतो, तिची उभी पृष्ठे किती असतात?", options: ["(A) ५", "(B) ६", "(C) ७", "(D) ८"], correct: 1, exp: "षटकोनी तळाच्या चितीला ६ उभी पृष्ठे असतात." },
+  { q: "४४. त्रिकोणी चितीचे तळ आणि वरचे पृष्ठ कोणत्या आकाराचे असते?", options: ["(A) चौरस", "(B) आयत", "(C) त्रिकोण", "(D) वर्तुळ"], correct: 2, exp: "त्रिकोणी चितीचे दोन्ही तळ त्रिकोणी असतात." },
+  { q: "४५. एकूण ८ पृष्ठे असणारी चिती कोणती?", options: ["(A) त्रिकोणी चिती", "(B) चौरसाकृती चिती", "(C) पंचकोनी चिती", "(D) षटकोनी चिती"], correct: 3, exp: "षटकोनी चितीला ६ उभी + २ तळ = ८ पृष्ठे असतात." },
+  { q: "४६. कोणत्याही सूचीची (Pyramid) उभी पृष्ठे नेहमी कोणत्या आकाराची असतात?", options: ["(A) आयताकृती", "(B) चौरसाकृती", "(C) त्रिकोणाकृती", "(D) वर्तुळाकार"], correct: 2, exp: "सूचीची सर्व उभी पृष्ठे नेहमी त्रिकोणाकृती असतात." },
+  { q: "४७. सूचीला सर्वात वरच्या बाजूला किती सामाईक शिरोबिंदू असतात जिथे सर्व उभी पृष्ठे मिळतात?", options: ["(A) ०", "(B) १", "(C) २", "(D) ३"], correct: 1, exp: "सूचीची सर्व उभी पृष्ठे वर एकाच टोकदार शिरोबिंदूवर मिळतात." },
+  { q: "४८. त्रिकोणी सूचीला एकूण किती पृष्ठे असतात?", options: ["(A) ३", "(B) ४", "(C) ५", "(D) ६"], correct: 1, exp: "त्रिकोणी सूचीला ३ उभी + १ तळ = ४ पृष्ठे असतात." },
+  { q: "४९. त्रिकोणी सूचीला एकूण किती शिरोबिंदू असतात?", options: ["(A) ३", "(B) ४", "(C) ५", "(D) ६"], correct: 1, exp: "त्रिकोणी सूचीला ३ तळाचे + १ वरचा = ४ शिरोबिंदू असतात." },
+  { q: "५०. त्रिकोणी सूचीला एकूण किती कडा असतात?", options: ["(A) ४", "(B) ६", "(C) ८", "(D) ९"], correct: 1, exp: "त्रिकोणी सूचीला एकूण ६ कडा असतात." },
+  { q: "५१. चौरसाकृती सूचीला एकूण किती शिरोबिंदू असतात?", options: ["(A) ४", "(B) ५", "(C) ६", "(D) ८"], correct: 1, exp: "चौरसाकृती सूचीला ४ तळाचे + १ वरचा = ५ शिरोबिंदू असतात." },
+  { q: "५२. चौरसाकृती सूचीला एकूण किती कडा असतात?", options: ["(A) ६", "(B) ८", "(C) १०", "(D) १२"], correct: 1, exp: "चौरसाकृती सूचीला एकूण ८ कडा असतात." },
+  { q: "५३. चौरसाकृती सूचीला एकूण किती पृष्ठे असतात?", options: ["(A) ४", "(B) ५", "(C) ६", "(D) ८"], correct: 1, exp: "चौरसाकृती सूचीला ४ उभी + १ तळ = ५ पृष्ठे असतात." },
+  { q: "५४. पंचकोनी सूचीला एकूण किती शिरोबिंदू असतात?", options: ["(A) ५", "(B) ६", "(C) ७", "(D) १०"], correct: 1, exp: "पंचकोनी सूचीला ५ तळाचे + १ वरचा = ६ शिरोबिंदू असतात." },
+  { q: "५५. पंचकोनी सूचीला एकूण किती कडा असतात?", options: ["(A) ८", "(B) १०", "(C) १२", "(D) १५"], correct: 1, exp: "पंचकोनी सूचीला ५ तळाच्या + ५ उभ्या = १० कडा असतात." },
+  { q: "५६. पंचकोनी सूचीला एकूण किती पृष्ठे असतात?", options: ["(A) ५", "(B) ६", "(C) ७", "(D) १०"], correct: 1, exp: "पंचकोनी सूचीला ५ उभी + १ तळ = ६ पृष्ठे असतात." },
+  { q: "५७. षटकोनी सूचीला एकूण किती शिरोबिंदू असतात?", options: ["(A) ६", "(B) ७", "(C) ८", "(D) १२"], correct: 1, exp: "षटकोनी सूचीला ६ तळाचे + १ वरचा = ७ शिरोबिंदू असतात." },
+  { q: "५८. षटकोनी सूचीला एकूण किती कडा असतात?", options: ["(A) १०", "(B) १२", "(C) १४", "(D) १८"], correct: 1, exp: "षटकोनी सूचीला ६ तळाच्या + ६ उभ्या = १२ कडा असतात." },
+  { q: "५९. षटकोनी सूचीला एकूण किती पृष्ठे असतात?", options: ["(A) ६", "(B) ७", "(C) ८", "(D) १२"], correct: 1, exp: "षटकोनी सूचीला ६ उभी + १ तळ = ७ पृष्ठे असतात." },
+  { q: "६०. ज्या सूचीचा तळ चौरसाकार असतो, तिची उभी त्रिकोणी पृष्ठे किती असतात?", options: ["(A) ३", "(B) ४", "(C) ५", "(D) ६"], correct: 1, exp: "चौरसाला ४ बाजू असतात, म्हणून ४ उभी पृष्ठे असतात." },
+  { q: "६१. इजिप्तचे पिरॅमिड हा कोणता आकार आहे?", options: ["(A) चिती", "(B) सूची", "(C) घन", "(D) इष्टिकाचिती"], correct: 1, exp: "इजिप्तचे पिरॅमिड हे सूचीचे (Pyramid) उदाहरण आहे." },
+  { q: "६२. तळाच्या कडांची संख्या आणि उभ्या त्रिकोणी पृष्ठांची संख्या नेहमी समान असणारा आकार कोणता?", options: ["(A) चिती", "(B) सूची", "(C) दंडगोल", "(D) गोल"], correct: 1, exp: "सूचीमध्ये तळाच्या बाजू इतकीच उभी त्रिकोणी पृष्ठे असतात." },
+  { q: "६३. फक्त एकच वक्र पृष्ठ आणि एकही शिरोबिंदू नसणारा आकार कोणता?", options: ["(A) शंकू", "(B) दंडगोल", "(C) गोल", "(D) इष्टिकाचिती"], correct: 2, exp: "गोलाला १ वक्र पृष्ठ असते व ० शिरोबिंदू असतात." },
+  { q: "६४. एक वक्र पृष्ठ, एक सपाट पृष्ठ आणि एक शिरोबिंदू असणारा आकार कोणता?", options: ["(A) दंडगोल", "(B) शंकू", "(C) घन", "(D) चिती"], correct: 1, exp: "शंकूला १ वक्र पृष्ठ, १ सपाट पृष्ठ आणि १ शिरोबिंदू असतो." },
+  { q: "६५. एक वक्र पृष्ठ आणि दोन सपाट वर्तुळाकार पृष्ठे असणारा आकार कोणता?", options: ["(A) शंकू", "(B) दंडगोल", "(C) गोल", "(D) सूची"], correct: 1, exp: "दंडगोलाला १ वक्र आणि २ सपाट वर्तुळाकार पृष्ठे असतात." },
+  { q: "६६. खालीलपैकी कोणत्या आकाराला वक्र पृष्ठ नसते?", options: ["(A) गोल", "(B) दंडगोल", "(C) शंकू", "(D) इष्टिकाचिती"], correct: 3, exp: "इष्टिकाचितीची सर्व ६ पृष्ठे सपाट असतात." },
+  { q: "६७. खालीलपैकी कोणत्या आकाराला सर्वच्या सर्व पृष्ठे सपाट असतात?", options: ["(A) त्रिकोणी चिती", "(B) गोल", "(C) शंकू", "(D) दंडगोल"], correct: 0, exp: "त्रिकोणी चितीला सर्व ५ पृष्ठे सपाट असतात." },
+  { q: "६८. घराच्या बांधकामातील वीट (Brick) कोणत्या आकाराची असते?", options: ["(A) घन", "(B) इष्टिकाचिती", "(C) दंडगोल", "(D) चिती"], correct: 1, exp: "वीट ही इष्टिकाचिती आकाराची असते." },
+  { q: "६९. ज्या आकाराची उभी पृष्ठे त्रिकोणी आहेत आणि तळही त्रिकोणी आहे, त्याला काय म्हणतात?", options: ["(A) त्रिकोणी चिती", "(B) त्रिकोणी सूची", "(C) चौरसाकृती सूची", "(D) पंचकोनी चिती"], correct: 1, exp: "उभी पृष्ठे त्रिकोणी म्हणजे 'सूची', तळ त्रिकोणी म्हणजे 'त्रिकोणी सूची'." },
+  { q: "७०. ज्या आकाराची उभी पृष्ठे आयताकृती आहेत आणि तळ त्रिकोणी आहे, त्याला काय म्हणतात?", options: ["(A) त्रिकोणी चिती", "(B) त्रिकोणी सूची", "(C) आयताकृती सूची", "(D) षटकोनी चिती"], correct: 0, exp: "उभी पृष्ठे आयताकृती म्हणजे 'चिती', तळ त्रिकोणी म्हणजे 'त्रिकोणी चिती'." },
+  { q: "७१. १२ कडा, ८ शिरोबिंदू आणि ६ पृष्ठे असणारा आकार कोणता?", options: ["(A) त्रिकोणी चिती", "(B) पंचकोनी सूची", "(C) घन किंवा इष्टिकाचिती", "(D) षटकोनी सूची"], correct: 2, exp: "घन आणि इष्टिकाचिती या दोघांनाही १२ कडा, ८ शिरोबिंदू व ६ पृष्ठे असतात." },
+  { q: "७२. एकूण १० कडा असणारा आकार कोणता?", options: ["(A) चौरसाकृती सूची", "(B) पंचकोनी सूची", "(C) षटकोनी चिती", "(D) त्रिकोणी चिती"], correct: 1, exp: "पंचकोनी सूचीला १० कडा असतात." },
+  { q: "७३. एकूण ९ कडा असणारा आकार कोणता?", options: ["(A) त्रिकोणी सूची", "(B) त्रिकोणी चिती", "(C) चौरसाकृती चिती", "(D) पंचकोनी सूची"], correct: 1, exp: "त्रिकोणी चितीला ९ कडा असतात." },
+  { q: "७४. एकूण १५ कडा असणारा आकार कोणता?", options: ["(A) पंचकोनी चिती", "(B) षटकोनी चिती", "(C) षटकोनी सूची", "(D) त्रिकोणी चिती"], correct: 0, exp: "पंचकोनी चितीला १५ कडा असतात." },
+  { q: "७५. एकूण १२ शिरोबिंदू असणारा आकार कोणता?", options: ["(A) षटकोनी सूची", "(B) पंचकोनी चिती", "(C) षटकोनी चिती", "(D) अष्टकोनी सूची"], correct: 2, exp: "षटकोनी चितीला (६x२) = १२ शिरोबिंदू असतात." }
+];
+// राज्य आणि व्हेरिएबल्स
+let currentQuestionIndex = 0;
+let score = 0;
+let userAnswers = [];
+let studentDetails = { name: "", mobile: "" };
+
+// DOM Elements
+const startPage = document.getElementById('start-page');
+const quizPage = document.getElementById('quiz-page');
+const resultPage = document.getElementById('result-page');
+
+const studentForm = document.getElementById('student-form');
+const questionCountEl = document.getElementById('question-count');
+const questionTextEl = document.getElementById('question-text');
+const optionsBox = document.getElementById('options-box');
+const explanationBox = document.getElementById('explanation-box');
+const nextBtn = document.getElementById('next-btn');
+const submitBtn = document.getElementById('submit-btn');
+
+// १. स्टार्ट फॉर्म सबमिट
+studentForm.addEventListener('submit', function(e) {
+  e.preventDefault();
+  studentDetails.name = document.getElementById('student-name').value;
+  studentDetails.mobile = document.getElementById('student-mobile').value;
+
+  startPage.classList.add('hidden');
+  quizPage.classList.remove('hidden');
+  loadQuestion();
+});
+
+// २. प्रश्न लोड करणे
+function loadQuestion() {
+  const currentQ = questionsData[currentQuestionIndex];
+  questionCountEl.innerText = `प्रश्न ${currentQuestionIndex + 1} / ${questionsData.length}`;
+  questionTextEl.innerText = currentQ.q;
+  
+  optionsBox.innerHTML = '';
+  explanationBox.classList.add('hidden');
+  explanationBox.innerText = '';
+  nextBtn.disabled = true;
+
+  currentQ.options.forEach((opt, index) => {
+    const btn = document.createElement('button');
+    btn.className = 'option-btn';
+    btn.innerText = opt;
+    btn.addEventListener('click', () => selectOption(index));
+    optionsBox.appendChild(btn);
+  });
+
+  if (currentQuestionIndex === questionsData.length - 1) {
+    nextBtn.classList.add('hidden');
+    submitBtn.classList.remove('hidden');
+    submitBtn.disabled = true;
+  }
+}
+
+// ३. पर्याय निवडल्यावर
+function selectOption(selectedIndex) {
+  const currentQ = questionsData[currentQuestionIndex];
+  const buttons = optionsBox.querySelectorAll('.option-btn');
+  
+  // बटणे डिसेबल करणे
+  buttons.forEach(btn => btn.disabled = true);
+
+  const isCorrect = selectedIndex === currentQ.correct;
+  userAnswers.push({
+    question: currentQ.q,
+    options: currentQ.options,
+    selected: selectedIndex,
+    correct: currentQ.correct,
+    explanation: currentQ.exp,
+    isCorrect: isCorrect
+  });
+
+  if (isCorrect) {
+    buttons[selectedIndex].classList.add('correct');
+    score += 2; // प्रत्येक प्रश्नाला २ गुण
+  } else {
+    buttons[selectedIndex].classList.add('incorrect');
+    buttons[currentQ.correct].classList.add('correct');
+    
+    // स्पष्टीकरण दाखवणे
+    explanationBox.innerText = "स्पष्टीकरण: " + currentQ.exp;
+    explanationBox.classList.remove('hidden');
+  }
+
+  nextBtn.disabled = false;
+  submitBtn.disabled = false;
+}
+
+// ४. नेक्स्ट बटण
+nextBtn.addEventListener('click', () => {
+  currentQuestionIndex++;
+  loadQuestion();
+});
+
+// ५. सबमिट बटण
+submitBtn.addEventListener('click', showResult);
+
+// ६. निकाल दाखवणे
+function showResult() {
+  quizPage.classList.add('hidden');
+  resultPage.classList.remove('hidden');
+
+  document.getElementById('cert-student-name').innerText = studentDetails.name;
+  
+  const totalMaxMarks = questionsData.length * 2; // १५० गुण
+  document.getElementById('cert-marks-text').innerText = `मिळालेले गुण: ${score} / ${totalMaxMarks}`;
+
+  const percentage = (score / totalMaxMarks) * 100;
+  const honorEl = document.getElementById('cert-honor-text');
+
+  if (percentage >= 90) {
+    honorEl.innerHTML = "🥇 Gold Medal + Trophy <br><span style='font-size:16px; color:#38a169;'>अतिउत्कृष्ट कामगिरी!</span>";
+  } else if (percentage >= 80) {
+    honorEl.innerHTML = "🥈 Silver Medal + Trophy <br><span style='font-size:16px; color:#3182ce;'>अभिनंदन! खूप छान कामगिरी!</span>";
+  } else if (percentage >= 70) {
+    honorEl.innerHTML = "🥉 Bronze Medal + Trophy <br><span style='font-size:16px; color:#dd6b20;'>छान प्रयत्न!</span>";
+  } else {
+    honorEl.innerHTML = "💐 अभिनंदन! फुलांचा गुच्छ व <br><span style='color:#e53e3e;'>\"पुढील परीक्षेसाठी शुभेच्छा\"</span>";
+  }
+}
+
+// ७. चुकलेले प्रश्न दाखवणे
+document.getElementById('review-btn').addEventListener('click', function() {
+  const reviewSection = document.getElementById('review-section');
+  const reviewList = document.getElementById('review-list');
+  
+  reviewList.innerHTML = '';
+  const wrongAnswers = userAnswers.filter(ans => !ans.isCorrect);
+
+  if (wrongAnswers.length === 0) {
+    reviewList.innerHTML = "<p style='color:#38a169; font-weight:bold;'>अभिनंदन! तुमचा एकही प्रश्न चुकला नाही.</p>";
+  } else {
+    wrongAnswers.forEach((item, idx) => {
+      const div = document.createElement('div');
+      div.className = 'review-item';
+      div.innerHTML = `
+        <p style="font-weight:bold; color:#2d3748;">${item.question}</p>
+        <p style="color:#e53e3e; margin:3px 0;">तुमचे उत्तर: ${item.options[item.selected]}</p>
+        <p style="color:#38a169; margin:3px 0;">बरोबर उत्तर: ${item.options[item.correct]}</p>
+        <p style="color:#dd6b20; font-size:14px; margin-top:5px; background:#fffaf0; padding:6px; border-radius:4px;">💡 मार्गदर्शन/स्पष्टीकरण: ${item.explanation}</p>
+      `;
+      reviewList.appendChild(div);
+    });
+  }
+
+  reviewSection.classList.remove('hidden');
+  this.style.display = 'none'; // बटण लपवणे
+});
+</script>
+
+</body>
+</html>
