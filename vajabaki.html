@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="mr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ऑनलाइन वजाबाकी सराव परीक्षा</title>
+    <style>
+        * { box-sizing: border-box; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+        body { background-color: #f4f7f6; margin: 0; padding: 15px; color: #333; }
+        .container { max-width: 800px; margin: 0 auto; background: #fff; border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.1); padding: 20px; position: relative; }
+        
+        /* Header */
+        .header { text-align: center; border-bottom: 2px solid #e0e0e0; padding-bottom: 15px; margin-bottom: 20px; }
+        .header h2 { color: #1a237e; margin: 0 0 10px 0; font-size: 24px; }
+        .header h3 { color: #d81b60; margin: 0; font-size: 20px; }
+        
+        /* Teacher Profile Header Right */
+        .creator-top-right { text-align: right; background: #eef2f5; padding: 10px; border-radius: 8px; margin-bottom: 20px; display: flex; align-items: center; justify-content: flex-end; gap: 12px; }
+        .creator-top-right img { width: 60px; height: 60px; border-radius: 50%; object-fit: cover; border: 2px solid #1a237e; }
+        .creator-text { font-size: 13px; color: #444; line-height: 1.4; text-align: right; }
+        
+        /* Forms */
+        .form-group { margin-bottom: 15px; }
+        label { display: block; margin-bottom: 5px; font-weight: bold; color: #333; }
+        input[type="text"], input[type="tel"] { width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 6px; font-size: 16px; }
+        
+        /* Buttons */
+        .btn { background-color: #1a237e; color: white; border: none; padding: 12px 24px; font-size: 16px; font-weight: bold; border-radius: 6px; cursor: pointer; transition: 0.3s; width: 100%; margin-top: 15px; }
+        .btn:hover { background-color: #283593; }
+        .btn:disabled { background-color: #cccccc; cursor: not-allowed; }
+        .btn-wrong { background-color: #d32f2f; color: white; margin-top: 15px; display: none; }
+        
+        /* Quiz Section */
+        #quiz-section, #result-section, #wrong-questions-section { display: none; }
+        .question-card { background: #fafafa; border: 1px solid #e0e0e0; padding: 15px; border-radius: 8px; margin-bottom: 15px; }
+        .question-title { font-size: 18px; font-weight: bold; margin-bottom: 15px; color: #0d47a1; }
+        .option-btn { width: 100%; text-align: left; background: #fff; border: 2px solid #e0e0e0; padding: 12px; margin-bottom: 10px; border-radius: 6px; cursor: pointer; font-size: 16px; transition: 0.2s; }
+        .option-btn:hover { background: #e8eaf6; border-color: #3f51b5; }
+        .option-btn.correct { background-color: #c8e6c9 !important; border-color: #2e7d32 !important; color: #1b5e20; font-weight: bold; }
+        .option-btn.wrong { background-color: #ffcdd2 !important; border-color: #c62828 !important; color: #b71c1c; font-weight: bold; }
+        
+        .explanation { background: #fff3e0; border-left: 4px solid #ff9800; padding: 10px; margin-top: 10px; border-radius: 4px; display: none; font-size: 15px; color: #e65100; }
+        
+        /* Page Footer */
+        .page-footer { text-align: center; font-size: 14px; font-weight: bold; color: #555; margin-top: 20px; padding-top: 10px; border-top: 1px solid #ddd; }
+        
+        /* Certificate Style */
+        .certificate { border: 8px double #1a237e; padding: 25px; border-radius: 12px; background: #fffdf5; text-align: center; position: relative; }
+        .certificate h2 { color: #1a237e; margin-bottom: 5px; }
+        .cert-score { font-size: 28px; font-weight: bold; color: #2e7d32; margin: 15px 0; }
+        .cert-badge { font-size: 22px; font-weight: bold; color: #d81b60; margin: 15px 0; padding: 10px; border: 2px dashed #d81b60; border-radius: 8px; background: #fff; display: inline-block; }
+        
+        /* Wrong Questions List */
+        .review-item { border-bottom: 1px dashed #ccc; padding: 10px 0; text-align: left; }
+        .review-item p { margin: 5px 0; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <!-- Top Header -->
+    <div class="header">
+        <h2>जिल्हा परिषद प्राथमिक शाळा नरसोबावाडी संचलित</h2>
+        <h3>परीक्षेचे नाव: वजाबाकी सराव परीक्षा</h3>
+    </div>
+
+    <!-- Creator Info Top Right -->
+    <div class="creator-top-right">
+        <div class="creator-text">
+            <b>संकल्पना व निर्मिती</b><br>
+            श्री सचिन शिंदे सर<br>
+            जि प प्रा शाळा नरसोबावाडी<br>
+            मोबा. 83 29 68 44 70
+        </div>
+        <img src="https://lh3.googleusercontent.com/d/1pkldnaLRyqBtfgiQKwtbeSSfXhENzbOm" alt="श्री सचिन शिंदे">
+    </div>
+
+    <!-- Step 1: Student Details Form -->
+    <div id="start-section">
+        <div class="form-group">
+            <label for="student-name">विद्यार्थ्याचे नाव:</label>
+            <input type="text" id="student-name" placeholder="पूर्ण नाव टाका" required>
+        </div>
+        <div class="form-group">
+            <label for="student-mobile">मोबाईल नंबर:</label>
+            <input type="tel" id="student-mobile" placeholder="१० अंकी मोबाईल नंबर" maxlength="10" required>
+        </div>
+        
+        <div class="page-footer">
+            टेस्ट निर्मिती व संकल्पना श्री सचिन शिंदे मोबाईल नंबर 83 29 68 44 70
+        </div>
+        
+        <button class="btn" onclick="startExam()">EXAM START</button>
+    </div>
+
+    <!-- Step 2: Quiz Section -->
+    <div id="quiz-section">
+        <div style="display: flex; justify-content: space-between; font-weight: bold; margin-bottom: 10px; color: #555;">
+            <span id="question-count">प्रश्न १ / ३०</span>
+            <span>प्रत्येक प्रश्न: २ गुण</span>
+        </div>
+        
+        <div class="question-card">
+            <div class="question-title" id="q-text">प्रश्न येथे दिसेल</div>
+            <div id="options-container"></div>
+            <div class="explanation" id="q-explanation"></div>
+        </div>
+
+        <button class="btn" id="next-btn" onclick="nextQuestion()" disabled>नेक्स्ट प्रश्न</button>
+        
+        <div class="page-footer">
+            टेस्ट निर्मिती व संकल्पना श्री सचिन शिंदे मोबाईल नंबर 83 29 68 44 70
+        </div>
+    </div>
+    <!-- Step 3: Result / Certificate Section -->
+    <div id="result-section">
+        <div class="certificate">
+            <h2>🏆 जिल्हा परिषद प्राथमिक शाळा नरसोबावाडी संचलित</h2>
+            <h3>सराव परीक्षा: वजाबाकी</h3>
+            <hr>
+            <p style="font-size: 18px;">विद्यार्थ्याचे नाव: <b id="res-name" style="color: #1a237e;">-</b></p>
+            <p style="font-size: 16px;">मोबाईल नंबर: <span id="res-mobile">-</span></p>
+            
+            <div class="cert-score" id="res-score">गुण: ० / ६० (०%)</div>
+            <div class="cert-badge" id="res-badge">सन्मान चिन्ह</div>
+            
+            <br><br>
+            <!-- Bottom Right Creator Info inside Certificate -->
+            <div class="creator-top-right" style="background: transparent;">
+                <div class="creator-text">
+                    <b>संकल्पना व निर्मिती</b><br>
+                    श्री सचिन शिंदे सर<br>
+                    जि प प्रा शाळा नरसोबावाडी<br>
+                    मोबा. 83 29 68 44 70
+                </div>
+                <img src="https://lh3.googleusercontent.com/d/1pkldnaLRyqBtfgiQKwtbeSSfXhENzbOm" alt="श्री सचिन शिंदे">
+            </div>
+        </div>
+
+        <button class="btn btn-wrong" id="view-wrong-btn" onclick="showWrongQuestions()">चुकलेले प्रश्न पहा व मार्गदर्शन मिळवा</button>
+        
+        <div class="page-footer">
+            टेस्ट निर्मिती व संकल्पना श्री सचिन शिंदे मोबाईल नंबर 83 29 68 44 70
+        </div>
+    </div>
+
+    <!-- Step 4: Wrong Questions Section -->
+    <div id="wrong-questions-section">
+        <h3 style="color: #d32f2f; text-align: center;">चुकलेले प्रश्न आणि स्पष्टीकरण</h3>
+        <div id="wrong-list"></div>
+        <button class="btn" onclick="location.reload()" style="background-color: #2e7d32;">पुन्हा परीक्षा द्या</button>
+        
+        <div class="page-footer">
+            टेस्ट निर्मिती व संकल्पना श्री सचिन शिंदे मोबाईल नंबर 83 29 68 44 70
+        </div>
+    </div>
+</div>
+
+<script>
+// ३० प्रश्नांचा डेटाबेस
+const questionsData = [
+    { q: "१. ५००० या संख्येची लगतची मागची संख्या कोणती?", options: ["५००१", "४९९९", "४९९८", "४९९०"], ans: 1, exp: "स्पष्टीकरण: लगतची मागची संख्या मिळवण्यासाठी दिलेली संख्या - १ करतात (५००० - १ = ४९९९)." },
+    { q: "२. एका शेतकर्‍याने ५०,००० रुपयांपैकी १८,५०० रुपये खतांसाठी खर्च केले, तर त्याच्याकडे किती रुपये उरले?", options: ["३१,०००", "३१,५००", "३२,५००", "३०,५००"], ans: 1, exp: "स्पष्टीकरण: ५०,००० - १८,५०० = ३१,५०० रुपये उरतील." },
+    { q: "३. साडेसात हजार रुपयांमधून अडीच हजार रुपये वजा केल्यास किती रुपये उरतील?", options: ["५०००", "४५००", "६०००", "५५००"], ans: 0, exp: "स्पष्टीकरण: साडेसात हजार (७५००) - अडीच हजार (२५००) = ५००० रुपये." },
+    { q: "४. पावणेपाच हजार रुपयांमधून सव्वादोन हजार रुपये वजा केले तर किती उरतील?", options: ["२५००", "२४००", "२६००", "२७५०"], ans: 0, exp: "स्पष्टीकरण: पावणेपाच हजार (४७५०) - सव्वादोन हजार (२२५०) = २५०० रुपये." },
+    { q: "५. एका गावातील एकूण लोकसंख्या २५,४०० आहे. त्यांपैकी १२,२५० महिला असतील, तर पुरुषांची संख्या किती?", options: ["१३,१५०", "१३,०५०", "१३,२००", "१२,९५०"], ans: 0, exp: "स्पष्टीकरण: २५,४०० (एकूण) - १२,२५० (महिला) = १३,१५० (पुरुष)." },
+    { q: "६. ६८,४५२ या संख्येतील '६' ची स्थानिक किंमत आणि '८' ची स्थानिक किंमत यांतील फरक किती?", options: ["५२,०००", "६०,०००", "५८,०००", "५०,०००"], ans: 0, exp: "स्पष्टीकरण: '६' ची स्थानिक किंमत ६०,००० आणि '८' ची स्थानिक किंमत ८,००० आहे. फरक = ६०,००० - ८,००० = ५२,०००." },
+    { q: "७. पाच अंकी सर्वांत मोठ्या संख्येतून पाच अंकी सर्वांत लहान संख्या वजा केल्यास काय उत्तर येईल?", options: ["८९,९९९", "९९,९९९", "७९,९९९", "८०,०००"], ans: 0, exp: "स्पष्टीकरण: ५ अंकी सर्वात मोठी (९९,९९९) - ५ अंकी सर्वात लहान (१०,०००) = ८९,९९९." },
+    { q: "८. ४ अंकी लहानात लहान सम संख्या व ३ अंकी लहानात लहान विषम संख्या यांतील फरक किती?", options: ["८९९", "९००", "८९८", "९०१"], ans: 0, exp: "स्पष्टीकरण: ४ अंकी लहान सम संख्या (१०००) - ३ अंकी लहान विषम संख्या (१०१) = ८९९." },
+    { q: "९. एका दुकानात ८५,००० रुपयांचा माल होता. त्यातील ४२,३०० रुपयांचा माल विकला गेला, तर शिल्लक मालाची किंमत किती?", options: ["४२,७००", "४३,०००", "४२,०००", "४१,७००"], ans: 0, exp: "स्पष्टीकरण: ८५,००० - ४२,३०० = ४२,७०० रुपये." },
+    { q: "१०. जर २५,००० - 🔲 = १५,०००, तर चौकटीत कोणती संख्या येईल?", options: ["५,०००", "१०,०००", "१५,०००", "२०,०००"], ans: 1, exp: "स्पष्टीकरण: २५,००० - १५,००० = १०,०००." },
+    { q: "११. ९००० - ४५६७ = ?", options: ["४४३३", "४५३३", "४३३३", "४४43"], ans: 0, exp: "स्पष्टीकरण: ९००० - ४५६७ = ४४३३." },
+    { q: "१२. एका कारखान्यात एका महिन्यात ६५,४०० सायकली तयार झाल्या. दुसऱ्या महिन्यात ४२,३०० सायकली तयार झाल्या, तर पहिल्या महिन्यात किती सायकली जास्त तयार झाल्या?", options: ["२३,१००", "२३,०००", "२४,१००", "२२,१००"], ans: 0, exp: "स्पष्टीकरण: ६५,४०० - ४२,३०० = २३,१०० सायकली." },
+    { q: "१३. ९, ८, ५, ३, ० हे अंक प्रत्येकी एकदाच वापरून तयार होणारी सर्वांत मोठी ५-अंकी संख्या व सर्वांत लहान ५-अंकी संख्या यांतील फरक किती?", options: ["६७,९५९", "६७,९६९", "६८,०५९", "६७,९४९"], ans: 0, exp: "स्पष्टीकरण: मोठी संख्या = ९८,५३०; लहान संख्या = ३०,५८९. फरक = ९८,५३० - ३०,५८९ = ६७,९५९." },
+    { q: "१४. एका वाचनालयात ३४,५०० पुस्तके होती. त्यांतील १२,३५० पुस्तके विद्यार्थ्यांना वाचण्यासाठी दिली, तर वाचनालयात किती पुस्तके शिल्लक राहिली?", options: ["२२,१५०", "२२,०५०", "२१,१५०", "२३,१५०"], ans: 0, exp: "स्पष्टीकरण: ३४,५०० - १२,३५० = २२,१५० पुस्तके." },
+    { q: "१५. ७८,९६५ या संख्येतून कोणती संख्या वजा करावी म्हणजे उत्तर ४५,२३१ येईल?", options: ["३३,७३४", "३३,५००", "३४,७३४", "३२,७३४"], ans: 0, exp: "स्पष्टीकरण: ७८,९६५ - ४५,२३१ = ३३,७३४." },
+    { q: "१६. तीन अंकी सर्वांत मोठी सम संख्या व दोन अंकी सर्वांत मोठी विषम संख्या यांतील फरक किती?", options: ["८९९", "९००", "८९८", "८९७"], ans: 0, exp: "स्पष्टीकरण: ३ अंकी मोठी सम (९९८) - २ अंकी मोठी विषम (९९) = ८९९." },
+    { q: "१७. एका क्रिकेट सामन्यात टीम A ने ३५० धावा केल्या आणि टीम B ने २८५ धावा केल्या. टीम A ने टीम B पेक्षा किती धावा जास्त केल्या?", options: ["६५", "७०", "६०", "७५"], ans: 0, exp: "स्पष्टीकरण: ३५० - २८५ = ६५ धावा." },
+    { q: "१८. ९९,९९९ या संख्येतून १०,००१ वजा केल्यास कोणती संख्या मिळते?", options: ["८९,९९८", "८९,९९९", "८८,९९८", "९०,९९८"], ans: 0, exp: "स्पष्टीकरण: ९९,९९९ - १०,००१ = ८९,९९८." },
+    { q: "१९. ६७,५०० रुपयांच्या टीव्हीवर ५,५०० रुपयांची सूट मिळाली, तर टीव्ही किती रुपयांना मिळाला?", options: ["६२,०००", "६१,५००", "६३,०००", "६०,०००"], ans: 0, exp: "स्पष्टीकरण: ६७,५०० - ५,५०० = ६२,००० रुपये." },
+    { q: "२०. दोन संख्यांची बेरीज ९५,४०० आहे. त्यांपैकी एक संख्या ४२,२०० असल्यास दुसरी संख्या कोणती?", options: ["५३,२००", "५२,२००", "५४,२००", "५३,०००"], ans: 0, exp: "स्पष्टीकरण: ९५,४०० - ४२,२०० = ५३,२००." },
+    { q: "२१. एका गोदामात ८५,००० पोती होती. त्यांतील ५३,४०० पोती बाहेर पाठवली, तर गोदामात किती पोती शिल्लक राहिली?", options: ["३१,६००", "३२,६००", "३०,६००", "३१,५००"], ans: 0, exp: "स्पष्टीकरण: ८५,००० - ५३,४०० = ३१,६०० पोती." },
+    { q: "२२. ८५,४३२ - 🔲 = ५०,०००, तर चौकटीत येणारी संख्या कोणती?", options: ["३५,४३२", "३०,४३२", "३५,०००", "३४,४३२"], ans: 0, exp: "स्पष्टीकरण: ८५,४३२ - ५०,००० = ३५,४३२." },
+    { q: "२३. ७६,५८० या संख्येतील '७' ची स्थानिक किंमत व '६' ची स्थानिक किंमत यांतील फरक किती?", options: ["६४,०००", "६०,०००", "७०,०००", "६५,०००"], ans: 0, exp: "स्पष्टीकरण: ७०,००० - ६,००० = ६४,०००." },
+    { q: "२४. एका परीक्षेला ६५,४०० विद्यार्थी बसले होते. त्यांपैकी ५२,३०० विद्यार्थी उत्तीर्ण झाले, तर किती विद्यार्थी अनुत्तीर्ण झाले?", options: ["१३,१००", "१३,०००", "१४,१००", "१२,१००"], ans: 0, exp: "स्पष्टीकरण: ६५,४०० - ५२,३०० = १३,१०० विद्यार्थी." },
+    { q: "२५. सव्वापाच हजारांतून दीड हजार वजा केल्यास किती उरतील?", options: ["३,७५०", "३,५००", "४,०००", "३,२५०"], ans: 0, exp: "स्पष्टीकरण: सव्वापाच हजार (५२५०) - दीड हजार (१५००) = ३७५०." },
+    { q: "२६. एका टाकीची क्षमता ५०,००० लिटर आहे. त्यातील ३२,५०० लिटर पाणी वापरले, तर टाकीत किती लिटर पाणी उरले?", options: ["१७,५००", "१८,५००", "१६,५००", "१७,०००"], ans: 0, exp: "स्पष्टीकरण: ५०,००० - ३२,५०० = १७,५०० लिटर." },
+    { q: "२७. ४ अंकी मोठ्यात मोठी संख्या व ३ अंकी मोठ्यात मोठी संख्या यांतील फरक किती?", options: ["९०००", "९९००", "८९९९", "९९९९"], ans: 0, exp: "स्पष्टीकरण: ९९९९ - ९९९ = ९०००." },
+    { q: "२८. ५०,००० या संख्येतून १०,००० वजा करून उरलेल्या संख्येतून पुन्हा ५,००० वजा केल्यास शेवटी किती उरतील?", options: ["३५,०००", "४०,०००", "३०,०००", "२५,०००"], ans: 0, exp: "स्पष्टीकरण: ५०,००० - १०,००० = ४०,०००; पुन्हा ४०,००० - ५,००० = ३५,०००." },
+    { q: "२९. एका बागेत एकूण १२,५०० झाडे होती. वादळामुळे १,८०० झाडे पडली, तर बागेत किती झाडे सुरक्षित राहिली?", options: ["१०,७००", "१०,५००", "११,७००", "१०,800"], ans: 0, exp: "स्पष्टीकरण: १२,५०० - १,८०० = १०,७०० झाडे." },
+    { q: "३०. १०,००० या संख्येतून १ वजा केल्यास कोणती संख्या मिळेल?", options: ["९,९९९", "९,९९०", "९,९०९", "९,०००"], ans: 0, exp: "स्पष्टीकरण: १०,००० - १ = ९,९९९." }
+];
+let currentQIndex = 0;
+let score = 0;
+let studentName = "";
+let studentMobile = "";
+let wrongQuestions = [];
+
+function startExam() {
+    studentName = document.getElementById('student-name').value.trim();
+    studentMobile = document.getElementById('student-mobile').value.trim();
+
+    if (studentName === "" || studentMobile === "" || studentMobile.length !== 10) {
+        alert("कृपया तुमचे पूर्ण नाव आणि १० अंकी वैध मोबाईल नंबर भरा!");
+        return;
+    }
+
+    document.getElementById('start-section').style.display = 'none';
+    document.getElementById('quiz-section').style.display = 'block';
+    
+    loadQuestion();
+}
+
+function loadQuestion() {
+    const qData = questionsData[currentQIndex];
+    document.getElementById('question-count').innerText = `प्रश्न ${currentQIndex + 1} / ${questionsData.length}`;
+    document.getElementById('q-text').innerText = qData.q;
+    
+    const optionsContainer = document.getElementById('options-container');
+    optionsContainer.innerHTML = '';
+    
+    const expDiv = document.getElementById('q-explanation');
+    expDiv.style.display = 'none';
+    expDiv.innerText = '';
+
+    document.getElementById('next-btn').disabled = true;
+
+    qData.options.forEach((opt, index) => {
+        const btn = document.createElement('button');
+        btn.className = 'option-btn';
+        btn.innerText = `(${index + 1}) ${opt}`;
+        btn.onclick = () => selectOption(index, btn);
+        optionsContainer.appendChild(btn);
+    });
+}
+
+function selectOption(selectedIndex, selectedBtn) {
+    const qData = questionsData[currentQIndex];
+    const allBtns = document.querySelectorAll('.option-btn');
+    
+    // Disable all options after selection
+    allBtns.forEach(btn => btn.style.pointerEvents = 'none');
+
+    if (selectedIndex === qData.ans) {
+        selectedBtn.classList.add('correct');
+        score += 2; // २ गुण
+    } else {
+        selectedBtn.classList.add('wrong');
+        allBtns[qData.ans].classList.add('correct'); // बरोबर उत्तर दाखवणे
+        
+        // स्पष्टीकरण दाखवणे
+        const expDiv = document.getElementById('q-explanation');
+        expDiv.innerText = qData.exp;
+        expDiv.style.display = 'block';
+
+        // चुकलेले प्रश्न सेव्ह करणे
+        wrongQuestions.push({
+            q: qData.q,
+            userAns: qData.options[selectedIndex],
+            correctAns: qData.options[qData.ans],
+            exp: qData.exp
+        });
+    }
+
+    document.getElementById('next-btn').disabled = false;
+}
+
+function nextQuestion() {
+    currentQIndex++;
+    if (currentQIndex < questionsData.length) {
+        loadQuestion();
+    } else {
+        showResults();
+    }
+}
+
+function showResults() {
+    document.getElementById('quiz-section').style.display = 'none';
+    document.getElementById('result-section').style.display = 'block';
+
+    document.getElementById('res-name').innerText = studentName;
+    document.getElementById('res-mobile').innerText = studentMobile;
+
+    const totalScore = questionsData.length * 2; // ६० गुण
+    const percentage = Math.round((score / totalScore) * 100);
+
+    document.getElementById('res-score').innerText = `गुण: ${score} / ${totalScore} (${percentage}%)`;
+
+    let badgeText = "";
+    if (percentage >= 90) {
+        badgeText = "🥇 Gold Medal + Trophy<br>उत्कृष्ट कामगिरी!";
+    } else if (percentage >= 80) {
+        badgeText = "🥈 Silver Medal + Trophy<br>छान कामगिरी!";
+    } else if (percentage >= 70) {
+        badgeText = "🥉 Bronze Medal + Trophy<br>चांगली कामगिरी!";
+    } else {
+        badgeText = "💐 अभिनंदन! फुलांचा गुच्छ<br>पुढील परीक्षेसाठी शुभेच्छा!";
+    }
+
+    document.getElementById('res-badge').innerHTML = badgeText;
+
+    if (wrongQuestions.length > 0) {
+        document.getElementById('view-wrong-btn').style.display = 'block';
+    }
+}
+
+function showWrongQuestions() {
+    document.getElementById('result-section').style.display = 'none';
+    document.getElementById('wrong-questions-section').style.display = 'block';
+
+    const wrongList = document.getElementById('wrong-list');
+    wrongList.innerHTML = '';
+
+    wrongQuestions.forEach((item, idx) => {
+        const div = document.createElement('div');
+        div.className = 'review-item';
+        div.innerHTML = `
+            <p><b>प्रश्न:</b> ${item.q}</p>
+            <p style="color: #c62828;"><b>तुमचे उत्तर:</b> ${item.userAns}</p>
+            <p style="color: #2e7d32;"><b>योग्य उत्तर:</b> ${item.correctAns}</p>
+            <p style="color: #e65100; background: #fff3e0; padding: 5px; border-radius: 4px;">${item.exp}</p>
+        `;
+        wrongList.appendChild(div);
+    });
+}
+</script>
+
+</body>
+</html>
