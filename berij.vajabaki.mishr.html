@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="mr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>बेरीज वजाबाकी मिश्र गणिते टेस्ट</title>
+    <style>
+        * { box-sizing: border-box; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+        body { background-color: #f4f7f6; margin: 0; padding: 10px; color: #333; }
+        .container { max-width: 800px; margin: 0 auto; background: #fff; padding: 20px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
+        h1, h2, h3 { text-align: center; color: #2c3e50; margin-bottom: 10px; }
+        .creator-info { display: flex; align-items: center; justify-content: flex-end; gap: 15px; margin-top: 15px; background: #f8f9fa; padding: 10px; border-radius: 8px; border-right: 4px solid #27ae60; }
+        .creator-info img { width: 70px; height: 70px; border-radius: 50%; object-fit: cover; border: 2px solid #27ae60; }
+        .creator-text { text-align: right; font-size: 14px; }
+        .form-group { margin-bottom: 15px; }
+        label { display: block; font-weight: bold; margin-bottom: 5px; }
+        input[type="text"], input[type="tel"] { width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 6px; font-size: 16px; }
+        .btn { display: block; width: 100%; padding: 12px; background: #27ae60; color: #fff; border: none; border-radius: 6px; font-size: 18px; font-weight: bold; cursor: pointer; margin-top: 15px; }
+        .btn:disabled { background: #bdc3c7; cursor: not-allowed; }
+        .btn:hover:not(:disabled) { background: #219150; }
+        .footer-text { text-align: center; font-weight: 500; margin-top: 20px; color: #555; border-top: 1px solid #eee; padding-top: 10px; font-size: 14px; }
+        
+        /* Question Screen */
+        .option-btn { display: block; width: 100%; padding: 12px; margin: 8px 0; border: 1px solid #dcdde1; border-radius: 6px; background: #f8f9fa; text-align: left; font-size: 16px; cursor: pointer; transition: 0.2s; }
+        .option-btn:hover { background: #e2e6ea; }
+        .option-btn.correct { background-color: #d4edda !important; border-color: #c3e6cb !important; color: #155724; font-weight: bold; }
+        .option-btn.wrong { background-color: #f8d7da !important; border-color: #f5c6cb !important; color: #721c24; font-weight: bold; }
+        .explanation { display: none; background: #e8f4f8; border-left: 4px solid #3498db; padding: 10px; margin-top: 10px; border-radius: 4px; font-size: 15px; }
+        
+        /* Certificate Screen */
+        .certificate { border: 8px double #2c3e50; padding: 25px; border-radius: 4px; background: #fffdf5; text-align: center; margin-top: 20px; position: relative; }
+        .score-box { font-size: 28px; font-weight: bold; color: #e67e22; margin: 15px 0; }
+        .badge { font-size: 22px; font-weight: bold; margin: 15px 0; padding: 10px; border-radius: 8px; background: #f1f2f6; display: inline-block; }
+        
+        /* Review Screen */
+        .review-card { border: 1px solid #ddd; padding: 12px; margin-bottom: 12px; border-radius: 6px; background: #fff; text-align: left; }
+        .review-card.correct-card { border-left: 5px solid #27ae60; }
+        .review-card.wrong-card { border-left: 5px solid #e74c3c; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <!-- Screen 1: Start Screen -->
+    <div id="start-screen">
+        <h2>जिल्हा परिषद प्राथमिक शाळा नरसोबावाडी संचलित</h2>
+        <h3 style="color: #e67e22;">परीक्षेचे नाव: बेरीज व वजाबाकी मिश्र गणिते</h3>
+        <hr>
+        
+        <div class="form-group">
+            <label for="student-name">विद्यार्थ्याचे नाव:</label>
+            <input type="text" id="student-name" placeholder="पूर्ण नाव टाका">
+        </div>
+        <div class="form-group">
+            <label for="student-mobile">मोबाईल नंबर:</label>
+            <input type="tel" id="student-mobile" placeholder="१० अंकी मोबाईल नंबर" maxlength="10">
+        </div>
+
+        <div class="creator-info">
+            <div class="creator-text">
+                <strong>संकल्पना व निर्मिती</strong><br>
+                श्री सचिन शिंदे सर<br>
+                जि प प्रा शाळा नरसोबावाडी<br>
+                मोबाईल नंबर: 83 29 68 44 70
+            </div>
+            <!-- Google Drive image wrapper link converted for direct display -->
+            <img src="https://lh3.googleusercontent.com/d/1pkldnaLRyqBtfgiQKwtbeSSfXhENzbOm" alt="श्री सचिन शिंदे सर" onerror="this.src='https://via.placeholder.com/70?text=Photo'">
+        </div>
+
+        <div class="footer-text">
+            टेस्ट निर्मिती व संकल्पना श्री सचिन शिंदे मोबाईल नंबर 83 29 68 44 70
+        </div>
+
+        <button class="btn" onclick="startExam()">EXAM START</button>
+    </div>
+
+    <!-- Screen 2: Exam Screen -->
+    <div id="exam-screen" style="display: none;">
+        <div style="display: flex; justify-content: space-between; font-weight: bold; margin-bottom: 10px;">
+            <span id="q-count">प्रश्न १/३०</span>
+            <span>प्रत्येक प्रश्नाला २ गुण</span>
+        </div>
+        <hr>
+        <h3 id="question-text" style="text-align: left; margin-top: 15px;"></h3>
+        <div id="options-container"></div>
+        
+        <div id="explanation-box" class="explanation"></div>
+
+        <button id="next-btn" class="btn" onclick="nextQuestion()" disabled>नेक्स्ट प्रश्न</button>
+        <button id="submit-btn" class="btn" onclick="submitExam()" style="display: none; background: #e67e22;">SUBMIT EXAM</button>
+
+        <div class="footer-text">
+            टेस्ट निर्मिती व संकल्पना श्री सचिन शिंदे मोबाईल नंबर 83 29 68 44 70
+        </div>
+    </div>
+    <!-- Screen 3: Certificate Screen -->
+    <div id="cert-screen" style="display: none;">
+        <div class="certificate">
+            <h2>🏆 जिल्हा परिषद प्राथमिक शाळा नरसोबावाडी संचालित</h2>
+            <p style="font-size: 18px; margin: 5px 0;"><strong>परीक्षेचे नाव:</strong> बेरीज व वजाबाकी मिश्र गणिते</p>
+            <p style="font-size: 18px; margin: 5px 0;"><strong>विद्यार्थ्याचे नाव:</strong> <span id="cert-name" style="color:#2980b9;"></span></p>
+            
+            <div class="score-box" id="cert-score">गुण: ० / ६० (०%)</div>
+            <div class="badge" id="cert-badge"></div>
+
+            <div class="creator-info" style="margin-top: 30px;">
+                <div class="creator-text">
+                    <strong>संकल्पना व निर्मिती</strong><br>
+                    श्री सचिन शिंदे सर<br>
+                    जि प प्रा शाळा नरसोबावाडी<br>
+                    मोबाईल नंबर: 83 29 68 44 70
+                </div>
+                <img src="https://lh3.googleusercontent.com/d/1pkldnaLRyqBtfgiQKwtbeSSfXhENzbOm" alt="श्री सचिन शिंदे सर" onerror="this.src='https://via.placeholder.com/70?text=Photo'">
+            </div>
+        </div>
+
+        <button class="btn" onclick="showReviewScreen()" style="background: #3498db; margin-top: 20px;">चुकलेले / सर्व प्रश्न तपासा (मार्गदर्शन)</button>
+
+        <div class="footer-text">
+            टेस्ट निर्मिती व संकल्पना श्री सचिन शिंदे मोबाईल नंबर 83 29 68 44 70
+        </div>
+    </div>
+
+    <!-- Screen 4: Review Screen -->
+    <div id="review-screen" style="display: none;">
+        <h3>प्रश्ननिहाय उत्तर व मार्गदर्शन</h3>
+        <hr>
+        <div id="review-container"></div>
+        <button class="btn" onclick="location.reload()" style="background: #e74c3c;">पुन्हा परीक्षा द्या</button>
+        <div class="footer-text">
+            टेस्ट निर्मिती व संकल्पना श्री सचिन शिंदे मोबाईल नंबर 83 29 68 44 70
+        </div>
+    </div>
+</div>
+
+<script>
+// 30 Questions Data
+const questions = [
+    {
+        q: "१. एका दुकानात ५५० किलो तांदूळ होते. दुकानदाराने ३२० किलो तांदूळ विकले आणि नंतर २५० किलो नवीन तांदूळ आणले. तर आता दुकानात किती किलो तांदूळ आहेत?",
+        options: ["(१) ४८० किलो", "(२) ५०० किलो", "(३) ५२० किलो", "(४) ४५० किलो"],
+        ans: 0,
+        exp: "स्पष्टीकरण: ५५० - ३२० = २३० किलो. नंतर २३० + २५० = ४८० किलो."
+    },
+    {
+        q: "२. एका पुस्तकाची ९५० पाने होती. अमितने पहिल्या दिवशी ३०० पाने व दुसऱ्या दिवशी २५० पाने वाचली, तर वाचायची किती पाने शिल्लक राहिली?",
+        options: ["(१) ३५०", "(२) ४००", "(३) ४००", "(४) ४५०"],
+        ans: 2,
+        exp: "स्पष्टीकरण: एकुण वाचलेली पाने = ३०० + २५० = ५५०. शिल्लक पाने = ९५० - ५५० = ४००."
+    },
+    {
+        q: "३. एका बागेत ८०० झाडे होती. वादळामुळे २०० झाडे पडली, त्यानंतर बागेत ३५० नवीन झाडे लावली. तर आता बागेत एकूण किती झाडे आहेत?",
+        options: ["(१) ९००", "(२) ९५०", "(३) १,०००", "(४) ८५०"],
+        ans: 1,
+        exp: "स्पष्टीकरण: ८०० - २०० = ६०० झाडे. ६०० + ३५० = ९५० झाडे."
+    },
+    {
+        q: "४. एका शेतात ३,००० पोती गहू झाला. त्यापैकी १,५०० पोती विकली आणि ६०० पोती गव्हाची नवीन खरेदी केली, तर शेतातील गोदामात आता गव्हाची किती पोती असतील?",
+        options: ["(१) २,०००", "(२) १,९००", "(३) २,२००", "(४) २,१००"],
+        ans: 3,
+        exp: "स्पष्टीकरण: ३,००० - १,५०० = १,५००. १,५०० + ६०० = २,१०० पोती."
+    },
+    {
+        q: "५. रियाकडे ₹ ८५० होते. तिच्या आईने तिला ₹ १५० दिले. त्यातील ₹ ३०० तिने पुस्तकांसाठी खर्च केले, तर तिच्याकडे किती रुपये उरले?",
+        options: ["(१) ₹ ७००", "(२) ₹ ७५०", "(३) ₹ ६५०", "(४) ₹ ६००"],
+        ans: 0,
+        exp: "स्पष्टीकरण: कुल रक्कम = ८५० + १५० = १,००० रुपये. उरलेली रक्कम = १,००० - ३०० = ७०० रुपये."
+    },
+    {
+        q: "६. एका गावातील एकूण लोकसंख्या ३,५०० आहे. त्यातील १,००० पुरुष आणि ९०० स्त्रिया आहेत, तर उरलेली मुले किती?",
+        options: ["(१) १,५००", "(२) १,४००", "(३) १,६००", "(४) १,७००"],
+        ans: 2,
+        exp: "स्पष्टीकरण: पुरुष व स्त्रिया = १,००० + ९०० = १,९००. मुले = ३,५०० - १,९०० = १,६००."
+    },
+    {
+        q: "७. रोहितने क्रिकेटच्या पहिल्या सामन्यात ८५ धावा, दुसऱ्या सामन्यात ६५ धावा केल्या आणि तिसऱ्या सामन्यात ५० धावांनी बाद झाला (कमी झाल्या), तर त्याने एकूण प्रभावी धावा किती केल्या?",
+        options: ["(१) ९०", "(२) १००", "(३) ११०", "(४) ९५"],
+        ans: 1,
+        exp: "स्पष्टीकरण: ८५ + ६५ = १५० धावा. १५० - ५० = १०० धावा."
+    },
+    {
+        q: "८. एका बसमध्ये ४० प्रवासी होते. पहिल्या थांब्यावर १५ प्रवासी उतरले आणि २५ नवीन प्रवासी चढले. तर आता बसमध्ये किती प्रवासी आहेत?",
+        options: ["(१) ४५", "(२) ४८", "(३) ५२", "(४) ५०"],
+        ans: 3,
+        exp: "स्पष्टीकरण: ४० - १५ = २५ प्रवासी. २५ + २५ = ५० प्रवासी."
+    },
+    {
+        q: "९. सीमाजवळ ₹ १,२०० होते. तिने ₹ ५०० चा ड्रेस खरेदी केला आणि तिच्या भावाने तिला ₹ ४०० दिले. आता तिच्याकडे किती रुपये आहेत?",
+        options: ["(१) ₹ १,०००", "(२) ₹ १,१००", "(३) ₹ १,२००", "(४) ₹ १,०५०"],
+        ans: 1,
+        exp: "स्पष्टीकरण: १,२०० - ५०० = ७०० रुपये. ७०० + ४०० = १,१०० रुपये."
+    },
+    {
+        q: "१०. एका ग्रंथालयात २,५०० पुस्तके होती. त्यातील ७०० पुस्तके जुनी म्हणून काढून टाकली आणि नवीन ८०० पुस्तके आणली. तर आता ग्रंथालयात एकूण पुस्तके किती?",
+        options: ["(१) २,६००", "(२) २,५००", "(३) २,७००", "(४) २,४००"],
+        ans: 0,
+        exp: "स्पष्टीकरण: २,५०० - ७०० = १,८००. १,८०० + ८०० = २,६०० पुस्तके."
+    },
+    {
+        q: "११. एका व्यापार्‍याने ₹ ९०० चा माल खरेदी केला, त्यातील ₹ २५० चा माल खराब झाल्याने फेकून दिला आणि पुन्हा ₹ ३५० चा नवीन माल खरेदी केला. तर आता त्याच्याकडे किती रुपयांचा माल आहे?",
+        options: ["(१) ₹ ९५०", "(२) ₹ ९००", "(३) ₹ १,०००", "(४) ₹ ८५०"],
+        ans: 2,
+        exp: "स्पष्टीकरण: ९०० - २५० = ६५० रुपये. ६५० + ३५० = १,००० रुपये."
+    },
+    {
+        q: "१२. एका शाळेत ६०० विद्यार्थी होते. वर्षाच्या शेवटी १५० विद्यार्थी शाळा सोडून गेले आणि नवीन २०० विद्यार्थी आले.",
+        options: ["(१) ६००", "(२) ६५०", "(३) ७००", "(४) ५५०"],
+        ans: 1,
+        exp: "स्पष्टीकरण: ६०० - १५० = ४५०. ४५० + २०० = ६५० विद्यार्थी."
+    },
+    {
+        q: "१३. अजयकडे ₹ ९५० होते. त्याने ₹ ४०० चे किराणा सामान खरेदी केले आणि वडिलांनी त्याला ₹ २५० दिले. आता अजयकडे एकूण किती रक्कम आहे?",
+        options: ["(१) ₹ ७००", "(२) ₹ ७५०", "(३) ₹ ८५०", "(४) ₹ ८००"],
+        ans: 3,
+        exp: "स्पष्टीकरण: ९५० - ४०० = ५५० रुपये. ५५० + २५० = ८०० रुपये."
+    },
+    {
+        q: "१४. एका डेअरीमध्ये १,५०० लिटर दूध जमा झाले. त्यातील ६५० लिटर दुधाची विक्री झाली आणि २५० लिटर दूध नवीन जमा झाले, तर डेअरीत आता किती लिटर दूध शिल्लक आहे?",
+        options: ["(१) १,१०० लिटर", "(२) १,०५० लिटर", "(३) १,१५० लिटर", "(४) १,२०० लिटर"],
+        ans: 0,
+        exp: "स्पष्टीकरण: १,५०० - ६५० = ८५० लिटर. ८५० + २५० = १,१०० लिटर."
+    },
+    {
+        q: "१५. एका पोल्ट्री फार्ममध्ये १,४०० कोंबड्या होत्या. ४०० कोंबड्या आजारपणामुळे कमी झाल्या आणि २५० नवीन कोंबड्या आणल्या. तर आता फार्ममध्ये किती कोंबड्या आहेत?",
+        options: ["(१) १,१५०", "(२) १,२००", "(३) १,२५०", "(४) १,३००"],
+        ans: 2,
+        exp: "स्पष्टीकरण: १,४०० - ४०० = १,०००. १,००० + २५० = १,२५० कोंबड्या."
+    }
+    {
+        q: "१६. एका क्रिकेट स्टेडियमवर ४,५०० प्रेक्षक होते. मध्यंतरात १,५०० प्रेक्षक निघून गेले आणि ८०० नवीन प्रेक्षक आले. तर आता स्टेडियमवर किती प्रेक्षक आहेत?",
+        options: ["(१) ३,६००", "(२) ३,७००", "(३) ३,८००", "(४) ३,९००"],
+        ans: 2,
+        exp: "स्पष्टीकरण: ४,५०० - १,५०० = ३,०००. ३,००० + ८०० = ३,८०० प्रेक्षक."
+    },
+    {
+        q: "१७. एका दुकानात ६५० पेन होते. दुकानदाराने २४० पेन विकले आणि नंतर १९० नवीन पेन आणले. तर आता दुकानात किती पेन आहेत?",
+        options: ["(१) ५८०", "(२) ६१०", "(३) ५९०", "(४) ६००"],
+        ans: 3,
+        exp: "स्पष्टीकरण: ६५० - २४० = ४१०. ४१० + १९० = ६०० पेन."
+    },
+    {
+        q: "१८. राहुलने ५३८ रुपयांची पुस्तके आणि ४४५ रुपयांच्या वह्या खरेदी केल्या. त्याने दुकानात १,००० रुपये दिले, पण दुकानदाराने त्याला अजून ९७ रुपयांची सूट दिली, तर राहुलने प्रत्यक्षात किती रुपये खर्च केले?",
+        options: ["(१) ८८६", "(२) ८९६", "(३) ९००", "(४) ८८०"],
+        ans: 0,
+        exp: "स्पष्टीकरण: ५३८ + ४४५ = ९८३ रुपये. ९८३ - ९७ = ८८६ रुपये."
+    },
+    {
+        q: "१९. एका डिजिटल वॉलेटमध्ये ₹ २,५०० जमा होते. मोबाईल रीचार्जसाठी ₹ ६५० वापरले आणि खात्यावर कॅशबॅकचे ₹ १५० जमा झाले. तर आता वॉलेटमध्ये किती शिल्लक आहे?",
+        options: ["(१) ₹ २,०००", "(२) ₹ २,०००", "(३) ₹ २,१००", "(४) ₹ १,९००"],
+        ans: 1,
+        exp: "स्पष्टीकरण: २,५०० - ६५० = १,८५० रुपये. १,८५० + १५० = २,००० रुपये."
+    },
+    {
+        q: "२०. सोहमने महामार्गावरून प्रवास करताना आधी ३५० किमी आणि नंतर ४२० किमी अंतर पार केले. त्यानंतर तो माघारी १०० किमी आला, तर तो मूळ ठिकाणापासून आता किती किमी अंतरावर आहे?",
+        options: ["(१) ६५० किमी", "(२) ६२० किमी", "(३) ६७० किमी", "(४) ६८० किमी"],
+        ans: 2,
+        exp: "स्पष्टीकरण: ३५० + ४२० = ७७० किमी. ७७० - १०० = ६७० किमी."
+    },
+    {
+        q: "२१. एका प्राणीसंग्रहालयात भेट देणाऱ्या पर्यटकांची संख्या सकाळी ४५० होती. दुपारी ३२० पर्यटक नवीन आले आणि संध्याकाळी ५५० पर्यटक बाहेर पडले. तर शेवटी प्राणीसंग्रहालयात किती पर्यटक शिल्लक राहिले?",
+        options: ["(१) २२०", "(२) २३०", "(३) २४०", "(४) २२०"],
+        ans: 3,
+        exp: "स्पष्टीकरण: ४५० + ३२० = ७७०. ७७० - ५५० = २२० पर्यटक."
+    },
+    {
+        q: "२२. एका लिफ्टमध्ये आधी ६०० किलोग्रॅम वजन होते. एका मजल्यावर १५० किलोग्रॅम वजनाचे लोक उतरले आणि ९० किलोग्रॅम वजनाचे नवीन लोक आत आले. तर आता लिफ्टमध्ये एकूण किती वजन आहे?",
+        options: ["(१) ५४० किलोग्रॅम", "(२) ५२० किलोग्रॅम", "(३) ५६० किलोग्रॅम", "(४) ५०० किलोग्रॅम"],
+        ans: 0,
+        exp: "स्पष्टीकरण: ६०० - १५० = ४५० किलोग्रॅम. ४५० + ९० = ५४० किलोग्रॅम."
+    },
+    {
+        q: "२३. एका रुग्णालयाने एका महिन्यात १,२०० ऑक्सिजन सिलेंडर खरेदी केले. त्यातील ४५० सिलेंडर वापरले गेले आणि आणखी ३०० सिलेंडर नवीन मागवले, तर रुग्णालयात आता किती ऑक्सिजन सिलेंडर शिल्लक आहेत?",
+        options: ["(१) १,०००", "(२) १,०५०", "(३) १,१००", "(४) ९५०"],
+        ans: 1,
+        exp: "स्पष्टीकरण: १,२०० - ४५० = ७५०. ७५० + ३०० = १,०५० सिलेंडर."
+    },
+    {
+        q: "२४. सायलीने आपल्या युट्यूब चॅनेलवर पहिल्या महिन्यात १,५०० सबस्क्रायबर्स मिळवले. दुसऱ्या महिन्यात ४०० लोकांनी चॅनेल अनसबस्क्राईब केले आणि तिसऱ्या महिन्यात ६०० नवीन सबस्क्रायबर्स जोडले गेले, तर सध्या तिच्या चॅनेलवर एकूण सबस्क्रायबर्स किती आहेत?",
+        options: ["(१) १,६००", "(२) १,६५०", "(३) १,७००", "(४) १,७५०"],
+        ans: 2,
+        exp: "स्पष्टीकरण: १,५०० - ४०० = १,१०-०. १,१०-० + ६०० = १,७०० सबस्क्रायबर्स."
+    },
+    {
+        q: "२५. एका जलतरण तलावात (Swimming Pool) सकाळी ८,००० लिटर पाणी होते. दुपारपर्यंत २,५०० लिटर पाणी बाष्पीभवनाने कमी झाले आणि संध्याकाळी १,२०० लिटर नवीन पाणी सोडण्यात आले, तर तलावात आता किती लिटर पाणी आहे?",
+        options: ["(१) ६,००० लिटर", "(२) ६,५०० लिटर", "(३) ६,६०० लिटर", "(४) ६,७०० लिटर"],
+        ans: 3,
+        exp: "स्पष्टीकरण: ८,००० - २,५०० = ५,५०० लिटर. ५,५०० + १,२०० = ६,७०० लिटर."
+    },
+    {
+        q: "२६. एका ई-कॉमर्स डिलिव्हरी बॉयने सकाळी ५० पार्सल गोळा केली. दुपारी त्याने ३५ पार्सल ग्राहकांना दिले आणि ऑफिसमधून नवीन २५ पार्सल वितरणासाठी घेतले. तर आता त्याच्याकडे किती पार्सल शिल्लक आहेत?",
+        options: ["(१) ४०", "(२) ४५", "(३) ३५", "(४) ५०"],
+        ans: 0,
+        exp: "स्पष्टीकरण: ५० - ३५ = १५. १५ + २५ = ४० पार्सल."
+    },
+    {
+        q: "२७. एका मेट्रो ट्रेनमध्ये सुरुवातीला ८५० प्रवासी होते. पुढील स्टेशनवर २४० प्रवासी उतरले आणि १८० प्रवासी नवीन चढले, तर आता ट्रेनमध्ये एकूण प्रवासी किती आहेत?",
+        options: ["(१) ७८०", "(२) ७९०", "(३) ८००", "(४) ७७०"],
+        ans: 1,
+        exp: "स्पष्टीकरण: ८५० - २४० = ६१०. ६१० + १८० = ७९० प्रवासी."
+    },
+    {
+        q: "२८. नीताने तिच्या बँक खात्यात ₹ १२,५०० मधून ₹ ३,५०० काढले आणि दुसऱ्या दिवशी ₹ २,००० पुन्हा भरले. तर तिच्या खात्यात आता किती रक्कम शिल्लक आहे?",
+        options: ["(१) ₹ १०,०००", "(२) ₹ ११,०००", "(३) ₹ ११,०००", "(४) ₹ १०,५००"],
+        ans: 2,
+        exp: "स्पष्टीकरण: १२,५०० - ३,५०० = ९,००० रुपये. ९,००० + २,००० = ११,००० रुपये."
+    },
+    {
+        q: "२९. एका कापड गिरणीत एका दिवसात ४,००० मीटर कापड तयार झाले. त्यातील १,२०० मीटर कापड बाजारात पाठवले आणि नंतर ८०० मीटर नवीन कापड तयार झाले, तर गिरणीत आता एकूण किती मीटर कापड शिल्लक आहे?",
+        options: ["(१) ३,५०० मीटर", "(२) ३,४०० मीटर", "(३) ३,६०० मीटर", "(४) ३,६०० मीटर"],
+        ans: 3,
+        exp: "स्पष्टीकरण: ४,००० - १,२०० = २,८०० मीटर. २,८०० + ८०० = ३,६०० मीटर."
+    },
+    {
+        q: "३०. अमोलकडे सौर ऊर्जेच्या बॅटरीमध्ये ४५० युनिट वीज जमा होती. त्याने घरगुती वापरासाठी २०० युनिट वापरली आणि दिवसभरात सौर पॅनेलद्वारे १५० युनिट नवीन वीज निर्माण झाली. तर बॅटरीत आता किती युनिट वीज शिल्लक आहे?",
+        options: ["(१) ४०० युनिट", "(२) ३५० युनिट", "(३) ४५० युनिट", "(४) ३०० युनिट"],
+        ans: 0,
+        exp: "स्पष्टीकरण: ४५० - २०० = २५० युनिट. २५० + १५० = ४०० युनिट."
+    }
+];
+
+let currentQ = 0;
+let userAnswers = new Array(questions.length).fill(null);
+let studentName = "";
+
+function startExam() {
+    studentName = document.getElementById('student-name').value.trim();
+    let mobile = document.getElementById('student-mobile').value.trim();
+
+    if (studentName === "" || mobile.length < 10) {
+        alert("कृपया तुमचे पूर्ण नाव आणि १० अंकी मोबाईल नंबर व्यवस्थित भरा!");
+        return;
+    }
+
+    document.getElementById('start-screen').style.display = 'none';
+    document.getElementById('exam-screen').style.display = 'block';
+    loadQuestion();
+}
+
+function loadQuestion() {
+    let qData = questions[currentQ];
+    document.getElementById('q-count').innerText = `प्रश्न ${currentQ + 1}/${questions.length}`;
+    document.getElementById('question-text').innerText = qData.q;
+    
+    let optionsHtml = "";
+    qData.options.forEach((opt, idx) => {
+        optionsHtml += `<button class="option-btn" id="opt-${idx}" onclick="selectOption(${idx})">${opt}</button>`;
+    });
+    
+    document.getElementById('options-container').innerHTML = optionsHtml;
+    document.getElementById('explanation-box').style.display = 'none';
+    document.getElementById('next-btn').disabled = true;
+
+    if(currentQ === questions.length - 1) {
+        document.getElementById('next-btn').style.display = 'none';
+        document.getElementById('submit-btn').style.display = 'block';
+        document.getElementById('submit-btn').disabled = true;
+    } else {
+        document.getElementById('next-btn').style.display = 'block';
+        document.getElementById('submit-btn').style.display = 'none';
+    }
+
+    if (userAnswers[currentQ] !== null) {
+        showPreviousAnswer();
+    }
+}
+
+function selectOption(selectedIndex) {
+    userAnswers[currentQ] = selectedIndex;
+    let qData = questions[currentQ];
+    let buttons = document.querySelectorAll('.option-btn');
+    
+    buttons.forEach((btn, idx) => {
+        btn.disabled = true;
+        if(idx === qData.ans) {
+            btn.classList.add('correct');
+        }
+        if(idx === selectedIndex && selectedIndex !== qData.ans) {
+            btn.classList.add('wrong');
+        }
+    });
+
+    let expBox = document.getElementById('explanation-box');
+    expBox.innerText = qData.exp;
+    expBox.style.display = 'block';
+
+    document.getElementById('next-btn').disabled = false;
+    document.getElementById('submit-btn').disabled = false;
+}
+
+function showPreviousAnswer() {
+    let selectedIndex = userAnswers[currentQ];
+    selectOption(selectedIndex);
+}
+
+function nextQuestion() {
+    if (currentQ < questions.length - 1) {
+        currentQ++;
+        loadQuestion();
+    }
+}
+
+function submitExam() {
+    document.getElementById('exam-screen').style.display = 'none';
+    document.getElementById('cert-screen').style.display = 'block';
+
+    let correctCount = 0;
+    userAnswers.forEach((ans, idx) => {
+        if(ans === questions[idx].ans) correctCount++;
+    });
+
+    let marks = correctCount * 2;
+    let totalMarks = questions.length * 2;
+    let percentage = (marks / totalMarks) * 100;
+
+    document.getElementById('cert-name').innerText = studentName;
+    document.getElementById('cert-score').innerText = `गुण: ${marks} / ${totalMarks} (${percentage.toFixed(1)}%)`;
+
+    let badgeDiv = document.getElementById('cert-badge');
+    if (percentage >= 90) {
+        badgeDiv.innerHTML = "🥇 Gold Medal + Trophy <br><span style='font-size:16px; color:#27ae60;'>उत्कृष्ट कामगिरी! अतिशय छान!</span>";
+    } else if (percentage >= 80) {
+        badgeDiv.innerHTML = "🥈 Silver Medal + Trophy <br><span style='font-size:16px; color:#2980b9;'>अभिनंदन! खूप छान कामगिरी!</span>";
+    } else if (percentage >= 70) {
+        badgeDiv.innerHTML = "🥉 Bronze Medal + Trophy <br><span style='font-size:16px; color:#e67e22;'>छान प्रयत्न! आणखी प्रगती करा!</span>";
+    } else {
+        badgeDiv.innerHTML = "💐 अभिनंदन! फुलांचा गुच्छ <br><span style='font-size:16px; color:#e74c3c;'>पुढील परीक्षेसाठी शुभेच्छा!</span>";
+    }
+}
+
+function showReviewScreen() {
+    document.getElementById('cert-screen').style.display = 'none';
+    document.getElementById('review-screen').style.display = 'block';
+
+    let reviewContainer = document.getElementById('review-container');
+    let html = "";
+
+    questions.forEach((q, idx) => {
+        let uAns = userAnswers[idx];
+        let isCorrect = uAns === q.ans;
+        let cardClass = isCorrect ? 'correct-card' : 'wrong-card';
+        
+        html += `<div class="review-card ${cardClass}">
+            <strong>प्रश्न ${idx+1}: ${q.q}</strong><br>
+            <span style="color:${isCorrect ? 'green' : 'red'};">तुमचे उत्तर: ${uAns !== null ? q.options[uAns] : 'उत्तर दिले नाही'}</span><br>
+            <span style="color:green;">बरोबर उत्तर: ${q.options[q.ans]}</span><br>
+            <small style="color:#555;">${q.exp}</small>
+        </div>`;
+    });
+
+    reviewContainer.innerHTML = html;
+}
+</script>
+</body>
+</html>
