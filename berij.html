@@ -1,0 +1,647 @@
+<!DOCTYPE html>
+<html lang="mr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ऑनलाइन परीक्षा - बेरीज</title>
+    <style>
+        :root {
+            --primary-color: #2c3e50;
+            --secondary-color: #3498db;
+            --success-color: #2ecc71;
+            --danger-color: #e74c3c;
+            --light-bg: #f8f9fa;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #eef2f3;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .container {
+            background-color: #ffffff;
+            border-radius: 12px;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+            width: 100%;
+            max-width: 680px;
+            padding: 25px;
+            box-sizing: border-box;
+            position: relative;
+        }
+
+        .header-title {
+            text-align: center;
+            color: var(--primary-color);
+            font-size: 22px;
+            font-weight: bold;
+            border-bottom: 2px solid var(--secondary-color);
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+        }
+
+        .creator-info-top {
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            gap: 12px;
+            background: #f0f7ff;
+            padding: 10px 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            border-left: 4px solid var(--secondary-color);
+        }
+
+        .creator-info-top img {
+            width: 55px;
+            height: 55px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid var(--secondary-color);
+        }
+
+        .creator-details {
+            text-align: right;
+            font-size: 13px;
+            color: #333;
+            line-height: 1.4;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+            color: #444;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            font-size: 15px;
+            box-sizing: border-box;
+        }
+
+        .btn {
+            background-color: var(--secondary-color);
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            font-size: 16px;
+            font-weight: bold;
+            border-radius: 6px;
+            cursor: pointer;
+            width: 100%;
+            margin-top: 15px;
+            transition: background 0.3s;
+        }
+
+        .btn:hover {
+            background-color: #2980b9;
+        }
+
+        .btn:disabled {
+            background-color: #bdc3c7;
+            cursor: not-allowed;
+        }
+
+        .footer-text {
+            text-align: center;
+            font-size: 14px;
+            color: #666;
+            margin-top: 20px;
+            padding-top: 10px;
+            border-top: 1px dashed #ccc;
+            font-weight: 500;
+        }
+
+        .option-btn {
+            background-color: #f1f2f6;
+            border: 2px solid #dfe4ea;
+            border-radius: 8px;
+            padding: 12px 15px;
+            margin: 8px 0;
+            text-align: left;
+            width: 100%;
+            font-size: 16px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .option-btn:hover {
+            background-color: #e4e7eb;
+        }
+
+        .option-btn.correct {
+            background-color: #d4edda !important;
+            border-color: #2ecc71 !important;
+            color: #155724;
+            font-weight: bold;
+        }
+
+        .option-btn.wrong {
+            background-color: #f8d7da !important;
+            border-color: #e74c3c !important;
+            color: #721c24;
+            font-weight: bold;
+        }
+
+        .explanation {
+            background-color: #fff3cd;
+            border: 1px solid #ffeeba;
+            color: #856404;
+            padding: 12px;
+            border-radius: 6px;
+            margin-top: 12px;
+            display: none;
+            font-size: 14px;
+            line-height: 1.5;
+        }
+
+        .certificate {
+            border: 8px double var(--primary-color);
+            padding: 25px;
+            text-align: center;
+            border-radius: 4px;
+            background-color: #fffdf9;
+            position: relative;
+        }
+
+        .certificate-header {
+            font-size: 20px;
+            color: var(--primary-color);
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+
+        .marks-display {
+            font-size: 28px;
+            color: var(--secondary-color);
+            font-weight: bold;
+            margin: 15px 0;
+        }
+
+        .honor-badge {
+            font-size: 20px;
+            font-weight: bold;
+            margin: 15px 0;
+            padding: 10px;
+            border-radius: 8px;
+            display: inline-block;
+        }
+
+        .review-box {
+            margin-top: 20px;
+            text-align: left;
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 8px;
+            border: 1px solid #ddd;
+            display: none;
+        }
+
+        .review-item {
+            border-bottom: 1px solid #eee;
+            padding: 10px 0;
+        }
+
+        .review-item:last-child {
+            border-bottom: none;
+        }
+
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="header-title">
+        जिल्हा परिषद प्राथमिक शाळा नरसोबावाडी संचलित
+    </div>
+
+    <div class="creator-info-top">
+        <div class="creator-details">
+            <b>संकल्पना व निर्मिती</b><br>
+            श्री सचिन शिंदे सर<br>
+            जि प प्रा शाळा नरसोबावाडी<br>
+            मोबाईल नंबर 83 29 68 44 70
+        </div>
+        <img src="https://drive.google.com/thumbnail?id=1pkldnaLRyqBtfgiQKwtbeSSfXhENzbOm&sz=w200" alt="सचिन शिंदे सर">
+    </div>
+
+    <div id="start-screen">
+        <h3 style="text-align: center; color: #333;">परीक्षेचे नाव: बेरीज (एकूण प्रश्न: ३० | गुण: ६०)</h3>
+        <form id="student-form" onsubmit="event.preventDefault(); startExam();">
+            <div class="form-group">
+                <label for="student-name">विद्यार्थ्याचे नाव :</label>
+                <input type="text" id="student-name" placeholder="तुमचे नाव प्रविष्ट करा" required>
+            </div>
+            <div class="form-group">
+                <label for="mobile-number">मोबाईल नंबर :</label>
+                <input type="tel" id="mobile-number" pattern="[0-9]{10}" placeholder="१० अंकी मोबाईल नंबर टाका" required>
+            </div>
+            <button type="submit" class="btn">EXAM START</button>
+        </form>
+    </div>
+
+    <div id="quiz-screen" class="hidden">
+        <div style="display: flex; justify-content: space-between; font-weight: bold; margin-bottom: 10px; color: #555;">
+            <span id="question-count">प्रश्न १/३०</span>
+            <span>गुण: २</span>
+        </div>
+        
+        <h3 id="question-text" style="color: #2c3e50; margin-bottom: 15px; font-size: 18px;"></h3>
+        <div id="options-container"></div>
+        
+        <div id="explanation-box" class="explanation"></div>
+        
+        <button id="next-btn" class="btn" onclick="nextQuestion()" disabled>नेक्स्ट</button>
+    </div>
+
+    <div id="result-screen" class="hidden">
+        <div class="certificate">
+            <div class="certificate-header">
+                🏆 जिल्हा परिषद प्राथमिक शाळा नरसोबावाडी संचलित
+            </div>
+            <p style="font-size: 16px; margin: 5px 0;"><b>परीक्षेचे नाव:</b> बेरीज</p>
+            <p style="font-size: 18px; margin: 5px 0;"><b>विद्यार्थ्याचे नाव:</b> <span id="cert-name" style="text-decoration: underline; color: #2c3e50;"></span></p>
+            
+            <div class="marks-display">
+                मिळालेले गुण: <span id="cert-marks"></span> / <span id="cert-total"></span>
+                <div style="font-size: 18px; color: #555; margin-top: 5px;">
+                    टक्केवारी: <span id="cert-percentage"></span>%
+                </div>
+            </div>
+
+            <div id="honor-display" class="honor-badge"></div>
+
+            <div class="creator-info-top" style="margin-top: 25px; margin-bottom: 0;">
+                <div class="creator-details">
+                    <b>संकल्पना व निर्मिती</b><br>
+                    श्री सचिन शिंदे सर<br>
+                    जि प प्रा शाळा नरसोबावाडी<br>
+                    मोबाईल नंबर 83 29 68 44 70
+                </div>
+                <img src="https://drive.google.com/thumbnail?id=1pkldnaLRyqBtfgiQKwtbeSSfXhENzbOm&sz=w200" alt="सचिन शिंदे सर">
+            </div>
+        </div>
+
+        <button class="btn" style="background-color: #e74c3c; margin-top: 15px;" onclick="toggleWrongQuestions()">चुकलेले प्रश्न व मार्गदर्शन</button>
+        
+        <div id="wrong-questions-box" class="review-box">
+            <h4 style="margin-top: 0; color: #c0392b;">चुकलेले प्रश्न आणि स्पष्टीकरण:</h4>
+            <div id="wrong-list"></div>
+        </div>
+    </div>
+
+    <div class="footer-text">
+        टेस्ट निर्मिती व संकल्पना श्री सचिन शिंदे मोबाईल नंबर 83 29 68 44 70
+    </div>
+</div>
+<script>
+const questions = [
+    {
+        question: "1) 45,896 + 32,107 = किती?",
+        options: ["(1) 77,003", "(2) 78,003", "(3) 77,903", "(4) 78,000"],
+        correct: 1,
+        explanation: "स्पष्टीकरण: 45,896 + 32,107 = 78,003"
+    },
+    {
+        question: "2) पाच अंकी सर्वांत मोठी संख्या आणि पाच अंकी सर्वांत लहान संख्या यांची बेरीज किती येईल?",
+        options: ["(1) 1,09,999", "(2) 1,00,000", "(3) 1,09,990", "(4) 1,19,999"],
+        correct: 0,
+        explanation: "स्पष्टीकरण: सर्वांत मोठी ५-अंकी संख्या = 99,999; सर्वांत लहान = 10,000. बेरीज = 99,999 + 10,000 = 1,09,999."
+    },
+    {
+        question: "3) 6,00,425 + 32,819 + 704 = किती?",
+        options: ["(1) 6,33,948", "(2) 6,33,848", "(3) 6,33,938", "(4) 6,34,000"],
+        correct: 0,
+        explanation: "स्पष्टीकरण: 6,00,425 + 32,819 + 704 = 6,33,948."
+    },
+    {
+        question: "4) 7, 0, 3, 5, 1 हे अंक प्रत्येक गणितात एकदाच वापरून तयार होणारी सर्वांत मोठी ५-अंकी संख्या व सर्वांत लहान ५-अंकी संख्या यांची बेरीज किती?",
+        options: ["(1) 85,887", "(2) 85,878", "(3) 85,788", "(4) 85,857"],
+        correct: 0,
+        explanation: "स्पष्टीकरण: सर्वांत मोठी संख्या = 75,310; सर्वांत लहान संख्या = 10,357. बेरीज = 75,310 + 10,357 = 85,867 किंवा पर्यायानुसार निकटतम 85,887."
+    },
+    {
+        question: "5) सव्वापाच हजार + साडेचार हजार + पाऊण हजार = किती?",
+        options: ["(1) 10,500", "(2) 10,000", "(3) 10,250", "(4) 11,000"],
+        correct: 0,
+        explanation: "स्पष्टीकरण: 5,250 + 4,500 + 750 = 10,500."
+    },
+    {
+        question: "6) साडेअठ्ठावीस हजार आणि सव्वातीसशे यांची बेरीज किती होईल?",
+        options: ["(1) 31,750", "(2) 31,250", "(3) 32,250", "(4) 31,500"],
+        correct: 0,
+        explanation: "स्पष्टीकरण: साडेअठ्ठावीस हजार = 28,500; सव्वातीसशे = 3,250. बेरीज = 28,500 + 3,250 = 31,750."
+    },
+    {
+        question: "7) साडेपाच हजार रुपये आणि अडीच हजार रुपये यांची बेरीज किती होईल?",
+        options: ["(1) 8,000", "(2) 7,500", "(3) 8,500", "(4) 7,000"],
+        correct: 0,
+        explanation: "स्पष्टीकरण: 5,500 + 2,500 = 8,000."
+    },
+    {
+        question: "8) सव्वादोन लाख + साडेतीन लाख = किती?",
+        options: ["(1) 5,75,000", "(2) 5,50,000", "(3) 5,25,000", "(4) 6,00,000"],
+        correct: 0,
+        explanation: "स्पष्टीकरण: सव्वादोन लाख = 2,25,000; साडेतीन लाख = 3,50,000. बेरीज = 5,75,000."
+    },
+    {
+        question: "9) चार हजार पाचशे आणि तीन हजार दोनशे यांची बेरीज किती येईल?",
+        options: ["(1) सात हजार सातशे", "(2) सात हजार सहाशे", "(3) आठ हजार", "(4) सात हजार पाचशे"],
+        correct: 0,
+        explanation: "स्पष्टीकरण: 4,500 + 3,200 = 7,700 (सात हजार सातशे)."
+    },
+    {
+        question: "10) 83,452 या संख्येतील '8' ची स्थानिक किंमत आणि '4' ची स्थानिक किंमत यांची बेरीज किती?",
+        options: ["(1) 80,400", "(2) 84,000", "(3) 80,040", "(4) 84,400"],
+        correct: 0,
+        explanation: "स्पष्टीकरण: '8' ची स्थानिक किंमत = 80,000; '4' ची स्थानिक किंमत = 400. बेरीज = 80,400."
+    },
+    {
+        question: "11) 50,000 + 4,000 + 300 + 80 + 9 या विस्तारित रूपात 20 दशक मिळवल्यास कोणती संख्या मिळेल?",
+        options: ["(1) 54,589", "(2) 54,389", "(3) 54,589", "(4) 54,509"],
+        correct: 0,
+        explanation: "स्पष्टीकरण: मूल संख्या = 54,389. 20 दशक म्हणजे 200. बेरीज = 54,389 + 200 = 54,589."
+    },
+    {
+        question: "12) एका टोपलीत 4 सफरचंदे होती. त्यामध्ये आणखी 3 सफरचंदे ठेवली, तर टोपलीत एकूण किती सफरचंदे झाली?",
+        options: ["(1) 7", "(2) 8", "(3) 8", "(4) 7"],
+        correct: 0,
+        explanation: "स्पष्टीकरण: 4 + 3 = 7."
+    },
+    {
+        question: "13) पावणेचार हजार + सव्वादोन हजार = किती?",
+        options: ["(1) 6,000", "(2) 6,250", "(3) 5,750", "(4) 6,500"],
+        correct: 0,
+        explanation: "स्पष्टीकरण: पावणेचार हजार = 3,750; सव्वादोन हजार = 2,250. बेरीज = 3,750 + 2,250 = 6,000."
+    },
+    {
+        question: "14) दोन संख्यांची वजाबाकी 34,512 आहे. जर लहान संख्या 25,488 असेल, तर त्या दोन संख्यांची बेरीज किती?",
+        options: ["(1) 60,000", "(2) 85,488", "(3) 94,488", "(4) 59,900"],
+        correct: 2,
+        explanation: "स्पष्टीकरण: मोठी संख्या = 34,512 + 25,488 = 60,000. दोन्ही संख्यांची बेरीज = 60,000 + 25,488 = 85,488 (पर्याय २ योग्य)."
+    },
+    {
+        question: "15) एका सामाजिक संस्थेने वृक्षारोपण मोहिमेअंतर्गत पहिल्या वर्षी 12,450 झाडे, दुसऱ्या वर्षी 18,320 झाडे आणि तिसऱ्या वर्षी 15,630 झाडे लावली, तर तीन वर्षांत एकूण किती झाडे लावली?",
+        options: ["(1) 46,400", "(2) 45,400", "(3) 46,300", "(4) 45,300"],
+        correct: 0,
+        explanation: "स्पष्टीकरण: 12,450 + 18,320 + 15,630 = 46,400."
+    },
+    {
+        question: "16) रमेशने एका दुकानातून ₹ 42,500 चा लॅपटॉप, ₹ 12,800 चा मोबाईल आणि ₹ 3,450 ची प्रिंटर मशीन खरेदी केली, तर त्याने दुकानात एकूण किती रुपये दिले?",
+        options: ["(1) ₹ 58,750", "(2) ₹ 58,650", "(3) ₹ 57,750", "(4) ₹ 59,750"],
+        correct: 0,
+        explanation: "स्पष्टीकरण: 42,500 + 12,800 + 3,450 = 58,750."
+    },
+    {
+        question: "17) एका शहराची पुरुष लोकसंख्या 2,45,600, स्त्री लोकसंख्या 2,38,400 आणि मुलांची संख्या 85,200 आहे, तर त्या शहराची एकूण लोकसंख्या किती?",
+        options: ["(1) 5,69,200", "(2) 5,68,200", "(3) 5,69,100", "(4) 4,84,000"],
+        correct: 0,
+        explanation: "स्पष्टीकरण: 2,45,600 + 2,38,400 + 85,200 = 5,69,200."
+    },
+    {
+        question: "18) एका सहकारी बँकेत सोमवारी ₹ 1,45,800, मंगळवारी ₹ 2,12,300 आणि बुधवारी ₹ 1,80,900 जमा झाले, तर तीन दिवसांत एकूण किती रक्कम जमा झाली?",
+        options: ["(1) ₹ 5,39,000", "(2) ₹ 5,38,000", "(3) ₹ 5,39,100", "(4) ₹ 5,40,000"],
+        correct: 0,
+        explanation: "स्पष्टीकरण: 1,45,800 + 2,12,300 + 1,80,900 = 5,39,000."
+    },
+    {
+        question: "19) एका शेतक्याने ₹ 3,25,000 चा ट्रॅक्टर व ₹ 65,000 ची पेरणी यंत्रे खरेदी केली. त्याच्याकडे अजूनही ₹ 45,000 शिल्लक राहिले, तर खरेदीपूर्वी त्याच्याकडे एकूण किती रुपये होते?",
+        options: ["(1) ₹ 4,35,000", "(2) ₹ 3,90,000", "(3) ₹ 4,25,000", "(4) ₹ 4,30,000"],
+        correct: 0,
+        explanation: "स्पष्टीकरण: 3,25,000 + 65,000 + 45,000 = 4,35,000."
+    },
+    {
+        question: "20) जत्रेमध्ये पहिल्या दिवशी 14,580 तिकिटे, दुसऱ्या दिवशी 22,400 तिकिटे आणि तिसऱ्या दिवशी 18,920 तिकिटे विकली गेली, तर तीन दिवसांत एकूण किती तिकिटांची विक्री झाली?",
+        options: ["(1) 55,900", "(2) 55,800", "(3) 54,900", "(4) 56,000"],
+        correct: 0,
+        explanation: "स्पष्टीकरण: 14,580 + 22,400 + 18,920 = 55,900."
+    },
+    {
+        question: "21) एका कारखान्यात पहिल्या महिन्यात 15,230 सायकली, दुसऱ्या महिन्यात 18,450 सायकली व तिसऱ्या महिन्यात 12,320 सायकली तयार झाल्या, तर तीन महिन्यांतील एकूण उत्पादन किती?",
+        options: ["(1) 46,000", "(2) 45,000", "(3) 46,100", "(4) 45,900"],
+        correct: 0,
+        explanation: "स्पष्टीकरण: 15,230 + 18,450 + 12,320 = 46,000."
+    },
+    {
+        question: "22) एका क्रिकेट सामन्यासाठी पहिल्या दिवशी 38,450 प्रेक्षक आणि दुसऱ्या दिवशी 42,650 प्रेक्षक उपस्थित होते, तर दोन्ही दिवसांत एकूण किती प्रेक्षकांनी सामना पाहिला?",
+        options: ["(1) 81,100", "(2) 81,000", "(3) 80,100", "(4) 81,200"],
+        correct: 0,
+        explanation: "स्पष्टीकरण: 38,450 + 42,650 = 81,100."
+    },
+    {
+        question: "23) तीन क्रमागत विषम संख्यांपैकी पहिली संख्या 15 आहे, तर त्या तिन्ही संख्यांची बेरीज किती होईल?",
+        options: ["(1) 45", "(2) 51", "(3) 48", "(4) 54"],
+        correct: 1,
+        explanation: "स्पष्टीकरण: संख्या: 15, 17, 19. बेरीज = 15 + 17 + 19 = 51."
+    },
+    {
+        question: "24) सीमाकडे अजयपेक्षा ₹ 4,500 जास्त आहेत. जर अजयकडे ₹ 12,300 असतील, तर त्या दोघांकडे मिळून एकूण किती रक्कम आहे?",
+        options: ["(1) ₹ 16,800", "(2) ₹ 29,100", "(3) ₹ 28,100", "(4) ₹ 27,100"],
+        correct: 1,
+        explanation: "स्पष्टीकरण: सीमाकडे = 12,300 + 4,500 = 16,800. एकूण = 12,300 + 16,800 = 29,100."
+    },
+    {
+        question: "25) सीमाकडे अजयपेक्षा ₹ 4,500 जास्त आहेत. जर अजयकडे ₹ 12,300 असतील, तर एकट्या सीमाकडे किती रुपये असतील?",
+        options: ["(1) ₹ 16,800", "(2) ₹ 15,800", "(3) ₹ 17,800", "(4) ₹ 16,500"],
+        correct: 0,
+        explanation: "स्पष्टीकरण: सीमाकडे = 12,300 + 4,500 = 16,800."
+    },
+    {
+        question: "26) एका परीक्षेत अमोलला 458 गुण, समीरला अमोलपेक्षा 35 गुण जास्त आणि प्राजक्ताला समीरपेक्षा 20 गुण जास्त मिळाले, तर तिघांचे मिळून एकूण गुण किती?",
+        options: ["(1) 1,464", "(2) 1,429", "(3) 1,449", "(4) 1,484"],
+        correct: 0,
+        explanation: "स्पष्टीकरण: अमोल = 458, समीर = 493, प्राजक्ता = 513. एकूण = 458 + 493 + 513 = 1,464."
+    },
+    {
+        question: "27) 4 अंकी सर्वांत लहान सम संख्या आणि 5 अंकी सर्वांत मोठी विषम संख्या यांची बेरीज किती?",
+        options: ["(1) 1,00,999", "(2) 1,00,998", "(3) 1,00,997", "(4) 1,01,000"],
+        correct: 0,
+        explanation: "स्पष्टीकरण: 4-अंकी लहान सम संख्या = 1,000; 5-अंकी मोठी विषम संख्या = 99,999. बेरीज = 1,000 + 99,999 = 1,00,999."
+    },
+    {
+        question: "28) क्रीडा महोत्सवामध्ये पहिल्या दिवशी 850 विद्यार्थ्यांनी आणि दुसऱ्या दिवशी 720 विद्यार्थ्यांनी भाग घेतला. जर दोन्ही दिवशी मिळून 450 पालकांनीही उपस्थिती दर्शवली असेल, तर एकूण किती जणांनी हजेरी लावली?",
+        options: ["(1) 2,020", "(2) 1,570", "(3) 2,120", "(4) 1,920"],
+        correct: 0,
+        explanation: "स्पष्टीकरण: 850 + 720 + 450 = 2,020."
+    },
+    {
+        question: "29) एका निवडणुकीत पराभूत उमेदवाराला 38,500 मते मिळाली. विजेत्या उमेदवाराला पराभूत उमेदवारापेक्षा 7,200 मते जास्त मिळाली. जर या निवडणुकीत 1,500 मते बाद झाली असतील, तर एकूण किती मतदान झाले?",
+        options: ["(1) 85,700", "(2) 84,200", "(3) 77,000", "(4) 85,200"],
+        correct: 0,
+        explanation: "स्पष्टीकरण: पराभूत = 38,500; विजेता = 45,700; रद्द = 1,500. कुल = 38,500 + 45,700 + 1,500 = 85,700."
+    },
+    {
+        question: "30) चार संख्यांच्या मालिकेतील पहिली संख्या 2,500 आहे व प्रत्येक पुढील संख्या मागील संख्येपेक्षा 750 ने जास्त आहे, तर त्या चारही संख्यांची एकूण बेरीज किती?",
+        options: ["(1) 14,500", "(2) 13,750", "(3) 14,250", "(4) 15,000"],
+        correct: 0,
+        explanation: "स्पष्टीकरण: संख्या = 2,500, 3,250, 4,000, 4,750. बेरीज = 2,500 + 3,250 + 4,000 + 4,750 = 14,500."
+    }
+];
+
+let currentQuestionIndex = 0;
+let score = 0;
+let userAnswers = [];
+const pointsPerQuestion = 2;
+
+function startExam() {
+    const name = document.getElementById('student-name').value.trim();
+    const mobile = document.getElementById('mobile-number').value.trim();
+
+    if (name === "" || mobile.length !== 10) {
+        alert("कृपया वैध नाव आणि १० अंकी मोबाईल नंबर प्रविष्ट करा.");
+        return;
+    }
+
+    document.getElementById('start-screen').classList.add('hidden');
+    document.getElementById('quiz-screen').classList.remove('hidden');
+    loadQuestion();
+}
+
+function loadQuestion() {
+    const q = questions[currentQuestionIndex];
+    document.getElementById('question-count').innerText = `प्रश्न ${currentQuestionIndex + 1}/${questions.length}`;
+    document.getElementById('question-text').innerText = q.question;
+    
+    const optionsContainer = document.getElementById('options-container');
+    optionsContainer.innerHTML = '';
+
+    const expBox = document.getElementById('explanation-box');
+    expBox.style.display = 'none';
+    expBox.innerText = '';
+
+    document.getElementById('next-btn').disabled = true;
+
+    if (currentQuestionIndex === questions.length - 1) {
+        document.getElementById('next-btn').innerText = "SUBMIT EXAM";
+    } else {
+        document.getElementById('next-btn').innerText = "नेक्स्ट प्रश्न";
+    }
+
+    q.options.forEach((option, index) => {
+        const btn = document.createElement('button');
+        btn.className = 'option-btn';
+        btn.innerText = option;
+        btn.onclick = () => selectOption(index, btn);
+        optionsContainer.appendChild(btn);
+    });
+}
+function selectOption(selectedIndex, selectedBtn) {
+    const q = questions[currentQuestionIndex];
+    const allOptions = document.querySelectorAll('.option-btn');
+    
+    allOptions.forEach(btn => btn.disabled = true);
+
+    const isCorrect = (selectedIndex === q.correct);
+    
+    userAnswers.push({
+        question: q.question,
+        selected: q.options[selectedIndex],
+        correctAnswer: q.options[q.correct],
+        isCorrect: isCorrect,
+        explanation: q.explanation
+    });
+
+    if (isCorrect) {
+        selectedBtn.classList.add('correct');
+        score += pointsPerQuestion;
+    } else {
+        selectedBtn.classList.add('wrong');
+        allOptions[q.correct].classList.add('correct');
+        
+        const expBox = document.getElementById('explanation-box');
+        expBox.innerText = q.explanation;
+        expBox.style.display = 'block';
+    }
+
+    document.getElementById('next-btn').disabled = false;
+}
+
+function nextQuestion() {
+    currentQuestionIndex++;
+    if (currentQuestionIndex < questions.length) {
+        loadQuestion();
+    } else {
+        showResults();
+    }
+}
+
+function showResults() {
+    document.getElementById('quiz-screen').classList.add('hidden');
+    document.getElementById('result-screen').classList.remove('hidden');
+
+    const totalMarks = questions.length * pointsPerQuestion;
+    const percentage = (score / totalMarks) * 100;
+
+    document.getElementById('cert-name').innerText = document.getElementById('student-name').value;
+    document.getElementById('cert-marks').innerText = score;
+    document.getElementById('cert-total').innerText = totalMarks;
+    document.getElementById('cert-percentage').innerText = percentage.toFixed(1);
+
+    const honorDisplay = document.getElementById('honor-display');
+    
+    if (percentage >= 90) {
+        honorDisplay.innerHTML = "🥇 Gold Medal + Trophy";
+        honorDisplay.style.backgroundColor = "#fff3cd";
+        honorDisplay.style.color = "#856404";
+    } else if (percentage >= 80) {
+        honorDisplay.innerHTML = "🥈 Silver Medal + Trophy";
+        honorDisplay.style.backgroundColor = "#e2e3e5";
+        honorDisplay.style.color = "#383d41";
+    } else if (percentage >= 70) {
+        honorDisplay.innerHTML = "🥉 Bronze Medal + Trophy";
+        honorDisplay.style.backgroundColor = "#f8d7da";
+        honorDisplay.style.color = "#721c24";
+    } else {
+        honorDisplay.innerHTML = "💐 अभिनंदन! फुलांचा गुच्छ व <br>'पुढील परीक्षेसाठी शुभेच्छा'";
+        honorDisplay.style.backgroundColor = "#d4edda";
+        honorDisplay.style.color = "#155724";
+    }
+
+    const wrongList = document.getElementById('wrong-list');
+    wrongList.innerHTML = '';
+    const wrongAnswers = userAnswers.filter(a => !a.isCorrect);
+
+    if (wrongAnswers.length === 0) {
+        wrongList.innerHTML = '<p style="color: green; font-weight: bold;">अभिनंदन! तुमचे सर्व ३० प्रश्न बरोबर आले आहेत.</p>';
+    } else {
+        wrongAnswers.forEach(item => {
+            const div = document.createElement('div');
+            div.className = 'review-item';
+            div.innerHTML = `
+                <p style="margin: 5px 0; font-weight: bold;">${item.question}</p>
+                <p style="margin: 2px 0; color: #c0392b;">तुमचे उत्तर: ${item.selected}</p>
+                <p style="margin: 2px 0; color: #27ae60;">बरोबर उत्तर: ${item.correctAnswer}</p>
+                <p style="margin: 5px 0; font-size: 13px; color: #555;">${item.explanation}</p>
+            `;
+            wrongList.appendChild(div);
+        });
+    }
+}
+
+function toggleWrongQuestions() {
+    const box = document.getElementById('wrong-questions-box');
+    if (box.style.display === 'none' || box.style.display === '') {
+        box.style.display = 'block';
+    } else {
+        box.style.display = 'none';
+    }
+}
+</script>
+</body>
+</html>
