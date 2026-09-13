@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html lang="mr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>गुणाकार ऑनलाईन टेस्ट - जि.प.प्रा.शाळा नरसोबावाडी</title>
+  <style>
+    :root {
+      --primary-color: #1a73e8;
+      --secondary-color: #34a853;
+      --error-color: #ea4335;
+      --bg-color: #f4f7fe;
+      --card-bg: #ffffff;
+    }
+
+    body {
+      font-family: 'Segoe UI', Arial, sans-serif;
+      background-color: var(--bg-color);
+      margin: 0;
+      padding: 15px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 750px;
+      background: var(--card-bg);
+      border-radius: 12px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+      padding: 25px;
+      position: relative;
+      box-sizing: border-box;
+    }
+
+    .header-title {
+      text-align: center;
+      color: #0d47a1;
+      font-size: 22px;
+      font-weight: bold;
+      margin-bottom: 5px;
+    }
+
+    .exam-title {
+      text-align: center;
+      color: #e65100;
+      font-size: 26px;
+      font-weight: bold;
+      margin-bottom: 20px;
+      border-bottom: 2px solid #ffe0b2;
+      padding-bottom: 10px;
+    }
+
+    .form-group {
+      margin-bottom: 15px;
+    }
+
+    .form-group label {
+      display: block;
+      font-weight: bold;
+      margin-bottom: 5px;
+      color: #333;
+    }
+
+    .form-group input {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      font-size: 16px;
+      box-sizing: border-box;
+    }
+
+    .creator-box {
+      margin-top: 25px;
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      gap: 12px;
+      background: #e8eaf6;
+      padding: 10px 15px;
+      border-radius: 8px;
+    }
+
+    .creator-box img {
+      width: 55px;
+      height: 55px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 2px solid #3f51b5;
+    }
+
+    .creator-info {
+      text-align: right;
+      font-size: 13px;
+      color: #1a237e;
+      line-height: 1.3;
+    }
+
+    .footer-credit {
+      text-align: center;
+      font-size: 13px;
+      color: #666;
+      margin-top: 20px;
+      padding-top: 10px;
+      border-top: 1px dashed #ccc;
+    }
+
+    .btn {
+      display: block;
+      width: 100%;
+      padding: 12px;
+      background: var(--primary-color);
+      color: white;
+      border: none;
+      border-radius: 6px;
+      font-size: 18px;
+      font-weight: bold;
+      cursor: pointer;
+      text-align: center;
+      margin-top: 15px;
+    }
+
+    .btn:disabled {
+      background: #ccc;
+      cursor: not-allowed;
+    }
+
+    .question-box {
+      font-size: 18px;
+      font-weight: bold;
+      margin-bottom: 15px;
+      color: #2c3e50;
+    }
+
+    .options-container {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .option-btn {
+      padding: 12px 15px;
+      border: 2px solid #e0e0e0;
+      border-radius: 8px;
+      background: #fff;
+      font-size: 16px;
+      text-align: left;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .option-btn.selected {
+      border-color: var(--primary-color);
+      background-color: #e3f2fd;
+    }
+
+    .option-btn.correct {
+      border-color: var(--secondary-color);
+      background-color: #e8f5e9;
+      color: #2e7d32;
+      font-weight: bold;
+    }
+
+    .option-btn.incorrect {
+      border-color: var(--error-color);
+      background-color: #ffebee;
+      color: #c62828;
+    }
+
+    .explanation-box {
+      margin-top: 15px;
+      padding: 12px;
+      background-color: #fff3e0;
+      border-left: 5px solid #ff9800;
+      border-radius: 4px;
+      font-size: 14px;
+      color: #e65100;
+      display: none;
+    }
+
+    /* Certificate Styling */
+    .certificate {
+      border: 8px double #1a237e;
+      padding: 25px;
+      text-align: center;
+      background: #fffdf7;
+      border-radius: 4px;
+      position: relative;
+    }
+
+    .cert-score {
+      font-size: 36px;
+      font-weight: bold;
+      color: #d32f2f;
+      margin: 15px 0;
+    }
+
+    .badge {
+      font-size: 45px;
+      margin: 10px 0;
+    }
+
+    .badge-text {
+      font-size: 20px;
+      font-weight: bold;
+      color: #2e7d32;
+    }
+
+    .review-item {
+      text-align: left;
+      background: #fff;
+      border: 1px solid #ddd;
+      padding: 12px;
+      margin-bottom: 10px;
+      border-radius: 6px;
+    }
+  </style>
+</head>
+<body>
+
+<div class="container" id="app">
+  <!-- 1. Registration Screen -->
+  <div id="start-screen">
+    <div class="header-title">जिल्हा परिषद प्राथमिक शाळा नरसोबावाडी संचलित</div>
+    <div class="exam-title">ऑनलाइन परीक्षा: गुणाकार</div>
+    
+    <form id="reg-form" onsubmit="startExam(event)">
+      <div class="form-group">
+        <label for="student-name">विद्यार्थ्याचे नाव:</label>
+        <input type="text" id="student-name" required placeholder="संपूर्ण नाव टाका">
+      </div>
+      <div class="form-group">
+        <label for="student-mobile">मोबाईल नंबर:</label>
+        <input type="tel" id="student-mobile" pattern="[0-9]{10}" required placeholder="10 अंकी मोबाईल नंबर">
+      </div>
+      <button type="submit" class="btn">EXAM START</button>
+    </form>
+
+    <div class="footer-credit">
+      टेस्ट निर्मिती व संकल्पना श्री सचिन शिंदे मोबाईल नंबर 83 29 68 44 70
+    </div>
+
+    <div class="creator-box">
+      <div class="creator-info">
+        <strong>संकल्पना व निर्मिती</strong><br>
+        श्री सचिन शिंदे सर<br>
+        जि प प्रा शाळा नरसोबावाडी<br>
+        मो. 83 29 68 44 70
+      </div>
+      <img src="https://drive.google.com/thumbnail?id=1pkldnaLRyqBtfgiQKwtbeSSfXhENzbOm&sz=w200" alt="सचिन शिंदे सर">
+    </div>
+  </div>
+
+  <!-- 2. Quiz Screen -->
+  <div id="quiz-screen" style="display: none;">
+    <div style="display: flex; justify-content: space-between; font-weight: bold; margin-bottom: 15px; color: #555;">
+      <span id="q-count">प्रश्न १ / ३०</span>
+      <span id="score-tracker">गुण: ०</span>
+    </div>
+
+    <div class="question-box" id="q-text"></div>
+    <div class="options-container" id="options-box"></div>
+    <div class="explanation-box" id="explanation-box"></div>
+
+    <button class="btn" id="next-btn" disabled onclick="nextQuestion()">पुढील प्रश्न</button>
+
+    <div class="footer-credit">
+      टेस्ट निर्मिती व संकल्पना श्री सचिन शिंदे मोबाईल नंबर 83 29 68 44 70
+    </div>
+  </div>
+
+  <!-- 3. Result / Certificate Screen -->
+  <div id="result-screen" style="display: none;">
+    <div class="certificate">
+      <div class="header-title">🏆 जिल्हा परिषद प्राथमिक शाळा नरसोबावाडी संचलित 🏆</div>
+      <h2 style="color: #333; margin: 10px 0;">गुणवत्ता प्रमाणपत्र</h2>
+      <p style="font-size: 16px;"><strong>परीक्षेचे नाव:</strong> गुणाकार सराव परीक्षा</p>
+      <p style="font-size: 18px; color: #0d47a1;"><strong>विद्यार्थ्याचे नाव:</strong> <span id="cert-name"></span></p>
+
+      <div class="cert-score" id="cert-score">0 / 60</div>
+      <div id="cert-badge" class="badge"></div>
+      <div id="cert-status" class="badge-text"></div>
+
+      <div class="creator-box" style="margin-top: 20px;">
+        <div class="creator-info">
+          <strong>संकल्पना व निर्मिती</strong><br>
+          श्री सचिन शिंदे सर<br>
+          जि प प्रा शाळा नरसोबावाडी<br>
+          मो. 83 29 68 44 70
+        </div>
+        <img src="https://drive.google.com/thumbnail?id=1pkldnaLRyqBtfgiQKwtbeSSfXhENzbOm&sz=w200" alt="सचिन शिंदे सर">
+      </div>
+    </div>
+
+    <button class="btn" style="background: #ff9800; margin-top: 15px;" onclick="showIncorrectQuestions()">चुकलेले प्रश्न पहा</button>
+    <button class="btn" style="background: #34a853; margin-top: 10px;" onclick="location.reload()">पुन्हा परीक्षा द्या</button>
+
+    <div class="footer-credit">
+      टेस्ट निर्मिती व संकल्पना श्री सचिन शिंदे मोबाईल नंबर 83 29 68 44 70
+    </div>
+  </div>
+
+  <!-- 4. Review Incorrect Questions Screen -->
+  <div id="review-screen" style="display: none;">
+    <h3 style="color: #c62828; text-align: center;">चुकीच्या प्रश्नांचे स्पष्टीकरण</h3>
+    <div id="review-list"></div>
+    <button class="btn" onclick="backToCertificate()">प्रमाणपत्राकडे जा</button>
+    <div class="footer-credit">
+      टेस्ट निर्मिती व संकल्पना श्री सचिन शिंदे मोबाईल नंबर 83 29 68 44 70
+    </div>
+  </div>
+</div>
+<script>
+const questions = [
+  { q: "35 × 7 = ?", options: ["(A) 255", "(B) 245", "(C) 235", "(D) 215"], ans: 1, exp: "35 × 7 = 245" },
+  { q: "624 × 9 = ?", options: ["(A) 5416", "(B) 5516", "(C) 5626", "(D) 5616"], ans: 3, exp: "624 × 9 = 5616" },
+  { q: "4215 × 6 = ?", options: ["(A) 25290", "(B) 25190", "(C) 24290", "(D) 25390"], ans: 0, exp: "4215 × 6 = 25290" },
+  { q: "35 × □ = 175 या समीकरणात चौकोनाच्या (□) जागी कोणती संख्या येईल?", options: ["(A) 4", "(B) 6", "(C) 7", "(D) 5"], ans: 3, exp: "175 ÷ 35 = 5" },
+  { q: "□ × 16 = 96 या समीकरणात चौकोनाच्या (□) जागी कोणती संख्या येईल?", options: ["(A) 5", "(B) 6", "(C) 7", "(D) 8"], ans: 1, exp: "96 ÷ 16 = 6" },
+  { q: "725 × 0 = ?", options: ["(A) 725", "(B) 1", "(C) 0", "(D) 7250"], ans: 2, exp: "कोणत्याही संख्येला 0 ने गुणल्यास उत्तर 0 येते." },
+  { q: "548 × 1 = ?", options: ["(A) 0", "(B) 1", "(C) 548", "(D) 5481"], ans: 2, exp: "कोणत्याही संख्येला 1 ने गुणल्यास उत्तर तीच संख्या येते." },
+  { q: "9 + 9 + 9 + 9 + 9 ही बेरीज गुणाकाराच्या स्वरूपात खालीलपैकी कशी लिहाल?", options: ["(A) 9 × 4", "(B) 9 × 5", "(C) 9 × 9", "(D) 5 + 9"], ans: 1, exp: "9 ही संख्या 5 वेळा जोडली आहे (9 × 5)." },
+  { q: "सोपे रूप द्या: 40 × 5 + 35 = ?", options: ["(A) 200", "(B) 254", "(C) 235", "(D) 225"], ans: 2, exp: "(40 × 5) + 35 = 200 + 35 = 235" },
+  { q: "सोपे रूप द्या: 50 × 6 - 40 = ?", options: ["(A) 240", "(B) 300", "(C) 340", "(D) 260"], ans: 3, exp: "(50 × 6) - 40 = 300 - 40 = 260" },
+  { q: "किंमत काढा: 9 × (6 + 4) = ?", options: ["(A) 80", "(B) 90", "(C) 100", "(D) 58"], ans: 1, exp: "9 × (6 + 4) = 9 × 10 = 90" },
+  { q: "किंमत काढा: 12 × (10 - 3) = ?", options: ["(A) 84", "(B) 117", "(C) 96", "(D) 74"], ans: 0, exp: "12 × (10 - 3) = 12 × 7 = 84" },
+  { q: "एका पेटीत 36 आंबे आहेत. अशा 8 पेट्यांत एकूण किती आंबे असतील?", options: ["(A) 278", "(B) 268", "(C) 298", "(D) 288"], ans: 3, exp: "36 × 8 = 288 आंबे" },
+  { q: "एका प्राथमिक शाळेत 145 विद्यार्थी आहेत. प्रत्येक विद्यार्थ्याला 5 वह्या वाटल्यास एकूण किती वह्या लागतील?", options: ["(A) 735", "(B) 715", "(C) 725", "(D) 705"], ans: 2, exp: "145 × 5 = 725 वह्या" },
+  { q: "एका रांगेत 42 झाडे लावली आहेत. अशा 12 रांगांमध्ये एकूण किती झाडे असतील?", options: ["(A) 494", "(B) 504", "(C) 514", "(D) 524"], ans: 1, exp: "42 × 12 = 504 झाडे" },
+  { q: "एका पुस्तकात 215 पाने आहेत. अशा 7 पुस्तकांची एकूण किती पाने होतील?", options: ["(A) 1505", "(B) 1405", "(C) 1515", "(D) 1495"], ans: 0, exp: "215 × 7 = 1505 पाने" },
+  { q: "एका बसमधून एका फेरीत 48 प्रवासी प्रवास करतात. तर दिवसभरात अशा 9 फेऱ्यांमध्ये एकूण किती प्रवासी प्रवास करतील?", options: ["(A) 422", "(B) 412", "(C) 442", "(D) 432"], ans: 3, exp: "48 × 9 = 432 प्रवासी" },
+  { q: "एका शेतात एका दिवसात 180 क्रेट टोमॅटो निघतात. तर 8 दिवसांत एकूण किती क्रेट टोमॅटो निघतील?", options: ["(A) 1456", "(B) 1340", "(C) 1540", "(D) 1440"], ans: 3, exp: "180 × 8 = 1440 क्रेट" },
+  { q: "एका पाकिटात 15 पेन आहेत. अशा 32 पाकिटांमध्ये एकूण किती पेन असतील?", options: ["(A) 460", "(B) 400", "(C) 480", "(D) 450"], ans: 2, exp: "15 × 32 = 480 पेन" },
+  { q: "एका सायकलीची किंमत ₹4,150 आहे. तर अशा 5 सायकलींची एकूण किंमत किती रुपये होईल?", options: ["(A) रु 20560", "(B) ₹20,500", "(C) ₹20,750", "(D) ₹20,250"], ans: 2, exp: "4150 × 5 = ₹20,750" },
+  { q: "एका गोदामात धान्याची 1,250 पोती आहेत. एका पोत्याचे वजन 40 किलो असल्यास सर्व पोत्यांचे एकूण वजन किती किलो होईल?", options: ["(A) 48,000 किलो", "(B) 45,000 किलो", "(C) 52,000 किलो", "(D) 50,000 किलो"], ans: 3, exp: "1250 × 40 = 50,000 किलो" },
+  { q: "एका संगणक कक्षासाठी प्रति संगणक ₹28,000 याप्रमाणे 4 नवीन संगणक खरेदी केले. तर एकूण किती खर्च येईल?", options: ["(A) ₹1,10,000", "(B) ₹1,12,000", "(C) ₹1,15,000", "(D) ₹1,08,000"], ans: 1, exp: "28000 × 4 = ₹1,12,000" },
+  { q: "एका वहीची किंमत ₹25 आहे. तर अशा 9 वह्यांची एकूण किंमत किती रुपये होईल?", options: ["(A) ₹215", "(B) रु 240", "(C) ₹235", "(D) ₹225"], ans: 3, exp: "25 × 9 = ₹225" },
+  { q: "एका पिशवीत 8 किलो गहू आहे. अशा 12 पिशव्यांत एकूण किती किलो गहू असेल?", options: ["(A) 88 किलो", "(B) 92 किलो", "(C) 104 किलो", "(D) 96 किलो"], ans: 3, exp: "8 × 12 = 96 किलो" },
+  { q: "खालील संख्या मालिकेतील रिकाम्या जागी कोणत्या संख्या येतील? 8, 16, 24, 32, ____, ____", options: ["(A) 36, 44", "(B) 38, 46", "(C) 40, 46", "(D) 40, 48"], ans: 3, exp: "8 च्या पाढ्यातील पुढील संख्या: 40 आणि 48" },
+  { q: "45 × 14 = ?", options: ["(A) 610", "(B) 630", "(C) 650", "(D) 620"], ans: 1, exp: "45 × 14 = 630" },
+  { q: "खालीलपैकी चुकीचा गुणाकार कोणता आहे?", options: ["(A) 14 × 3 = 42", "(B) 16 × 4 = 64", "(C) 18 × 5 = 85", "(D) 15 × 6 = 90"], ans: 2, exp: "18 × 5 = 90 होते, म्हणून (C) हे चुकीचे आहे." },
+  { q: "योग्य चिन्ह निवडा: 30 × 6  □  40 × 4", options: ["(A) >", "(B) <", "(C) =", "(D) यांपैकी नाही"], ans: 0, exp: "30 × 6 = 180 आणि 40 × 4 = 160. (180 > 160)" },
+  { q: "एका वर्गात 5 ओळी असून प्रत्येक ओळीत 8 मुले बसली आहेत. तर वर्गात एकूण किती मुले आहेत?", options: ["(A) 35", "(B) 45", "(C) 40", "(D) 48"], ans: 2, exp: "5 × 8 = 40 मुले" },
+  { q: "जर 9 × 7 = 63, तर 63 ÷ 9 = ?", options: ["(A) 9", "(B) 6", "(C) 8", "(D) 7"], ans: 3, exp: "गुणाकाराच्या उलट क्रिया भागाकार: 63 ÷ 9 = 7" }
+];
+let currentQ = 0;
+let userAnswers = [];
+let studentName = "";
+let studentMobile = "";
+
+function startExam(e) {
+  e.preventDefault();
+  studentName = document.getElementById('student-name').value;
+  studentMobile = document.getElementById('student-mobile').value;
+  
+  document.getElementById('start-screen').style.display = 'none';
+  document.getElementById('quiz-screen').style.display = 'block';
+  loadQuestion();
+}
+
+function loadQuestion() {
+  const qData = questions[currentQ];
+  document.getElementById('q-count').innerText = `प्रश्न ${currentQ + 1} / ${questions.length}`;
+  document.getElementById('q-text').innerText = `प्रश्न ${currentQ + 1}. ${qData.q}`;
+  
+  const optBox = document.getElementById('options-box');
+  optBox.innerHTML = '';
+  
+  document.getElementById('explanation-box').style.display = 'none';
+  const nextBtn = document.getElementById('next-btn');
+  nextBtn.disabled = true;
+  if(currentQ === questions.length - 1) {
+    nextBtn.innerText = "SUBMIT EXAM";
+  } else {
+    nextBtn.innerText = "पुढील प्रश्न";
+  }
+
+  qData.options.forEach((opt, idx) => {
+    const btn = document.createElement('button');
+    btn.className = 'option-btn';
+    btn.innerText = opt;
+    btn.onclick = () => selectOption(idx);
+    optBox.appendChild(btn);
+  });
+}
+
+function selectOption(selectedIdx) {
+  const qData = questions[currentQ];
+  const options = document.querySelectorAll('.option-btn');
+  
+  options.forEach(btn => btn.disabled = true);
+  
+  userAnswers[currentQ] = selectedIdx;
+
+  if (selectedIdx === qData.ans) {
+    options[selectedIdx].classList.add('correct');
+  } else {
+    options[selectedIdx].classList.add('incorrect');
+    options[qData.ans].classList.add('correct');
+    
+    // Show explanation for wrong answer
+    const expBox = document.getElementById('explanation-box');
+    expBox.innerText = `स्पष्टीकरण: ${qData.exp}`;
+    expBox.style.display = 'block';
+  }
+
+  document.getElementById('next-btn').disabled = false;
+}
+
+function nextQuestion() {
+  currentQ++;
+  if (currentQ < questions.length) {
+    loadQuestion();
+  } else {
+    showResult();
+  }
+}
+
+function showResult() {
+  document.getElementById('quiz-screen').style.display = 'none';
+  document.getElementById('result-screen').style.display = 'block';
+
+  let totalMarks = 0;
+  questions.forEach((q, idx) => {
+    if (userAnswers[idx] === q.ans) {
+      totalMarks += 2; // २ गुण प्रति प्रश्न
+    }
+  });
+
+  const maxMarks = questions.length * 2; // ६० गुण
+  const percentage = (totalMarks / maxMarks) * 100;
+
+  document.getElementById('cert-name').innerText = studentName;
+  document.getElementById('cert-score').innerText = `${totalMarks} / ${maxMarks} गुण (${percentage.toFixed(1)}%)`;
+
+  const badgeDiv = document.getElementById('cert-badge');
+  const statusDiv = document.getElementById('cert-status');
+
+  if (percentage >= 90) {
+    badgeDiv.innerText = "🥇🏆";
+    statusDiv.innerText = "उत्कृष्ट! Gold Medal + Trophy प्राप्त!";
+  } else if (percentage >= 80) {
+    badgeDiv.innerText = "🥈🏆";
+    statusDiv.innerText = "छान! Silver Medal + Trophy प्राप्त!";
+  } else if (percentage >= 70) {
+    badgeDiv.innerText = "🥉🏆";
+    statusDiv.innerText = "छानावरील! Bronze Medal + Trophy प्राप्त!";
+  } else {
+    badgeDiv.innerText = "💐";
+    statusDiv.innerText = "अभिनंदन! फुलांचा गुच्छ व पुढील परीक्षेसाठी शुभेच्छा!";
+  }
+}
+
+function showIncorrectQuestions() {
+  document.getElementById('result-screen').style.display = 'none';
+  document.getElementById('review-screen').style.display = 'block';
+
+  const reviewList = document.getElementById('review-list');
+  reviewList.innerHTML = '';
+
+  let wrongCount = 0;
+
+  questions.forEach((q, idx) => {
+    if (userAnswers[idx] !== q.ans) {
+      wrongCount++;
+      const item = document.createElement('div');
+      item.className = 'review-item';
+      item.innerHTML = `
+        <strong>प्रश्न ${idx + 1}:</strong> ${q.q}<br>
+        <span style="color:red;">तुमचे उत्तर: ${userAnswers[idx] !== undefined ? q.options[userAnswers[idx]] : 'उत्तर दिले नाही'}</span><br>
+        <span style="color:green;">अचूक उत्तर: ${q.options[q.ans]}</span><br>
+        <small style="color:orange;">💡 ${q.exp}</small>
+      `;
+      reviewList.appendChild(item);
+    }
+  });
+
+  if (wrongCount === 0) {
+    reviewList.innerHTML = "<h4 style='text-align:center; color:green;'>अभिनंदन! तुमचे सर्व प्रश्न बरोबर आले आहेत!</h4>";
+  }
+}
+
+function backToCertificate() {
+  document.getElementById('review-screen').style.display = 'none';
+  document.getElementById('result-screen').style.display = 'block';
+}
+</script>
+</body>
+</html>
