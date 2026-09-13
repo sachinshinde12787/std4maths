@@ -1,0 +1,627 @@
+<!DOCTYPE html>
+<html lang="mr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>गुणाकार भागाकार मिश्र गणिते ऑनलाईन टेस्ट</title>
+    <style>
+        :root {
+            --primary-color: #1a73e8;
+            --success-color: #2e7d32;
+            --error-color: #c62828;
+            --bg-color: #f4f7f6;
+        }
+
+        body {
+            font-family: 'Segoe UI', Arial, sans-serif;
+            background-color: var(--bg-color);
+            margin: 0;
+            padding: 15px;
+            color: #333;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: #ffffff;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        .header-title {
+            text-align: center;
+            color: #1565c0;
+            margin-bottom: 5px;
+            font-size: 20px;
+        }
+
+        .exam-title {
+            text-align: center;
+            color: #d84315;
+            margin-top: 5px;
+            margin-bottom: 20px;
+            font-size: 24px;
+            border-bottom: 2px dashed #ffab91;
+            padding-bottom: 10px;
+        }
+
+        .creator-box {
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            gap: 12px;
+            margin-bottom: 20px;
+            background: #e3f2fd;
+            padding: 10px 15px;
+            border-radius: 8px;
+        }
+
+        .creator-info {
+            text-align: right;
+            font-size: 14px;
+            line-height: 1.4;
+        }
+
+        .creator-img {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid #1976d2;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+
+        input[type="text"], input[type="tel"] {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            box-sizing: border-box;
+            font-size: 16px;
+        }
+
+        .btn {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: bold;
+            display: block;
+            margin: 20px auto;
+            transition: 0.3s;
+        }
+
+        .btn:hover {
+            background-color: #1557b0;
+        }
+
+        .btn:disabled {
+            background-color: #ccc;
+            cursor: not-allowed;
+        }
+
+        .footer-text {
+            text-align: center;
+            font-size: 14px;
+            color: #555;
+            margin-top: 25px;
+            padding-top: 10px;
+            border-top: 1px solid #ddd;
+        }
+
+        /* Question Box */
+        .question-box {
+            display: none;
+        }
+
+        .q-text {
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 15px;
+            line-height: 1.5;
+        }
+
+        .option-btn {
+            display: block;
+            width: 100%;
+            text-align: left;
+            padding: 12px 15px;
+            margin-bottom: 10px;
+            background: #fff;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .option-btn:hover {
+            background-color: #f5f5f5;
+        }
+
+        .option-btn.selected {
+            border-color: var(--primary-color);
+            background-color: #e8f0fe;
+        }
+
+        .option-btn.correct {
+            background-color: #c8e6c9 !important;
+            border-color: var(--success-color) !important;
+            color: #1b5e20;
+        }
+
+        .option-btn.incorrect {
+            background-color: #ffcdd2 !important;
+            border-color: var(--error-color) !important;
+            color: #b71c1c;
+        }
+
+        .explanation {
+            display: none;
+            margin-top: 15px;
+            padding: 12px;
+            background: #fff3e0;
+            border-left: 4px solid #ff9800;
+            border-radius: 4px;
+            font-size: 15px;
+        }
+
+        /* Certificate Styling */
+        .certificate-container {
+            display: none;
+            border: 8px double #1a73e8;
+            padding: 25px;
+            border-radius: 10px;
+            background: #fff9c4;
+            position: relative;
+        }
+
+        .cert-header {
+            text-align: center;
+            font-size: 22px;
+            color: #b71c1c;
+            font-weight: bold;
+        }
+
+        .cert-body {
+            text-align: center;
+            margin: 20px 0;
+        }
+
+        .score-display {
+            font-size: 32px;
+            font-weight: bold;
+            color: #1b5e20;
+            margin: 15px 0;
+        }
+
+        .badge-display {
+            font-size: 24px;
+            font-weight: bold;
+            margin: 15px 0;
+            padding: 10px;
+            border-radius: 8px;
+            background: rgba(255,255,255,0.7);
+        }
+
+        .review-box {
+            display: none;
+            margin-top: 25px;
+        }
+
+        .review-item {
+            background: #fff;
+            border: 1px solid #ddd;
+            padding: 15px;
+            margin-bottom: 15px;
+            border-radius: 8px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="header-title">जिल्हा परिषद प्राथमिक शाळा नरसोबावाडी संचलित</div>
+    <h2 class="exam-title">परीक्षेचे नाव: गुणाकार भागाकार मिश्र गणिते</h2>
+
+    <div class="creator-box">
+        <div class="creator-info">
+            <strong>संकल्पना व निर्मिती</strong><br>
+            श्री सचिन शिंदे सर<br>
+            जि प प्रा शाळा नरसोबावाडी<br>
+            मोबाईल: 83 29 68 44 70
+        </div>
+        <img class="creator-img" src="https://lh3.googleusercontent.com/d/1pkldnaLRyqBtfgiQKwtbeSSfXhENzbOm" alt="सचिन शिंदे सर">
+    </div>
+
+    <!-- Student Info Form -->
+    <div id="studentForm">
+        <div class="form-group">
+            <label for="studentName">विद्यार्थ्याचे नाव:</label>
+            <input type="text" id="studentName" placeholder="पूर्ण नाव टाका" required>
+        </div>
+        <div class="form-group">
+            <label for="studentMobile">मोबाईल नंबर:</label>
+            <input type="tel" id="studentMobile" placeholder="१० अंकी मोबाईल नंबर" required>
+        </div>
+        <button class="btn" onclick="startExam()">EXAM START</button>
+    </div>
+
+    <!-- Exam Area -->
+    <div id="examArea" class="question-box">
+        <div style="font-weight: bold; color: #555; margin-bottom: 10px;" id="qProgress"></div>
+        <div class="q-text" id="questionText"></div>
+        <div id="optionsContainer"></div>
+        <div class="explanation" id="explanationText"></div>
+        <button class="btn" id="nextBtn" onclick="nextQuestion()" disabled>NEXT</button>
+    </div>
+
+    <!-- Certificate Area -->
+    <div id="certificateArea" class="certificate-container">
+        <div class="cert-header">🏆 जिल्हा परिषद प्राथमिक शाळा नरसोबावाडी संचलित 🏆</div>
+        <div class="cert-body">
+            <h3>परीक्षेचे नाव: गुणाकार भागाकार मिश्र गणिते</h3>
+            <h4>विद्यार्थ्याचे नाव: <span id="certName" style="color:#1565c0;"></span></h4>
+            <div class="score-display" id="certScore"></div>
+            <div class="badge-display" id="certBadge"></div>
+        </div>
+        
+        <div class="creator-box" style="background: none; border-top: 1px solid #ccc; padding-top: 15px;">
+            <div class="creator-info">
+                <strong>संकल्पना व निर्मिती</strong><br>
+                श्री सचिन शिंदे सर<br>
+                जि प प्रा शाळा नरसोबावाडी<br>
+                मोबाईल: 83 29 68 44 70
+            </div>
+            <img class="creator-img" src="https://lh3.googleusercontent.com/d/1pkldnaLRyqBtfgiQKwtbeSSfXhENzbOm" alt="सचिन शिंदे सर">
+        </div>
+
+        <button class="btn" onclick="toggleReview()" style="background-color: #ff9800;">चुकलेले प्रश्न व मार्गदर्शन पहा</button>
+        <div id="reviewContainer" class="review-box"></div>
+    </div>
+
+    <div class="footer-text">
+        टेस्ट निर्मिती व संकल्पना श्री सचिन शिंदे मोबाईल नंबर 83 29 68 44 70
+    </div>
+</div>
+<script>
+const questionsData = [
+    {
+        q: "१) एका पेटीत २५ आंबे आहेत. अशा ८ पेट्यांमधील सर्व आंबे १० मुलांमध्ये समान वाटले, तर प्रत्येक मुलाला किती आंबे मिळतील?",
+        options: ["(A) १८", "(B) १५", "(C) २५", "(D) २०"],
+        correct: 3,
+        exp: "स्पष्टीकरण: एकूण आंबे = २५ × ८ = २००. १० मुलांत वाटणी = २०० ÷ १० = २० आंबे."
+    },
+    {
+        q: "२) एका पाकिटात १५ बिस्किटे आहेत. अशा १२ पाकिटांतील बिस्किटे ९ विद्यार्थ्यांना समान वाटायची आहेत. तर प्रत्येकाला किती बिस्किटे मिळतील?",
+        options: ["(A) २५", "(B) १५", "(C) २०", "(D) २४"],
+        correct: 2,
+        exp: "स्पष्टीकरण: एकूण बिस्किटे = १५ × १२ = १८०. ९ विद्यार्थ्यांना वाटणी = १८० ÷ ९ = २० बिस्किटे."
+    },
+    {
+        q: "३) एका बॉक्समध्ये २४ चेंडू आहेत. अशा ६ बॉक्समधील सर्व चेंडू ८ खेळाडूंमध्ये समान वाटले, तर एका खेळाडूला किती चेंडू मिळतील?",
+        options: ["(A) १२", "(B) १४", "(C) १८", "(D) १६"],
+        correct: 2,
+        exp: "स्पष्टीकरण: एकूण चेंडू = २४ × ६ = १४४. ८ खेळाडूंना वाटणी = १४४ ÷ ८ = १८ चेंडू."
+    },
+    {
+        q: "४) एका दुकानात एका खोक्यात ३० वह्या आहेत. अशा ५ खोक्यांमधील वह्या १५ विद्यार्थ्यांना समान वाटल्या, तर प्रत्येकाला किती वह्या मिळतील?",
+        options: ["(A) ८", "(B) १०", "(C) १२", "(D) १५"],
+        correct: 1,
+        exp: "स्पष्टीकरण: एकूण वह्या = ३० × ५ = १५०. १५ विद्यार्थ्यांना वाटणी = १५० ÷ १५ = १० वह्या."
+    },
+    {
+        q: "५) ८ कपाटांत एकूण ३२० पुस्तके समान ठेवली आहेत. तर अशा ५ कपाटांत एकूण किती पुस्तके मावतील?",
+        options: ["(A) २००", "(B) २५०", "(C) १८०", "(D) २२०"],
+        correct: 0,
+        exp: "स्पष्टीकरण: एका कपाटातील पुस्तके = ३२० ÷ ८ = ४०. ५ कपाटांतील पुस्तके = ४० × ५ = २००."
+    },
+    {
+        q: "६) ६ रांगांमध्ये एकूण २४० झाडे लावली आहेत. सर्व रांगांमध्ये समान झाडे असतील, तर अशा ९ रांगांमध्ये एकूण किती झाडे असतील?",
+        options: ["(A) ३२०", "(B) ३६०", "(C) ४००", "(D) २४०"],
+        correct: 1,
+        exp: "स्पष्टीकरण: एका रांगेतील झाडे = २४० ÷ ६ = ४०. ९ रांगांतील झाडे = ४० × ९ = ३६०."
+    },
+    {
+        q: "७) १२ पेट्यांमध्ये एकूण ४८० सफरचंद आहेत. सर्व पेट्यांत समान सफरचंद असल्यास, अशा ७ पेट्यांमध्ये एकूण किती सफरचंद असतील?",
+        options: ["(A) २८०", "(B) ३००", "(C) २५०", "(D) ३२०"],
+        correct: 0,
+        exp: "स्पष्टीकरण: एका पेटीतील सफरचंद = ४८० ÷ १२ = ४०. ७ पेट्यांतील सफरचंद = ४० × ७ = २८०."
+    },
+    {
+        q: "८) ५ टोपल्यांमध्ये एकूण १५० फुले आहेत. तर अशा ११ टोपल्यांमध्ये एकूण किती फुले असतील?",
+        options: ["(A) ३००", "(B) ३२०", "(C) ३३०", "(D) ३५०"],
+        correct: 2,
+        exp: "स्पष्टीकरण: एका टोपलीतील फुले = १५० ÷ ५ = ३०. ११ टोपल्यांतील फुले = ३० × ११ = ३३०."
+    },
+    {
+        q: "९) एका वाचनालयात एकूण ४८० पुस्तके आहेत. ती १२ कपाटांमध्ये समान ठेवायची आहेत, तर प्रत्येक कपाटात किती पुस्तके ठेवावी लागतील?",
+        options: ["(A) ३५", "(B) ३०", "(C) ४५", "(D) ४०"],
+        correct: 3,
+        exp: "स्पष्टीकरण: एका कपाटातील पुस्तके = ४८० ÷ १२ = ४०."
+    },
+    {
+        q: "१०) १५ पाकिटे आहेत, प्रत्येकात २४ पेन्सिली आहेत. त्या सर्व पेन्सिली ८ विद्यार्थ्यांना समान वाटल्या, तर प्रत्येक विद्यार्थ्याला किती पेन्सिली मिळतील?",
+        options: ["(A) ४५", "(B) ४०", "(C) ३५", "(D) ५०"],
+        correct: 0,
+        exp: "स्पष्टीकरण: एकूण पेन्सिली = १५ × २४ = ३६०. ८ विद्यार्थ्यांना वाटणी = ३६० ÷ ८ = ४५ पेन्सिली."
+    },
+    {
+        q: "११) २० बॉक्स आहेत आणि प्रत्येक बॉक्समध्ये १८ चॉकोलेट्स आहेत. हे सर्व चॉकोलेट्स १२ मुलांमध्ये समान वाटल्यास, प्रत्येकाला किती चॉकोलेट्स मिळतील?",
+        options: ["(A) २५", "(B) ३०", "(C) ३५", "(D) ४०"],
+        correct: 1,
+        exp: "स्पष्टीकरण: एकूण चॉकोलेट्स = २० × १८ = ३६०. १२ मुलांना वाटणी = ३६० ÷ १२ = ३० चॉकोलेट्स."
+    },
+    {
+        q: "१२) १० पिशव्यांमध्ये प्रत्येकात ३६ गोट्या आहेत. त्या सर्व गोट्या १५ मुलांना समान वाटल्या, तर प्रत्येक मुलाला किती गोट्या मिळतील?",
+        options: ["(A) ३०", "(B) २०", "(C) २४", "(D) २८"],
+        correct: 2,
+        exp: "स्पष्टीकरण: एकूण गोट्या = १० × ३६ = ३६०. १५ मुलांना वाटणी = ३६० ÷ १५ = २४ गोट्या."
+    },
+    {
+        q: "१३) २५ बंडल आहेत, प्रत्येक बंडलमध्ये १२ कागद आहेत. हे सर्व कागद १० विद्यार्थ्यांना समान वाटल्यास, प्रत्येकाला किती कागद मिळतील?",
+        options: ["(A) २५", "(B) ३०", "(C) ३५", "(D) २०"],
+        correct: 1,
+        exp: "स्पष्टीकरण: एकूण कागद = २५ × १२ = ३००. १० विद्यार्थ्यांना वाटणी = ३०० ÷ १० = ३० कागद."
+    },
+    {
+        q: "१४) मैदानात २५ रांगा आहेत आणि प्रत्येक रांगेत १६ विद्यार्थी उभे आहेत. सर्व विद्यार्थ्यांचे २० समान गट केले, तर प्रत्येक गटात किती विद्यार्थी असतील?",
+        options: ["(A) १८", "(B) २०", "(C) २२", "(D) २४"],
+        correct: 1,
+        exp: "स्पष्टीकरण: एकूण विद्यार्थी = २५ × १६ = ४००. २० समान गट = ४०० ÷ २० = २० विद्यार्थी."
+    },
+    {
+        q: "१५) एका सभागृहात ३० रांगा असून प्रत्येक रांगेत २० खुर्च्या आहेत. या सर्व खुर्च्यांचे १५ समान विभाग केले, तर एका विभागात किती खुर्च्या येतील?",
+        options: ["(A) ३५", "(B) ३०", "(C) ४५", "(D) ४०"],
+        correct: 3,
+        exp: "स्पष्टीकरण: एकूण खुर्च्या = ३० × २० = ६००. १५ विभाग = ६०० ÷ १५ = ४० खुर्च्या."
+    },
+    {
+        q: "१६) १२ पेनची किंमत २४० रुपये आहे. अशा ५ पेनची एकूण किंमत किती होईल?",
+        options: ["(A) १०० रु.", "(B) १२० रु.", "(C) ८० रु.", "(D) १५० रु."],
+        correct: 0,
+        exp: "स्पष्टीकरण: एका पेनची किंमत = २४० ÷ १२ = २० रु. ५ पेनची किंमत = २० × ५ = १०० रु."
+    },
+    {
+        q: "१७) ८ वह्यांची एकूण किंमत १६० रुपये आहे. १० मुलांनी मिळून अशा १० वह्या खरेदी केल्या आणि खर्चाची समान वाटणी केली, तर एका मुलाचा वाटा किती रुपये येईल?",
+        options: ["(A) ३० रु.", "(B) ३५ रु.", "(C) २५ रु.", "(D) २० रु."],
+        correct: 3,
+        exp: "स्पष्टीकरण: एका वहीची किंमत = १६० ÷ ८ = २० रु. १० वह्यांची किंमत = २० × १० = २०० रु. १० मुलांचा वाटा = २०० ÷ १० = २० रु."
+    },
+    {
+        q: "१८) एका दुकानात १५ पुस्तकांची किंमत ४५० रुपये आहे. तर अशा ८ पुस्तकांची किंमत किती रुपये होईल?",
+        options: ["(A) २४० रु.", "(B) २६० रु.", "(C) २८० रु.", "(D) २०० रु."],
+        correct: 0,
+        exp: "स्पष्टीकरण: एका पुस्तकाची किंमत = ४५० ÷ १५ = ३० रु. ८ पुस्तकांची किंमत = ३० × ८ = २४० रु."
+    },
+    {
+        q: "१९) ४ मित्रांनी मिळून ८०० रुपयांची खेळणी खरेदी केली. प्रत्येकाने समान पैसे दिले असल्यास, एका मित्राने किती रुपये दिले?",
+        options: ["(A) १५० रु.", "(B) १०० रु.", "(C) २५० रु.", "(D) २०० रु."],
+        correct: 3,
+        exp: "स्पष्टीकरण: एका मित्राचा वाटा = ८०० ÷ ४ = २०० रु."
+    },
+    {
+        q: "२०) एका शेतात धान्याची २० पोती आहेत. प्रत्येक पोत्याचे वजन ५० किग्रॅ आहे. हे सर्व धान्य २५ पोत्यांमध्ये समान भरले, तर नवीन एका पोत्याचे वजन किती किग्रॅ होईल?",
+        options: ["(A) ३० किग्रॅ", "(B) ३५ किग्रॅ", "(C) ४० किग्रॅ", "(D) ४५ किग्रॅ"],
+        correct: 2,
+        exp: "स्पष्टीकरण: एकूण वजन = २० × ५० = १००० किग्रॅ. २५ पोत्यांत वाटणी = १००० ÷ २५ = ४० किग्रॅ."
+    },
+    {
+        q: "२१) साखरेची १५ पोती आहेत, प्रत्येक पोत्यात ४० किग्रॅ साखर आहे. ती साखर ८ व्यापाऱ्यांमध्ये समान वाटली, तर एका व्यापाऱ्याला किती किग्रॅ साखर मिळेल?",
+        options: ["(A) ७० किग्रॅ", "(B) ७५ किग्रॅ", "(C) ८० किग्रॅ", "(D) ८५ किग्रॅ"],
+        correct: 1,
+        exp: "स्पष्टीकरण: एकूण साखर = १५ × ४० = ६०० किग्रॅ. ८ व्यापाऱ्यांना वाटणी = ६०० ÷ ८ = ७५ किग्रॅ."
+    },
+    {
+        q: "२२) गव्हाच्या ८ गोण्यांचे वजन ३२० किग्रॅ आहे. अशा १५ गोण्यांचे एकूण वजन किती किग्रॅ होईल?",
+        options: ["(A) ५५० किग्रॅ", "(B) ५०० किग्रॅ", "(C) ६०० किग्रॅ", "(D) ६५० किग्रॅ"],
+        correct: 2,
+        exp: "स्पष्टीकरण: एका गोणीचे वजन = ३२० ÷ ८ = ४० किग्रॅ. १५ गोण्यांचे वजन = ४० × १५ = ६०० किग्रॅ."
+    },
+    {
+        q: "२३) एका वर्गात काही रांगा आहेत. प्रत्येक रांगेत १५ विद्यार्थी बसतात. एकूण १५० विद्यार्थी असल्यास एकूण रांगा किती?",
+        options: ["(A) ८", "(B) ९", "(C) १०", "(D) १२"],
+        correct: 2,
+        exp: "स्पष्टीकरण: एकूण रांगा = १५० ÷ १५ = १० रांगा."
+    },
+    {
+        q: "२४) रमेशने १२ पेट्यांमध्ये प्रत्येकात काही आंबे भरले. एकूण २४० आंबे भरले असल्यास, एका पेटीत किती आंबे भरले?",
+        options: ["(A) १५", "(B) २०", "(C) २५", "(D) ३०"],
+        correct: 1,
+        exp: "स्पष्टीकरण: एका पेटीतील आंबे = २४० ÷ १२ = २० आंबे."
+    },
+    {
+        q: "२५) एका पुस्तकात एकूण ३०० पाने आहेत. जर एका दिवसात २५ पाने वाचली, तर ते पुस्तक पूर्ण वाचायला किती दिवस लागतील?",
+        options: ["(A) १० दिवस", "(B) १२ दिवस", "(C) १५ दिवस", "(D) ८ दिवस"],
+        correct: 1,
+        exp: "स्पष्टीकरण: लागणारे दिवस = ३०० ÷ २५ = १२ दिवस."
+    },
+    {
+        q: "२६) एका दुकानात ८ खोक्यांमध्ये एकूण ३२० वहीची बंडले आहेत. सर्व खोक्यांत समान बंडले असल्यास एका खोक्यात किती बंडले आहेत?",
+        options: ["(A) ३०", "(B) ४०", "(C) ५०", "(D) ३५"],
+        correct: 1,
+        exp: "स्पष्टीकरण: एका खोक्यातील बंडले = ३२० ÷ ८ = ४० बंडले."
+    },
+    {
+        q: "२७) एका पेटीत १४ साबुण आहेत. अशा ७ पेट्यांमधील साबुण ५-५ च्या गटात बांधले, तर किती साबुण शिल्लक (बाकी) राहतील?",
+        options: ["(A) १", "(B) २", "(C) ३", "(D) ४"],
+        correct: 2,
+        exp: "स्पष्टीकरण: एकूण साबुण = १४ × ७ = ९८. ९८ ÷ ५ गर्दा भागाकार १९ येतो व बाकी ३ उरते."
+    },
+    {
+        q: "२८) एका पाकिटात १३ बिस्किटे आहेत. अशा ५ पाकिटांतील बिस्किटे ६ मुलांमध्ये समान वाटली, तर वाटून झाल्यावर किती बिस्किटे उरतील?",
+        options: ["(A) ५", "(B) ४", "(C) ३", "(D) १"],
+        correct: 0,
+        exp: "स्पष्टीकरण: एकूण बिस्किटे = १३ × ५ = ६५. ६५ ÷ ६ गर्दा भागाकार १० येतो व बाकी ५ उरते."
+    },
+    {
+        q: "२९) 'अ' गटात २४० पुस्तके आहेत आणि 'ब' गटात ६० पुस्तके आहेत. तर 'अ' गटातील पुस्तके 'ब' गटातील पुस्तकांच्या किती पट आहेत?",
+        options: ["(A) ३ पट", "(B) ५ पट", "(C) ६ पट", "(D) ४ पट"],
+        correct: 3,
+        exp: "स्पष्टीकरण: २४० ÷ ६० = ४ पट."
+    },
+    {
+        q: "३०) एका शाळेत मुलांची संख्या ४५० आहे आणि मुलींची संख्या १५० आहे. तर मुलांची संख्या मुलींच्या संख्येच्या किती पट आहे?",
+        options: ["(A) २ पट", "(B) ३ पट", "(C) ४ पट", "(D) ५ पट"],
+        correct: 1,
+        exp: "स्पष्टीकरण: ४५० ÷ १५० = ३ पट."
+    }
+];
+let currentQIndex = 0;
+let score = 0;
+let userAnswers = [];
+
+function startExam() {
+    const name = document.getElementById('studentName').value.trim();
+    const mobile = document.getElementById('studentMobile').value.trim();
+
+    if (name === '' || mobile === '') {
+        alert('कृपया विद्यार्थ्याचे नाव आणि मोबाईल नंबर पूर्ण टाका.');
+        return;
+    }
+
+    document.getElementById('studentForm').style.display = 'none';
+    document.getElementById('examArea').style.display = 'block';
+    loadQuestion();
+}
+
+function loadQuestion() {
+    const qData = questionsData[currentQIndex];
+    document.getElementById('qProgress').innerText = `प्रश्न ${currentQIndex + 1} / ${questionsData.length} (प्रत्येक प्रश्न २ गुण)`;
+    document.getElementById('questionText').innerText = qData.q;
+    
+    const optionsContainer = document.getElementById('optionsContainer');
+    optionsContainer.innerHTML = '';
+    
+    const expBox = document.getElementById('explanationText');
+    expBox.style.display = 'none';
+    expBox.innerText = '';
+    
+    document.getElementById('nextBtn').disabled = true;
+
+    qData.options.forEach((optText, index) => {
+        const btn = document.createElement('button');
+        btn.className = 'option-btn';
+        btn.innerText = optText;
+        btn.onclick = () => selectOption(index, btn);
+        optionsContainer.appendChild(btn);
+    });
+
+    if (currentQIndex === questionsData.length - 1) {
+        document.getElementById('nextBtn').innerText = 'SUBMIT EXAM';
+    }
+}
+
+function selectOption(selectedIndex, selectedBtn) {
+    const qData = questionsData[currentQIndex];
+    const allBtns = document.querySelectorAll('.option-btn');
+    
+    // Disable all options after selection
+    allBtns.forEach(btn => btn.style.pointerEvents = 'none');
+
+    userAnswers[currentQIndex] = selectedIndex;
+
+    if (selectedIndex === qData.correct) {
+        selectedBtn.classList.add('correct');
+        score += 2;
+    } else {
+        selectedBtn.classList.add('incorrect');
+        allBtns[qData.correct].classList.add('correct');
+        
+        // Show explanation for wrong answer
+        const expBox = document.getElementById('explanationText');
+        expBox.innerText = qData.exp;
+        expBox.style.display = 'block';
+    }
+
+    document.getElementById('nextBtn').disabled = false;
+}
+
+function nextQuestion() {
+    currentQIndex++;
+    if (currentQIndex < questionsData.length) {
+        loadQuestion();
+    } else {
+        finishExam();
+    }
+}
+
+function finishExam() {
+    document.getElementById('examArea').style.display = 'none';
+    document.getElementById('certificateArea').style.display = 'block';
+
+    const sName = document.getElementById('studentName').value;
+    const totalMarks = questionsData.length * 2;
+    const percentage = (score / totalMarks) * 100;
+
+    document.getElementById('certName').innerText = sName;
+    document.getElementById('certScore').innerText = `प्राप्त गुण: ${score} / ${totalMarks} (${percentage.toFixed(1)}%)`;
+
+    let badgeText = "";
+    if (percentage >= 90) {
+        badgeText = "🥇 Gold Medal + Trophy<br>उत्कृष्ट कामगिरी!";
+    } else if (percentage >= 80) {
+        badgeText = "🥈 Silver Medal + Trophy<br>खूप छान कामगिरी!";
+    } else if (percentage >= 70) {
+        badgeText = "🥉 Bronze Medal + Trophy<br>छान प्रयत्न!";
+    } else {
+        badgeText = "💐 अभिनंदन! फुलांचा गुच्छ<br>पुढील परीक्षेसाठी शुभेच्छा!";
+    }
+
+    document.getElementById('certBadge').innerHTML = badgeText;
+    generateReview();
+}
+
+function generateReview() {
+    const reviewContainer = document.getElementById('reviewContainer');
+    reviewContainer.innerHTML = '<h3>चुकलेले प्रश्न व मार्गदर्शन:</h3>';
+    let wrongCount = 0;
+
+    questionsData.forEach((qData, index) => {
+        if (userAnswers[index] !== qData.correct) {
+            wrongCount++;
+            const item = document.createElement('div');
+            item.className = 'review-item';
+            
+            const userAnsText = userAnswers[index] !== undefined ? qData.options[userAnswers[index]] : "उत्तर दिले नाही";
+            const correctAnsText = qData.options[qData.correct];
+
+            item.innerHTML = `
+                <p><strong>प्रश्न:</strong> ${qData.q}</p>
+                <p style="color: red;"><strong>तुमचे उत्तर:</strong> ${userAnsText}</p>
+                <p style="color: green;"><strong>बरोबर उत्तर:</strong> ${correctAnsText}</p>
+                <p style="background: #fff3e0; padding: 8px; border-radius: 4px;"><strong>मार्गदर्शन:</strong> ${qData.exp}</p>
+            `;
+            reviewContainer.appendChild(item);
+        }
+    });
+
+    if (wrongCount === 0) {
+        reviewContainer.innerHTML = '<h3 style="color: green;">अभिनंदन! तुमचे सर्व प्रश्न बरोबर आले आहेत.</h3>';
+    }
+}
+
+function toggleReview() {
+    const reviewBox = document.getElementById('reviewContainer');
+    if (reviewBox.style.display === 'block') {
+        reviewBox.style.display = 'none';
+    } else {
+        reviewBox.style.display = 'block';
+    }
+}
+</script>
+</body>
+</html>
