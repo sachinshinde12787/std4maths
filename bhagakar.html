@@ -1,0 +1,660 @@
+<!DOCTYPE html>
+<html lang="mr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>भागाकार ऑनलाईन टेस्ट - जि. प. प्रा. शाळा नरसोबावाडी</title>
+    <style>
+        :root {
+            --primary: #1e3a8a;
+            --secondary: #0284c7;
+            --success: #15803d;
+            --danger: #b91c1c;
+            --light: #f8fafc;
+            --dark: #0f172a;
+        }
+
+        * {
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: #f1f5f9;
+            color: var(--dark);
+            padding: 20px 10px;
+            display: flex;
+            justify-content: center;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 800px;
+            background: #ffffff;
+            border-radius: 12px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            overflow: hidden;
+            position: relative;
+            min-height: 500px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .header {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 1.5rem;
+            margin-bottom: 5px;
+        }
+
+        .header h2 {
+            font-size: 1.2rem;
+            font-weight: 500;
+            opacity: 0.9;
+        }
+
+        .creator-box {
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            gap: 12px;
+            background: #e0f2fe;
+            padding: 10px 15px;
+            border-radius: 8px;
+            margin: 15px;
+            border-left: 4px solid var(--secondary);
+        }
+
+        .creator-box img {
+            width: 55px;
+            height: 55px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid var(--secondary);
+        }
+
+        .creator-details {
+            text-align: right;
+            font-size: 0.85rem;
+            line-height: 1.3;
+        }
+
+        .creator-details strong {
+            color: var(--primary);
+            font-size: 0.95rem;
+        }
+
+        .content-body {
+            padding: 20px;
+            flex-grow: 1;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 600;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #cbd5e1;
+            border-radius: 6px;
+            font-size: 1rem;
+        }
+
+        .btn {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            font-size: 1rem;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: 0.3s;
+            display: inline-block;
+            width: 100%;
+            font-weight: 600;
+        }
+
+        .btn:hover {
+            background: #1d4ed8;
+        }
+
+        .btn:disabled {
+            background: #94a3b8;
+            cursor: not-allowed;
+        }
+
+        .footer-credit {
+            text-align: center;
+            padding: 12px;
+            background: #f8fafc;
+            border-top: 1px solid #e2e8f0;
+            font-size: 0.85rem;
+            color: #475569;
+            font-weight: 500;
+        }
+
+        /* Question Styles */
+        .option-btn {
+            display: block;
+            width: 100%;
+            text-align: left;
+            padding: 12px 15px;
+            margin: 8px 0;
+            background: #f8fafc;
+            border: 2px solid #e2e8f0;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: 0.2s;
+        }
+
+        .option-btn:hover:not(:disabled) {
+            background: #e2e8f0;
+        }
+
+        .option-btn.selected-correct {
+            background: #dcfce7 !important;
+            border-color: var(--success) !important;
+            color: var(--success);
+            font-weight: bold;
+        }
+
+        .option-btn.selected-wrong {
+            background: #fee2e2 !important;
+            border-color: var(--danger) !important;
+            color: var(--danger);
+            font-weight: bold;
+        }
+
+        .explanation {
+            margin-top: 15px;
+            padding: 12px;
+            background: #fffbebf8;
+            border: 1px solid #fef08a;
+            border-left: 4px solid #eab308;
+            border-radius: 6px;
+            font-size: 0.95rem;
+            display: none;
+        }
+
+        /* Certificate Styles */
+        .certificate-card {
+            border: 8px double var(--primary);
+            padding: 25px;
+            border-radius: 12px;
+            background: #fff;
+            text-align: center;
+            box-shadow: inset 0 0 15px rgba(0,0,0,0.05);
+        }
+
+        .marks-badge {
+            font-size: 2.2rem;
+            font-weight: 800;
+            color: var(--primary);
+            margin: 15px 0;
+        }
+
+        .honor-title {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: #d97706;
+            margin-bottom: 15px;
+        }
+
+        .hidden { display: none !important; }
+
+        .progress-bar {
+            height: 6px;
+            background: #e2e8f0;
+            width: 100%;
+        }
+        .progress-fill {
+            height: 100%;
+            background: var(--secondary);
+            width: 0%;
+            transition: width 0.3s;
+        }
+        
+        .review-item {
+            border: 1px solid #cbd5e1;
+            padding: 12px;
+            margin-bottom: 10px;
+            border-radius: 6px;
+            text-align: left;
+            background: #fff;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <!-- Header -->
+    <div class="header">
+        <h1>जिल्हा परिषद प्राथमिक शाळा नरसोबावाडी संचलित</h1>
+        <h2>ऑनलाईन परीक्षा: <span id="exam-title-display">भागाकार</span></h2>
+    </div>
+
+    <div class="progress-bar"><div class="progress-fill" id="progress"></div></div>
+
+    <!-- Page 1: Start Screen -->
+    <div id="start-page" class="content-body">
+        <div class="creator-box">
+            <div class="creator-details">
+                <strong>संकल्पना व निर्मिती</strong><br>
+                श्री सचिन शिंदे सर<br>
+                जि. प. प्रा. शाळा नरसोबावाडी<br>
+                मो. ८३२९६८४४७०
+            </div>
+            <img src="https://drive.google.com/thumbnail?id=1pkldnaLRyqBtfgiQKwtbeSSfXhENzbOm&sz=w200" alt="सचिन शिंदे सर">
+        </div>
+
+        <form id="start-form" style="margin-top: 20px;">
+            <div class="form-group">
+                <label for="student-name">विद्यार्थ्याचे नाव:</label>
+                <input type="text" id="student-name" placeholder="पूर्ण नाव टाका" required>
+            </div>
+            <div class="form-group">
+                <label for="student-mobile">मोबाईल नंबर:</label>
+                <input type="tel" id="student-mobile" pattern="[0-9]{10}" placeholder="१० अंकी मोबाईल नंबर" required>
+            </div>
+            <br>
+            <button type="submit" class="btn">EXAM START</button>
+        </form>
+    </div>
+
+    <!-- Page 2: Quiz Engine -->
+    <div id="quiz-page" class="content-body hidden">
+        <div style="display:flex; justify-section:space-between; margin-bottom:10px; font-weight:600;">
+            <span id="q-count">प्रश्न १/३०</span>
+            <span>प्रत्येक प्रश्न: २ गुण</span>
+        </div>
+        <h3 id="question-text" style="font-size: 1.15rem; margin-bottom: 15px;"></h3>
+        
+        <div id="options-container"></div>
+        <div id="explanation-box" class="explanation"></div>
+
+        <div style="margin-top:20px;">
+            <button id="next-btn" class="btn" disabled>पुढील प्रश्न</button>
+            <button id="submit-btn" class="btn hidden" disabled style="background:var(--success);">SUBMIT EXAM</button>
+        </div>
+    </div>
+
+    <!-- Page 3: Result / Certificate -->
+    <div id="result-page" class="content-body hidden">
+        <div class="certificate-card">
+            <h2 style="color:var(--primary); font-size:1.2rem;">🏆 जिल्हा परिषद प्राथमिक शाळा नरसोबावाडी संचलित</h2>
+            <p style="margin-top:5px; color:#64748b;">परीक्षा: <strong>भागाकार</strong></p>
+            <hr style="margin:15px 0; border:0; border-top:1px solid #e2e8f0;">
+            
+            <p style="font-size:1.1rem;">विद्यार्थ्याचे नाव: <strong id="res-name" style="color:var(--dark);"></strong></p>
+            
+            <div class="marks-badge" id="res-marks">० / ६०</div>
+            <div class="honor-title" id="res-honor"></div>
+
+            <div class="creator-box" style="margin: 20px 0 0 0;">
+                <div class="creator-details">
+                    <strong>संकल्पना व निर्मिती</strong><br>
+                    श्री सचिन शिंदे सर<br>
+                    जि. प. प्रा. शाळा नरसोबावाडी<br>
+                    मो. ८३२९६८४४७०
+                </div>
+                <img src="https://drive.google.com/thumbnail?id=1pkldnaLRyqBtfgiQKwtbeSSfXhENzbOm&sz=w200" alt="सचिन शिंदे सर">
+            </div>
+        </div>
+
+        <div style="margin-top: 15px;">
+            <button id="review-btn" class="btn" style="background:#475569;">चुकलेले प्रश्न व स्पष्टीकरण पहा</button>
+        </div>
+    </div>
+
+    <!-- Review Section -->
+    <div id="review-page" class="content-body hidden">
+        <h3 style="margin-bottom:15px; color:var(--primary);">चुकलेले प्रश्न व मार्गदर्शन:</h3>
+        <div id="review-container"></div>
+        <button onclick="location.reload()" class="btn" style="margin-top:15px;">पुन्हा परीक्षा द्या</button>
+    </div>
+
+    <!-- Persistent Footer Credit -->
+    <div class="footer-credit">
+        टेस्ट निर्मिती व संकल्पना श्री सचिन शिंदे मोबाईल नंबर 83 29 68 44 70
+    </div>
+</div>
+
+<script>
+// प्रश्न संच (Questions Dataset)
+const quizData = [
+    {
+        q: "१. ज्या संख्येला भागले जाते, त्या संख्येला काय म्हणतात?",
+        options: ["(A) भाजक", "(B) बाकी", "(C) भागफल", "(D) भाज्य"],
+        ans: 3,
+        exp: "स्पष्टीकरण: ज्या संख्येला भागले जाते तिला 'भाज्य' (Dividend) म्हणतात."
+    },
+    {
+        q: "२. भागाकाराची पडताळणी करण्यासाठी कोणते सूत्र योग्य आहे?",
+        options: ["(A) भाज्य = (भाजक × बाकी) + भागफल", "(B) भाजक = (भाज्य × भागफल) + बाकी", "(C) भाज्य = (भाजक × भागफल) + बाकी", "(D) भागफल = (भाजक × बाकी) + भाज्य"],
+        ans: 2,
+        exp: "स्पष्टीकरण: सूत्र -> भाज्य = (भाजक × भागफल) + बाकी."
+    },
+    {
+        q: "३. जर भाजक = ८, भागफल = १२ आणि बाकी = ३ असेल, तर भाज्य किती?",
+        options: ["(A) ९६", "(B) ९९", "(C) ९३", "(D) १०५"],
+        ans: 1,
+        exp: "स्पष्टीकरण: भाज्य = (८ × १२) + ३ = ९६ + ३ = ९९."
+    },
+    {
+        q: "४. जर भाज्य = १६५, भागफल = २० आणि बाकी = ५ असेल, तर भाजक कोणता?",
+        options: ["(A) ८", "(B) ९", "(C) ७", "(D) ६"],
+        ans: 0,
+        exp: "स्पष्टीकरण: १६५ - ५ = १६०; १६० ÷ २० = ८."
+    },
+    {
+        q: "५. कोणत्याही भागाकारात बाकी ही नेहमी ......... पेक्षा लहान असते.",
+        options: ["(A) भाज्य", "(B) भागफल", "(C) भाजक", "(D) शून्य"],
+        ans: 2,
+        exp: "स्पष्टीकरण: बाकी ही नेहमी भाजकापेक्षा (Divisor) लहान असते."
+    },
+    {
+        q: "६. जर एखाद्या संख्येला ६ ने भागले, तर संभाव्य सर्वात मोठी बाकी कोणती असू शकते?",
+        options: ["(A) ६", "(B) ७", "(C) ५", "(D) ४"],
+        ans: 2,
+        exp: "स्पष्टीकरण: भाजक ६ असल्यास सर्वात मोठी बाकी ५ असू शकते."
+    },
+    {
+        q: "७. खालीलपैकी कोणती संख्या ९ ने निःशेष विभाज्य आहे?",
+        options: ["(A) १२३", "(B) २४३", "(C) ४५१", "(D) ५५२"],
+        ans: 1,
+        exp: "स्पष्टीकरण: २४३ मधील अंकाची बेरीज २+४+३ = ९ आहे, म्हणून ९ ने निःशेष भाग जातो."
+    },
+    {
+        q: "८. ७५ ÷ ९ चा भागाकार केला असता भागफल व बाकी अनुक्रमे कोणती येईल?",
+        options: ["(A) भागफल = ९, बाकी = ३", "(B) भागफल = ७, बाकी = १२", "(C) भागफल = ८, बाकी = ०", "(D) भागफल = ८, बाकी = ३"],
+        ans: 3,
+        exp: "स्पष्टीकरण: ९ × ८ = ७२; ७५ - ७२ = ३ (भागफल = ८, बाकी = ३)."
+    },
+    {
+        q: "९. जर भाजक = १५, भागफल = १० आणि बाकी = ० असेल, तर भाज्य किती?",
+        options: ["(A) १४०", "(B) १६०", "(C) १५०", "(D) २५"],
+        ans: 2,
+        exp: "स्पष्टीकरण: भाज्य = १५ × १० + ० = १५०."
+    },
+    {
+        q: "१०. भाज्य = २४५, भाजक = ८ असल्यास भागफल किती येईल?",
+        options: ["(A) २९", "(B) ३१", "(C) ३०", "(D) ३२"],
+        ans: 2,
+        exp: "स्पष्टीकरण: २४५ ÷ ८ = ३० (बाकी ५ उरते)."
+    },
+    {
+        q: "११. □ ÷ ९ = २५ या समीकरणात चौकोनाच्या (□) जागी कोणती संख्या येईल?",
+        options: ["(A) २२५", "(B) २१५", "(C) २३५", "(D) २४५"],
+        ans: 0,
+        exp: "स्पष्टीकरण: २५ × ९ = २२५."
+    },
+    {
+        q: "१२. ३६० ÷ □ = ४० याउदाहरणात चौकोनाच्या जागी योग्य संख्या निवडा.",
+        options: ["(A) ६", "(B) ८", "(C) ९", "(D) ७"],
+        ans: 2,
+        exp: "स्पष्टीकरण: ३६० ÷ ४० = ९."
+    },
+    {
+        q: "१३. □ ÷ १२ = ८ (बाकी ४) असेल, तर भाज्य (□) कोणता?",
+        options: ["(A) १००", "(B) ९६", "(C) ९२", "(D) १०४"],
+        ans: 0,
+        exp: "स्पष्टीकरण: (१२ × ८) + ४ = ९६ + ४ = १००."
+    },
+    {
+        q: "१४. जर १५ × ८ = १२०, तर १२० ÷ १५ = ?",
+        options: ["(A) १५", "(B) ८", "(C) १२", "(D) १०"],
+        ans: 1,
+        exp: "स्पष्टीकरण: १२० ÷ १५ = ८."
+    },
+    {
+        q: "१५. जर २५ × ६ = १५०, तर १५० ÷ २५ = ?",
+        options: ["(A) २५", "(B) ५", "(C) ६", "(D) १५"],
+        ans: 2,
+        exp: "स्पष्टीकरण: १५० ÷ २५ = ६."
+    }
+    ,{
+        q: "१६. सोपे रूप द्या: १०० + ५० ÷ ५ = ?",
+        options: ["(A) १५०", "(B) १३०", "(C) १०", "(D) ११०"],
+        ans: 3,
+        exp: "स्पष्टीकरण: आधी भागाकार: ५० ÷ ५ = १०; मग १०० + १० = ११०."
+    },
+    {
+        q: "१७. सोपे रूप द्या: ८० - २४ ÷ ४ = ?",
+        options: ["(A) १४", "(B) ७६", "(C) ७४", "(D) ५६"],
+        ans: 2,
+        exp: "स्पष्टीकरण: २४ ÷ ४ = ६; ८० - ६ = ७४."
+    },
+    {
+        q: "१८. क्रमानुसार क्रिया करा: ६० ÷ ५ × २ = ?",
+        options: ["(A) ६", "(B) १२", "(C) २४", "(D) ३०"],
+        ans: 2,
+        exp: "स्पष्टीकरण: ६० ÷ ५ = १२; १२ × २ = २४."
+    },
+    {
+        q: "१९. पदावली सोडवा: (४० + २०) ÷ १० = ?",
+        options: ["(A) ६", "(B) ४२", "(C) ६०", "(D) ४"],
+        ans: 0,
+        exp: "स्पष्टीकरण: कंस प्रथम: ४० + २० = ६०; ६० ÷ १० = ६."
+    },
+    {
+        q: "२०. २४० आंबे १२ मुलांमध्ये समान वाटले, तर प्रत्येक मुलाला किती आंबे मिळतील?",
+        options: ["(A) १२", "(B) १५", "(C) २०", "(D) २५"],
+        ans: 2,
+        exp: "स्पष्टीकरण: २४० ÷ १२ = २० आंबे."
+    },
+    {
+        q: "२१. एका खोक्यात २४ बाटल्या बसतात. तर ४८० बाटल्यांसाठी किती खोके लागतील?",
+        options: ["(A) १५", "(B) २०", "(C) २५", "(D) ३०"],
+        ans: 1,
+        exp: "स्पष्टीकरण: ४८० ÷ २४ = २० खोके."
+    },
+    {
+        q: "२२. ३५० रुपये ७ मुलांमध्ये समान वाटल्यास प्रत्येकाला किती रुपये मिळतील?",
+        options: ["(A) ₹५०", "(B) ₹४०", "(C) ₹६०", "(D) ₹७०"],
+        ans: 0,
+        exp: "स्पष्टीकरण: ३५० ÷ ७ = ५० रुपये."
+    },
+    {
+        q: "२३. ५०० पैसे म्हणजेच किती रुपये? (१ रुपया = १०० पैसे)",
+        options: ["(A) ५० रुपये", "(B) ५ रुपये", "(C) ५०० रुपये", "(D) ०.५ रुपये"],
+        ans: 1,
+        exp: "स्पष्टीकरण: ५०० ÷ १०० = ५ रुपये."
+    },
+    {
+        q: "२४. ४०० सेंटीमीटर चे मीटरमध्ये रूपांतर करण्यासाठी कितीने भागावे लागेल?",
+        options: ["(A) १०", "(B) १०००", "(C) १००", "(D) ६०"],
+        ans: 2,
+        exp: "स्पष्टीकरण: १ मीटर = १०० सेंमी, म्हणून १०० ने भागतात."
+    },
+    {
+        q: "२५. ७२ ही संख्या ९ च्या किती पट आहे?",
+        options: ["(A) ६ पट", "(B) ७ पट", "(C) ८ पट", "(D) ९ पट"],
+        ans: 2,
+        exp: "स्पष्टीकरण: ७२ ÷ ९ = ८ पट."
+    },
+    {
+        q: "२६. एका संख्येचा पाचवा भाग २० आहे, तर ती संख्या कोणती?",
+        options: ["(A) ४", "(B) १००", "(C) ८०", "(D) २५"],
+        ans: 1,
+        exp: "स्पष्टीकरण: संख्या ÷ ५ = २० ⇒ संख्या = २० × ५ = १००."
+    },
+    {
+        q: "२७. खालीलपैकी कोणत्या संख्येला २ ने निःशेष भाग जातो?",
+        options: ["(A) ३५७", "(B) ४८३", "(C) ९५४", "(D) ७७१"],
+        ans: 2,
+        exp: "स्पष्टीकरण: ९५४ च्या एकक स्थानी ४ (सम संख्या) आहे."
+    },
+    {
+        q: "२८. खालीलपैकी कोणता भागाकार चुकीचा आहे?",
+        options: ["(A) ३६ ÷ ६ = ६", "(B) ४५ ÷ ५ = ९", "(C) ५६ ÷ ७ = ८", "(D) ६४ ÷ ८ = ७"],
+        ans: 3,
+        exp: "स्पष्टीकरण: ६४ ÷ ८ = ८ येते (७ नव्हे)."
+    },
+    {
+        q: "२९. जर A ÷ ५ = १२ आणि B ÷ ४ = १५ असेल, तर A आणि B मध्ये कोणता संबंध आहे?",
+        options: ["(A) A > B", "(B) A < B", "(C) A = B", "(D) सांगता येत नाही"],
+        ans: 2,
+        exp: "स्पष्टीकरण: A = १२×५ = ६०; B = १५×४ = ६०. म्हणून A = B."
+    },
+    {
+        q: "३०. एका कोड्यात: 'मला ८ ने भागल्यास भागफल ९ येतो व बाकी २ उरते, तर मी कोणती संख्या आहे?'",
+        options: ["(A) ७०", "(B) ७४", "(C) ७२", "(D) ७६"],
+        ans: 1,
+        exp: "स्पष्टीकरण: (८ × ९) + २ = ७२ + २ = ७४."
+    }
+];
+let currentQIndex = 0;
+let score = 0;
+let userAnswers = [];
+
+// Elements
+const startForm = document.getElementById('start-form');
+const startPage = document.getElementById('start-page');
+const quizPage = document.getElementById('quiz-page');
+const resultPage = document.getElementById('result-page');
+const reviewPage = document.getElementById('review-page');
+
+const questionText = document.getElementById('question-text');
+const optionsContainer = document.getElementById('options-container');
+const explanationBox = document.getElementById('explanation-box');
+const nextBtn = document.getElementById('next-btn');
+const submitBtn = document.getElementById('submit-btn');
+const qCount = document.getElementById('q-count');
+const progressBar = document.getElementById('progress');
+
+startForm.addEventListener('submit', (e) => {
+    e.preventDefault();
+    startPage.classList.add('hidden');
+    quizPage.classList.remove('hidden');
+    loadQuestion();
+});
+
+function loadQuestion() {
+    const data = quizData[currentQIndex];
+    qCount.innerText = `प्रश्न ${currentQIndex + 1}/${quizData.length}`;
+    progressBar.style.width = `${((currentQIndex + 1) / quizData.length) * 100}%`;
+    
+    questionText.innerText = data.q;
+    optionsContainer.innerHTML = '';
+    explanationBox.style.display = 'none';
+    nextBtn.disabled = true;
+
+    data.options.forEach((opt, idx) => {
+        const btn = document.createElement('button');
+        btn.className = 'option-btn';
+        btn.innerText = opt;
+        btn.onclick = () => selectOption(idx);
+        optionsContainer.appendChild(btn);
+    });
+}
+
+function selectOption(selectedIdx) {
+    const data = quizData[currentQIndex];
+    const buttons = optionsContainer.children;
+    
+    // Disable all options after selection
+    for (let btn of buttons) {
+        btn.disabled = true;
+    }
+
+    userAnswers[currentQIndex] = selectedIdx;
+
+    if (selectedIdx === data.ans) {
+        buttons[selectedIdx].classList.add('selected-correct');
+        score += 2;
+    } else {
+        buttons[selectedIdx].classList.add('selected-wrong');
+        buttons[data.ans].classList.add('selected-correct');
+        explanationBox.innerText = data.exp;
+        explanationBox.style.display = 'block';
+    }
+
+    if (currentQIndex < quizData.length - 1) {
+        nextBtn.disabled = false;
+    } else {
+        nextBtn.classList.add('hidden');
+        submitBtn.classList.remove('hidden');
+        submitBtn.disabled = false;
+    }
+}
+
+nextBtn.addEventListener('click', () => {
+    currentQIndex++;
+    loadQuestion();
+});
+
+submitBtn.addEventListener('click', () => {
+    quizPage.classList.add('hidden');
+    resultPage.classList.remove('hidden');
+
+    const studentName = document.getElementById('student-name').value;
+    document.getElementById('res-name').innerText = studentName;
+    document.getElementById('res-marks').innerText = `${score} / ६०`;
+
+    const totalQuestions = quizData.length;
+    const maxScore = totalQuestions * 2;
+    const percentage = (score / maxScore) * 100;
+
+    const honorBox = document.getElementById('res-honor');
+
+    if (percentage >= 90) {
+        honorBox.innerHTML = "🥇 Gold Medal + Trophy<br><span style='font-size:0.9rem; color:#16a34a;'>उत्कृष्ट कामगिरी!</span>";
+    } else if (percentage >= 80) {
+        honorBox.innerHTML = "🥈 Silver Medal + Trophy<br><span style='font-size:0.9rem; color:#16a34a;'>छान कामगिरी!</span>";
+    } else if (percentage >= 70) {
+        honorBox.innerHTML = "🥉 Bronze Medal + Trophy<br><span style='font-size:0.9rem; color:#16a34a;'>चांगला प्रयत्न!</span>";
+    } else {
+        honorBox.innerHTML = "💐 अभिनंदन!<br><span style='font-size:0.9rem; color:#dc2626;'>पुढील परीक्षेसाठी शुभेच्छा!</span>";
+    }
+});
+
+document.getElementById('review-btn').addEventListener('click', () => {
+    resultPage.classList.add('hidden');
+    reviewPage.classList.remove('hidden');
+
+    const reviewContainer = document.getElementById('review-container');
+    reviewContainer.innerHTML = '';
+
+    let wrongCount = 0;
+
+    quizData.forEach((data, idx) => {
+        if (userAnswers[idx] !== data.ans) {
+            wrongCount++;
+            const item = document.createElement('div');
+            item.className = 'review-item';
+            
+            const userAnsText = userAnswers[idx] !== undefined ? data.options[userAnswers[idx]] : "उत्तर दिले नाही";
+            const correctAnsText = data.options[data.ans];
+
+            item.innerHTML = `
+                <p style="font-weight:600; color:var(--dark);">${data.q}</p>
+                <p style="color:var(--danger); font-size:0.9rem; margin-top:4px;">तुमचे उत्तर: ${userAnsText}</p>
+                <p style="color:var(--success); font-size:0.9rem; margin-top:2px;">बरोबर उत्तर: ${correctAnsText}</p>
+                <p style="color:#b45309; font-size:0.85rem; margin-top:5px; background:#fef3c7; padding:5px; border-radius:4px;">${data.exp}</p>
+            `;
+            reviewContainer.appendChild(item);
+        }
+    });
+
+    if (wrongCount === 0) {
+        reviewContainer.innerHTML = "<p style='color:var(--success); font-weight:600;'>अभिनंदन! तुमचे सर्व प्रश्न बरोबर आले आहेत.</p>";
+    }
+});
+</script>
+</body>
+</html>
