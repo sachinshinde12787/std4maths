@@ -1,0 +1,649 @@
+<!DOCTYPE html>
+<html lang="mr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>अपूर्णांक शाब्दिक उदाहरणे - ऑनलाईन टेस्ट</title>
+    <style>
+        :root {
+            --primary-color: #1e3c72;
+            --secondary-color: #2a5298;
+            --success-color: #2e7d32;
+            --error-color: #c62828;
+            --bg-color: #f4f7f6;
+        }
+
+        body {
+            font-family: 'Segoe UI', Arial, sans-serif;
+            background-color: var(--bg-color);
+            margin: 0;
+            padding: 10px;
+            color: #333;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: #fff;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            position: relative;
+            min-height: 500px;
+        }
+
+        .header {
+            text-align: center;
+            border-bottom: 3px solid var(--primary-color);
+            padding-bottom: 15px;
+            margin-bottom: 20px;
+        }
+
+        .header h1 {
+            color: var(--primary-color);
+            font-size: 22px;
+            margin: 5px 0;
+        }
+
+        .header h2 {
+            color: #d32f2f;
+            font-size: 18px;
+            margin: 5px 0;
+        }
+
+        .creator-info {
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            margin-top: 15px;
+            background: #eef2f5;
+            padding: 10px;
+            border-radius: 8px;
+        }
+
+        .creator-info img {
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            border: 2px solid var(--primary-color);
+            margin-left: 10px;
+            object-fit: cover;
+        }
+
+        .creator-details {
+            text-align: right;
+            font-size: 13px;
+            font-weight: bold;
+            color: #444;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 10px;
+            box-sizing: border-box;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            font-size: 16px;
+        }
+
+        .btn {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: bold;
+            display: inline-block;
+            width: 100%;
+            margin-top: 10px;
+            transition: background 0.3s;
+        }
+
+        .btn:hover {
+            background-color: var(--secondary-color);
+        }
+
+        .btn:disabled {
+            background-color: #cccccc;
+            cursor: not-allowed;
+        }
+
+        .footer-text {
+            text-align: center;
+            font-size: 14px;
+            color: #666;
+            margin-top: 30px;
+            border-top: 1px solid #ddd;
+            padding-top: 10px;
+            font-weight: bold;
+        }
+
+        /* Question Box */
+        .question-box {
+            display: none;
+        }
+
+        .q-header {
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 15px;
+            color: #111;
+            background: #eef4fc;
+            padding: 12px;
+            border-left: 5px solid var(--primary-color);
+            border-radius: 4px;
+        }
+
+        .options-container {
+            display: grid;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+
+        .option-btn {
+            background: #fff;
+            border: 2px solid #e0e0e0;
+            padding: 12px 15px;
+            border-radius: 8px;
+            text-align: left;
+            font-size: 16px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .option-btn:hover {
+            border-color: var(--secondary-color);
+            background: #f0f4f9;
+        }
+
+        .option-btn.selected-correct {
+            background-color: #c8e6c9 !important;
+            border-color: var(--success-color) !important;
+            color: #1b5e20;
+            font-weight: bold;
+        }
+
+        .option-btn.selected-wrong {
+            background-color: #ffcdd2 !important;
+            border-color: var(--error-color) !important;
+            color: #b71c1c;
+            font-weight: bold;
+        }
+
+        .explanation {
+            display: none;
+            background: #fff3cd;
+            border: 1px solid #ffeeba;
+            color: #856404;
+            padding: 12px;
+            border-radius: 6px;
+            margin-bottom: 15px;
+            font-size: 15px;
+        }
+
+        /* Certificate / Result Section */
+        .result-box {
+            display: none;
+        }
+
+        .certificate {
+            border: 8px double var(--primary-color);
+            padding: 20px;
+            background: #fffdf5;
+            border-radius: 10px;
+            text-align: center;
+            position: relative;
+        }
+
+        .certificate h2 {
+            color: var(--primary-color);
+            font-size: 20px;
+            margin-bottom: 5px;
+        }
+
+        .score-display {
+            font-size: 32px;
+            font-weight: bold;
+            color: var(--primary-color);
+            margin: 15px 0;
+        }
+
+        .badge-icon {
+            font-size: 50px;
+            margin: 10px 0;
+        }
+
+        .review-section {
+            display: none;
+            margin-top: 20px;
+            text-align: left;
+        }
+
+        .review-card {
+            background: #fff;
+            border: 1px solid #ddd;
+            padding: 12px;
+            border-radius: 6px;
+            margin-bottom: 10px;
+        }
+
+        .review-card.incorrect {
+            border-left: 5px solid var(--error-color);
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <!-- START PAGE -->
+    <div id="start-page">
+        <div class="header">
+            <h1>जिल्हा परिषद प्राथमिक शाळा नरसोबावाडी संचलित</h1>
+            <h2>परीक्षेचे नाव: अपूर्णांक शाब्दिक उदाहरणे</h2>
+        </div>
+
+        <div class="form-group">
+            <label for="studentName">विद्यार्थ्याचे नाव :</label>
+            <input type="text" id="studentName" placeholder="पूर्ण नाव टाका" required>
+        </div>
+
+        <div class="form-group">
+            <label for="mobileNo">मोबाईल नंबर :</label>
+            <input type="tel" id="mobileNo" placeholder="१० अंकी मोबाईल नंबर" maxlength="10" required>
+        </div>
+
+        <button class="btn" onclick="startExam()">EXAM START</button>
+
+        <div class="creator-info">
+            <div class="creator-details">
+                संकल्पना व निर्मिती<br>
+                श्री सचिन शिंदे सर<br>
+                जि प प्रा शाळा नरसोबावाडी<br>
+                मो. ८३ २९ ६८ ४४ ७०
+            </div>
+            <img src="https://drive.google.com/thumbnail?id=1pkldnaLRyqBtfgiQKwtbeSSfXhENzbOm&sz=w200" alt="सचिन शिंदे सर">
+        </div>
+    </div>
+
+    <!-- EXAM PAGE -->
+    <div id="exam-page" class="question-box">
+        <div class="q-header" id="question-text">प्रश्न येथे दिसेल...</div>
+        <div class="options-container" id="options-box"></div>
+        <div class="explanation" id="explanation-box"></div>
+        <button class="btn" id="next-btn" onclick="nextQuestion()" disabled>नेक्स्ट प्रश्न</button>
+    </div>
+
+    <!-- RESULT / CERTIFICATE PAGE -->
+    <div id="result-page" class="result-box">
+        <div class="certificate">
+            <h2>🏆 जिल्हा परिषद प्राथमिक शाळा नरसोबावाडी संचालित</h2>
+            <h3>परीक्षेचे नाव : अपूर्णांक शाब्दिक उदाहरणे</h3>
+            <p><strong>विद्यार्थ्याचे नाव :</strong> <span id="res-name"></span></p>
+            
+            <div class="badge-icon" id="res-badge">🏆</div>
+            <div class="score-display" id="res-score">0 / 60</div>
+            <div id="res-status" style="font-size: 18px; font-weight: bold;"></div>
+
+            <div class="creator-info" style="justify-content: center; margin-top: 20px;">
+                <div class="creator-details" style="text-align: center;">
+                    संकल्पना व निर्मिती<br>
+                    श्री सचिन शिंदे सर (जि प प्रा शाळा नरसोबावाडी)<br>
+                    मोबाईल नंबर : 8329684470
+                </div>
+                <img src="https://drive.google.com/thumbnail?id=1pkldnaLRyqBtfgiQKwtbeSSfXhENzbOm&sz=w200" alt="सचिन शिंदे सर">
+            </div>
+        </div>
+
+        <button class="btn" style="background-color: #ff9800; margin-top: 15px;" onclick="showWrongQuestions()">चुकलेले प्रश्न व मार्गदर्शन पहा</button>
+        
+        <div id="review-container" class="review-section">
+            <h3>चुकलेल्या प्रश्नांचे मार्गदर्शन:</h3>
+            <div id="review-list"></div>
+        </div>
+    </div>
+
+    <div class="footer-text">
+        टेस्ट निर्मिती व संकल्पना श्री सचिन शिंदे मोबाईल नंबर 83 29 68 44 70
+    </div>
+</div>
+<script>
+const questions = [
+    {
+        q: "१. एका वर्गात 36 विद्यार्थी आहेत. त्यांपैकी 2/3 मुली आहेत, तर मुलींची संख्या किती?",
+        options: ["(A) 12", "(B) 18", "(C) 24", "(D) 30"],
+        ans: 2,
+        exp: "स्पष्टीकरण: 36 चे 2/3 = 36 × (2/3) = 12 × 2 = 24 मुली."
+    },
+    {
+        q: "२. एका केकचा 3/8 भाग खाल्ला, तर केकचा किती भाग उरला?",
+        options: ["(A) 5/8", "(B) 1/8", "(C) 4/8", "(D) 2/8"],
+        ans: 0,
+        exp: "स्पष्टीकरण: एकूण भाग = 1. उरलेला भाग = 1 - 3/8 = (8 - 3)/8 = 5/8."
+    },
+    {
+        q: "३. एका दोरीचा 2/7 भाग कापला, तर उर्वरित दोरीचा भाग किती?",
+        options: ["(A) 3/7", "(B) 5/7", "(C) 1/7", "(D) 4/7"],
+        ans: 1,
+        exp: "स्पष्टीकरण: उरलेला भाग = 1 - 2/7 = 5/7."
+    },
+    {
+        q: "४. पुस्तकाचा 4/9 भाग वाचून झाला, तर वाचायचा उरलेला भाग किती?",
+        options: ["(A) 5/9", "(B) 3/9", "(C) 2/9", "(D) 1/9"],
+        ans: 0,
+        exp: "स्पष्टीकरण: उरलेला भाग = 1 - 4/9 = 5/9."
+    },
+    {
+        q: "५. शेताच्या 2/7 भागात गहू व 3/7 भागात ज्वारी आहे, तर एकूण किती भागात पीक आहे?",
+        options: ["(A) 1/7", "(B) 4/7", "(C) 6/7", "(D) 5/7"],
+        ans: 3,
+        exp: "स्पष्टीकरण: एकूण पीक असलेला भाग = 2/7 + 3/7 = 5/7."
+    },
+    {
+        q: "६. सीताने 1/5 भाग आणि गीताने 2/5 भाग हलवा खाल्ला, तर दोघींनी मिळून किती भाग खाल्ला?",
+        options: ["(A) 2/5", "(B) 4/5", "(C) 3/5", "(D) 1/5"],
+        ans: 2,
+        exp: "स्पष्टीकरण: एकूण खाल्ला = 1/5 + 2/5 = 3/5."
+    },
+    {
+        q: "७. पाण्याच्या टाकीत 7/10 भाग पाणी होते. त्यातील 3/10 भाग पाणी वापरले, तर टाकीत किती भाग पाणी उरले?",
+        options: ["(A) 4/10", "(B) 5/10", "(C) 2/10", "(D) 1/10"],
+        ans: 0,
+        exp: "स्पष्टीकरण: उरलेले पाणी = 7/10 - 3/10 = 4/10."
+    },
+    {
+        q: "८. अमोलने पुस्तकाचा 3/5 भाग वाचला आणि सचिनने 2/5 भाग वाचला. कोणाचा वाचलेला भाग जास्त?",
+        options: ["(A) अमोल", "(B) सचिन", "(C) दोघांचा समान", "(D) सांगता येत नाही"],
+        ans: 0,
+        exp: "स्पष्टीकरण: छेद समान असताना ज्याचा अंश मोठा तो अपूर्णांक मोठा. (3/5 > 2/5), म्हणून अमोलने जास्त भाग वाचला."
+    },
+    {
+        q: "९. 1/3 किलो आणि 1/5 किलो यांपैकी कोणते वजन जास्त आहे?",
+        options: ["(A) 1/3 किलो", "(B) 1/5 किलो", "(C) दोन्ही समान", "(D) सांगता येत नाही"],
+        ans: 0,
+        exp: "स्पष्टीकरण: अंश समान असताना ज्याचा छेद लहान तो अपूर्णांक मोठा असतो. (1/3 > 1/5)."
+    },
+    {
+        q: "१०. 1/2, 1/6, 1/4 यांचा उतरता क्रम कोणता?",
+        options: ["(A) 1/6, 1/4, 1/2", "(B) 1/2, 1/4, 1/6", "(C) 1/4, 1/2, 1/6", "(D) 1/2, 1/6, 1/4"],
+        ans: 1,
+        exp: "स्पष्टीकरण: अंश समान असताना लहान छेद असलेला अपूर्णांक मोठा असतो. म्हणून उतरता क्रम 1/2, 1/4, 1/6."
+    },
+    {
+        q: "११. 24 विद्यार्थ्यांपैकी 3/4 विद्यार्थी सहलीला गेले. तर किती विद्यार्थी सहलीला गेले?",
+        options: ["(A) 12", "(B) 16", "(C) 18", "(D) 20"],
+        ans: 2,
+        exp: "स्पष्टीकरण: 24 × (3/4) = 6 × 3 = 18 विद्यार्थी."
+    },
+    {
+        q: "१२. एका संख्येचा 1/3 भाग 18 आहे, तर ती संख्या कोणती?",
+        options: ["(A) 60", "(B) 48", "(C) 54", "(D) 36"],
+        ans: 2,
+        exp: "स्पष्टीकरण: संख्या = 18 × 3 = 54."
+    },
+    {
+        q: "१३. एका संख्येचा 2/5 भाग 20 आहे, तर ती संख्या कोणती?",
+        options: ["(A) 40", "(B) 100", "(C) 60", "(D) 50"],
+        ans: 3,
+        exp: "स्पष्टीकरण: संख्या = (20 × 5) / 2 = 100 / 2 = 50."
+    },
+    {
+        q: "१४. एका रक्कमेचा 3/4 भाग ₹75 आहे, तर एकूण रक्कम किती?",
+        options: ["(A) ₹100", "(B) ₹150", "(C) ₹90", "(D) ₹120"],
+        ans: 0,
+        exp: "स्पष्टीकरण: एकूण रक्कम = (75 × 4) / 3 = 300 / 3 = ₹100."
+    },
+    {
+        q: "१५. रामने 2 किलो आणि 1/2 किलो तांदूळ घेतला, तर एकूण किती किलो तांदूळ घेतला?",
+        options: ["(A) 2 (1/2) किग्रा", "(B) 2 किग्रा", "(C) 1 (1/2) किग्रा", "(D) 3 किग्रा"],
+        ans: 0,
+        exp: "स्पष्टीकरण: 2 + 1/2 = 2 (1/2) किग्रा."
+    },
+        {
+        q: "१६. 3 + 3/4 = ?",
+        options: ["(A) 9/4", "(B) 3 (3/4)", "(C) 6/4", "(D) 4 (1/4)"],
+        ans: 1,
+        exp: "स्पष्टीकरण: 3 + 3/4 = 3 (3/4)."
+    },
+    {
+        q: "१७. 5 पूर्णांक आणि 1/3 अपूर्णांक एकत्र लिहिल्यास काय होईल?",
+        options: ["(A) 5/3", "(B) 5 (1/3)", "(C) 15/3", "(D) 1/53"],
+        ans: 1,
+        exp: "स्पष्टीकरण: पूर्णांक युक्त अपूर्णांक रूप = 5 (1/3)."
+    },
+    {
+        q: "१८. एका भांड्यात 3 (1/2) लिटर पाणी होते. त्यातील 1 (1/2) लिटर पाणी वापरले, तर किती पाणी उरले?",
+        options: ["(A) 3 लिटर", "(B) 2 लिटर", "(C) 2 (1/2) लिटर", "(D) 1 लिटर"],
+        ans: 1,
+        exp: "स्पष्टीकरण: 3 (1/2) - 1 (1/2) = 7/2 - 3/2 = 4/2 = 2 लिटर."
+    },
+    {
+        q: "१९. 5 मीटर रिबनपैकी 2 (1/2) मीटर रिबन वापरली, तर किती मीटर रिबन उरली?",
+        options: ["(A) 2 मीटर", "(B) 2 (1/2) मीटर", "(C) 3 मीटर", "(D) 1 (1/2) मीटर"],
+        ans: 1,
+        exp: "स्पष्टीकरण: 5 - 2.5 = 2.5 मीटर म्हणजेच 2 (1/2) मीटर."
+    },
+    {
+        q: "२०. 3/4 मीटर म्हणजे किती सेंटीमीटर? (1 मीटर = 100 सेमी)",
+        options: ["(A) 25 सेमी", "(B) 50 सेमी", "(C) 75 सेमी", "(D) 80 सेमी"],
+        ans: 2,
+        exp: "स्पष्टीकरण: 100 सेमी × (3/4) = 75 सेमी."
+    },
+    {
+        q: "२१. 1/2 किलोग्राम म्हणजे किती ग्राम? (1 किग्रा = 1000 ग्राम)",
+        options: ["(A) 250 ग्राम", "(B) 500 ग्राम", "(C) 750 ग्राम", "(D) 100 ग्राम"],
+        ans: 1,
+        exp: "स्पष्टीकरण: 1000 ग्राम × (1/2) = 500 ग्राम."
+    },
+    {
+        q: "२२. ₹200 पैकी 1/4 रक्कम खर्च केली, तर किती रुपये खर्च झाले?",
+        options: ["(A) ₹25", "(B) ₹75", "(C) ₹50", "(D) ₹100"],
+        ans: 2,
+        exp: "स्पष्टीकरण: 200 × (1/4) = ₹50."
+    },
+    {
+        q: "२३. ₹500 चा 2/5 भाग म्हणजे किती रुपये?",
+        options: ["(A) ₹300", "(B) ₹200", "(C) ₹250", "(D) ₹ 100"],
+        ans: 1,
+        exp: "स्पष्टीकरण: 500 × (2/5) = 100 × 2 = ₹200."
+    },
+    {
+        q: "२४. ₹100 पैकी ₹75 खर्च केले, तर खर्च केलेल्या रकमेचा अपूर्णांक कोणता?",
+        options: ["(A) 1/4", "(B) 2/3", "(C) 3/4", "(D) 1/2"],
+        ans: 2,
+        exp: "स्पष्टीकरण: 75 / 100 = 3/4."
+    },
+    {
+        q: "२५. 1 तासाचा 1/2 वेळ अभ्यास केला, तर किती मिनिटे अभ्यास केला? (1 तास = 60 मिनिटे)",
+        options: ["(A) 15 मिनिटे", "(B) 30 मिनिटे", "(C) 45 मिनिटे", "(D) 20 मिनिटे"],
+        ans: 1,
+        exp: "स्पष्टीकरण: 60 मिनिटे × (1/2) = 30 मिनिटे."
+    },
+    {
+        q: "२६. 1 तासाचा 3/4 भाग म्हणजे किती मिनिटे?",
+        options: ["(A) 30 मिनिटे", "(B) 40 मिनिटे", "(C) 45 मिनिटे", "(D) 50 मिनिटे"],
+        ans: 2,
+        exp: "स्पष्टीकरण: 60 मिनिटे × (3/4) = 45 मिनिटे."
+    },
+    {
+        q: "२७. 20 मिनिटे म्हणजे 1 तासाचा कोणता भाग?",
+        options: ["(A) 1/2", "(B) 1/3", "(C) 1/4", "(D) 1/6"],
+        ans: 1,
+        exp: "स्पष्टीकरण: 20 / 60 = 1/3 भाग."
+    },
+    {
+        q: "२८. 2 लिटर दुधापैकी 1/4 लिटर दूध वापरले, तर किती लिटर दूध उरले?",
+        options: ["(A) 1 (1/2) लिटर", "(B) 1 (1/4) लिटर", "(C) 1 (3/4) लिटर", "(D) 3/4 लिटर"],
+        ans: 2,
+        exp: "स्पष्टीकरण: 2 - 1/4 = 7/4 = 1 (3/4) लिटर."
+    },
+    {
+        q: "२९. 1 लिटरचे 3/4 भाग म्हणजे किती मिलीलीटर? (1 लिटर = 1000 मिली)",
+        options: ["(A) 800 मिली", "(B) 500 मिली", "(C) 750 मिली", "(D) 250 मिली"],
+        ans: 2,
+        exp: "स्पष्टीकरण: 1000 मिली × (3/4) = 750 मिली."
+    },
+    {
+        q: "३०. एका टाकीत 5/8 भाग पाणी होते. त्यातील 2/8 भाग वापरला आणि नंतर 1/8 भाग पाणी पुन्हा भरले, तर आता टाकीत किती भाग पाणी आहे?",
+        options: ["(A) 4/8", "(B) 6/8", "(C) 2/8", "(D) 3/8"],
+        ans: 0,
+        exp: "स्पष्टीकरण: (5/8 - 2/8) + 1/8 = 3/8 + 1/8 = 4/8."
+    }
+];
+
+let currentQ = 0;
+let score = 0;
+let userAnswers = [];
+
+function startExam() {
+    const name = document.getElementById('studentName').value.trim();
+    const mobile = document.getElementById('mobileNo').value.trim();
+
+    if (name === "" || mobile.length < 10) {
+        alert("कृपया तुमचे पूर्ण नाव आणि १० अंकी योग्य मोबाईल नंबर प्रविष्ट करा.");
+        return;
+    }
+
+    document.getElementById('start-page').style.display = 'none';
+    document.getElementById('exam-page').style.display = 'block';
+    loadQuestion();
+}
+
+function loadQuestion() {
+    const qData = questions[currentQ];
+    document.getElementById('question-text').innerText = qData.q;
+    
+    const optionsBox = document.getElementById('options-box');
+    optionsBox.innerHTML = '';
+
+    const expBox = document.getElementById('explanation-box');
+    expBox.style.display = 'none';
+    expBox.innerText = '';
+
+    document.getElementById('next-btn').disabled = true;
+    if (currentQ === questions.length - 1) {
+        document.getElementById('next-btn').innerText = "SUBMIT EXAM";
+    }
+
+    qData.options.forEach((opt, index) => {
+        const btn = document.createElement('button');
+        btn.className = 'option-btn';
+        btn.innerText = opt;
+        btn.onclick = () => selectOption(index, btn);
+        optionsBox.appendChild(btn);
+    });
+}
+
+function selectOption(selectedIndex, btn) {
+    const qData = questions[currentQ];
+    const allBtns = document.querySelectorAll('.option-btn');
+    
+    // Disable all options after selection
+    allBtns.forEach(b => b.onclick = null);
+
+    let isCorrect = (selectedIndex === qData.ans);
+    userAnswers.push({
+        qIndex: currentQ,
+        selected: selectedIndex,
+        correct: qData.ans,
+        isCorrect: isCorrect
+    });
+
+    if (isCorrect) {
+        btn.classList.add('selected-correct');
+        score += 2; // २ गुण
+    } else {
+        btn.classList.add('selected-wrong');
+        allBtns[qData.ans].classList.add('selected-correct');
+        
+        // Show explanation for wrong answer
+        const expBox = document.getElementById('explanation-box');
+        expBox.innerText = qData.exp;
+        expBox.style.display = 'block';
+    }
+
+    document.getElementById('next-btn').disabled = false;
+}
+
+function nextQuestion() {
+    currentQ++;
+    if (currentQ < questions.length) {
+        loadQuestion();
+    } else {
+        finishExam();
+    }
+}
+
+function finishExam() {
+    document.getElementById('exam-page').style.display = 'none';
+    document.getElementById('result-page').style.display = 'block';
+
+    const studentName = document.getElementById('studentName').value;
+    document.getElementById('res-name').innerText = studentName;
+
+    const totalMarks = questions.length * 2; // 30 x 2 = 60
+    document.getElementById('res-score').innerText = `${score} / ${totalMarks}`;
+
+    const percentage = (score / totalMarks) * 100;
+    let badge = "";
+    let statusText = "";
+
+    if (percentage >= 90) {
+        badge = "🥇 🏆";
+        statusText = "अभिनंदन! Gold Medal + Trophy प्राप्त!";
+    } else if (percentage >= 80) {
+        badge = "🥈 🏆";
+        statusText = "खूप छान! Silver Medal + Trophy प्राप्त!";
+    } else if (percentage >= 70) {
+        badge = "🥉 🏆";
+        statusText = "छान प्रयत्न! Bronze Medal + Trophy प्राप्त!";
+    } else {
+        badge = "💐";
+        statusText = "अभिनंदन! फुलांचा गुच्छ व पुढील परीक्षेसाठी शुभेच्छा!";
+    }
+
+    document.getElementById('res-badge').innerText = badge;
+    document.getElementById('res-status').innerText = statusText;
+}
+
+function showWrongQuestions() {
+    const reviewBox = document.getElementById('review-container');
+    const reviewList = document.getElementById('review-list');
+    reviewList.innerHTML = '';
+
+    const wrongAnswers = userAnswers.filter(a => !a.isCorrect);
+
+    if (wrongAnswers.length === 0) {
+        reviewList.innerHTML = "<p style='color: green; font-weight: bold;'>अभिनंदन! तुमचा एकही प्रश्न चुकलेला नाही.</p>";
+    } else {
+        wrongAnswers.forEach(item => {
+            const qData = questions[item.qIndex];
+            const div = document.createElement('div');
+            div.className = 'review-card incorrect';
+            div.innerHTML = `
+                <p><strong>प्रश्न:</strong> ${qData.q}</p>
+                <p style="color: red;">तुमचे उत्तर: ${qData.options[item.selected]}</p>
+                <p style="color: green;">बरोबर उत्तर: ${qData.options[item.correct]}</p>
+                <p style="background: #fff8e1; padding: 5px; border-radius: 4px;"><strong>मार्गदर्शन:</strong> ${qData.exp}</p>
+            `;
+            reviewList.appendChild(div);
+        });
+    }
+
+    reviewBox.style.display = 'block';
+    reviewBox.scrollIntoView({ behavior: 'smooth' });
+}
+</script>
+</body>
+</html>
