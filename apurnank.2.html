@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html lang="mr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>अपूर्णांक ऑनलाईन टेस्ट - जि. प. प्रा. शाळा नरसोबावाडी</title>
+    <style>
+        :root {
+            --primary: #1e3a8a;
+            --secondary: #0d9488;
+            --correct: #16a34a;
+            --wrong: #dc2626;
+            --bg: #f8fafc;
+        }
+        body {
+            font-family: 'Segoe UI', Arial, sans-serif;
+            background-color: var(--bg);
+            margin: 0;
+            padding: 15px;
+            color: #333;
+        }
+        .container {
+            max-width: 750px;
+            margin: 0 auto;
+            background: #fff;
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        }
+        .header-title {
+            text-align: center;
+            color: var(--primary);
+            font-size: 22px;
+            font-weight: bold;
+            margin-bottom: 20px;
+            border-bottom: 2px solid var(--secondary);
+            padding-bottom: 10px;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        input[type="text"], input[type="tel"] {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #cbd5e1;
+            border-radius: 8px;
+            box-sizing: border-box;
+            font-size: 16px;
+        }
+        .creator-box {
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            margin-top: 20px;
+            gap: 12px;
+            background: #f1f5f9;
+            padding: 10px 15px;
+            border-radius: 10px;
+        }
+        .creator-details {
+            text-align: right;
+            font-size: 14px;
+            line-height: 1.4;
+        }
+        .creator-img {
+            width: 65px;
+            height: 65px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid var(--primary);
+        }
+        .btn {
+            display: block;
+            width: 100%;
+            background: var(--primary);
+            color: #fff;
+            padding: 14px;
+            border: none;
+            border-radius: 8px;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+            margin-top: 20px;
+            transition: 0.3s;
+        }
+        .btn:hover {
+            background: #1e40af;
+        }
+        .btn:disabled {
+            background: #94a3b8;
+            cursor: not-allowed;
+        }
+        .footer-text {
+            text-align: center;
+            font-size: 14px;
+            color: #64748b;
+            margin-top: 20px;
+            font-weight: bold;
+        }
+        .question-card {
+            display: none;
+        }
+        .question-card.active {
+            display: block;
+        }
+        .q-header {
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 15px;
+            color: var(--primary);
+        }
+        .option-btn {
+            display: block;
+            width: 100%;
+            text-align: left;
+            padding: 12px 15px;
+            margin-bottom: 10px;
+            border: 2px solid #e2e8f0;
+            border-radius: 8px;
+            background: #fff;
+            font-size: 16px;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+        .option-btn:hover {
+            background: #f1f5f9;
+        }
+        .option-btn.correct {
+            background-color: #dcfce7 !important;
+            border-color: var(--correct) !important;
+            color: var(--correct);
+            font-weight: bold;
+        }
+        .option-btn.wrong {
+            background-color: #fee2e2 !important;
+            border-color: var(--wrong) !important;
+            color: var(--wrong);
+            font-weight: bold;
+        }
+        .explanation {
+            display: none;
+            background: #fffbebfb;
+            border-left: 4px solid #f59e0b;
+            padding: 12px;
+            margin-top: 15px;
+            border-radius: 4px;
+            font-size: 15px;
+        }
+        /* Certificate Style */
+        .certificate {
+            display: none;
+            border: 8px double var(--primary);
+            padding: 25px;
+            text-align: center;
+            border-radius: 12px;
+            background: #fff;
+            position: relative;
+        }
+        .cert-title {
+            font-size: 22px;
+            color: var(--primary);
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+        .score-box {
+            font-size: 28px;
+            font-weight: bold;
+            color: var(--secondary);
+            margin: 15px 0;
+        }
+        .badge {
+            font-size: 24px;
+            margin: 15px 0;
+            font-weight: bold;
+        }
+        .review-box {
+            display: none;
+            margin-top: 25px;
+            text-align: left;
+        }
+        .review-item {
+            border-bottom: 1px solid #cbd5e1;
+            padding: 12px 0;
+        }
+        .review-q {
+            font-weight: bold;
+            color: var(--primary);
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <!-- First Page / Registration Form -->
+    <div id="start-screen">
+        <div class="header-title">
+            जिल्हा परिषद प्राथमिक शाळा नरसोबावाडी संचलित
+        </div>
+        <h2 style="text-align: center; color: var(--secondary);">परीक्षेचे नाव: अपूर्णांक</h2>
+        
+        <div class="form-group">
+            <label for="studentName">विद्यार्थ्याचे नाव:</label>
+            <input type="text" id="studentName" placeholder="पूर्ण नाव टाका" required>
+        </div>
+        
+        <div class="form-group">
+            <label for="mobileNo">मोबाईल नंबर:</label>
+            <input type="tel" id="mobileNo" placeholder="१० अंकी मोबाईल नंबर" required>
+        </div>
+
+        <div class="creator-box">
+            <div class="creator-details">
+                <strong>संकल्पना व निर्मिती</strong><br>
+                श्री सचिन शिंदे सर<br>
+                जि प प्रा शाळा नरसोबावाडी<br>
+                मोबाईल नं: 8329684470
+            </div>
+            <img src="https://drive.google.com/thumbnail?id=1pkldnaLRyqBtfgiQKwtbeSSfXhENzbOm&sz=w200" alt="सचिन शिंदे सर" class="creator-img">
+        </div>
+
+        <div class="footer-text">
+            टेस्ट निर्मिती व संकल्पना श्री सचिन शिंदे मोबाईल नंबर 8329684470
+        </div>
+
+        <button class="btn" onclick="startExam()">EXAM START</button>
+    </div>
+
+    <!-- Exam Screen -->
+    <div id="exam-screen" style="display: none;">
+        <div id="questions-container"></div>
+        
+        <div class="footer-text">
+            टेस्ट निर्मिती व संकल्पना श्री सचिन शिंदे मोबाईल नंबर 8329684470
+        </div>
+        
+        <button id="next-btn" class="btn" onclick="nextQuestion()" disabled>नेक्स्ट प्रश्न</button>
+        <button id="submit-btn" class="btn" onclick="submitExam()" style="display: none; background: var(--correct);">परीक्षा सबमिट करा (Submit)</button>
+    </div>
+
+    <!-- Certificate Screen -->
+    <div id="cert-screen" class="certificate">
+        <div class="cert-title">
+            🏆 जिल्हा परिषद प्राथमिक शाळा नरसोबावाडी संचलित
+        </div>
+        <h3>परीक्षेचे नाव: अपूर्णांक ऑनलाईन टेस्ट</h3>
+        <h4>विद्यार्थ्याचे नाव: <span id="cert-name" style="color: var(--primary);"></span></h4>
+        
+        <div class="score-box">
+            गुण: <span id="cert-score"></span> / १००
+        </div>
+
+        <div id="cert-badge" class="badge"></div>
+
+        <div class="creator-box" style="margin-top: 30px;">
+            <div class="creator-details">
+                <strong>संकल्पना व निर्मिती</strong><br>
+                श्री सचिन शिंदे सर<br>
+                जि प प्रा शाळा नरसोबावाडी<br>
+                मोबाईल नं: 8329684470
+            </div>
+            <img src="https://drive.google.com/thumbnail?id=1pkldnaLRyqBtfgiQKwtbeSSfXhENzbOm&sz=w200" alt="सचिन शिंदे सर" class="creator-img">
+        </div>
+
+        <button class="btn" onclick="showReview()" style="background: #eab308; color: #000; margin-top: 25px;">चुकलेले प्रश्न व मार्गदर्शन पहा</button>
+
+        <div id="review-container" class="review-box">
+            <h3 style="color: var(--wrong); text-align: center;">चुकलेले प्रश्न आणि स्पष्टीकरण:</h3>
+            <div id="review-list"></div>
+        </div>
+    </div>
+</div>
+<script>
+const questionsData = [
+    { q: "प्र. १. ४/७ या अपूर्णांकामध्ये अंश कोणता आहे?", options: ["(१) ३", "(२) ७", "(३) ११", "(४) ४"], ans: 3, exp: "अपूर्णांकात रेषेच्या वरील संख्येला 'अंश' म्हणतात." },
+    { q: "प्र. २. ज्या अपूर्णांकाचा अंश ५ आणि छेद ९ आहे, तो अपूर्णांक कसा लिहिला जाईल?", options: ["(१) १४/५", "(२) ९/५", "(३) ५/९", "(४) ४/९"], ans: 2, exp: "अपूर्णांक हा अंश/छेद असा लिहितात." },
+    { q: "प्र. ३. एका वर्तुळाचे समान ८ भाग केले व त्यातील ३ भाग रंगवले, तर रंगवलेला भाग दर्शवणारा अपूर्णांक कोणता?", options: ["(१) ३/८", "(२) ५/८", "(३) ८/३", "(४) ३/५"], ans: 0, exp: "एकूण भाग छेदामध्ये (८) आणि रंगवलेले भाग अंशामध्ये (३) लिहितात = ३/८." },
+    { q: "प्र. ४. एका वस्तूचे समान ५ भाग करून त्यांपैकी २ भाग घेतले, तर घेतलेला भाग अपूर्णांकात कसा दर्शवाल?", options: ["(१) ५/२", "(२) २/५", "(३) २/३", "(४) ३/५"], ans: 1, exp: "एकूण समान भाग ५ पैकी २ भाग घेतले म्हणजेच २/५." },
+    { q: "प्र. ५. १५/४ या अंशाधिक अपूर्णांकाचे पूर्णयुक्त अपूर्णांकात रूपांतर कोणते?", options: ["(१) ४ १/३", "(२) २ ३/४", "(३) ३ १/४", "(४) ३ ३/४"], ans: 3, exp: "१५ ÷ ४ = भागाकार ३, बाकी ३. म्हणून ३ ३/४." },
+    { q: "प्र. ६. 'पाच छेद आठ' हा अपूर्णांक कसा लिहाल?", options: ["(१) ८/५", "(२) ३/८", "(३) ५/८", "(४) ५/१३"], ans: 2, exp: "पाच (अंश) छेद आठ (छेद) = ५/८." },
+    { q: "प्र. ७. ३/५ या अपूर्णांकाचे योग्य वाचन कोणते?", options: ["(१) तीन छेद पाच", "(२) पाच छेद तीन", "(३) तीन आणि पाच", "(४) पाच वजा तीन"], ans: 0, exp: "३/५ चे योग्य वाचन 'तीन छेद पाच' असे केले जाते." },
+    { q: "प्र. ८. १ रुपयाचे १०० पैसे होतात, तर ५० पैसे म्हणजे १ रुपयाचा कितवा भाग?", options: ["(१) १/४", "(२) १/२", "(३) ३/४", "(४) १/५"], ans: 1, exp: "५०/१०० = १/२ (अर्धा भाग)." },
+    { q: "प्र. ९. १ किलोग्राम म्हणजे १००० ग्राम. तर २५० ग्राम म्हणजे १ किलोग्रामचा कितवा भाग?", options: ["(१) १/४", "(२) १/२", "(३) ३/४", "(४) १/१०"], ans: 0, exp: "२५०/१००० = १/४ (पाव भाग)." },
+    { q: "प्र. १०. एका लिटरमध्ये १००० मिलीलिटर असतात, तर ७५० मिलीलिटर म्हणजे किती लिटर?", options: ["(१) १/२", "(२) १/४", "(३) २/५", "(४) ३/४"], ans: 3, exp: "७५०/१००० = ३/४ (पाऊण लिटर)." },
+    { q: "प्र. ११. एका टोपलीत १२ सफरचंदे आहेत. त्यांपैकी ४ सफरचंदे खाल्ली, तर खालेल्या सफरचंदांचा अपूर्णांक कोणता?", options: ["(१) ८/१२", "(२) १२/४", "(३) ४/१२", "(४) ४/८"], ans: 2, exp: "खाल्लेली सफरचंदे ४ आणि एकूण १२ = ४/१२." },
+    { q: "प्र. १२. १५ पेनपैकी ५ पेन लाल आहेत. तर लाल पेनचा अपूर्णांक कोणता?", options: ["(१) १०/१५", "(२) ५/१५", "(३) १५/५", "(४) ५/१०"], ans: 1, exp: "लाल पेन ५ आणि एकूण १५ = ५/१५." },
+    { q: "प्र. १३. १ मीटरचे १०० सेंटीमीटर होतात, तर २५ सेंटीमीटर म्हणजे किती मीटर?", options: ["(१) १/४", "(२) १/२", "(३) ३/४", "(४) १/५"], ans: 0, exp: "२५/१०० = १/४ मीटर." },
+    { q: "प्र. १४. राजूने एका केकचे ८ समान भाग केले व त्यातील ५ भाग मित्रांना दिले. त्याच्याकडे किती भाग उरले?", options: ["(१) ५/८", "(२) ८/५", "(३) ३/५", "(४) ३/८"], ans: 3, exp: "उरलेले भाग = ८ - ५ = ३. अपूर्णांक = ३/८." },
+    { q: "प्र. १५. खालीलपैकी समछेद अपूर्णांकांची जोडी कोणती?", options: ["(१) २/३ आणि २/५", "(२) २/५ आणि ३/५", "(३) १/४ आणि ३/८", "(४) ४/७ आणि ५/९"], ans: 1, exp: "ज्या अपूर्णांकांचे छेद समान असतात त्यांना समछेद अपूर्णांक म्हणतात." },
+    { q: "प्र. १६. ५/१२ आणि ३/१२ यांच्यात योग्य चिन्ह वापरा: ५/१२ _____ ३/१२", options: ["(१) >", "(२) <", "(३) =", "(४) <=."], ans: 0, exp: "समछेद अपूर्णांकात ज्याचा अंश मोठा तो अपूर्णांक मोठा असतो. ५ > ३, म्हणून ५/१२ > ३/१२." },
+    { q: "प्र. १७. समान छेद असल्यास कोणता अपूर्णांक मोठा असतो?", options: ["(१) ज्याचा छेद मोठा", "(२) ज्याचा अंश लहान", "(३) ज्याचा छेद लहान", "(४) ज्याचा अंश मोठा"], ans: 3, exp: "समान छेद असल्यास ज्याचा अंश मोठा तो अपूर्णांक मोठा असतो." },
+    { q: "प्र. १८. खालील अपूर्णांक चढत्या क्रमाने लावल्यास पहिला अपूर्णांक कोणता येईल? ७/१५, २/१५, ४/१५, ११/१५", options: ["(१) ४/१५", "(२) ७/१५", "(३) २/१५", "(४) ११/१५"], ans: 2, exp: "चढत्या क्रमात सर्वात लहान अंश असलेला अपूर्णांक (२/१५) प्रथम येईल." },
+    { q: "प्र. १९. खालील अपूर्णांक उतरत्या क्रमाने लावल्यास पहिला अपूर्णांक कोणता येईल? ३/८, ७/८, ५/८, १/८", options: ["(१) ३/८", "(२) ७/८", "(३) ५/८", "(४) १/८"], ans: 1, exp: "उतरत्या क्रमात सर्वात मोठा अंश असलेला अपूर्णांक (७/८) प्रथम येईल." },
+    { q: "प्र. २०. ८/१३ आणि ८/१३ यांच्यामध्ये कोणते चिन्ह येईल?", options: ["(१) >", "(२) <", "(३) =", "(४) !="], ans: 2, exp: "दोन्ही अपूर्णांक पूर्णपणे समान आहेत." },
+    { q: "प्र. २१. १/२ आणि १/३ यांची तुलना करताना छेद समान केल्यास कोणते अपूर्णांक मिळतात?", options: ["(१) ३/६ आणि २/६", "(२) १/६ आणि १/६", "(३) २/६ आणि ३/६", "(४) ३/५ आणि २/५"], ans: 0, exp: "छेदांचा लसावि ६ येतो. १/२ = ३/६ आणि १/३ = २/६." },
+    { q: "प्र. २२. १/२ आणि १/३ यांपैकी मोठा अपूर्णांक कोणता?", options: ["(१) १/३", "(२) दोन्ही समान", "(३) १/२", "(४) यांपैकी नाही"], ans: 2, exp: "समान अंश असल्यास ज्याचा छेद लहान तो अपूर्णांक मोठा. २ < ३, म्हणून १/२ > १/३." },
+    { q: "प्र. २३. २/३ आणि ३/४ यांच्यात योग्य चिन्ह लिहा: २/३ _____ ३/४", options: ["(१) >", "(२) =", "(३) >=", "(४) <"], ans: 3, exp: "समछेद केल्यास ८/१२ आणि ९/१२ मिळतात. ८/१२ < ९/१२, म्हणून २/३ < ३/४." },
+    { q: "प्र. २४. ३/५ चा छेद १० असणारा सममूल्य अपूर्णांक कोणता?", options: ["(१) ३/१०", "(२) ५/१०", "(३) ६/१०", "(४) ८/१०"], ans: 2, exp: "अंश व छेद दोनने गुणल्यास: (३x२)/(५x२) = ६/१०." },
+    { q: "प्र. २५. समान अंश असलेल्या अपूर्णांकांमध्ये कोणता अपूर्णांक मोठा असतो?", options: ["(१) ज्याचा छेद लहान", "(२) ज्याचा छेद मोठा", "(३) ज्याचा अंश लहान", "(४) ज्याचे दोन्ही समान"], ans: 0, exp: "अंश समान असल्यास ज्याचा छेद लहान असतो तो अपूर्णांक मोठा असतो." },
+    { q: "प्र. २६. ५/७ आणि ५/९ यांपैकी मोठा अपूर्णांक कोणता?", options: ["(१) ५/९", "(२) दोन्ही समान", "(३) यांपैकी नाही", "(४) ५/७"], ans: 3, exp: "अंश समान (५) आहेत. छेद ७ लहान आहे, म्हणून ५/७ हा मोठा अपूर्णांक आहे." },
+    { q: "प्र. २७. ४/५, ४/३, ४/७, ४/९ यांपैकी सर्वांत लहान अपूर्णांक कोणता?", options: ["(१) ४/३", "(२) ४/७", "(३) ४/९", "(४) ४/५"], ans: 2, exp: "अंश समान असल्यामुळे ज्याचा छेद सर्वात मोठा (९) तो अपूर्णांक सर्वात लहान (४/९) असतो." },
+    { q: "प्र. २८. खालीलपैकी सर्वांत मोठा अपूर्णांक कोणता? १/८, ३/८, ५/८, ७/८", options: ["(१) ५/८", "(२) ७/८", "(३) ३/८", "(४) १/८"], ans: 1, exp: "छेद समान आहेत, म्हणून ज्याचा अंश सर्वात मोठा (७) तो अपूर्णांक सर्वात मोठा." },
+    { q: "प्र. २९. ६/१० आणि ३/५ यांच्यात कोणते चिन्ह येईल?", options: ["(१) >", "(२) <", "(३) =", "(४) !="], ans: 2, exp: "६/१० ला २ ने संक्षिप्त रूप दिल्यास ३/५ मिळते. म्हणजेच दोन्ही समान आहेत." },
+    { q: "प्र. ३०. ३/१०, ७/१०, १/१०, ९/१० या अपूर्णांकांचा चढता क्रम लावल्यास शेवटी कोणता अपूर्णांक येईल?", options: ["(१) ९/१०", "(२) ७/१०", "(३) १/१०", "(४) ३/१०"], ans: 0, exp: "चढत्या क्रमात सर्वात शेवटी सर्वात मोठा अपूर्णांक (९/१०) येतो." },
+    { q: "प्र. ३१. खालीलपैकी अंशाधिक अपूर्णांक कोणता?", options: ["(१) ३/७", "(२) ९/४", "(३) ५/८", "(४) २/५"], ans: 1, exp: "ज्याचा अंश छेदापेक्षा मोठा असतो, त्याला अंशाधिक अपूर्णांक म्हणतात (९ > ४)." },
+    { q: "प्र. ३२. खालील अपूर्णांकांच्या गटातून अंशाधिक अपूर्णांक ओळखा: {२/३, ४/५, ११/६, ७/१०}", options: ["(१) २/३", "(२) ४/५", "(३) ७/१०", "(४) ११/६"], ans: 3, exp: "११/६ मध्ये अंश (११) छेदापेक्षा (६) मोठा आहे." },
+    { q: "प्र. ३३. खालीलपैकी कोणता अपूर्णांक अंशाधिक नाही?", options: ["(१) ६/११", "(२) ८/५", "(३) १३/७", "(४) ५/२"], ans: 0, exp: "६/११ चा अंश छेदापेक्षा लहान आहे, त्यामुळे तो छेदाधिक अपूर्णांक आहे." },
+    { q: "प्र. ३४. {९/४, १२/५, ३/८, १५/२} या पर्यायांतून छेदाधिक अपूर्णांक निवडा.", options: ["(१) ९/४", "(२) १२/५", "(३) १५/२", "(४) ३/८"], ans: 3, exp: "३/८ मध्ये छेद (८) हा अंशापेक्षा (३) मोठा आहे." },
+    { q: "प्र. ३५. छेद १२ असलेल्या छेदाधिक अपूर्णांकाचा अंश खालीलपैकी कोणता असू शकतो?", options: ["(१) १५", "(२) ७", "(३) १२", "(४) १८"], ans: 1, exp: "छेदाधिक अपूर्णांकासाठी अंश १२ पेक्षा लहान असणे आवश्यक आहे." },
+    { q: "प्र. ३६. ४ ३/७ या पूर्णयुक्त अपूर्णांकात पूर्णांक संख्या कोणती आहे?", options: ["(१) ३", "(२) ७", "(३) ४", "(४) ३/७"], ans: 2, exp: "४ ३/७ मधील डावीकडील संख्या '४' ही पूर्ण संख्या (पूर्णांक) आहे." },
+    { q: "प्र. ३७. ५ २/३ = ? / ३ (रिकामी जागा भरा)", options: ["(१) १०", "(२) १३", "(३) १५", "(४) १७"], ans: 3, exp: "(५ × ३) + २ = १५ + २ = १७." },
+    { q: "प्र. ३८. आकृती 'अ' मध्ये ४ पैकी २ भाग रंगवले आहेत आणि आकृती 'ब' मध्ये ८ पैकी ४ भाग रंगवले आहेत, तर दोन्ही आकृत्यांतील रंगवलेल्या भागांची तुलना कशी कराल?", options: ["(१) दोन्ही भाग समान आहेत", "(२) 'अ' चा भाग मोठा", "(३) 'ब' चा भाग मोठा", "(४) सांगता येत नाही"], ans: 0, exp: "२/४ = १/२ आणि ४/८ = १/२. दोन्ही सममूल्य अपूर्णांक आहेत." },
+    { q: "प्र. ३९. एका टोपलीत २० आंबे होते. त्यातील १/४ आंबे खराब झाले, तर खराब झालेल्या आंब्यांची संख्या किती?", options: ["(१) ४", "(२) ५", "(३) १०", "(४) १५"], ans: 1, exp: "२० चा १/४ भाग = २० ÷ ४ = ५ आंबे." },
+    { q: "प्र. ४०. एका रिबीनचे १० समान तुकडे केले. त्यातील ४ तुकडे लाल आणि ३ तुकडे निळ्या रंगाचे आहेत, तर उरलेल्या तुकड्यांचा अपूर्णांक कोणता?", options: ["(१) ४/१०", "(२) २/१०", "(३) ३/१०", "(४) ७/१०"], ans: 2, exp: "एकूण वापरलेले तुकडे = ४ + ३ = ७. उरलेले तुकडे = १० - ७ = ३. अपूर्णांक = ३/१०." },
+    { q: "प्र. ४१. १५/२० या अपूर्णांकाचे सर्वात लहान (संक्षिप्त) रूप कोणते?", options: ["(१) १/४", "(२) ३/४", "(३) २/५", "(४) ५/४"], ans: 1, exp: "१५ व २० ला ५ ने भागल्यास ३/४ मिळते." },
+    { q: "प्र. ४२. ३/५ चा सममूल्य अपूर्णांक खालीलपैकी कोणता?", options: ["(१) ६/१०", "(२) ९/१५", "(३) १२/२०", "(४) वरील सर्व"], ans: 3, exp: "३/५ च्या अंशाला व छेदाला अनुक्रमे २, ३, ४ ने गुणल्यास वरील सर्व अपूर्णांक मिळतात." },
+    { q: "प्र. ४३. ३/७ < ☐/७ या विधानात चौकटीत खालीलपैकी कोणती संख्या येऊ शकते?", options: ["(१) ५", "(२) १", "(३) २", "(४) ३"], ans: 0, exp: "छेद समान असल्यास ज्याचा अंश मोठा तो अपूर्णांक मोठा असतो (५ > ३)." },
+    { q: "प्र. ४४. ☐/९ > ५/९ या विधानासाठी चौकटीत कोणती संख्या योग्य ठरेल?", options: ["(१) २", "(२) ४", "(३) ८", "(४) ५"], ans: 2, exp: "डावीकडील अपूर्णांक मोठा असण्यासाठी चौकटीत ५ पेक्षा मोठी संख्या (८) हवी." },
+    { q: "प्र. ४५. ५/१२ > ☐/१२ या विधानासाठी चौकटीत खालीलपैकी कोणती संख्या असू शकत नाही?", options: ["(१) १", "(२) ७", "(३) ३", "(४) ४"], ans: 1, exp: "५ हा ७ पेक्षा मोठा नाही. त्यामुळे चौकटीत ७ येऊ शकत नाही." },
+    { q: "प्र. ४६. ६ १/२ म्हणजे किती?", options: ["(१) ६.५", "(२) ६ + १/२", "(३) १३/२", "(४) वरील सर्व"], ans: 3, exp: "६ १/२ चे दशांश रूप ६.५, बेरीज रूप ६ + १/२ आणि अंशाधिक रूप १३/२ होते." },
+    { q: "प्र. ४७. एका पाण्याच्या टाकीची क्षमता ६० लिटर आहे. ती ३/४ भरलेली आहे, तर टाकीत किती लिटर पाणी आहे?", options: ["(१) ४५ लिटर", "(२) ३० लिटर", "(३) १५ लिटर", "(४) ५० लिटर"], ans: 0, exp: "६० × ३/४ = १५ × ३ = ४५ लिटर." },
+    { q: "प्र. ४८. एका शेताच्या ७/१२ भागात गहू आणि ३/१२ भागात ज्वारी पेरली, तर एकूण किती भागात धान्य पेरले?", options: ["(१) ४/१२", "(२) ७/१२", "(३) १०/१२", "(४) ५/१२"], ans: 2, exp: "एकूण पेरलेला भाग = ७/१२ + ३/१२ = १०/१२." },
+    { q: "प्र. ४९. राहुलकडे २४ गोट्या होत्या. त्याने त्यातील १/३ गोट्या मित्राला दिल्या, तर त्याच्याकडे किती गोट्या उरल्या?", options: ["(१) ८", "(२) १६", "(३) १२", "(४) १८"], ans: 1, exp: "मित्राला दिलेल्या गोट्या = २४ ÷ ३ = ८. उरलेल्या गोट्या = २४ - ८ = १६." },
+    { q: "प्र. ५०. अजयने ५० रुपयांपैकी ३/५ रुपये खर्च केले, तर त्याच्याकडे किती रुपये शिल्लक राहिले?", options: ["(१) ३० रु.", "(२) २० रु.", "(३) २५ रु.", "(४) १० रु."], ans: 1, exp: "खर्च = ५० × ३/५ = ३० रु. शिल्लक = ५० - ३० = २० रु." }
+];
+let currentQIndex = 0;
+let userAnswers = new Array(questionsData.length).fill(null);
+let score = 0;
+
+function startExam() {
+    const name = document.getElementById('studentName').value.trim();
+    const mobile = document.getElementById('mobileNo').value.trim();
+
+    if (!name || !mobile || mobile.length < 10) {
+        alert("कृपया तुमचे पूर्ण नाव आणि वैध १० अंकी मोबाईल नंबर प्रविष्ट करा.");
+        return;
+    }
+
+    document.getElementById('start-screen').style.display = 'none';
+    document.getElementById('exam-screen').style.display = 'block';
+
+    renderQuestions();
+    showQuestion(0);
+}
+
+function renderQuestions() {
+    const container = document.getElementById('questions-container');
+    container.innerHTML = '';
+
+    questionsData.forEach((q, index) => {
+        const qCard = document.createElement('div');
+        qCard.className = `question-card ${index === 0 ? 'active' : ''}`;
+        qCard.id = `q-card-${index}`;
+
+        let optionsHTML = '';
+        q.options.forEach((opt, optIndex) => {
+            optionsHTML += `<button class="option-btn" id="opt-${index}-${optIndex}" onclick="selectOption(${index}, ${optIndex})">${opt}</button>`;
+        });
+
+        qCard.innerHTML = `
+            <div class="q-header">${q.q}</div>
+            <div class="options-box">${optionsHTML}</div>
+            <div class="explanation" id="exp-${index}">
+                <strong>स्पष्टीकरण:</strong> ${q.exp}
+            </div>
+        `;
+        container.appendChild(qCard);
+    });
+}
+
+function showQuestion(index) {
+    document.querySelectorAll('.question-card').forEach(card => card.classList.remove('active'));
+    document.getElementById(`q-card-${index}`).classList.add('active');
+    
+    currentQIndex = index;
+
+    // Check if answered to enable Next button
+    const nextBtn = document.getElementById('next-btn');
+    const submitBtn = document.getElementById('submit-btn');
+
+    if (userAnswers[index] !== null) {
+        nextBtn.disabled = false;
+    } else {
+        nextBtn.disabled = true;
+    }
+
+    if (index === questionsData.length - 1) {
+        nextBtn.style.display = 'none';
+        submitBtn.style.display = 'block';
+    } else {
+        nextBtn.style.display = 'block';
+        submitBtn.style.display = 'none';
+    }
+}
+
+function selectOption(qIdx, optIdx) {
+    if (userAnswers[qIdx] !== null) return; // Prevent changing answer
+
+    userAnswers[qIdx] = optIdx;
+    const correctIdx = questionsData[qIdx].ans;
+    const selectedBtn = document.getElementById(`opt-${qIdx}-${optIdx}`);
+    const correctBtn = document.getElementById(`opt-${qIdx}-${correctIdx}`);
+    const expBox = document.getElementById(`exp-${qIdx}`);
+
+    if (optIdx === correctIdx) {
+        selectedBtn.classList.add('correct');
+    } else {
+        selectedBtn.classList.add('wrong');
+        correctBtn.classList.add('correct');
+        expBox.style.display = 'block'; // Show explanation on wrong answer
+    }
+
+    // Disable all options for this question
+    for (let i = 0; i < 4; i++) {
+        document.getElementById(`opt-${qIdx}-${i}`).style.pointerEvents = 'none';
+    }
+
+    document.getElementById('next-btn').disabled = false;
+}
+
+function nextQuestion() {
+    if (currentQIndex < questionsData.length - 1) {
+        showQuestion(currentQIndex + 1);
+    }
+}
+
+function submitExam() {
+    score = 0;
+    userAnswers.forEach((ans, idx) => {
+        if (ans === questionsData[idx].ans) {
+            score += 2; // 2 marks for each correct answer
+        }
+    });
+
+    document.getElementById('exam-screen').style.display = 'none';
+    document.getElementById('cert-screen').style.display = 'block';
+
+    const name = document.getElementById('studentName').value;
+    document.getElementById('cert-name').innerText = name;
+    document.getElementById('cert-score').innerText = score;
+
+    const percentage = (score / 100) * 100;
+    const badgeBox = document.getElementById('cert-badge');
+
+    if (percentage >= 90) {
+        badgeBox.innerHTML = "🥇 Gold Medal + Trophy<br><span style='color:var(--correct); font-size:16px;'>अभिनंदन! अत्यंत उत्कृष्ट कामगिरी!</span>";
+    } else if (percentage >= 80) {
+        badgeBox.innerHTML = "🥈 Silver Medal + Trophy<br><span style='color:var(--secondary); font-size:16px;'>छान! खूप छान कामगिरी!</span>";
+    } else if (percentage >= 70) {
+        badgeBox.innerHTML = "🥉 Bronze Medal + Trophy<br><span style='color:#d97706; font-size:16px;'>गुड! उत्तम प्रयत्न!</span>";
+    } else {
+        badgeBox.innerHTML = "💐 अभिनंदन! फुलांचा गुच्छ<br><span style='color:var(--primary); font-size:16px;'>पुढील परीक्षेसाठी खूप खूप शुभेच्छा!</span>";
+    }
+}
+
+function showReview() {
+    const reviewList = document.getElementById('review-list');
+    reviewList.innerHTML = '';
+    let wrongCount = 0;
+
+    userAnswers.forEach((ans, idx) => {
+        if (ans !== questionsData[idx].ans) {
+            wrongCount++;
+            const item = document.createElement('div');
+            item.className = 'review-item';
+            
+            const userAnsText = ans !== null ? questionsData[idx].options[ans] : "उत्तर दिले नाही";
+            const correctAnsText = questionsData[idx].options[questionsData[idx].ans];
+
+            item.innerHTML = `
+                <div class="review-q">${questionsData[idx].q}</div>
+                <div style="color: var(--wrong);">तुमचे उत्तर: ${userAnsText}</div>
+                <div style="color: var(--correct);">योग्य उत्तर: ${correctAnsText}</div>
+                <div style="font-size: 14px; margin-top: 5px; color:#555;"><strong>स्पष्टीकरण:</strong> ${questionsData[idx].exp}</div>
+            `;
+            reviewList.appendChild(item);
+        }
+    });
+
+    if (wrongCount === 0) {
+        reviewList.innerHTML = "<h4 style='color: var(--correct); text-align:center;'>अभिनंदन! तुमचा एकही प्रश्न चुकला नाही!</h4>";
+    }
+
+    document.getElementById('review-container').style.display = 'block';
+}
+</script>
+
+</body>
+</html>
+
