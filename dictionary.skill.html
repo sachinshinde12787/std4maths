@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html lang="mr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dictionary Skill Test - जि. प. प्रा. शाळा नरसोबावाडी</title>
+    <style>
+        :root {
+            --primary-color: #1a73e8;
+            --success-color: #2e7d32;
+            --error-color: #c62828;
+            --bg-color: #f4f7f6;
+            --card-bg: #ffffff;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-color);
+            margin: 0;
+            padding: 15px;
+            color: #333;
+        }
+
+        .container {
+            max-width: 700px;
+            margin: 0 auto;
+            background: var(--card-bg);
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        .header-title {
+            text-align: center;
+            color: #0d47a1;
+            font-size: 22px;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .exam-title {
+            text-align: center;
+            color: #d32f2f;
+            font-size: 20px;
+            font-weight: bold;
+            margin-bottom: 20px;
+            border-bottom: 2px dashed #ccc;
+            padding-bottom: 10px;
+        }
+
+        .input-group {
+            margin-bottom: 15px;
+        }
+
+        .input-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+
+        .input-group input {
+            width: 100%;
+            padding: 10px;
+            box-sizing: border-box;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            font-size: 16px;
+        }
+
+        .creator-info {
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            margin-top: 15px;
+            padding: 10px;
+            background-color: #e8f0fe;
+            border-radius: 8px;
+            font-size: 14px;
+        }
+
+        .creator-info img {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            margin-left: 10px;
+            object-fit: cover;
+            border: 2px solid var(--primary-color);
+        }
+
+        .btn {
+            display: block;
+            width: 100%;
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 12px;
+            font-size: 18px;
+            font-weight: bold;
+            border-radius: 6px;
+            cursor: pointer;
+            margin-top: 15px;
+            text-align: center;
+        }
+
+        .btn:disabled {
+            background-color: #ccc;
+            cursor: not-allowed;
+        }
+
+        .footer-text {
+            text-align: center;
+            font-size: 14px;
+            margin-top: 20px;
+            color: #555;
+            font-weight: bold;
+        }
+
+        .question-box {
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 15px;
+            background: #f9f9f9;
+            padding: 12px;
+            border-left: 5px solid var(--primary-color);
+            border-radius: 4px;
+        }
+
+        .option-btn {
+            display: block;
+            width: 100%;
+            text-align: left;
+            background: #fff;
+            border: 2px solid #ddd;
+            padding: 12px;
+            margin-bottom: 10px;
+            border-radius: 6px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .option-btn:hover {
+            background-color: #eef5ff;
+        }
+
+        .option-btn.selected {
+            background-color: #bbdefb;
+            border-color: #1976d2;
+        }
+
+        .option-btn.correct {
+            background-color: #c8e6c9 !important;
+            border-color: var(--success-color) !important;
+            color: var(--success-color);
+            font-weight: bold;
+        }
+
+        .option-btn.wrong {
+            background-color: #ffcdd2 !important;
+            border-color: var(--error-color) !important;
+            color: var(--error-color);
+            font-weight: bold;
+        }
+
+        .explanation {
+            margin-top: 10px;
+            padding: 10px;
+            background: #fff3e0;
+            border-left: 4px solid #ff9800;
+            font-size: 15px;
+            border-radius: 4px;
+            display: none;
+        }
+
+        /* Certificate Styling */
+        .certificate {
+            border: 8px double #1a73e8;
+            padding: 25px;
+            text-align: center;
+            background: #fff;
+            border-radius: 12px;
+            box-shadow: 0 0 20px rgba(0,0,0,0.15);
+            position: relative;
+        }
+
+        .cert-header {
+            font-size: 20px;
+            font-weight: bold;
+            color: #0d47a1;
+        }
+
+        .cert-score {
+            font-size: 32px;
+            font-weight: bold;
+            color: #2e7d32;
+            margin: 15px 0;
+        }
+
+        .cert-badge {
+            font-size: 22px;
+            font-weight: bold;
+            margin: 15px 0;
+            padding: 10px;
+            background: #fffde7;
+            border: 1px dashed #fbc02d;
+            border-radius: 8px;
+        }
+
+        .review-box {
+            margin-top: 20px;
+            text-align: left;
+            border-top: 2px solid #ccc;
+            padding-top: 15px;
+            display: none;
+        }
+
+        .review-item {
+            background: #fff8f8;
+            border: 1px solid #ffcdd2;
+            padding: 10px;
+            margin-bottom: 10px;
+            border-radius: 6px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <!-- PAGE 1: STUDENT DETAILS -->
+    <div id="page-start">
+        <div class="header-title">जिल्हा परिषद प्राथमिक शाळा नरसोबावाडी संचलित</div>
+        <div class="exam-title">परीक्षेचे नाव: Dictionary skill</div>
+
+        <div class="input-group">
+            <label for="studentName">विद्यार्थ्याचे नाव:</label>
+            <input type="text" id="studentName" placeholder="पूर्ण नाव टाका">
+        </div>
+
+        <div class="input-group">
+            <label for="studentMobile">मोबाईल नंबर:</label>
+            <input type="tel" id="studentMobile" placeholder="१० अंकी मोबाईल नंबर" maxlength="10">
+        </div>
+
+        <div class="creator-info">
+            <div>
+                <strong>संकल्पना व निर्मिती:</strong><br>
+                श्री सचिन शिंदे सर<br>
+                जि. प. प्रा. शाळा नरसोबावाडी<br>
+                मो. 83 29 68 44 70
+            </div>
+            <img src="https://drive.google.com/thumbnail?id=1pkldnaLRyqBtfgiQKwtbeSSfXhENzbOm&sz=w200" alt="Sachin Shinde Sir">
+        </div>
+
+        <div class="footer-text">टेस्ट निर्मिती व संकल्पना श्री सचिन शिंदे मोबाईल नंबर 83 29 68 44 70</div>
+        
+        <button class="btn" onclick="startExam()">EXAM START</button>
+    </div>
+
+    <!-- PAGE 2: EXAM QUESTION AREA -->
+    <div id="page-exam" style="display: none;">
+        <div class="header-title" style="font-size: 16px;">Dictionary skill Test (गुण: ५०/३० प्रश्न)</div>
+        <div style="text-align: right; font-weight: bold; margin-bottom: 10px;" id="q-counter">प्रश्न १ / ३०</div>
+
+        <div class="question-box" id="q-text"></div>
+        <div id="options-container"></div>
+        <div class="explanation" id="explanation-box"></div>
+
+        <button class="btn" id="next-btn" onclick="nextQuestion()" disabled>नेक्स्ट प्रश्न</button>
+        <button class="btn" id="submit-btn" onclick="finishExam()" style="display: none; background-color: var(--success-color);">SUBMIT EXAM</button>
+
+        <div class="footer-text">टेस्ट निर्मिती व संकल्पना श्री सचिन शिंदे मोबाईल नंबर 83 29 68 44 70</div>
+    </div>
+
+    <!-- PAGE 3: RESULT & CERTIFICATE -->
+    <div id="page-result" style="display: none;">
+        <div class="certificate">
+            <div class="cert-header">🏆 जिल्हा परिषद प्राथमिक शाळा नरसोबावाडी संचालित</div>
+            <div style="font-size: 18px; margin-top: 5px;"><strong>परीक्षेचे नाव:</strong> Dictionary skill</div>
+            <hr>
+            <p style="font-size: 18px; margin: 10px 0;"><strong>विद्यार्थ्याचे नाव:</strong> <span id="res-name" style="color: #0d47a1;"></span></p>
+            
+            <div class="cert-score">गुण: <span id="res-score"></span> / ६० (<span id="res-percent"></span>%)</div>
+            
+            <div class="cert-badge" id="res-badge"></div>
+
+            <div class="creator-info" style="margin-top: 25px;">
+                <div>
+                    <strong>संकल्पना व निर्मिती:</strong><br>
+                    श्री सचिन शिंदे सर<br>
+                    जि. प. प्रा. शाळा नरसोबावाडी<br>
+                    मो. 83 29 68 44 70
+                </div>
+                <img src="https://drive.google.com/thumbnail?id=1pkldnaLRyqBtfgiQKwtbeSSfXhENzbOm&sz=w200" alt="Sachin Shinde Sir">
+            </div>
+        </div>
+
+        <button class="btn" style="background-color: #f57c00;" onclick="toggleWrongQuestions()">चुकलेले प्रश्न व स्पष्टीकरण पहा 🔍</button>
+        
+        <div class="review-box" id="review-section">
+            <h3 style="color: var(--error-color);">चुकलेले प्रश्न:</h3>
+            <div id="review-list"></div>
+        </div>
+
+        <div class="footer-text">टेस्ट निर्मिती व संकल्पना श्री सचिन शिंदे मोबाईल नंबर 83 29 68 44 70</div>
+    </div>
+</div>
+<script>
+const questions = [
+    { q: "१. Which word comes first in alphabetical order?", options: ["Apple", "Ant", "Ape", "Animal"], ans: 3, exp: "सर्व शब्द 'A' ने सुरू होतात. दुसरे अक्षर पाहिल्यास n (Animal) हे p, t, pe पेक्षा आधी येते." },
+    { q: "२. Which word comes last in alphabetical order?", options: ["Table", "Tiger", "Train", "Turtle"], ans: 3, exp: "दुसरे अक्षर पाहिल्यास u (Turtle) हे a, i, r पेक्षा शेवटी येते." },
+    { q: "३. Arrange the following words in alphabetical order: Cap, Cat, Car, Cup", options: ["Cap, Car, Cat, Cup", "Car, Cap, Cat, Cup", "Cap, Cat, Car, Cup", "Cup, Cap, Car, Cat"], ans: 0, exp: "तिसरे अक्षर पाहिल्यास: Cap (p), Car (r), Cat (t) आणि शेवटी Cup (u) येईल." },
+    { q: "४. Which word comes immediately before 'Garden'? (Words: Game, Garden, Gate, Giraffe)", options: ["Gate", "Game", "Giraffe", "Grand"], ans: 1, exp: "Alphabetical Order: Game, Garden, Gate, Giraffe. त्यामुळे Garden च्या आधी Game येईल." },
+    { q: "५. Which word comes immediately after 'Market'? (Words: Mango, Market, Match, Moon)", options: ["Mango", "Moon", "Match", "Milk"], ans: 2, exp: "Alphabetical Order: Mango, Market, Match, Moon. त्यामुळे Market नंतर Match येईल." },
+    { q: "६. Which word comes between 'Book' and 'Box'?", options: ["Boat", "Bottle", "Boot", "Boy"], ans: 2, exp: "Book, Boot, Box असा क्रम लागतो." },
+    { q: "७. If you arrange the words - Care, Card, Carry, Cart - which word will be at the 2nd position?", options: ["Care", "Card", "Cart", "Carry"], ans: 0, exp: "योग्य क्रम: Card (1), Care (2), Carry (3), Cart (4)." },
+    { q: "८. Which letter comes immediately before 'R' in the English alphabet?", options: ["S", "Q", "P", "T"], ans: 1, exp: "इंग्रजी वर्णमालेनुसार R च्या आधी Q हे अक्षर येते (Q, R, S)." },
+    { q: "९. Which word will come first in a dictionary?", options: ["Plant", "Place", "Play", "Plate"], ans: 1, exp: "तिसरे अक्षर a (Place) हे a+t, a+y, n पेक्षा आधी येते." },
+    { q: "१०. Which word will NOT come between the Guide Words: 'Farm' and 'Fish'?", options: ["Feather", "Field", "Fast", "Finger"], ans: 3, exp: "Finger (Fi+n) हे Fish (Fi+s) च्या नंतर येते, त्यामुळे ते Farm - Fish च्या दरम्यान येणार नाही." },
+    { q: "११. Which word comes last among the following?", options: ["Sun", "Star", "Sky", "Smile"], ans: 0, exp: "दुसरे अक्षर u (Sun) हे k, m, t पेक्षा सर्वात शेवटी येते." },
+    { q: "१२. Where will the word 'Bag' fit in the given sequence? (Ball, Bank, Bat)", options: ["Before Ball", "Between Ball and Bank", "Between Bank and Bat", "After Bat"], ans: 0, exp: "Bag (g) हे Ball (l) च्या आधी येते." },
+    { q: "१३. Find the correct alphabetical order:", options: ["Duck, Dog, Door, Doll", "Dog, Doll, Door, Duck", "Doll, Dog, Door, Duck", "Dog, Door, Doll, Duck"], ans: 1, exp: "योग्य क्रम: Dog (o+g), Doll (o+l), Door (o+r), Duck (u)." },
+    { q: "१४. Which word comes immediately after 'King'? (Words: Kite, Keep, King, Knife)", options: ["Keep", "Kite", "Knife", "Key"], ans: 2, exp: "योग्य क्रम: Keep, Key, King, Knife, Kite. त्यामुळे King नंतर Knife येईल." },
+    { q: "१५. Which word comes immediately before 'Rose'? (Words: Ring, River, Rose, Rope)", options: ["Ring", "River", "Rope", "Rain"], ans: 2, exp: "योग्य क्रम: Ring, River, Rope, Rose. त्यामुळे Rose च्या आधी Rope येईल." },
+    { q: "१६. Arrange in alphabetical order and find the 3rd word: Nest, Net, Neat, Near", options: ["Near", "Neat", "Nest", "Net"], ans: 2, exp: "योग्य क्रम: Near (1), Neat (2), Nest (3), Net (4)." },
+    { q: "१७. Which of the following words appears between 'Gold' and 'Grass'?", options: ["Goat", "Glass", "Green", "Girl"], ans: 0, exp: "Goat (Go) हे Gold (Gol) आणि Grass (Gr) च्या मध्यभागी येते." },
+    { q: "१८. Which guide words on a dictionary page will contain the word 'School'?", options: ["Same – Scale", "Scene – Scout", "Sea – Ship", "Shine – Sky"], ans: 1, exp: "School (Sch) हे Scene (Sce) आणि Scout (Sco) यांच्या दरम्यान येते." },
+    { q: "१९. Which letter comes 3rd after 'M' in the alphabet?", options: ["O", "P", "N", "Q"], ans: 1, exp: "M च्या नंतर: १) N, २) O, ३) P." },
+    { q: "२०. Which word comes first?", options: ["Write", "Water", "Watch", "Walk"], ans: 3, exp: "Walk (Wa+l) हे Watch (Wa+t), Water (Wa+t), Write (Wr) पेक्षा आधी येते." },
+    { q: "२१. Select the INCORRECT alphabetical sequence:", options: ["Fish, Frog, Fruit", "Hand, Head, Hill", "Moon, Milk, Monkey", "Pen, Pencil, Plant"], ans: 2, exp: "योग्य क्रम Milk, Moon, Monkey असा असायला हवा होता." },
+    { q: "२२. Which word comes last in a dictionary?", options: ["Zebra", "Zoo", "Zero", "Zip"], ans: 1, exp: "Zoo (Zo+o) हे Zebra, Zero, Zip पेक्षा शेवटी येते." },
+    { q: "२३. Find the word that comes immediately before 'Lamp'. (Words: Lake, Lamb, Lamp, Leaf)", options: ["Lake", "Lamb", "Leaf", "Lock"], ans: 1, exp: "योग्य क्रम: Lake, Lamb, Lamp, Leaf. त्यामुळे Lamp च्या आधी Lamb येईल." },
+    { q: "२४. Which word comes between 'Train' and 'Tree'?", options: ["Trap", "Track", "Travel", "True"], ans: 0, exp: "Trap (Tr+a+p) हे Train (Tr+a+i) च्या नंतर आणि Tree (Tr+e) च्या आधी येते." },
+    { q: "२५. Arrange in alphabetical order: Bread, Brush, Brave, Brown", options: ["Brave, Bread, Brown, Brush", "Bread, Brave, Brush, Brown", "Brave, Brown, Bread, Brush", "Brush, Brown, Bread, Brave"], ans: 0, exp: "योग्य क्रम: Brave (a), Bread (e), Brown (o), Brush (u)." },
+    { q: "२६. Which word will appear on a dictionary page with guide words 'Chalk – Clean'?", options: ["Chair", "Child", "City", "Class"], ans: 3, exp: "Class (Cl+a) हे Chalk आणि Clean च्या दरम्यान येते." },
+    { q: "२७. If you arrange - Bell, Best, Bear, Bean - which word comes FIRST?", options: ["Bear", "Bean", "Bell", "Best"], ans: 1, exp: "Bean (Be+a+n) हे Bear (Be+a+r) पेक्षा आधी येईल." },
+    { q: "२८. Which word comes immediately after 'Silver'? (Words: Silk, Silver, Simple, Sister)", options: ["Silk", "Simple", "Sister", "Sing"], ans: 1, exp: "योग्य क्रम: Silk, Silver, Simple, Sister. त्यामुळे Silver नंतर Simple येईल." },
+    { q: "२९. Find the correct group arranged in alphabetical order:", options: ["Apple, Ball, Cat, Dog", "Cat, Apple, Dog, Ball", "Ball, Apple, Dog, Cat", "Dog, Cat, Ball, Apple"], ans: 0, exp: "A, B, C, D हा योग्य Alphabetical Order आहे." },
+    { q: "३०. Which letter is placed exactly between 'J' and 'L'?", options: ["I", "K", "M", "N"], ans: 1, exp: "J, K, L वर्णमालेनुसार K हे अक्षर मध्ये येते." }
+];
+let currentQIndex = 0;
+let score = 0;
+let userAnswers = [];
+
+function startExam() {
+    const name = document.getElementById('studentName').value.trim();
+    const mobile = document.getElementById('studentMobile').value.trim();
+
+    if (name === "" || mobile === "" || mobile.length !== 10) {
+        alert("कृपया पूर्ण नाव आणि योग्य १० अंकी मोबाईल नंबर प्रविष्ट करा!");
+        return;
+    }
+
+    document.getElementById('page-start').style.display = 'none';
+    document.getElementById('page-exam').style.display = 'block';
+    
+    loadQuestion();
+}
+
+function loadQuestion() {
+    const qData = questions[currentQIndex];
+    document.getElementById('q-counter').innerText = `प्रश्न ${currentQIndex + 1} / ${questions.length}`;
+    document.getElementById('q-text').innerText = qData.q;
+    
+    const optionsContainer = document.getElementById('options-container');
+    optionsContainer.innerHTML = '';
+
+    document.getElementById('explanation-box').style.display = 'none';
+    document.getElementById('next-btn').disabled = true;
+
+    qData.options.forEach((opt, index) => {
+        const btn = document.createElement('button');
+        btn.className = 'option-btn';
+        btn.innerText = `(${String.fromCharCode(65 + index)}) ${opt}`;
+        btn.onclick = () => selectOption(index);
+        optionsContainer.appendChild(btn);
+    });
+
+    if (currentQIndex === questions.length - 1) {
+        document.getElementById('next-btn').style.display = 'none';
+        document.getElementById('submit-btn').style.display = 'block';
+        document.getElementById('submit-btn').disabled = true;
+    }
+}
+
+function selectOption(selectedIndex) {
+    const qData = questions[currentQIndex];
+    const optionBtns = document.querySelectorAll('.option-btn');
+    
+    // Disable all options after click
+    optionBtns.forEach(btn => btn.style.pointerEvents = 'none');
+
+    userAnswers[currentQIndex] = {
+        selected: selectedIndex,
+        correct: qData.ans,
+        isCorrect: selectedIndex === qData.ans
+    };
+
+    if (selectedIndex === qData.ans) {
+        optionBtns[selectedIndex].classList.add('correct');
+        score += 2; // 2 marks each
+    } else {
+        optionBtns[selectedIndex].classList.add('wrong');
+        optionBtns[qData.ans].classList.add('correct');
+        
+        // Show explanation if wrong
+        const expBox = document.getElementById('explanation-box');
+        expBox.innerHTML = `<strong>स्पष्टीकरण:</strong> ${qData.exp}`;
+        expBox.style.display = 'block';
+    }
+
+    document.getElementById('next-btn').disabled = false;
+    document.getElementById('submit-btn').disabled = false;
+}
+
+function nextQuestion() {
+    currentQIndex++;
+    loadQuestion();
+}
+
+function finishExam() {
+    document.getElementById('page-exam').style.display = 'none';
+    document.getElementById('page-result').style.display = 'block';
+
+    const totalMarks = questions.length * 2;
+    const percentage = Math.round((score / totalMarks) * 100);
+
+    document.getElementById('res-name').innerText = document.getElementById('studentName').value;
+    document.getElementById('res-score').innerText = score;
+    document.getElementById('res-percent').innerText = percentage;
+
+    const badgeBox = document.getElementById('res-badge');
+
+    if (percentage >= 90) {
+        badgeBox.innerHTML = "🥇 Gold Medal + Trophy<br><span style='font-size:16px; color:#2e7d32;'>उत्कृष्ट कामगिरी! तुमचे हार्दिक अभिनंदन!</span>";
+    } else if (percentage >= 80) {
+        badgeBox.innerHTML = "🥈 Silver Medal + Trophy<br><span style='font-size:16px; color:#2e7d32;'>खूप छान कामगिरी! अभिनंदन!</span>";
+    } else if (percentage >= 70) {
+        badgeBox.innerHTML = "🥉 Bronze Medal + Trophy<br><span style='font-size:16px; color:#2e7d32;'>छान प्रयत्न! अभिनंदन!</span>";
+    } else {
+        badgeBox.innerHTML = "💐 अभिनंदन! फुलांचा गुच्छ<br><span style='font-size:16px; color:#d32f2f;'>पुढील परीक्षेसाठी शुभेच्छा!</span>";
+    }
+
+    prepareReview();
+}
+
+function prepareReview() {
+    const reviewList = document.getElementById('review-list');
+    reviewList.innerHTML = '';
+    let wrongCount = 0;
+
+    userAnswers.forEach((ans, idx) => {
+        if (!ans.isCorrect) {
+            wrongCount++;
+            const qData = questions[idx];
+            const item = document.createElement('div');
+            item.className = 'review-item';
+            item.innerHTML = `
+                <strong>${qData.q}</strong><br>
+                <span style="color:var(--error-color);">तुमचे उत्तर: (${String.fromCharCode(65 + ans.selected)}) ${qData.options[ans.selected]}</span><br>
+                <span style="color:var(--success-color);">बरोबर उत्तर: (${String.fromCharCode(65 + ans.correct)}) ${qData.options[ans.correct]}</span><br>
+                <small><strong>स्पष्टीकरण:</strong> ${qData.exp}</small>
+            `;
+            reviewList.appendChild(item);
+        }
+    });
+
+    if (wrongCount === 0) {
+        reviewList.innerHTML = "<p style='color:var(--success-color); font-weight:bold;'>अभिनंदन! तुमचा एकही प्रश्न चुकला नाही.</p>";
+    }
+}
+
+function toggleWrongQuestions() {
+    const revSection = document.getElementById('review-section');
+    if (revSection.style.display === 'none' || revSection.style.display === '') {
+        revSection.style.display = 'block';
+    } else {
+        revSection.style.display = 'none';
+    }
+}
+</script>
+</body>
+</html>
