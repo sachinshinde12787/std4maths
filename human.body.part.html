@@ -1,0 +1,548 @@
+<!DOCTYPE html>
+<html lang="mr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Human Body Parts - Online Exam</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+    body {
+      background-color: #f4f7f6;
+      margin: 0;
+      padding: 15px;
+      color: #333;
+    }
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+      background: #ffffff;
+      padding: 25px;
+      border-radius: 12px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    }
+    .header {
+      text-align: center;
+      border-bottom: 2px solid #007bff;
+      padding-bottom: 15px;
+      margin-bottom: 20px;
+    }
+    .header h2 {
+      margin: 0 0 10px 0;
+      color: #007bff;
+    }
+    .header h3 {
+      margin: 5px 0;
+      color: #2c3e50;
+    }
+    .creator-box {
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      gap: 15px;
+      margin-top: 15px;
+      text-align: right;
+      background: #eef6ff;
+      padding: 10px 15px;
+      border-radius: 8px;
+    }
+    .creator-box img {
+      width: 70px;
+      height: 70px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 2px solid #007bff;
+    }
+    .creator-info {
+      font-size: 14px;
+      line-height: 1.4;
+    }
+    .form-group {
+      margin-bottom: 15px;
+    }
+    .form-group label {
+      display: block;
+      margin-bottom: 5px;
+      font-weight: bold;
+    }
+    .form-group input {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      font-size: 16px;
+    }
+    .btn {
+      background-color: #28a745;
+      color: white;
+      border: none;
+      padding: 12px 25px;
+      font-size: 18px;
+      border-radius: 6px;
+      cursor: pointer;
+      width: 100%;
+      margin-top: 15px;
+      transition: 0.3s;
+    }
+    .btn:hover {
+      background-color: #218838;
+    }
+    .btn:disabled {
+      background-color: #cccccc;
+      cursor: not-allowed;
+    }
+    .footer-credit {
+      text-align: center;
+      margin-top: 20px;
+      font-size: 15px;
+      font-weight: 500;
+      color: #555;
+      border-top: 1px solid #eee;
+      padding-top: 10px;
+    }
+    .hidden {
+      display: none;
+    }
+    .question-card {
+      margin-top: 20px;
+    }
+    .question-title {
+      font-size: 18px;
+      font-weight: bold;
+      margin-bottom: 15px;
+    }
+    .option-btn {
+      display: block;
+      width: 100%;
+      text-align: left;
+      padding: 12px;
+      margin-bottom: 10px;
+      border: 1px solid #ddd;
+      border-radius: 6px;
+      background-color: #fff;
+      font-size: 16px;
+      cursor: pointer;
+      transition: 0.2s;
+    }
+    .option-btn:hover {
+      background-color: #f0f0f0;
+    }
+    .option-btn.correct {
+      background-color: #d4edda !important;
+      border-color: #c3e6cb !important;
+      color: #155724;
+      font-weight: bold;
+    }
+    .option-btn.wrong {
+      background-color: #f8d7da !important;
+      border-color: #f5c6cb !important;
+      color: #721c24;
+      font-weight: bold;
+    }
+    .explanation {
+      margin-top: 15px;
+      padding: 12px;
+      background-color: #fff3cd;
+      border: 1px solid #ffeeba;
+      color: #856404;
+      border-radius: 6px;
+    }
+    .certificate {
+      border: 8px double #007bff;
+      padding: 25px;
+      border-radius: 10px;
+      background: #fffdf0;
+      text-align: center;
+    }
+    .certificate h2 {
+      color: #d9534f;
+      margin-top: 0;
+    }
+    .score-box {
+      font-size: 24px;
+      font-weight: bold;
+      color: #007bff;
+      margin: 15px 0;
+    }
+    .award-box {
+      font-size: 22px;
+      font-weight: bold;
+      margin: 15px 0;
+      padding: 10px;
+      background: #fff;
+      border-radius: 8px;
+      border: 1px dashed #007bff;
+    }
+    .review-item {
+      text-align: left;
+      background: #fff;
+      border: 1px solid #ddd;
+      padding: 12px;
+      margin-bottom: 10px;
+      border-radius: 6px;
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  
+  <!-- Registration Screen -->
+  <div id="start-screen">
+    <div class="header">
+      <h2>जिल्हा परिषद प्राथमिक शाळा नरसोबावाडी संचलित</h2>
+      <h3>परीक्षेचे नाव: Human Body Parts</h3>
+      
+      <div class="creator-box">
+        <div class="creator-info">
+          <strong>संकल्पना व निर्मिती</strong><br>
+          श्री सचिन शिंदे सर<br>
+          जि प प्रा शाळा नरसोबावाडी<br>
+          मोबाईल: 8329684470
+        </div>
+        <img src="https://drive.google.com/thumbnail?id=1pkldnaLRyqBtfgiQKwtbeSSfXhENzbOm&sz=w200" alt="सचिन शिंदे सर">
+      </div>
+    </div>
+
+    <form id="student-form">
+      <div class="form-group">
+        <label for="student-name">विद्यार्थ्याचे नाव:</label>
+        <input type="text" id="student-name" required placeholder="पूर्ण नाव टाका">
+      </div>
+      <div class="form-group">
+        <label for="student-mobile">मोबाईल नंबर:</label>
+        <input type="tel" id="student-mobile" pattern="[0-9]{10}" required placeholder="१० अंकी मोबाईल नंबर">
+      </div>
+      
+      <div class="footer-credit">
+        टेस्ट निर्मिती व संकल्पना श्री सचिन शिंदे मोबाईल नंबर 83 29 68 44 70
+      </div>
+
+      <button type="button" class="btn" onclick="startExam()">EXAM START</button>
+    </form>
+  </div>
+
+  <!-- Quiz Screen -->
+  <div id="quiz-screen" class="hidden">
+    <div style="display: flex; justify-content: space-between; font-weight: bold; color: #555;">
+      <span id="progress-text">प्रश्न १ / १००</span>
+      <span>प्रत्येक प्रश्न: २ गुण</span>
+    </div>
+    <hr>
+    
+    <div class="question-card">
+      <div id="question-text" class="question-title"></div>
+      <div id="options-container"></div>
+      <div id="explanation-box" class="explanation hidden"></div>
+    </div>
+
+    <button id="next-btn" class="btn" onclick="nextQuestion()" disabled>नेक्स्ट</button>
+    
+    <div class="footer-credit">
+      टेस्ट निर्मिती व संकल्पना श्री सचिन शिंदे मोबाईल नंबर 83 29 68 44 70
+    </div>
+  </div>
+
+  <!-- Result Screen / Certificate -->
+  <div id="result-screen" class="hidden">
+    <div class="certificate">
+      <h2>🏆 जिल्हा परिषद प्राथमिक शाळा नरसोबावाडी संचालित</h2>
+      <h3>परीक्षेचे नाव: Human Body Parts</h3>
+      <p style="font-size: 18px;"><strong>विद्यार्थ्याचे नाव:</strong> <span id="cert-name"></span></p>
+      
+      <div class="score-box">
+        मिळालेले गुण: <span id="cert-score"></span> / २०० (<span id="cert-percent"></span>%)
+      </div>
+
+      <div id="cert-award" class="award-box"></div>
+
+      <div class="creator-box" style="margin-top: 25px; background: #ffffff;">
+        <div class="creator-info">
+          <strong>संकल्पना व निर्मिती</strong><br>
+          श्री सचिन शिंदे सर<br>
+          जि प प्रा शाळा नरसोबावाडी<br>
+          मोबाईल: 8329684470
+        </div>
+        <img src="https://drive.google.com/thumbnail?id=1pkldnaLRyqBtfgiQKwtbeSSfXhENzbOm&sz=w200" alt="सचिन शिंदे सर">
+      </div>
+    </div>
+
+    <button id="wrong-q-btn" class="btn" style="background-color: #dc3545; margin-top: 20px;" onclick="showWrongQuestions()">चुकलेले प्रश्न व स्पष्टीकरण पहा</button>
+
+    <div id="wrong-questions-section" class="hidden" style="margin-top: 20px;">
+      <h3 style="color: #dc3545;">चुकलेले प्रश्न आणि मार्गदर्शक स्पष्टीकरण:</h3>
+      <div id="wrong-questions-list"></div>
+    </div>
+
+    <div class="footer-credit">
+      टेस्ट निर्मिती व संकल्पना श्री सचिन शिंदे मोबाईल नंबर 83 29 68 44 70
+    </div>
+  </div>
+
+</div>
+<script>
+const questions = [
+  { q: "1. Which body part is located inside our mouth and helps us sense sweet or salty flavors?", options: ["(A) Teeth", "(B) Throat", "(C) Tongue", "(D) Thumb"], answer: 2, exp: "Tongue helps us taste sweet, salty, sour, and bitter flavors." },
+  { q: "2. Identify the body part that supports our head and connects it to the main body:", options: ["(A) Neck", "(B) Back", "(C) Shoulder", "(D) Chest"], answer: 0, exp: "The neck connects the head to the main body." },
+  { q: "3. What is the joint between the upper and lower arm called?", options: ["(A) Knee", "(B) Elbow", "(C) Ankle", "(D) Wrist"], answer: 1, exp: "Elbow is the joint in the middle of the arm." },
+  { q: "4. Which organ covers the entire outer surface of the human body?", options: ["(A) Muscle", "(B) Bone", "(C) Blood", "(D) Skin"], answer: 3, exp: "Skin is the largest external organ covering the whole body." },
+  { q: "5. Which organ is located below the chest and receives eaten food?", options: ["(A) Chest", "(B) Stomach", "(C) Backbone", "(D) Neck"], answer: 1, exp: "Stomach receives and digests swallowed food." },
+  { q: "6. Which part of the leg bends in the middle when you sit down?", options: ["(A) Elbow", "(B) Ankle", "(C) Knee", "(D) Toe"], answer: 2, exp: "Knee is the joint that allows legs to bend." },
+  { q: "7. Identify the body parts inside our mouth used for biting and chewing food:", options: ["(A) Tongue", "(B) Teeth", "(C) Lips", "(D) Chin"], answer: 1, exp: "Teeth chew and break down food." },
+  { q: "8. Identify the part at the very end of the leg on which a person stands:", options: ["(A) Leg", "(B) Calf", "(C) Knee", "(D) Foot"], answer: 3, exp: "Foot supports standing and walking balance." },
+  { q: "9. Which short, thick digit on our hand helps us grip objects tightly?", options: ["(A) Index finger", "(B) Ring finger", "(C) Thumb", "(D) Little finger"], answer: 2, exp: "Thumb provides opposable grip to hold objects." },
+  { q: "10. Look at the function: 'It tastes a sweet ice-cream.' Which body part performs this?", options: ["(A) Teeth", "(B) Tongue", "(C) Lip", "(D) Nose"], answer: 1, exp: "Tongue contains taste buds to taste food." },
+
+  { q: "11. We use our ______ to write, draw, and hold objects.", options: ["(A) Legs", "(B) Hands", "(C) Shoulders", "(D) Knees"], answer: 1, exp: "Hands allow fine motor activities like writing and drawing." },
+  { q: "12. We feel whether an object is hot, cold, or rough using our ______.", options: ["(A) Eyes", "(B) Hair", "(C) Nails", "(D) Skin"], answer: 3, exp: "Skin provides the sense of touch." },
+  { q: "13. Select the CORRECT functional pair below:", options: ["(A) Teeth – Smell", "(B) Skin – Taste", "(C) Legs – Walk", "(D) Nose – Hear"], answer: 2, exp: "Legs are meant for walking and moving." },
+  { q: "14. What primary action is associated with our 'Nose'?", options: ["(A) Walk", "(B) Breathe and Smell", "(C) Bite", "(D) Touch"], answer: 1, exp: "Nose is responsible for breathing and smelling." },
+  { q: "15. Which body part carries out the action of 'Chewing'?", options: ["(A) Tongue", "(B) Teeth", "(C) Lips", "(D) Throat"], answer: 1, exp: "Teeth grind and chew food." },
+  { q: "16. Choose the INCORRECT pair of Body Part & Function:", options: ["(A) Nose – Smell", "(B) Tongue – Taste", "(C) Ears – Feel", "(D) Eyes – See"], answer: 2, exp: "Ears are for hearing, not feeling (skin feels)." },
+  { q: "17. Which body part helps us hear soft music or bell sounds?", options: ["(A) Eyes", "(B) Tongue", "(C) Ears", "(D) Skin"], answer: 2, exp: "Ears collect sound waves." },
+  { q: "18. Which body part helps us maintain balance while standing straight?", options: ["(A) Hands", "(B) Feet", "(C) Ears", "(D) Nose"], answer: 1, exp: "Feet support body balance on the ground." },
+  { q: "19. Which inner part helps food pass from the mouth down into the stomach?", options: ["(A) Throat", "(B) Ear", "(C) Forehead", "(D) Eyebrow"], answer: 0, exp: "Throat connects the mouth to the food pipe." },
+  { q: "20. Without our ______, we cannot see the bright colors of a rainbow.", options: ["(A) Nose", "(B) Ears", "(C) Eyes", "(D) Tongue"], answer: 2, exp: "Eyes give us the sense of vision." },
+
+  { q: "21. If you raise your left leg while standing, which leg is still touching the ground?", options: ["(A) Left leg", "(B) Right leg", "(C) Both legs", "(D) Neither leg"], answer: 1, exp: "If left leg is raised, right leg supports on ground." },
+  { q: "22. Rohan holds a bat in his right hand. Which side of his body is holding the bat?", options: ["(A) Left", "(B) Front", "(C) Back", "(D) Right"], answer: 3, exp: "Right hand is on the right side." },
+  { q: "23. Swara closed her left eye. How many eyes is she using to look at the blackboard?", options: ["(A) Two", "(B) Zero", "(C) One", "(D) Three"], answer: 2, exp: "Since left eye is closed, only one (right) eye is open." },
+  { q: "24. Complete the sentence: Most people in the world write with their ______ hand.", options: ["(A) Right", "(B) Foot", "(C) Upper", "(D) Lower"], answer: 0, exp: "Majority of people are right-handed." },
+  { q: "25. Your wristwatch is on your left wrist. Which wrist is left completely empty?", options: ["(A) Left wrist", "(B) Right wrist", "(C) Center", "(D) Top"], answer: 1, exp: "The other wrist is the right wrist." },
+
+  { q: "26. Which group contains ONLY parts of the upper arm and hand?", options: ["(A) Eye, Ear, Nose", "(B) Stomach, Back, Neck", "(C) Leg, Knee, Foot, Toe", "(D) Shoulder, Elbow, Wrist, Hand"], answer: 3, exp: "Shoulder, elbow, wrist, hand belong to upper limb." },
+  { q: "27. Which of the following body parts belongs to the head region?", options: ["(A) Knee", "(B) Forehead", "(C) Toe", "(D) Elbow"], answer: 1, exp: "Forehead is on the head." },
+  { q: "28. To which category do 'Toes' belong?", options: ["(A) Head", "(B) Upper Body", "(C) Lower Body / Foot", "(D) Face"], answer: 2, exp: "Toes are parts of the foot." },
+  { q: "29. Which body part belongs to the lower body?", options: ["(A) Ankle", "(B) Shoulder", "(C) Wrist", "(D) Chest"], answer: 0, exp: "Ankle connects lower leg to foot." },
+  { q: "30. Elbow is a joint present in the ______.", options: ["(A) Leg", "(B) Arm", "(C) Neck", "(D) Head"], answer: 1, exp: "Elbow joint is in the arm." },
+  { q: "31. Which body part does NOT belong to the face region?", options: ["(A) Chin", "(B) Cheek", "(C) Heel", "(D) Nose"], answer: 2, exp: "Heel is at the back of the foot." },
+  { q: "32. Which body part is located between the head and the chest?", options: ["(A) Waist", "(B) Neck", "(C) Knee", "(D) Thigh"], answer: 1, exp: "Neck links head to upper torso/chest." },
+  { q: "33. Knee is a joint present in the ______.", options: ["(A) Arm", "(B) Shoulder", "(C) Hand", "(D) Leg"], answer: 3, exp: "Knee joint is in the leg." },
+  { q: "34. Identify the part growing on top of the head that protects the scalp:", options: ["(A) Skin", "(B) Hair", "(C) Nails", "(D) Eyebrow"], answer: 1, exp: "Hair grows on scalp for protection." },
+  { q: "35. Which joint connects the foot to the lower leg?", options: ["(A) Wrist", "(B) Ankle", "(C) Shoulder", "(D) Finger"], answer: 1, exp: "Ankle connects leg to foot." },
+
+  { q: "36. An adult human normally has ______ permanent teeth in total.", options: ["(A) 20", "(B) 50", "(C) 10", "(D) 32"], answer: 3, exp: "An adult set has 32 permanent teeth." },
+  { q: "37. A human hand has one thumb and four ______.", options: ["(A) Toes", "(B) Fingers", "(C) Nails", "(D) Palms"], answer: 1, exp: "Hand consists of 1 thumb and 4 fingers." },
+  { q: "38. Humans have ______ nose to smell flowers and food.", options: ["(A) Two", "(B) Ten", "(C) One", "(D) Five"], answer: 2, exp: "Humans have one single nose." },
+  { q: "39. We have two ______ to listen to sounds and instructions.", options: ["(A) Eyes", "(B) Ears", "(C) Knees", "(D) Hands"], answer: 1, exp: "Ears are 2 in number for hearing." },
+  { q: "40. Humans use their ______ to speak words and eat food.", options: ["(A) Mouth", "(B) Tail", "(C) Wing", "(D) Paw"], answer: 0, exp: "Mouth is used for eating and vocal speech." },
+  { q: "41. Eaten food is swallowed and digested inside the ______.", options: ["(A) Heart", "(B) Stomach", "(C) Tongue", "(D) Lungs"], answer: 1, exp: "Stomach handles digestion." },
+  { q: "42. There are ten toes on two ______.", options: ["(A) Hands", "(B) Ears", "(C) Arms", "(D) Feet"], answer: 3, exp: "Toes are present on feet (5 each)." },
+  { q: "43. Shoes and socks are worn on our ______.", options: ["(A) Hands", "(B) Feet", "(C) Ears", "(D) Shoulders"], answer: 1, exp: "Footwear is worn on feet." },
+  { q: "44. We automatically blink our ______ to protect them from dust.", options: ["(A) Ears", "(B) Nails", "(C) Lips", "(D) Eyes"], answer: 3, exp: "Eyelids blink to protect eyes." },
+  { q: "45. The palm is the flat inner surface of our ______.", options: ["(A) Foot", "(B) Hand", "(C) Leg", "(D) Head"], answer: 1, exp: "Palm is the front side of hand." },
+
+  { q: "46. Find the correctly spelt word for 'पोट':", options: ["(A) Stomach", "(B) Stomack", "(C) Stomak", "(D) Stomuch"], answer: 0, exp: "Correct spelling: S-T-O-M-A-C-H." },
+  { q: "47. Choose the CORRECT spelling:", options: ["(A) Toung", "(B) Tongue", "(C) Tongu", "(D) Tounge"], answer: 1, exp: "Correct spelling: T-O-N-G-U-E." },
+  { q: "48. Select the CORRECT spelling for 'बोट':", options: ["(A) Fingar", "(B) Feengar", "(C) Fingur", "(D) Finger"], answer: 3, exp: "Correct spelling: F-I-N-G-E-R." },
+  { q: "49. Choose the CORRECT spelling for 'खांदा':", options: ["(A) Sholder", "(B) Shoulder", "(C) Shouldar", "(D) Sholder"], answer: 1, exp: "Correct spelling: S-H-O-U-L-D-E-R." },
+  { q: "50. Select the CORRECT spelling for 'घसा':", options: ["(A) Throat", "(B) Throte", "(C) Throatt", "(D) Throt"], answer: 0, exp: "Correct spelling: T-H-R-O-A-T." },
+  { q: "51. Identify the correct spelling for 'डोळ्यावरील भुवई':", options: ["(A) Eybrow", "(B) Eyebrow", "(C) Eyebroww", "(D) Ibrow"], answer: 1, exp: "Correct spelling: E-Y-E-B-R-O-W." },
+  { q: "52. Choose the correct spelling for 'कोपर':", options: ["(A) Elboe", "(B) Elbow", "(C) Ellbow", "(D) Elbo"], answer: 1, exp: "Correct spelling: E-L-B-O-W." },
+  { q: "53. Find the INCORRECT spelling among the options:", options: ["(A) Nose", "(B) Teeth", "(C) Elbow", "(D) Kne"], answer: 3, exp: "Incorrect spelling 'Kne', correct is Knee." },
+  { q: "54. Select the CORRECT spelling for 'स्नायू':", options: ["(A) Muscle", "(B) Mussel", "(C) Muscel", "(D) Musle"], answer: 0, exp: "Correct spelling: M-U-S-C-L-E." },
+  { q: "55. Identify the correctly spelt word for 'कपाळ':", options: ["(A) Forehead", "(B) Forhead", "(C) Forehed", "(D) Fourhead"], answer: 0, exp: "Correct spelling: F-O-R-E-H-E-A-D." },
+
+  { q: "56. Find the Adjective in this sentence: 'Anika has blue eyes.'", options: ["(A) Anika", "(B) Has", "(C) Blue", "(D) Eyes"], answer: 2, exp: "'Blue' describes the color of eyes (adjective)." },
+  { q: "57. Identify the Adjective in the phrase: 'Curly hair'", options: ["(A) Hair", "(B) Curly", "(C) Head", "(D) Short"], answer: 1, exp: "'Curly' describes the hair type." },
+  { q: "58. Which word is an Adjective describing clean teeth? 'Brush daily to keep teeth ______.'", options: ["(A) Clean", "(B) Chew", "(C) Mouth", "(D) Daily"], answer: 0, exp: "'Clean' is an adjective here." },
+  { q: "59. Fill in with a suitable adjective: 'Drink milk for ______ bones.'", options: ["(A) Weak", "(B) Strong", "(C) Soft", "(D) Dirty"], answer: 1, exp: "Milk makes bones 'Strong'." },
+  { q: "60. Identify the Adjective in this sentence: 'Wash your dirty hands before eating.'", options: ["(A) Wash", "(B) Dirty", "(C) Hands", "(D) Eating"], answer: 1, exp: "'Dirty' describes the state of hands." },
+  { q: "61. Choose the correct adjective: 'An elephant has a ______ trunk.'", options: ["(A) Short", "(B) Square", "(C) Tiny", "(D) Long"], answer: 3, exp: "Elephant trunk is 'Long'." },
+  { q: "62. Complete with the correct adjective: 'A tall boy has ______ legs.'", options: ["(A) Short", "(B) Long", "(C) Round", "(D) Sweet"], answer: 1, exp: "Tall people usually have long legs." },
+  { q: "63. What adjective describes healthy skin best?", options: ["(A) Sharp", "(B) Bitter", "(C) Loud", "(D) Smooth"], answer: 3, exp: "Healthy skin feels 'Smooth'." },
+  { q: "64. Find the adjective in: 'She has sharp teeth.'", options: ["(A) She", "(B) Has", "(C) Teeth", "(D) Sharp"], answer: 3, exp: "'Sharp' describes teeth." },
+  { q: "65. Choose the opposite adjective for 'Dry hands':", options: ["(A) Wet hands", "(B) Cold hands", "(C) Hard hands", "(D) Clean hands"], answer: 0, exp: "Opposite of dry is wet." },
+
+  { q: "66. Complete the analogy: Eyes : See :: Nose : ______", options: ["(A) Hear", "(B) Smell", "(C) Taste", "(D) Walk"], answer: 1, exp: "Nose function is smelling." },
+  { q: "67. Which action word (verb) goes with 'Legs'?", options: ["(A) Read", "(B) Taste", "(C) Smell", "(D) Run"], answer: 3, exp: "Legs perform running." },
+  { q: "68. Complete the analogy: Teeth : Chew :: Tongue : ______", options: ["(A) Bite", "(B) Taste", "(C) Hold", "(D) Kick"], answer: 1, exp: "Tongue function is tasting." },
+  { q: "69. Which action is performed using hands?", options: ["(A) Catch", "(B) Listen", "(C) See", "(D) Breathe"], answer: 0, exp: "Catching ball is done with hands." },
+  { q: "70. Feet are used to ______.", options: ["(A) Speak", "(B) Stand", "(C) Smile", "(D) Blink"], answer: 1, exp: "Feet enable standing." },
+  { q: "71. Which action word matches with 'Ears'?", options: ["(A) Watch", "(B) Hear", "(C) Feel", "(D) Jump"], answer: 1, exp: "Ears hear sound." },
+  { q: "72. Lips and tongue are used together to ______.", options: ["(A) Speak", "(B) Clap", "(C) Run", "(D) Tap"], answer: 0, exp: "Lips and tongue collaborate to form speech." },
+
+  { q: "73. Which body part is used to smell a fresh flower?", options: ["(A) Mouth", "(B) Nose", "(C) Eyes", "(D) Skin"], answer: 1, exp: "Nose detects scents." },
+  { q: "74. How many thumbs do humans have in total on both hands?", options: ["(A) 10", "(B) 1", "(C) 4", "(D) 2"], answer: 3, exp: "1 thumb per hand = 2 thumbs." },
+  { q: "75. How many knees does a human body have?", options: ["(A) One", "(B) Four", "(C) Two", "(D) Eight"], answer: 2, exp: "2 legs = 2 knees." },
+  { q: "76. How many sense organs do humans have?", options: ["(A) 3", "(B) 5", "(C) 7", "(D) 10"], answer: 1, exp: "5 sense organs: Eyes, Ears, Nose, Tongue, Skin." },
+  { q: "77. How many toes are on one single foot?", options: ["(A) 5", "(B) 10", "(C) 2", "(D) 4"], answer: 0, exp: "Each foot has 5 toes." },
+  { q: "78. What body parts are used together to clap?", options: ["(A) Feet", "(B) Hands", "(C) Knees", "(D) Shoulders"], answer: 1, exp: "Hands clap." },
+  { q: "79. Which sense organ detects texture and heat?", options: ["(A) Skin", "(B) Eyes", "(C) Ears", "(D) Nose"], answer: 0, exp: "Skin senses texture, thermal heat." },
+  { q: "80. How many mouths does a human have?", options: ["(A) Two", "(B) One", "(C) Three", "(D) None"], answer: 1, exp: "Humans have 1 mouth." },
+  { q: "81. Which body part allows the leg to bend in the middle?", options: ["(A) Elbow", "(B) Wrist", "(C) Knee", "(D) Ankle"], answer: 2, exp: "Knee joint bends middle leg." },
+  { q: "82. How many elbows do you have?", options: ["(A) 1", "(B) 2", "(C) 4", "(D) 10"], answer: 1, exp: "2 arms = 2 elbows." },
+
+  { q: "83. Choose the word that does NOT belong to the action group:", options: ["(A) See", "(B) Hear", "(C) Smell", "(D) Table"], answer: 3, exp: "Table is a noun; others are sense verbs." },
+  { q: "84. Find the ODD one out:", options: ["(A) Eye", "(B) Ear", "(C) Nose", "(D) Pencil"], answer: 3, exp: "Pencil is a non-living object." },
+  { q: "85. Find the ODD one out:", options: ["(A) Head", "(B) Shoulder", "(C) Knee", "(D) Book"], answer: 3, exp: "Book is not a body part." },
+  { q: "86. Find the ODD one out:", options: ["(A) Hand", "(B) Leg", "(C) Shoe", "(D) Finger"], answer: 2, exp: "Shoe is clothing, not body part." },
+  { q: "87. Identify the odd word in the list:", options: ["(A) Walk", "(B) Run", "(C) Jump", "(D) Ear"], answer: 3, exp: "Ear is an organ; others are physical actions." },
+  { q: "88. Find the ODD one out (based on Sense Organs):", options: ["(A) Tongue", "(B) Skin", "(C) Nose", "(D) Nail"], answer: 3, exp: "Nail is not one of the 5 sense organs." },
+  { q: "89. Find the ODD one out:", options: ["(A) Red", "(B) Blue", "(C) Green", "(D) Eye"], answer: 3, exp: "Eye is a body part, others are colors." },
+  { q: "90. Find the ODD one out:", options: ["(A) Thumb", "(B) Index finger", "(C) Ring finger", "(D) Elbow"], answer: 3, exp: "Elbow is a joint; others are digits/fingers." },
+
+  { q: "91. What sense is associated with the tongue?", options: ["(A) Sense of Sight", "(B) Sense of Hearing", "(C) Sense of Taste", "(D) Sense of Touch"], answer: 2, exp: "Tongue provides sense of taste." },
+  { q: "92. Which of the following is NOT a sense organ?", options: ["(A) Eye", "(B) Ear", "(C) Teeth", "(D) Skin"], answer: 2, exp: "Teeth are not classified as sense organs." },
+  { q: "93. Skin provides the sense of ______.", options: ["(A) Smell", "(B) Touch", "(C) Sight", "(D) Sound"], answer: 1, exp: "Skin senses touch and feel." },
+  { q: "94. Which sense organ functions in complete darkness?", options: ["(A) Ears", "(B) Eyes", "(C) Both A and B", "(D) None"], answer: 0, exp: "Ears function without light." },
+  { q: "95. Which pair includes ONLY sense organs?", options: ["(A) Nose & Mouth", "(B) Eyes & Ears", "(C) Hands & Feet", "(D) Legs & Knees"], answer: 1, exp: "Both Eyes and Ears are official sense organs." },
+
+  { q: "96. Rohan hurt his right ______ while playing football.", options: ["(A) leg", "(B) legs", "(C) eyes", "(D) ears"], answer: 0, exp: "Singular 'right leg'." },
+  { q: "97. My brother has two big ______.", options: ["(A) eye", "(B) eyes", "(C) foot", "(D) nose"], answer: 1, exp: "Plural form 'eyes'." },
+  { q: "98. She cleans her ______ twice a day.", options: ["(A) tooth", "(B) teeth", "(C) foots", "(D) hair"], answer: 1, exp: "Plural 'teeth' cleaned." },
+  { q: "99. A cat walks softly on its four ______.", options: ["(A) hand", "(B) legs", "(C) ear", "(D) mouth"], answer: 1, exp: "Plural 'four legs'." },
+  { q: "100. I have two arms and ten ______.", options: ["(A) finger", "(B) fingers", "(C) toe", "(D) thumb"], answer: 1, exp: "Plural 'ten fingers'." }
+];
+let currentQIndex = 0;
+let userAnswers = [];
+let studentName = "";
+let studentMobile = "";
+
+function startExam() {
+  studentName = document.getElementById('student-name').value.trim();
+  studentMobile = document.getElementById('student-mobile').value.trim();
+
+  if (studentName === "" || studentMobile === "" || studentMobile.length !== 10) {
+    alert("कृपया योग्य नाव आणि १० अंकी मोबाईल नंबर टाका.");
+    return;
+  }
+
+  document.getElementById('start-screen').classList.add('hidden');
+  document.getElementById('quiz-screen').classList.remove('hidden');
+  
+  loadQuestion();
+}
+
+function loadQuestion() {
+  const qData = questions[currentQIndex];
+  document.getElementById('progress-text').innerText = `प्रश्न ${currentQIndex + 1} / ${questions.length}`;
+  document.getElementById('question-text').innerText = qData.q;
+  
+  const optionsDiv = document.getElementById('options-container');
+  optionsDiv.innerHTML = "";
+  
+  const expBox = document.getElementById('explanation-box');
+  expBox.classList.add('hidden');
+  expBox.innerText = "";
+
+  document.getElementById('next-btn').disabled = true;
+
+  qData.options.forEach((opt, idx) => {
+    const btn = document.createElement('button');
+    btn.className = 'option-btn';
+    btn.innerText = opt;
+    btn.onclick = () => selectOption(idx);
+    optionsDiv.appendChild(btn);
+  });
+
+  if (currentQIndex === questions.length - 1) {
+    document.getElementById('next-btn').innerText = "Submit Exam";
+  } else {
+    document.getElementById('next-btn').innerText = "नेक्स्ट";
+  }
+}
+
+function selectOption(selectedIdx) {
+  const qData = questions[currentQIndex];
+  const optionBtns = document.querySelectorAll('.option-btn');
+
+  // Disable all options
+  optionBtns.forEach(btn => btn.disabled = true);
+
+  userAnswers[currentQIndex] = selectedIdx;
+
+  if (selectedIdx === qData.answer) {
+    optionBtns[selectedIdx].classList.add('correct');
+  } else {
+    optionBtns[selectedIdx].classList.add('wrong');
+    optionBtns[qData.answer].classList.add('correct');
+    
+    // Show explanation if answer is wrong
+    const expBox = document.getElementById('explanation-box');
+    expBox.innerText = "स्पष्टीकरण: " + qData.exp;
+    expBox.classList.remove('hidden');
+  }
+
+  document.getElementById('next-btn').disabled = false;
+}
+
+function nextQuestion() {
+  if (currentQIndex < questions.length - 1) {
+    currentQIndex++;
+    loadQuestion();
+  } else {
+    finishExam();
+  }
+}
+
+function finishExam() {
+  document.getElementById('quiz-screen').classList.add('hidden');
+  document.getElementById('result-screen').classList.remove('hidden');
+
+  let correctCount = 0;
+  questions.forEach((q, idx) => {
+    if (userAnswers[idx] === q.answer) {
+      correctCount++;
+    }
+  });
+
+  let totalMarks = correctCount * 2;
+  let percentage = Math.round((totalMarks / 200) * 100);
+
+  document.getElementById('cert-name').innerText = studentName;
+  document.getElementById('cert-score').innerText = totalMarks;
+  document.getElementById('cert-percent').innerText = percentage;
+
+  let awardText = "";
+  if (percentage >= 90) {
+    awardText = "🥇 Gold Medal + Trophy";
+  } else if (percentage >= 80) {
+    awardText = "🥈 Silver Medal + Trophy";
+  } else if (percentage >= 70) {
+    awardText = "🥉 Bronze Medal + Trophy";
+  } else {
+    awardText = "💐 अभिनंदन! फुलांचा गुच्छ व 'पुढील परीक्षेसाठी शुभेच्छा'";
+  }
+
+  document.getElementById('cert-award').innerText = awardText;
+}
+
+function showWrongQuestions() {
+  const wrongSection = document.getElementById('wrong-questions-section');
+  const wrongList = document.getElementById('wrong-questions-list');
+  wrongList.innerHTML = "";
+
+  let wrongCount = 0;
+
+  questions.forEach((q, idx) => {
+    if (userAnswers[idx] !== q.answer) {
+      wrongCount++;
+      const item = document.createElement('div');
+      item.className = 'review-item';
+      
+      let userChoice = userAnswers[idx] !== undefined ? q.options[userAnswers[idx]] : "उत्तर दिले नाही";
+      let correctChoice = q.options[q.answer];
+
+      item.innerHTML = `
+        <p><strong>प्रश्न ${idx + 1}:</strong> ${q.q}</p>
+        <p style="color: #dc3545;"><strong>तुमचे उत्तर:</strong> ${userChoice}</p>
+        <p style="color: #28a745;"><strong>अचूक उत्तर:</strong> ${correctChoice}</p>
+        <p style="color: #856404;"><strong>स्पष्टीकरण:</strong> ${q.exp}</p>
+      `;
+      wrongList.appendChild(item);
+    }
+  });
+
+  if (wrongCount === 0) {
+    wrongList.innerHTML = "<p style='color: green;'><strong>अभिनंदन! तुमचे सर्व प्रश्न बरोबर आहेत.</strong></p>";
+  }
+
+  wrongSection.classList.remove('hidden');
+}
+</script>
+
+</body>
+</html>
