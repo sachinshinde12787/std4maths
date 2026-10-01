@@ -1,0 +1,767 @@
+<!DOCTYPE html>
+<html lang="mr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Animal, Bird & Plant Body Parts Quiz</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        body {
+            background-color: #f0f4f8;
+            margin: 0;
+            padding: 20px;
+            color: #333;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: #ffffff;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            position: relative;
+        }
+        .header-title {
+            text-align: center;
+            color: #1a5276;
+            font-size: 22px;
+            font-weight: bold;
+            margin-bottom: 20px;
+            border-bottom: 2px solid #1a5276;
+            padding-bottom: 10px;
+        }
+        .author-top-right {
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            margin-bottom: 20px;
+            background: #eaf2f8;
+            padding: 10px;
+            border-radius: 8px;
+        }
+        .author-top-right img {
+            width: 65px;
+            height: 65px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-left: 12px;
+            border: 2px solid #2980b9;
+        }
+        .author-info {
+            text-align: right;
+            font-size: 14px;
+            line-height: 1.4;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        .form-group input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            font-size: 16px;
+        }
+        .btn {
+            display: block;
+            width: 100%;
+            padding: 12px;
+            background-color: #27ae60;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+            margin-top: 15px;
+            text-align: center;
+        }
+        .btn:hover {
+            background-color: #219150;
+        }
+        .btn:disabled {
+            background-color: #bdc3c7;
+            cursor: not-allowed;
+        }
+        .footer-text {
+            text-align: center;
+            font-size: 15px;
+            margin-top: 25px;
+            color: #555;
+            font-weight: 500;
+        }
+        .question-card {
+            display: none;
+            background: #fafafa;
+            border: 1px solid #e0e0e0;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+        .question-text {
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 15px;
+            color: #2c3e50;
+        }
+        .option-btn {
+            display: block;
+            width: 100%;
+            padding: 10px 15px;
+            margin: 8px 0;
+            background: #ffffff;
+            border: 2px solid #dcdde1;
+            border-radius: 6px;
+            text-align: left;
+            font-size: 16px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .option-btn:hover {
+            background: #f1f2f6;
+        }
+        .option-btn.correct {
+            background-color: #d4edda !important;
+            border-color: #28a745 !important;
+            color: #155724;
+            font-weight: bold;
+        }
+        .option-btn.wrong {
+            background-color: #f8d7da !important;
+            border-color: #dc3545 !important;
+            color: #721c24;
+            font-weight: bold;
+        }
+        .explanation {
+            display: none;
+            margin-top: 15px;
+            padding: 12px;
+            background-color: #fff3cd;
+            border-left: 4px solid #ffc107;
+            color: #856404;
+            font-size: 15px;
+            border-radius: 4px;
+        }
+        /* Certificate Styles */
+        .certificate {
+            display: none;
+            border: 8px double #1a5276;
+            padding: 30px;
+            text-align: center;
+            background: #fff;
+            border-radius: 4px;
+            position: relative;
+        }
+        .certificate h2 {
+            color: #1a5276;
+            margin-bottom: 5px;
+        }
+        .cert-score {
+            font-size: 32px;
+            font-weight: bold;
+            color: #d35400;
+            margin: 15px 0;
+        }
+        .award-badge {
+            font-size: 24px;
+            margin: 15px 0;
+            padding: 10px;
+            background: #fef9e7;
+            border-radius: 8px;
+            border: 1px dashed #f39c12;
+            display: inline-block;
+        }
+        .wrong-questions-box {
+            display: none;
+            text-align: left;
+            margin-top: 20px;
+            background: #fff5f5;
+            padding: 15px;
+            border: 1px solid #feb2b2;
+            border-radius: 8px;
+        }
+        .wrong-item {
+            margin-bottom: 12px;
+            padding-bottom: 8px;
+            border-bottom: 1px solid #fed7d7;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container" id="main-container">
+    <!-- Top Title -->
+    <div class="header-title">
+        जिल्हा परिषद प्राथमिक शाळा नरसोबावाडी संचलित
+    </div>
+
+    <!-- Top Right Author Info -->
+    <div class="author-top-right">
+        <div class="author-info">
+            <strong>संकल्पना व निर्मिती</strong><br>
+            श्री सचिन शिंदे सर<br>
+            जि प प्रा शाळा नरसोबावाडी<br>
+            मोबाईल : 8329684470
+        </div>
+        <img src="https://drive.google.com/file/d/1pkldnaLRyqBtfgiQKwtbeSSfXhENzbOm/view?usp=drivesdk" alt="सचिन शिंदे सर">
+    </div>
+
+    <!-- Registration Form -->
+    <div id="start-screen">
+        <h3 style="text-align: center; color: #2c3e50;">परीक्षेचे नाव: animal.bird.plant.html</h3>
+        <div class="form-group">
+            <label>विद्यार्थ्याचे नाव:</label>
+            <input type="text" id="student-name" placeholder="पूर्ण नाव टाका">
+        </div>
+        <div class="form-group">
+            <label>मोबाईल नंबर:</label>
+            <input type="tel" id="student-mobile" placeholder="१० अंकी मोबाईल नंबर">
+        </div>
+        
+        <div class="footer-text">
+            टेस्ट निर्मिती व संकल्पना श्री सचिन शिंदे मोबाईल नंबर 83 29 68 44 70
+        </div>
+        <button class="btn" onclick="startExam()">EXAM START</button>
+    </div>
+
+    <!-- Quiz Area -->
+    <div id="quiz-screen" style="display:none;">
+        <div id="progress-text" style="font-weight:bold; margin-bottom:10px; color:#555;"></div>
+        <div id="questions-container"></div>
+        
+        <div class="footer-text">
+            टेस्ट निर्मिती व संकल्पना श्री सचिन शिंदे मोबाईल नंबर 83 29 68 44 70
+        </div>
+        
+        <button class="btn" id="next-btn" onclick="nextQuestion()" disabled>नेक्स्ट (Next)</button>
+        <button class="btn" id="submit-btn" onclick="submitExam()" style="display:none; background-color:#e74c3c;">SUBMIT EXAM</button>
+    </div>
+
+    <!-- Certificate Area -->
+    <div id="certificate-screen" class="certificate">
+        <h2>🏆 जिल्हा परिषद प्राथमिक शाळा नरसोबावाडी संचलित</h2>
+        <p style="font-size: 16px; margin: 5px 0;"><strong>परीक्षेचे नाव:</strong> animal.bird.plant.html</p>
+        <hr style="border: 0; border-top: 1px solid #ccc; margin: 15px 0;">
+        
+        <p style="font-size: 18px;">विद्यार्थ्याचे नाव: <strong id="cert-name" style="color: #2c3e50;"></strong></p>
+        <p style="font-size: 16px;">मोबाईल नंबर: <span id="cert-mobile"></span></p>
+        
+        <div class="cert-score" id="cert-score-text"></div>
+        <div class="award-badge" id="cert-award"></div>
+
+        <div style="margin-top: 20px;">
+            <button class="btn" style="background-color: #3498db; width: auto; padding: 10px 20px; display: inline-block;" onclick="toggleWrongQuestions()">चुकलेले प्रश्न व स्पष्टीकरण पहा</button>
+        </div>
+
+        <div id="wrong-questions-container" class="wrong-questions-box">
+            <h4 style="color: #c0392b; margin-top: 0;">मार्गदर्शन / चुकेचे प्रश्न:</h4>
+            <div id="wrong-list"></div>
+        </div>
+
+        <!-- Bottom Right Author Info on Certificate -->
+        <div class="author-top-right" style="margin-top: 30px; background: #f9f9f9; border: 1px solid #eee;">
+            <div class="author-info">
+                <strong>संकल्पना व निर्मिती</strong><br>
+                श्री सचिन शिंदे सर<br>
+                जि प प्रा शाळा नरसोबावाडी<br>
+                मोबाईल : 8329684470
+            </div>
+            <img src="https://drive.google.com/file/d/1pkldnaLRyqBtfgiQKwtbeSSfXhENzbOm/view?usp=drivesdk" alt="सचिन शिंदे सर">
+        </div>
+    </div>
+</div>
+
+<script>
+const questionsData = [
+    // Questions 1 to 10
+    {
+        q: "1. Which animal has a long trunk to drink water and pick up objects?",
+        options: ["(A) Lion", "(B) Elephant", "(C) Horse", "(D) Cow"],
+        correct: 1,
+        exp: "स्पष्टीकरण: हत्तीला (Elephant) पाण्याची वाफ घेण्यासाठी, पिण्यासाठी आणि वस्तू उचलण्यासाठी लांब सोंड (Trunk) असते."
+    },
+    {
+        q: "2. Lions have a thick growth of hair around their neck called a ______.",
+        options: ["(A) Mane", "(B) Tail", "(C) Whiskers", "(D) Crest"],
+        correct: 0,
+        exp: "स्पष्टीकरण: सिंहाच्या मानेभोवती असलेल्या दाट केसांना 'आयाळ' (Mane) म्हणतात."
+    },
+    {
+        q: "3. Cows, goats, and buffaloes have hard structures on their heads called ______.",
+        options: ["(A) Tusks", "(B) Horns", "(C) Fins", "(D) Scales"],
+        correct: 1,
+        exp: "स्पष्टीकरण: गाय, म्हैस व शेळी यांच्या डोक्यावर कडक 'शिंगे' (Horns) असतात."
+    },
+    {
+        q: "4. Which body part helps a fish swim easily in water?",
+        options: ["(A) Shell", "(B) Wings", "(C) Fins", "(D) Hooves"],
+        correct: 2,
+        exp: "स्पष्टीकरण: माशांना पोहण्यासाठी 'पर' (Fins) चा उपयोग होतो."
+    },
+    {
+        q: "5. Horses have hard, protective parts at the bottom of their feet called ______.",
+        options: ["(A) Paws", "(B) Claws", "(C) Hooves", "(D) Talons"],
+        correct: 2,
+        exp: "स्पष्टीकरण: घोड्याच्या पायाच्या खाली कडक असणाऱ्या भागाला 'खूर' (Hooves) म्हणतात."
+    },
+    {
+        q: "6. Which animal has a hard protective outer shell to keep it safe from enemies?",
+        options: ["(A) Fish", "(B) Tortoise", "(C) Tiger", "(D) Rabbit"],
+        correct: 1,
+        exp: "स्पष्टीकरण: कासवाच्या (Tortoise) पाठीवर सुरक्षेसाठी कडक 'कवच' (Shell) असते."
+    },
+    {
+        q: "7. Cats and tigers have sensitive hair-like structures on their face called ______.",
+        options: ["(A) Mane", "(B) Whiskers", "(C) Horns", "(D) Scales"],
+        correct: 1,
+        exp: "स्पष्टीकरण: मांजर आणि वाघ यांच्या तोंडावरील संवेदनशील केसांना 'मिशा' (Whiskers) म्हणतात."
+    },
+    {
+        q: "8. What covers the skin of a snake and a fish for protection?",
+        options: ["(A) Fur", "(B) Feathers", "(C) Scales", "(D) Bark"],
+        correct: 2,
+        exp: "स्पष्टीकरण: मासे आणि साप यांच्या त्वचेवर सुरक्षेसाठी 'खवले' (Scales) असतात."
+    },
+    {
+        q: "9. An elephant's long, visible white teeth are called ______.",
+        options: ["(A) Horns", "(B) Tusks", "(C) Beaks", "(D) Claws"],
+        correct: 1,
+        exp: "स्पष्टीकरण: हत्तीचे बाहेर दिसणारे लांब दात म्हणजे 'सुळे' (Tusks) असतात."
+    },
+    {
+        q: "10. Find the INCORRECT functional pair:",
+        options: ["(A) Elephant – Trunk", "(B) Fish – Fins", "(C) Cow – Tusks", "(D) Lion – Mane"],
+        correct: 2,
+        exp: "स्पष्टीकरण: गायीला सुळे (Tusks) नसतात, शिंगे (Horns) असतात. म्हणून ही जोडी चुकीची आहे."
+    },
+    // Questions 11 to 35
+    {
+        q: "11. Find the ODD one out:",
+        options: ["(A) Tail", "(B) Horn", "(C) Hoof", "(D) Leaf"],
+        correct: 3,
+        exp: "स्पष्टीकरण: Leaf (पान) हा वनस्पतीचा भाग आहे, तर इतर सर्व प्राण्यांचे भाग आहेत."
+    },
+    {
+        q: "12. Select the CORRECT spelling for an animal's sharp foot nails:",
+        options: ["(A) Clow", "(B) Claw", "(C) Clawe", "(D) Cloww"],
+        correct: 1,
+        exp: "स्पष्टीकरण: पंजाच्या टोकावरील नखाचे योग्य स्पेलिंग 'Claw' हे आहे."
+    },
+    {
+        q: "13. Dogs and cats walk on soft, padded feet called ______.",
+        options: ["(A) Paws", "(B) Hooves", "(C) Fins", "(D) Wings"],
+        correct: 0,
+        exp: "स्पष्टीकरण: कुत्रे व मांजरांच्या मऊ तळपायांना/पंजांना 'Paws' म्हणतात."
+    },
+    {
+        q: "14. The pig has a projecting snout which it uses to root in the ground. What is a snout?",
+        options: ["(A) A tail", "(B) A nose and mouth part", "(C) A wing", "(D) An ear"],
+        correct: 1,
+        exp: "स्पष्टीकरण: Snout म्हणजे प्राण्याचे पुढे आलेले 'मुस्कट' (नाक आणि तोंडाचा भाग)."
+    },
+    {
+        q: "15. Bears are covered with soft, thick ______ to stay warm.",
+        options: ["(A) Scales", "(B) Shells", "(C) Fur", "(D) Fins"],
+        correct: 2,
+        exp: "स्पष्टीकरण: अस्वलाच्या अंगावर उबदार राहण्यासाठी दाट केसाळ त्वचा (Fur) असते."
+    },
+    {
+        q: "16. Birds do not have teeth; instead, they use their ______ to eat food.",
+        options: ["(A) Trunk", "(B) Beak", "(C) Whiskers", "(D) Snout"],
+        correct: 1,
+        exp: "स्पष्टीकरण: पक्ष्यांना दात नसतात, अन्न खाण्यासाठी ते 'चोच' (Beak) चा वापर करतात."
+    },
+    {
+        q: "17. Which body part helps birds fly in the sky?",
+        options: ["(A) Feathers", "(B) Wings", "(C) Beak", "(D) Talons"],
+        correct: 1,
+        exp: "स्पष्टीकरण: पक्ष्यांना आकाशात उडण्यासाठी 'पंख' (Wings) मदत करतात."
+    },
+    {
+        q: "18. The body of a bird is completely covered with soft ______ to stay warm.",
+        options: ["(A) Fur", "(B) Scales", "(C) Feathers", "(D) Bark"],
+        correct: 2,
+        exp: "स्पष्टीकरण: पक्ष्यांचे शरीर 'पिसांनी' (Feathers) झाकलेले असते."
+    },
+    {
+        q: "19. Ducks have special ______ feet that help them paddle in water while swimming.",
+        options: ["(A) Webbed", "(B) Curved", "(C) Sharp", "(D) Hoofed"],
+        correct: 0,
+        exp: "स्पष्टीकरण: बदकाचे पाय पोहण्यासाठी पडद्याचे (Webbed feet) असतात."
+    },
+    {
+        q: "20. Predatory birds like eagles and hawks have very strong, sharp claws called ______.",
+        options: ["(A) Paws", "(B) Talons", "(C) Fins", "(D) Hooves"],
+        correct: 1,
+        exp: "स्पष्टीकरण: गरुडासारख्या शिकारी पक्ष्यांच्या मजबूत नखांना 'Talons' म्हणतात."
+    },
+    {
+        q: "21. A peacock has a colourful crown of feathers on its head called a ______.",
+        options: ["(A) Mane", "(B) Crest", "(C) Trunk", "(D) Shell"],
+        correct: 1,
+        exp: "स्पष्टीकरण: मोराच्या डोक्यावरील तुऱ्याला 'Crest' म्हणतात."
+    },
+    {
+        q: "22. Which bird has a strong, chisel-like beak to make holes in tree trunks?",
+        options: ["(A) Duck", "(B) Woodpecker", "(C) Parrot", "(D) Peacock"],
+        correct: 1,
+        exp: "स्पष्टीकरण: सुतार पक्षी (Woodpecker) झाडाच्या खोडाला भोक पाडण्यासाठीण मजबूत चोच वापरतो."
+    },
+    {
+        q: "23. Complete the analogy: Eagle : Talons :: Duck : ______",
+        options: ["(A) Curved beak", "(B) Webbed feet", "(C) Crest", "(D) Fins"],
+        correct: 1,
+        exp: "स्पष्टीकरण: गरुडाकडे Talons असतात, तर बदकाकडे Webbed feet (पडद्याचे पाय) असतात."
+    },
+    {
+        q: "24. Which bird is known for its hooked and curved beak used to crack nuts?",
+        options: ["(A) Parrot", "(B) Woodpecker", "(C) Duck", "(D) Crow"],
+        correct: 0,
+        exp: "स्पष्टीकरण: पोपटाची (Parrot) चोच बाकदार (Curved) असते, जी फळे व बिया फोडायला मदत करते."
+    },
+    {
+        q: "25. Find the ODD one out:",
+        options: ["(A) Beak", "(B) Wings", "(C) Feathers", "(D) Root"],
+        correct: 3,
+        exp: "स्पष्टीकरण: Root (मूळ) हा वनस्पतीचा भाग आहे, बाकी सर्व पक्ष्यांचे अवयव आहेत."
+    },
+    {
+        q: "26. What do birds use their tail feathers for while flying?",
+        options: ["(A) To eat food", "(B) To change direction", "(C) To make sound", "(D) To dig soil"],
+        correct: 1,
+        exp: "स्पष्टीकरण: उडताना दिशा बदलण्यासाठी पक्षी आपल्या शेपटीच्या पिसांचा वापर करतात."
+    },
+    {
+        q: "27. Select the CORRECTLY spelt word related to birds:",
+        options: ["(A) Feathar", "(B) Feather", "(C) Fether", "(D) Feathur"],
+        correct: 1,
+        exp: "स्पष्टीकरण: पीस या शब्दाचे अचूक स्पेलिंग 'Feather' हे आहे."
+    },
+    {
+        q: "28. Birds use their feet and claws mainly for ______.",
+        options: ["(A) Perching and catching food", "(B) Digesting food", "(C) Breathing in air", "(D) Smelling flowers"],
+        correct: 0,
+        exp: "स्पष्टीकरण: पक्षी फांदीवर पकड धरण्यासाठी (Perching) व अन्न पकडण्यासाठी नखांचा वापर करतात."
+    },
+    {
+        q: "29. The part of a plant that stays fixed under the soil is called the ______.",
+        options: ["(A) Stem", "(B) Root", "(C) Flower", "(D) Leaf"],
+        correct: 1,
+        exp: "स्पष्टीकरण: मातीखाली असणाऱ्या वनस्पतींच्या भागाला 'मूळ' (Root) म्हणतात."
+    },
+    {
+        q: "30. Green leaves prepare food for the plant using sunlight. They are called the ______ of the plant.",
+        options: ["(A) Kitchen", "(B) Root", "(C) Trunk", "(D) Bark"],
+        correct: 0,
+        exp: "स्पष्टीकरण: पाने अन्न तयार करतात, म्हणून त्यांना वनस्पतींचे स्वयंपाकघर (Kitchen) म्हणतात."
+    },
+    {
+        q: "31. What part of the plant carries water and nutrients from roots to leaves?",
+        options: ["(A) Flower", "(B) Fruit", "(C) Stem", "(D) Seed"],
+        correct: 2,
+        exp: "स्पष्टीकरण: मूळांनी शोषलेले पाणी वनस्पतींच्या इतर भागांपर्यंत पोहोचवण्याचे काम 'खोड' (Stem) करते."
+    },
+    {
+        q: "32. Rose plants have sharp ______ on their stems to protect themselves.",
+        options: ["(A) Thorns", "(B) Roots", "(C) Flowers", "(D) Fruits"],
+        correct: 0,
+        exp: "स्पष्टीकरण: गुलाबाच्या रोपाला संरक्षणासाठी खोडावर 'काटे' (Thorns) असतात."
+    },
+    {
+        q: "33. The hard outer covering of a big tree trunk is called ______.",
+        options: ["(A) Leaf", "(B) Bark", "(C) Bud", "(D) Flower"],
+        correct: 1,
+        exp: "स्पष्टीकरण: मोठ्या झाडाच्या खोडाच्या कडक बाहेरील आवरणाला 'साल' (Bark) म्हणतात."
+    },
+    {
+        q: "34. Which part of a plant turns into a fruit after blooming?",
+        options: ["(A) Root", "(B) Leaf", "(C) Flower", "(D) Stem"],
+        correct: 2,
+        exp: "स्पष्टीकरण: फुलाचे रूपांतर पुढे फळामध्ये (Fruit) होते."
+    },
+    {
+        q: "35. Inside a fruit, we usually find ______ that grow into new plants.",
+        options: ["(A) Seeds", "(B) Thorns", "(C) Bark", "(D) Roots"],
+        correct: 0,
+        exp: "स्पष्टीकरण: फळाच्या आत बिया (Seeds) असतात, ज्यापासून नवीन रोप उगवते."
+    },
+    // Questions 36 to 50
+    {
+        q: "36. A small undeveloped flower that has not opened yet is called a ______.",
+        options: ["(A) Branch", "(B) Bud", "(C) Fruit", "(D) Seed"],
+        correct: 1,
+        exp: "स्पष्टीकरण: न उमललेल्या फुलाच्या सुरुवातीच्या अवस्थेला 'कळी' (Bud) म्हणतात."
+    },
+    {
+        q: "37. Arrange the growth stages of a plant in the CORRECT sequence: (1) Flower (2) Seed (3) Root (4) Fruit",
+        options: ["(A) (2) → (3) → (1) → (4)", "(B) (1) → (2) → (3) → (4)", "(C) (4) → (1) → (3) → (2)", "(D) (3) → (1) → (2) → (4)"],
+        correct: 0,
+        exp: "स्पष्टीकरण: योग्य क्रम: बी (Seed) → मूळ (Root) → फूल (Flower) → फळ (Fruit)."
+    },
+    {
+        q: "38. Coconuts have a thick, hard outer ______ that protects the seed inside.",
+        options: ["(A) Bark", "(B) Shell", "(C) Thorn", "(D) Scale"],
+        correct: 1,
+        exp: "स्पष्टीकरण: नारळाच्या बाहेर कडक 'कवच' (Shell) असते."
+    },
+    {
+        q: "39. Roots absorb ______ and minerals from the soil.",
+        options: ["(A) Sunlight", "(B) Water", "(C) Air", "(D) Food"],
+        correct: 1,
+        exp: "स्पष्टीकरण: मुळे मातीमधून पाणी (Water) आणि क्षार शोषून घेतात."
+    },
+    {
+        q: "40. Find the ODD one out:",
+        options: ["(A) Root", "(B) Stem", "(C) Leaf", "(D) Paw"],
+        correct: 3,
+        exp: "स्पष्टीकरण: Paw (पंजा) हा प्राण्याचा भाग आहे, बाकी सर्व वनस्पतीचे भाग आहेत."
+    },
+    {
+        q: "41. Which pair is CORRECTLY matched?",
+        options: ["(A) Elephant – Beak", "(B) Bird – Wings", "(C) Plant – Claws", "(D) Fish – Horns"],
+        correct: 1,
+        exp: "स्पष्टीकरण: पक्ष्याला पंख (Bird - Wings) असतात, ही जोडी अचूक आहे."
+    },
+    {
+        q: "42. Which body part does NOT belong to a plant?",
+        options: ["(A) Stem", "(B) Branch", "(C) Tail", "(D) Leaf"],
+        correct: 2,
+        exp: "स्पष्टीकरण: Tail (शेपटी) वनस्पतीला नसते, प्राण्यांना असते."
+    },
+    {
+        q: "43. Complete the pattern: Fish : Fins :: Bird : ______",
+        options: ["(A) Wings", "(B) Roots", "(C) Hooves", "(D) Horns"],
+        correct: 0,
+        exp: "स्पष्टीकरण: मासे पोहण्यासाठी Fins वापरतात, तसे पक्षी उडण्यासाठी Wings वापरतात."
+    },
+    {
+        q: "44. Plant Root : Absorb water :: Animal Mouth / Beak : ______",
+        options: ["(A) Fly in air", "(B) Eat food", "(C) Produce seeds", "(D) Walk on ground"],
+        correct: 1,
+        exp: "स्पष्टीकरण: मूळ पाणी शोषते, तर तोंड/चोच अन्न खाण्यासाठी (Eat food) वापरली जाते."
+    },
+    {
+        q: "45. Which of the following is COMMON between a bird and a fish?",
+        options: ["(A) They both have feathers.", "(B) They both use body parts to move.", "(C) They both have trunks.", "(D) They both have hooves."],
+        correct: 1,
+        exp: "स्पष्टीकरण: पक्षी आणि मासे दोघेही हालचालीसाठी/प्रवासासाठी आपल्या अवयवांचा वापर करतात."
+    },
+    {
+        q: "46. Find the INCORRECT match:",
+        options: ["(A) Lion – Paws", "(B) Horse – Hooves", "(C) Peacock – Crest", "(D) Tiger – Beak"],
+        correct: 3,
+        exp: "स्पष्टीकरण: वाघाला चोच (Beak) नसते. त्यामुळे ही जोडी चुकीची आहे."
+    },
+    {
+        q: "47. Which body part gives support to a tree just like a backbone gives support to humans?",
+        options: ["(A) Leaf", "(B) Stem / Trunk", "(C) Flower", "(D) Fruit"],
+        correct: 1,
+        exp: "स्पष्टीकरण: झाडाला भक्कम आधार देण्याचे काम त्याचे खोड (Stem/Trunk) करते."
+    },
+    {
+        q: "48. Find the ODD pair:",
+        options: ["(A) Cow – Horns", "(B) Eagle – Talons", "(C) Rose – Thorns", "(D) Dog – Fins"],
+        correct: 3,
+        exp: "स्पष्टीकरण: कुत्र्याला Fins (पर) नसतात, माशांना असतात."
+    },
+    {
+        q: "49. Identify the function of Fins in fish and Wings in birds:",
+        options: ["(A) Digesting food", "(B) Movement / Locomotion", "(C) Protection from rain", "(D) Breathing"],
+        correct: 1,
+        exp: "स्पष्टीकरण: Fins आणि Wings या दोन्ही अवयवांचा मुख्य उपयोग हालचालीसाठी (Locomotion) होतो."
+    },
+    {
+        q: "50. Choose the correct word: A tortoise has a protective hard ______. A coconut has a hard outer ______.",
+        options: ["(A) Bark", "(B) Shell", "(C) Fur", "(D) Scale"],
+        correct: 1,
+        exp: "स्पष्टीकरण: कासवाचे आणि नारळाचे बाहेरील कडक आवरण म्हणजे Shell (कवच) होय."
+    }
+];
+
+let currentQ = 0;
+let score = 0;
+let studentAnswers = [];
+
+function startExam() {
+    const name = document.getElementById('student-name').value.trim();
+    const mobile = document.getElementById('student-mobile').value.trim();
+
+    if (!name || !mobile) {
+        alert("कृपया नाव आणि मोबाईल नंबर दोन्ही व्यवस्थित भरा!");
+        return;
+    }
+    if (mobile.length < 10) {
+        alert("कृपया वैध १० अंकी मोबाईल नंबर टाका!");
+        return;
+    }
+
+    document.getElementById('start-screen').style.display = 'none';
+    document.getElementById('quiz-screen').style.display = 'block';
+    
+    renderQuestions();
+    showQuestion(0);
+}
+
+function renderQuestions() {
+    const container = document.getElementById('questions-container');
+    container.innerHTML = '';
+
+    questionsData.forEach((qData, index) => {
+        const qDiv = document.createElement('div');
+        qDiv.className = 'question-card';
+        qDiv.id = `q-card-${index}`;
+
+        let optionsHTML = '';
+        qData.options.forEach((opt, optIdx) => {
+            optionsHTML += `<button class="option-btn" id="opt-${index}-${optIdx}" onclick="selectOption(${index}, ${optIdx})">${opt}</button>`;
+        });
+
+        qDiv.innerHTML = `
+            <div class="question-text">${qData.q}</div>
+            <div>${optionsHTML}</div>
+            <div class="explanation" id="exp-${index}">${qData.exp}</div>
+        `;
+
+        container.appendChild(qDiv);
+    });
+}
+
+function showQuestion(index) {
+    document.querySelectorAll('.question-card').forEach(el => el.style.display = 'none');
+    document.getElementById(`q-card-${index}`).style.display = 'block';
+    document.getElementById('progress-text').innerText = `प्रश्न ${index + 1} / ${questionsData.length} (प्रत्येक प्रश्न २ गुण)`;
+
+    // Handle next/submit buttons
+    const nextBtn = document.getElementById('next-btn');
+    const submitBtn = document.getElementById('submit-btn');
+
+    if (studentAnswers[index] === undefined) {
+        nextBtn.disabled = true;
+    } else {
+        nextBtn.disabled = false;
+    }
+
+    if (index === questionsData.length - 1) {
+        nextBtn.style.display = 'none';
+        submitBtn.style.display = 'block';
+        if (studentAnswers[index] === undefined) {
+            submitBtn.disabled = true;
+        } else {
+            submitBtn.disabled = false;
+        }
+    } else {
+        nextBtn.style.display = 'block';
+        submitBtn.style.display = 'none';
+    }
+}
+
+function selectOption(qIdx, optIdx) {
+    if (studentAnswers[qIdx] !== undefined) return; // Prevent re-answering
+
+    studentAnswers[qIdx] = optIdx;
+    const qData = questionsData[qIdx];
+    const isCorrect = (optIdx === qData.correct);
+
+    const selectedBtn = document.getElementById(`opt-${qIdx}-${optIdx}`);
+    const correctBtn = document.getElementById(`opt-${qIdx}-${qData.correct}`);
+    const expDiv = document.getElementById(`exp-${qIdx}`);
+
+    if (isCorrect) {
+        selectedBtn.classList.add('correct');
+        score += 2; // 2 marks per question
+    } else {
+        selectedBtn.classList.add('wrong');
+        correctBtn.classList.add('correct');
+        expDiv.style.display = 'block'; // Show explanation on wrong answer
+    }
+
+    // Disable all options for this question
+    qData.options.forEach((_, idx) => {
+        document.getElementById(`opt-${qIdx}-${idx}`).onclick = null;
+    });
+
+    // Enable next/submit button
+    if (qIdx === questionsData.length - 1) {
+        document.getElementById('submit-btn').disabled = false;
+    } else {
+        document.getElementById('next-btn').disabled = false;
+    }
+}
+
+function nextQuestion() {
+    if (currentQ < questionsData.length - 1) {
+        currentQ++;
+        showQuestion(currentQ);
+    }
+}
+
+function submitExam() {
+    document.getElementById('quiz-screen').style.display = 'none';
+    document.getElementById('certificate-screen').style.display = 'block';
+
+    const name = document.getElementById('student-name').value;
+    const mobile = document.getElementById('student-mobile').value;
+    const totalMarks = questionsData.length * 2; // 100 marks
+    const percentage = (score / totalMarks) * 100;
+
+    document.getElementById('cert-name').innerText = name;
+    document.getElementById('cert-mobile').innerText = mobile;
+    document.getElementById('cert-score-text').innerText = `प्राप्त गुण: ${score} / ${totalMarks} (${percentage.toFixed(1)}%)`;
+
+    let awardHTML = "";
+    if (percentage >= 90) {
+        awardHTML = "🥇 Gold Medal + Trophy <br><small>उत्कृष्ट कामगिरी! तुमचे हार्दिक अभिनंदन!</small>";
+    } else if (percentage >= 80) {
+        awardHTML = "🥈 Silver Medal + Trophy <br><small>खूप छान कामगिरी!</small>";
+    } else if (percentage >= 70) {
+        awardHTML = "🥉 Bronze Medal + Trophy <br><small>छान प्रयत्न!</small>";
+    } else {
+        awardHTML = "💐 अभिनंदन! फुलांचा गुच्छ <br><small>पुढील परीक्षेसाठी शुभेच्छा!</small>";
+    }
+
+    document.getElementById('cert-award').innerHTML = awardHTML;
+
+    // Build wrong questions list
+    const wrongListDiv = document.getElementById('wrong-list');
+    wrongListDiv.innerHTML = "";
+    let wrongCount = 0;
+
+    questionsData.forEach((qData, idx) => {
+        if (studentAnswers[idx] !== qData.correct) {
+            wrongCount++;
+            const item = document.createElement('div');
+            item.className = 'wrong-item';
+            item.innerHTML = `
+                <p style="margin:5px 0;"><strong>प्र. ${qData.q}</strong></p>
+                <p style="margin:3px 0; color:#c0392b;">तुमचे उत्तर: ${studentAnswers[idx] !== undefined ? qData.options[studentAnswers[idx]] : 'उत्तर दिले नाही'}</p>
+                <p style="margin:3px 0; color:#27ae60;">बरोबर उत्तर: ${qData.options[qData.correct]}</p>
+                <p style="margin:3px 0; color:#8e44ad; font-size:14px;"><em>${qData.exp}</em></p>
+            `;
+            wrongListDiv.appendChild(item);
+        }
+    });
+
+    if (wrongCount === 0) {
+        wrongListDiv.innerHTML = "<p style='color:#27ae60; font-weight:bold;'>अभिनंदन! तुमचे सर्व प्रश्न बरोबर आले आहेत!</p>";
+    }
+}
+
+function toggleWrongQuestions() {
+    const box = document.getElementById('wrong-questions-container');
+    if (box.style.display === 'block') {
+        box.style.display = 'none';
+    } else {
+        box.style.display = 'block';
+    }
+}
+</script>
+</body>
+</html>
