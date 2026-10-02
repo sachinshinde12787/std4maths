@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Riddles - Scholarship Exam</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #f5f7fa, #c3cfe2);
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+        .container {
+            background: #ffffff;
+            width: 100%;
+            max-width: 700px;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            position: relative;
+        }
+        h1, h2, h3 {
+            color: #2c3e50;
+            text-align: center;
+        }
+        .school-header {
+            text-align: center;
+            font-weight: bold;
+            color: #d35400;
+            font-size: 1.1em;
+            margin-bottom: 15px;
+        }
+        .creator-footer {
+            text-position: right;
+            text-align: right;
+            font-size: 0.9em;
+            color: #7f8c8d;
+            margin-top: 30px;
+            border-top: 1px solid #ecf0f1;
+            padding-top: 10px;
+        }
+        .creator-footer img {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            object-fit: cover;
+            vertical-align: middle;
+            margin-left: 10px;
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+            color: #34495e;
+        }
+        .form-group input {
+            width: 100%;
+            padding: 10px;
+            box-sizing: border-box;
+            border: 1px solid #bdc3c7;
+            border-radius: 5px;
+            font-size: 1em;
+        }
+        .btn {
+            background-color: #27ae60;
+            color: white;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1.1em;
+            width: 100%;
+            transition: background 0.3s;
+        }
+        .btn:hover {
+            background-color: #219653;
+        }
+        .options-list {
+            list-style: none;
+            padding: 0;
+        }
+        .options-list li {
+            background: #f8f9fa;
+            border: 1px solid #dcdde1;
+            padding: 12px 15px;
+            margin-bottom: 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .options-list li:hover {
+            background: #f1f2f6;
+        }
+        .options-list li.selected-correct {
+            background-color: #2ecc71 !important;
+            color: white;
+            border-color: #27ae60;
+        }
+        .options-list li.selected-wrong {
+            background-color: #e74c3c !important;
+            color: white;
+            border-color: #c0392b;
+        }
+        .options-list li.show-correct {
+            background-color: #2ecc71 !important;
+            color: white;
+            border-color: #27ae60;
+        }
+        .explanation {
+            margin-top: 15px;
+            padding: 10px;
+            background: #fadbd8;
+            border-left: 4px solid #e74c3c;
+            color: #78281f;
+            display: none;
+            font-size: 0.95em;
+        }
+        .watermark-bottom {
+            text-align: center;
+            font-size: 0.85em;
+            color: #95a5a6;
+            margin-top: 20px;
+        }
+        .certificate-box {
+            border: 5px double #f1c40f;
+            padding: 20px;
+            text-align: center;
+            background: #fef9e7;
+            border-radius: 10px;
+        }
+        .hidden {
+            display: none !important;
+        }
+        .nav-buttons {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <!-- WELCOME SCREEN -->
+    <div id="welcome-screen">
+        <div class="school-header">जिल्हा परिषद प्राथमिक शाळा नरसोबावाडी संचलित</div>
+        <h2>Online Scholarship Examination</h2>
+        <h3 style="color: #2980b9;">Exam Name: Riddles</h3>
+        
+        <div class="form-group">
+            <label for="student-name">विद्यार्थ्याचे नाव (Student Name):</label>
+            <input type="text" id="student-name" placeholder="Enter your full name">
+        </div>
+        
+        <div class="form-group">
+            <label for="student-mobile">मोबाईल नंबर (Mobile Number):</label>
+            <input type="tel" id="student-mobile" placeholder="Enter mobile number" maxlength="10">
+        </div>
+
+        <button class="btn" onclick="startExam()">EXAM START</button>
+
+        <div class="watermark-bottom">टेस्ट निर्मिती व संकल्पना श्री सचिन शिंदे मोबाईल नंबर 83 29 68 44 70</div>
+        
+        <div class="creator-footer">
+            संकल्पना व निर्मिती<br>
+            <strong>श्री सचिन शिंदे सर</strong><br>
+            जि प प्रा शाळा नरसोबावाडी<br>
+            मोबाईल नंबर: 83 29 68 44 70
+            <img src="https://drive.google.com/file/d/1pkldnaLRyqBtfgiQKwtbeSSfXhENzbOm/view?usp=drivesdk" alt="Creator Photo">
+        </div>
+    </div>
+    <!-- EXAM SCREEN -->
+    <div id="exam-screen" class="hidden">
+        <div class="school-header">जिल्हा परिषद प्राथमिक शाळा नरसोबावाडी संचलित</div>
+        <div style="display: flex; justify-content: space-between; font-weight: bold; margin-bottom: 10px;">
+            <span id="q-counter">Question: 1/50</span>
+            <span>Marks: <span id="current-score">0</span></span>
+        </div>
+        
+        <hr style="border: 0; border-top: 1px solid #ddd; margin-bottom: 15px;">
+
+        <h3 id="question-text" style="text-align: left; font-size: 1.1em;">Question goes here...</h3>
+        
+        <ul class="options-list" id="options-container">
+            <!-- Options dynamically loaded -->
+        </ul>
+
+        <div id="explanation-box" class="explanation">
+            <strong>स्पष्टीकरण (Explanation):</strong> <span id="explanation-text"></span>
+        </div>
+
+        <div class="nav-buttons">
+            <button id="next-btn" class="btn" style="width: 100%; display: none;" onclick="nextQuestion()">Next Question</button>
+        </div>
+
+        <div class="watermark-bottom">टेस्ट निर्मिती व संकल्पना श्री सचिन शिंदे मोबाईल नंबर 83 29 68 44 70</div>
+    </div>
+    <!-- RESULT SCREEN -->
+    <div id="result-screen" class="hidden">
+        <div class="certificate-box">
+            <div class="school-header">🏆 जिल्हा परिषद प्राथमिक शाळा नरसोबावाडी संचालित</div>
+            <h2>Scholarship Exam Result & Certificate</h2>
+            <p><strong>परीक्षेचे नाव:</strong> Riddles</p>
+            <p><strong>विद्यार्थ्याचे नाव:</strong> <span id="res-name"></span></p>
+            
+            <h1 style="font-size: 2.5em; color: #d35400; margin: 10px 0;">
+                Marks: <span id="res-marks"></span> / 100
+            </h1>
+            <h3 id="res-percentage"></h3>
+            <div id="achievement-badge" style="font-size: 1.2em; font-weight: bold; color: #27ae60; margin: 15px 0;"></div>
+            
+            <button class="btn" style="background-color: #e67e22; margin-bottom: 15px;" onclick="showMistakesModal()">चुकीचे प्रश्न तपासा (Review Mistakes)</button>
+        </div>
+
+        <div class="watermark-bottom">टेस्ट निर्मिती व संकल्पना श्री सचिन शिंदे मोबाईल नंबर 83 29 68 44 70</div>
+
+        <div class="creator-footer">
+            संकल्पना व निर्मिती<br>
+            <strong>श्री सचिन शिंदे सर</strong><br>
+            जि प प्रा शाळा नरसोबावाडी<br>
+            मोबाईल नंबर: 83 29 68 44 70
+            <img src="https://drive.google.com/file/d/1pkldnaLRyqBtfgiQKwtbeSSfXhENzbOm/view?usp=drivesdk" alt="Creator Photo">
+        </div>
+    </div>
+
+    <!-- MISTAKES REVIEW SCREEN -->
+    <div id="mistakes-screen" class="hidden">
+        <h3>चुकीचे प्रश्न व त्यांचे स्पष्टीकरण</h3>
+        <div id="mistakes-list" style="max-height: 400px; overflow-y: auto; margin-bottom: 20px; text-align: left;"></div>
+        <button class="btn" onclick="location.reload()">पन्हा परीक्षा द्या (Restart Exam)</button>
+    </div>
+</div>
+
+<script>
+    const questions = [
+        { q: "I have pages, a cover, and words printed on me. Students read me to gain knowledge. What am I?", options: ["Pencil", "Book", "Eraser", "Bag"], answer: 1, explanation: "पुस्तक (Book) वाचून ज्ञान मिळते, ज्यामध्ये पाने आणि कव्हर असते." },
+        { q: "I am made of glass or plastic, used to drink water or milk, and I have a handle. What am I?", options: ["Plate", "Spoon", "Cup", "Bowl"], answer: 2, explanation: "कपला हँडल असते आणि त्यात आपण दूध किंवा पाणी पितो." },
+        { q: "I am a rectangular device with a screen and keys, used to make calls and play games. What am I?", options: ["Television", "Radio", "Smartphone", "Refrigerator"], answer: 2, explanation: "स्मार्टफोन हा स्क्रीन आणि की असलेला डिव्हाइस आहे ज्याद्वारे कॉल केले जातात." },
+        { q: "I have four legs, a seat, and a backrest, but no arms. People sit on me at a desk. What am I?", options: ["Chair", "Bed", "Cupboard", "Sofa"], answer: 0, explanation: "खुर्चीला (Chair) चार पाय, सीट आणि पाठीमागे आधार असतो पण हँड्स नसतात." },
+        { q: "I am round, made of rubber or leather, and players kick or throw me in various sports. What am I?", options: ["Bat", "Ball", "Racket", "Net"], answer: 1,explanation: "दंडाने मारला जाणारा किंवा फेकला जाणारा गोल चेंडू (Ball) असतो." },
+        { q: "I have a long handle and bristles at the end, used to sweep the floor clean. What am I?", options: ["Mop", "Duster", "Comb", "Broom"], answer: 3, explanation: "झाडूला (Broom) लांब दांडा आणि खाली काड्या/केसासारखा भाग असतो ज्याने जमीन साफ होते." },
+        { q: "I am a domestic animal, I give milk, and I have two horns on my head. What am I?", options: ["Dog", "Cat", "Cow", "Horse"], answer: 2, explanation: "गाय (Cow) हा पाळीव प्राणी आहे जो दूध देतो आणि त्याला दोन शिंगे असतात." },
+        { q: "I am a large wild animal known as the king of the jungle, and I have a mane. What am I?", options: ["Elephant", "Tiger", "Lion", "Zebra"], answer: 2, explanation: "सिंह (Lion) हा जंगलाचा राजा मानला जातो आणि त्याच्या डोक्याभोवती आयाळ असते." },
+        { q: "I am a bird that cannot fly, but I can swim very well in icy water. What am I?", options: ["Parrot", "Pigeon", "Crow", "Penguin"], answer: 3, explanation: "पेंग्विन (Penguin) हा उडू न शकणारा पक्षी आहे परंतु बर्फाळ पाण्यात उत्तम पोहू शकतो." },
+        { q: "I am a green bird that can mimic human speech and I love eating green chillies. What am I?", options: ["Sparrow", "Parrot", "Owl", "Eagle"], answer: 1, explanation: "पोपट (Parrot) हा हिरवा पक्षी मानवी आवाजाची नक्कल करतो आणि हिरवी मिरची खातो." },
+        { q: "I am a slow-moving animal with a hard shell on my back into which I can hide my head and legs. What am I?", options: ["Rabbit", "Frog", "Tortoise", "Squirrel"], answer: 2, explanation: "कासव (Tortoise) हा हळू चालणारा प्राणी असून त्याच्या पाठीवर कठीण कवच असते." },
+        { q: "I am an insect that collects nectar from flowers and makes sweet honey. What am I?", options: ["Butterfly", "Mosquito", "Honeybee", "Housefly"], answer: 2, explanation: "मधमाशी (Honeybee) फुलांमधून मध गोळा करते." },
+        { q: "I am a place where sick people are taken for treatment by doctors and nurses. What am I?", options: ["School", "Market", "Hospital", "Post office"], answer: 2, explanation: "हॉस्पिटल (Hospital) मध्ये आजारी लोकांना उपचारासाठी नेले जाते." },
+        { q: "I am a place with many books where people go to read and borrow them quietly. What am I?", options: ["Library", "Playground", "Cinema", "Restaurant"], answer: 0, explanation: "ग्रंथालयात (Library) खूप पुस्तके असतात जिथे शांततेत वाचायला मिळतात." },
+        { q: "I am a place where farmers grow crops and keep domestic animals like cows and hens. What am I?", options: ["Factory", "Airport", "Station", "Farm"], answer: 3, explanation: "शेत (Farm) किंवा फार्महाऊसवर शेतकरी पिके व पाळीव प्राणी ठेवतात." },
+        { q: "I am a place where children go every day to study, learn new things, and play with friends. What am I?", options: ["Park", "Zoo", "School", "Museum"], answer: 2, explanation: "शाळेत (School) मुले शिकायला आणि खेळायला जातात." },
+        { q: "I am a place where you go to buy fresh fruits, vegetables, and daily grocery items. What am I?", options: ["Bank", "Market", "Hospital", "Police station"], answer: 1, explanation: "बाजारात (Market) फळे, भाजीपाला व किराणा मिळतो." },
+        { q: "I am a place where trains stop to pick up and drop off passengers. What am I?", options: ["Airport", "Bus stand", "Railway station", "Harbour"], answer: 2, explanation: "रेल्वे स्टेशनवर (Railway Station) गाड्या थांबतात." },
+        { q: "Find the missing number in the series: 5, 10, 15, 20, ?", options: ["22", "25", "30", "35"], answer: 1, explanation: "दिलेल्या मालिकेत ५ चा फरक आहे, त्यामुळे २० नंतर २५ येईल." },
+        { q: "What is the sum of the place value and face value of the digit 7 in the number 4,725?", options: ["700", "770", "7007", "707"], answer: 3, explanation: "संख्या ४७२५ मधील ७ ची स्थानिक किंमत ७०० आणि दर्शनी किंमत ७ आहे. बेरीज ७०७ येईल." },
+        { q: "If you subtract 125 from 500, what number do you get?", options: ["375", "475", "385", "350"], answer: 0, explanation: "५०० मधून १२५ वजा केले असता ३७५ राहतात." },
+        { q: "What is the product of the smallest 2-digit number and 5?", options: ["100", "500", "50", "10"], answer: 2, explanation: "सर्वात लहान दोन अंकी संख्या १० आहे. १० गुणिले ५ बरोबर ५०." },
+        { q: "Which number comes exactly halfway between 40 and 60?", options: ["45", "55", "50", "48"], answer: 2, explanation: "४० आणि ६० च्या नेमकी मधली संख्या ५० आहे." },
+        { q: "Complete the number pattern: 2, 4, 8, 16, ?", options: ["24", "20", "30", "32"], answer: 3, explanation: "प्रत्येक संख्येची दुप्पट होत आहे (२, ४, ८, १६, ३२)." },
+        { q: "Which month of the year has the least number of days (28 or 29 days)?", options: ["January", "February", "March", "April"], answer: 1, explanation: "फेब्रुवारी (February) महिन्यात सर्वात कमी दिवस (२८ किंवा २९) असतात." },
+        { q: "If today is Wednesday, what day will it be after 3 days?", options: ["Friday", "Saturday", "Sunday", "Thursday"], answer: 1, explanation: "बुधवारनंतर ३ दिवस म्हणजे गुरुवार, शुक्रवार, शनिवार." },
+        { q: "Which of the following months has 31 days?", options: ["June", "September", "July", "November"], answer: 2, explanation: "दिलेल्या पर्यायांपैकी जुलै (July) महिन्यात ३१ दिवस असतात." },
+        { q: "How many months in a year have 30 days?", options: ["4", "6", "5", "7"], answer: 0, explanation: "एका वर्षात ३० दिवस असणारे ४ महिने असतात (एप्रिल, जून, सप्टेंबर, नोव्हेंबर)." },
+        { q: "Which day comes immediately before Tuesday?", options: ["Sunday", "Wednesday", "Monday", "Thursday"], answer: 2, explanation: "मंगळवारच्या आधीचा वार सोमवार (Monday) असतो." },
+        { q: "Which is the last month of the year according to the English calendar?", options: ["November", "October", "December", "January"], answer: 2, explanation: "इंग्रजी कॅलेंडरनुसार वर्षाचा शेवटचा महिना डिसेंबर (December) असतो." },
+        { q: "I wear a uniform, carry a letter bag, and deliver letters and parcels to your doorstep. Who am I?", options: ["Policeman", "Firefighter", "Doctor", "Postman"], answer: 3, explanation: "पोस्टमन (Postman) पत्रे आणि पार्सल घरपोच पोहोचवतो." },
+        { q: "I fly an airplane, travel around the world, and wear a special pilot's uniform. Who am I?", options: ["Driver", "Pilot", "Conductor", "Sailor"], answer: 1, explanation: "विमान चालवणार्‍या व्यक्तीला पायलट (Pilot) म्हणतात." },
+        { q: "I grow crops in the fields, work hard in the sun and rain, and feed the entire nation. Who am I?", options: ["Teacher", "Carpenter", "Cobbler", "Farmer"], answer: 3, explanation: "शेतकरी (Farmer) शेतात पिकवून सर्वांचे पोट भरतो." },
+        { q: "I stitch clothes, use a sewing machine, and make shirts and trousers. Who am I?", options: ["Potter", "Blacksmith", "Tailor", "Barber"], answer: 2, explanation: "शिंपी (Tailor) कपडे शिवण्याचे काम करतो." },
+        { q: "I catch thieves, maintain law and order, and protect the citizens. Who am I?", options: ["Soldier", "Policeman", "Watchman", "Guard"], answer: 1, explanation: "पोलिस (Policeman) चोरांना पकडतो आणि कायदा सुव्यवस्था राखतो." },
+        { q: "I mend broken shoes, polish them, and fix sandals. Who am I?", options: ["Tailor", "Mason", "Painter", "Cobbler"], answer: 3, explanation: "चर्मकार किंवा मोची (Cobbler) जुने किंवा तुटलेले जोड शिवतो व पॉलिश करतो." },
+        { q: "I teach students in a classroom, write on the blackboard, and share knowledge. Who am I?", options: ["Doctor", "Engineer", "Teacher", "Scientist"], answer: 2, explanation: "शिक्षक (Teacher) वर्गात विद्यार्थ्यांना शिकवतात." },
+        { q: "I put out fires, wear a red helmet, and save people from burning buildings. Who am I?", options: ["Firefighter", "Plumber", "Electrician", "Mechanic"], answer: 0, explanation: "अग्निशामक (Firefighter) आग विझवण्याचे व लोकांचे प्राण वाचवण्याचे कार्य करतो." },
+        { q: "Which of the following is a fruit?", options: ["Potato", "Carrot", "Apple", "Spinach"], answer: 2, explanation: "सफरचंद (Apple) हे फळ आहे." },
+        { q: "Which of the following is a domestic animal?", options: ["Tiger", "Dog", "Fox", "Wolf"], answer: 1, explanation: "कुत्रा (Dog) हा पाळीव प्राणी आहे." },
+        { q: "Which of the following transport vehicles moves on railway tracks?", options: ["Bus", "Aeroplane", "Car", "Train"], answer: 4-1/*index correction*/, answer: 3, explanation: "आघाडी किंवा रेल्वेगाडी (Train) लोखंडी रुळांवर चालते." },
+        { q: "Which of the following is a leafy vegetable?", options: ["Potato", "Tomato", "Cabbage", "Radish"], answer: 2, explanation: "कोबी (Cabbage) ही पाने असलेली भाजी आहे." },
+        { q: "Which of the following is a water source?", options: ["Mountain", "River", "Desert", "Volcano"], answer: 1, explanation: "नदी (River) हा पाण्याचा मुख्य स्त्रोत आहे." },
+        { q: "Which of the following tools is used to measure temperature?", options: ["Barometer", "Thermometer", "Speedometer", "Ruler"], answer: 1, explanation: "तापमान मोजण्यासाठी थर्मामीटर (Thermometer) वापरतात." },
+        { q: "I am not a bird, I cannot swim, I do not live in water, but I am an animal that barks. What am I?", options: ["Duck", "Fish", "Eagle", "Dog"], answer: 3, explanation: "कुत्रा (Dog) भुंकणारा प्राणी आहे जो पाण्यात राहत नाही व उडतही नाही." },
+        { q: "I am not a vehicle, I do not have wheels, I am not a living thing, but I am a school stationery item used to write. What am I?", options: ["Bicycle", "Pencil", "Car", "Bus"], answer: 1, explanation: "पेन्सील (Pencil) ही लिहिण्याची शालेय वस्तू आहे." },
+        { q: "I am not a summer month, I am not a winter month, but I fall in the rainy season (Monsoon in India). Which of the following am I?", options: ["April", "December", "July", "January"], answer: 2, explanation: "जुलै (July) हा भारतामध्ये पावसाळ्यातील (Monsoon) महिना आहे." },
+        { q: "I have four legs, I give milk, and my name starts with the letter 'C'. Costly or common, I provide dairy. What am I?", options: ["Cat", "Camel", "Cow", "Cheetah"], answer: 2, explanation: "गाय (Cow) चार पायांची असून दूध देते आणि हिचे नाव C ने सुरू होते." },
+        { q: "I am a red fruit, I am round in shape, and teachers often receive me from students.", options: ["Mango", "Banana", "Apple", "Orange"], answer: 2, explanation: "सफरचंद (Apple) हे लाल व गोलाकार फळ आहे." },
+        { q: "I am a bright object in the sky, I shine during the day, and I give us heat and light.", options: ["Moon", "Star", "Cloud", "Sun"], answer: 3, explanation: "सूर्य (Sun) दिवसा चमकतो आणि आपल्याला उष्णता व प्रकाश देतो." }
+    ];
+
+    let currentIdx = 0;
+    let score = 0;
+    let studentName = "";
+    let studentMobile = "";
+    let incorrectAttempts = [];
+
+    function startExam() {
+        studentName = document.getElementById('student-name').value.trim();
+        studentMobile = document.getElementById('student-mobile').value.trim();
+
+        if(!studentName || !studentMobile) {
+            alert("कृपया विद्यार्थ्याचे नाव आणि मोबाईल नंबर प्रविष्ट करा!");
+            return;
+        }
+
+        document.getElementById('welcome-screen').classList.add('hidden');
+        document.getElementById('exam-screen').classList.remove('hidden');
+        loadQuestion();
+    }
+
+    function loadQuestion() {
+        let q = questions[currentIdx];
+        document.getElementById('q-counter').innerText = `Question: ${currentIdx + 1}/50`;
+        document.getElementById('current-score').innerText = score;
+        document.getElementById('question-text').innerText = `Q${currentIdx + 1}. ${q.q}`;
+        
+        let optContainer = document.getElementById('options-container');
+        optContainer.innerHTML = '';
+        document.getElementById('explanation-box').style.display = 'none';
+        document.getElementById('next-btn').style.display = 'none';
+
+        q.options.forEach((opt, index) => {
+            let li = document.createElement('li');
+            li.innerText = `${index + 1}) ${opt}`;
+            li.onclick = () => selectOption(index, li);
+            optContainer.appendChild(li);
+        });
+    }
+
+    function selectOption(selectedIndex, liElement) {
+        let q = questions[currentIdx];
+        let options = document.querySelectorAll('.options-list li');
+        
+        // Disable further clicks
+        options.forEach(opt => opt.onclick = null);
+
+        if(selectedIndex === q.answer) {
+            liElement.classList.add('selected-correct');
+            score += 2; // प्रत्येक प्रश्नाला २ गुण
+            document.getElementById('current-score').innerText = score;
+        } else {
+            liElement.classList.add('selected-wrong');
+            options[q.answer].classList.add('show-correct');
+            
+            // Show explanation in Marathi
+            document.getElementById('explanation-text').innerText = q.explanation;
+            document.getElementById('explanation-box').style.display = 'block';
+
+            // Track mistake
+            incorrectAttempts.push({
+                question: q.q,
+                selected: q.options[selectedIndex],
+                correct: q.options[q.answer],
+                explanation: q.explanation
+            });
+        }
+
+        document.getElementById('next-btn').style.display = 'block';
+    }
+
+    function nextQuestion() {
+        currentIdx++;
+        if(currentIdx < questions.length) {
+            loadQuestion();
+        } else {
+            showResult();
+        }
+    }
+
+    function showResult() {
+        document.getElementById('exam-screen').classList.add('hidden');
+        document.getElementById('result-screen').classList.remove('hidden');
+
+        document.getElementById('res-name').innerText = studentName;
+        document.getElementById('res-marks').innerText = score;
+        
+        let percentage = (score / 100) * 100;
+        document.getElementById('res-percentage').innerText = `Percentage: ${percentage}%`;
+
+        let badgeText = "";
+        if(percentage >= 90) {
+            badgeText = "🥇 Gold Medal + Trophy (उत्कृष्ट कामगिरी!)";
+        } else if(percentage >= 80) {
+            badgeText = "🥈 Silver Medal + Trophy (फार छान कामगिरी!)";
+        } else if(percentage >= 70) {
+            badgeText = "🥉 Bronze Medal + Trophy (छान कामगिरी!)";
+        } else {
+            badgeText = "💐 अभिनंदन! फुलांचा गुच्छ व 'पुढील परीक्षेसाठी शुभेच्छा'";
+        }
+        document.getElementById('achievement-badge').innerText = badgeText;
+    }
+
+    function showMistakesModal() {
+        document.getElementById('result-screen').classList.add('hidden');
+        document.getElementById('mistakes-screen').classList.remove('hidden');
+
+        let listDiv = document.getElementById('mistakes-list');
+        listDiv.innerHTML = '';
+
+        if(incorrectAttempts.length === 0) {
+            listDiv.innerHTML = "<p>अभिनंदन! तुमचे सर्व प्रश्न बरोबर आले आहेत, एकही चूक नाही!</p>";
+            return;
+        }
+
+        incorrectAttempts.forEach((item, idx) => {
+            let box = document.createElement('div');
+            box.style.background = "#fdf2e9";
+            box.style.padding = "10px";
+            box.style.marginBottom = "10px";
+            box.style.borderRadius = "5px";
+            box.innerHTML = `<strong>Q. ${item.question}</strong><br>
+                             <span style="color: red;">तुमचे उत्तर: ${item.selected}</span><br>
+                             <span style="color: green;">योग्य उत्तर: ${item.correct}</span><br>
+                             <em>स्पष्टीकरण: ${item.explanation}</em>`;
+            listDiv.appendChild(box);
+        });
+    }
+</script>
+</body>
+</html>
