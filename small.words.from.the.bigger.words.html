@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="mr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Finding Small Words From The Bigger Word - Exam</title>
+    <style>
+        * { box-sizing: border-box; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+        body { background-color: #f4f7f6; margin: 0; padding: 15px; color: #333; }
+        .container { max-width: 800px; margin: 0 auto; background: #fff; padding: 25px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
+        .header { text-align: center; border-bottom: 2px solid #007bff; padding-bottom: 10px; margin-bottom: 20px; }
+        .header h2 { color: #007bff; margin: 5px 0; }
+        .header h3 { color: #28a745; margin: 5px 0; }
+        
+        .creator-info { display: flex; justify-content: flex-end; align-items: center; margin-bottom: 20px; background: #eef5ff; padding: 10px; border-radius: 8px; }
+        .creator-info img { width: 70px; height: 70px; border-radius: 50%; object-fit: cover; margin-left: 15px; border: 2px solid #007bff; }
+        .creator-text { text-align: right; font-size: 14px; }
+
+        .form-group { margin-bottom: 15px; }
+        .form-group label { display: block; font-weight: bold; margin-bottom: 5px; }
+        .form-group input { width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 6px; font-size: 16px; }
+
+        .btn { background-color: #007bff; color: white; padding: 12px 24px; border: none; border-radius: 6px; font-size: 18px; cursor: pointer; width: 100%; margin-top: 15px; font-weight: bold; }
+        .btn:disabled { background-color: #cccccc; cursor: not-allowed; }
+        .btn:hover:not(:disabled) { background-color: #0056b3; }
+
+        .footer-note { text-align: center; font-size: 14px; font-weight: bold; color: #555; margin-top: 20px; border-top: 1px solid #ddd; padding-top: 10px; }
+
+        .question-card { display: none; }
+        .question-card.active { display: block; }
+        .option-btn { display: block; width: 100%; text-align: left; padding: 12px; margin: 8px 0; border: 1px solid #ddd; border-radius: 6px; background-color: #f9f9f9; font-size: 16px; cursor: pointer; transition: 0.2s; }
+        .option-btn:hover { background-color: #eef; }
+        .option-btn.correct { background-color: #28a745 !important; color: white; font-weight: bold; }
+        .option-btn.wrong { background-color: #dc3545 !important; color: white; font-weight: bold; }
+        
+        .explanation { margin-top: 15px; padding: 12px; background-color: #fff3cd; border-left: 5px solid #ffc107; border-radius: 4px; display: none; font-size: 15px; }
+
+        /* Certificate Styling */
+        #certificate-section { display: none; }
+        .certificate { border: 10px double #007bff; padding: 30px; border-radius: 8px; background: #fff; text-align: center; position: relative; margin-bottom: 20px; }
+        .cert-score { font-size: 32px; font-weight: bold; color: #d9534f; margin: 15px 0; }
+        .cert-badge { font-size: 24px; margin: 15px 0; padding: 10px; background: #f8f9fa; border-radius: 8px; display: inline-block; }
+
+        .review-section { display: none; margin-top: 20px; background: #fff; padding: 15px; border-radius: 8px; border: 1px solid #ccc; }
+        .review-item { border-bottom: 1px solid #eee; padding: 10px 0; }
+        .review-item:last-child { border-bottom: none; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    
+    <!-- START PAGE -->
+    <div id="start-page">
+        <div class="header">
+            <h2>जिल्हा परिषद प्राथमिक शाळा नरसोबावाडी संचलित</h2>
+            <h3>परीक्षेचे नाव: Finding small words from the bigger word</h3>
+        </div>
+
+        <div class="creator-info">
+            <div class="creator-text">
+                <strong>संकल्पना व निर्मिती:</strong><br>
+                श्री सचिन शिंदे सर<br>
+                जि प प्रा शाळा नरसोबावाडी<br>
+                मोबाईल नं: 8329684470
+            </div>
+            <img src="https://drive.google.com/thumbnail?id=1pkldnaLRyqBtfgiQKwtbeSSfXhENzbOm&sz=w200" alt="सचिन शिंदे सर">
+        </div>
+
+        <div class="form-group">
+            <label for="studentName">विद्यार्थ्याचे नाव:</label>
+            <input type="text" id="studentName" placeholder="पूर्ण नाव टाका..." required>
+        </div>
+
+        <div class="form-group">
+            <label for="studentMobile">मोबाईल नंबर:</label>
+            <input type="tel" id="studentMobile" placeholder="१० अंकी मोबाईल नंबर..." required>
+        </div>
+
+        <button class="btn" onclick="startExam()">EXAM START</button>
+
+        <div class="footer-note">
+            टेस्ट निर्मिती व संकल्पना: श्री सचिन शिंदे | मो. ८३२९६८४४७०
+        </div>
+    </div>
+
+    <!-- EXAM PAGE -->
+    <div id="exam-page" style="display: none;">
+        <div id="question-container"></div>
+        
+        <div class="explanation" id="explanation-box"></div>
+        
+        <button class="btn" id="next-btn" onclick="nextQuestion()" disabled>पुढील प्रश्न (Next)</button>
+
+        <div class="footer-note">
+            टेस्ट निर्मिती व संकल्पना: श्री सचिन शिंदे | मो. ८३२९६८४४७०
+        </div>
+    </div>
+
+    <!-- CERTIFICATE PAGE -->
+    <div id="certificate-section">
+        <div class="certificate">
+            <h2>🏆 जिल्हा परिषद प्राथमिक शाळा नरसोबावाडी संचालित 🏆</h2>
+            <h4>ऑनलाइन शिष्यवृत्ती सराव परीक्षा</h4>
+            <p><strong>परीक्षेचे नाव:</strong> Finding small words from the bigger word</p>
+            <hr>
+            <p>प्रमाणित करण्यात येते की विद्यार्थी / विद्यार्थिनी,</p>
+            <h3 id="cert-student-name" style="color: #007bff; font-size: 24px;">-</h3>
+            <p>यांनी सदर परीक्षा यशस्वीरीत्या पूर्ण केली आहे.</p>
+            
+            <div class="cert-score" id="cert-score">गुण: 0 / 100</div>
+            <div class="cert-badge" id="cert-badge">सम्मान</div>
+
+            <div class="creator-info" style="margin-top: 30px;">
+                <div class="creator-text">
+                    <strong>संकल्पना व निर्मिती:</strong><br>
+                    श्री सचिन शिंदे सर<br>
+                    जि प प्रा शाळा नरसोबावाडी<br>
+                    मोबाईल नं: 8329684470
+                </div>
+                <img src="https://drive.google.com/thumbnail?id=1pkldnaLRyqBtfgiQKwtbeSSfXhENzbOm&sz=w200" alt="सचिन शिंदे सर">
+            </div>
+        </div>
+
+        <button class="btn" style="background-color: #dc3545;" onclick="toggleReview()">चुकलेले प्रश्न व मार्गदर्शन पहा 🔍</button>
+
+        <div id="review-box" class="review-section">
+            <h3>चुकलेल्या प्रश्नांचे स्पष्टीकरण:</h3>
+            <div id="review-content"></div>
+        </div>
+
+        <div class="footer-note">
+            टेस्ट निर्मिती व संकल्पना: श्री सचिन शिंदे | मो. ८३२९६८४४७०
+        </div>
+    </div>
+
+  </div>
+  <script>
+const questionsData = [
+    { q: "1. Which small meaningful word is hidden at the BEGINNING of 'TEACHER'?", options: ["TEA", "HER", "EACH", "CHEER"], ans: 0, exp: "स्पष्टीकरण: 'TEACHER' या शब्दाच्या सुरुवातीला 'TEA' (चहा) हा अर्थपूर्ण शब्द आहे." },
+    { q: "2. Identify the small word hidden at the BEGINNING of 'PEACOCK'.", options: ["COCK", "SEA", "PEN", "PEA"], ans: 3, exp: "स्पष्टीकरण: 'PEACOCK' च्या सुरुवातीला 'PEA' (वाटाणा) हा शब्द आहे." },
+    { q: "3. Choose the small meaningful word hidden at the BEGINNING of 'BALLOON'.", options: ["ON", "ALL", "BALL", "NO"], ans: 2, exp: "स्पष्टीकरण: 'BALLOON' च्या सुरुवातीला 'BALL' (चेंडू) हा शब्द आहे." },
+    { q: "4. Which meaningful word is hidden at the BEGINNING of 'CANDLE'?", options: ["CAN", "AND", "AN", "LE"], ans: 0, exp: "स्पष्टीकरण: 'CANDLE' च्या सुरुवातीला 'CAN' हा शब्द तयार होतो." },
+    { q: "5. Find the small meaningful word hidden at the BEGINNING of 'STAND'.", options: ["AND", "TAN", "AN", "ANT"], ans: 2, exp: "स्पष्टीकरण: 'STAND' या शब्दाच्या सुरुवातीला 'AN' हा अर्थपूर्ण शब्द आहे." },
+    { q: "6. Which word is hidden at the BEGINNING of 'PENCIL'?", options: ["EN", "CAN", "PIN", "PEN"], ans: 3, exp: "स्पष्टीकरण: 'PENCIL' च्या सुरुवातीला 'PEN' (पेन) हा शब्द आहे." },
+    { q: "7. Identify the small word hidden at the BEGINNING of 'FOOTBALL'.", options: ["BALL", "ALL", "FOOT", "FOOD"], ans: 2, exp: "स्पष्टीकरण: 'FOOTBALL' च्या सुरुवातीला 'FOOT' (पाय) हा शब्द आहे." },
+    { q: "8. Choose the meaningful word hidden at the BEGINNING of 'GRAPE'.", options: ["APE", "RAP", "GAP", "RED"], ans: 0, exp: "स्पष्टीकरण: 'GRAPE' च्या सुरुवातीला 'APE' (माकड) हा अर्थपूर्ण शब्द लपलेला आहे." },
+    { q: "9. What meaningful word is hidden at the BEGINNING of 'MANGO'?", options: ["GO", "MAN", "AN", "NO"], ans: 1, exp: "स्पष्टीकरण: 'MANGO' च्या सुरुवातीला 'MAN' (माणूस) हा शब्द आहे." },
+    { q: "10. Find the small word hidden at the BEGINNING of 'CARPET'.", options: ["PET", "CAT", "RED", "CAR"], ans: 3, exp: "स्पष्टीकरण: 'CARPET' च्या सुरुवातीला 'CAR' (गाडी) हा शब्द आहे." },
+    
+    { q: "11. Which small meaningful word is hidden at the END of 'MANGO'?", options: ["MAN", "GO", "AN", "ON"], ans: 1, exp: "स्पष्टीकरण: 'MANGO' या शब्दाच्या शेवटी 'GO' (जाणे) हा शब्द आहे." },
+    { q: "12. Identify the small meaningful word hidden at the END of 'WINDOW'.", options: ["WIN", "IN", "NOW", "DO"], ans: 3, exp: "स्पष्टीकरण: 'WINDOW' च्या शेवटी 'DO' हा अर्थपूर्ण शब्द आहे." },
+    { q: "13. Find the meaningful word hidden at the END of 'FLOWER'.", options: ["FLOW", "LOW", "HER", "OWL"], ans: 2, exp: "स्पष्टीकरण: 'FLOWER' च्या शेवटी 'HER' हा शब्द आहे." },
+    { q: "14. What small meaningful word is hidden at the END of 'STONE'?", options: ["ONE", "TON", "SON", "NOT"], ans: 0, exp: "स्पष्टीकरण: 'STONE' च्या शेवटी 'ONE' (एक) हा शब्द लपलेला आहे." },
+    { q: "15. Choose the small meaningful word hidden at the END of 'PLANT'.", options: ["PLAN", "ANT", "PAN", "TAN"], ans: 1, exp: "स्पष्टीकरण: 'PLANT' च्या शेवटी 'ANT' (मुंगी) हा शब्द आहे." },
+    { q: "16. Identify the meaningful word hidden at the END of 'FATHER'.", options: ["FAT", "THE", "HE", "HER"], ans: 3, exp: "स्पष्टीकरण: 'FATHER' च्या शेवटी 'HER' हा अर्थपूर्ण शब्द आहे." },
+    { q: "17. Find the small meaningful word hidden at the END of 'ORANGE'.", options: ["OR", "RAN", "AGE", "RANG"], ans: 2, exp: "स्पष्टीकरण: 'ORANGE' च्या शेवटी 'AGE' (वय) हा शब्द आहे." },
+    { q: "18. What meaningful word is hidden at the END of 'FOREST'?", options: ["FOR", "REST", "SET", "RED"], ans: 1, exp: "स्पष्टीकरण: 'FOREST' च्या शेवटी 'REST' (विश्रांती) हा शब्द आहे." },
+    { q: "19. Which small meaningful word is hidden at the END of 'BEAR'?", options: ["BE", "BAR", "RED", "EAR"], ans: 3, exp: "स्पष्टीकरण: 'BEAR' च्या शेवटी 'EAR' (कान) हा अर्थपूर्ण शब्द आहे." },
+    { q: "20. Identify the small word hidden at the END of 'SHOUT'.", options: ["OUT", "HOT", "SHOU", "TIN"], ans: 0, exp: "स्पष्टीकरण: 'SHOUT' च्या शेवटी 'OUT' (बाहेर) हा शब्द आहे." },
+
+    { q: "21. Find the small meaningful word hidden in the MIDDLE of 'SUNDAY'.", options: ["SUN", "DAY", "ON", "AN"], ans: 2, exp: "स्पष्टीकरण: 'SUNDAY' च्या मध्ये 'ON' हा शब्द लपलेला आहे." },
+    { q: "22. Which small meaningful word is in the MIDDLE of 'MONKEY'?", options: ["KEY", "ON", "MONK", "ONE"], ans: 1, exp: "स्पष्टीकरण: 'MONKEY' च्या मध्ये 'ON' हा शब्द येतो." },
+    { q: "23. Identify the small meaningful word hidden in the MIDDLE of 'DONKEY'.", options: ["DON", "KEY", "ON", "ONE"], ans: 2, exp: "स्पष्टीकरण: 'DONKEY' च्या मधेच 'ON' हा शब्द आहे." },
+    { q: "24. Find the small word hidden in the MIDDLE of 'BOTTLE'.", options: ["BOT", "TO", "LE", "TOP"], ans: 1, exp: "स्पष्टीकरण: 'BOTTLE' च्या मध्यभागी 'TO' हा शब्द आहे." },
+    { q: "25. Which small meaningful word is in the MIDDLE of 'PANTS'?", options: ["PAN", "TAN", "PAT", "ANT"], ans: 3, exp: "स्पष्टीकरण: 'PANTS' च्या मध्यभागी 'ANT' (मुंगी) हा शब्द येतो." },
+    { q: "26. Choose the small meaningful word hidden in the MIDDLE of 'SHADOW'.", options: ["SHAD", "HAD", "DO", "SHOW"], ans: 1, exp: "स्पष्टीकरण: 'SHADOW' च्या मध्यभागी 'HAD' हा अर्थपूर्ण शब्द आहे." },
+    { q: "27. Find the small meaningful word hidden in the MIDDLE of 'CANDLE'.", options: ["CAN", "LE", "END", "AND"], ans: 3, exp: "स्पष्टीकरण: 'CANDLE' च्या मध्यभागी 'AND' हा शब्द आहे." },
+    { q: "28. Which small word is hidden in the MIDDLE of 'GRATE'?", options: ["GREAT", "ATE", "RED", "RAT"], ans: 3, exp: "स्पष्टीकरण: 'GRATE' च्या मध्यभागी 'RAT' (उंदीर) हा शब्द आहे." },
+    { q: "29. What small word is hidden in the MIDDLE of 'PARROT'?", options: ["PAR", "ROT", "ART", "RAT"], ans: 3, exp: "स्पष्टीकरण: 'PARROT' च्या मध्यभागी 'RAT' हा शब्द लपलेला आहे." },
+    { q: "30. Identify the small meaningful word hidden in the MIDDLE of 'SMART'.", options: ["MART", "ART", "AT", "MAT"], ans: 1, exp: "स्पष्टीकरण: 'SMART' च्या मध्यभागी 'ART' (कला) हा शब्द आहे." },
+
+    { q: "31. The small word 'RAT' is hidden in which bigger word?", options: ["GRATE", "SCHOOL", "TIGER", "WATER"], ans: 0, exp: "स्पष्टीकरण: 'GRATE' या मोठ्या शब्दात 'RAT' हा शब्द समाविष्ट आहे." },
+    { q: "32. The small word 'CAT' is hidden in which bigger word?", options: ["TABLE", "CHAIR", "PEN", "CATCH"], ans: 3, exp: "स्पष्टीकरण: 'CATCH' या शब्दात 'CAT' लपलेला आहे." },
+    { q: "33. The small word 'PEN' is hidden in which bigger word?", options: ["PAPER", "PENCIL", "BOOK", "DESK"], ans: 1, exp: "स्पष्टीकरण: 'PENCIL' या शब्दात 'PEN' हा लहान शब्द आहे." },
+    { q: "34. The small word 'ICE' is hidden in which bigger word?", options: ["PRICE", "KING", "RING", "PARK"], ans: 0, exp: "स्पष्टीकरण: 'PRICE' या शब्दात 'ICE' हा शब्द लपलेला आहे." },
+    { q: "35. The small word 'WIN' is hidden in which bigger word?", options: ["WATER", "WAITER", "WOOD", "WINTER"], ans: 3, exp: "स्पष्टीकरण: 'WINTER' या शब्दात 'WIN' हा शब्द आहे." },
+    { q: "36. The small word 'ART' is hidden in which bigger word?", options: ["CHART", "CATER", "BREAD", "TRAIN"], ans: 0, exp: "स्पष्टीकरण: 'CHART' या मोठ्या शब्दात 'ART' हा शब्द आहे." },
+    { q: "37. The small word 'EAR' is hidden in which bigger word?", options: ["HORSE", "HOUSE", "HAND", "HEART"], ans: 3, exp: "स्पष्टीकरण: 'HEART' या शब्दात 'EAR' समाविष्ट आहे." },
+    { q: "38. The small word 'RAIN' is hidden in which bigger word?", options: ["TRAIN", "ROAD", "RIVER", "RING"], ans: 0, exp: "स्पष्टीकरण: 'TRAIN' या शब्दात 'RAIN' लपलेला आहे." },
+    { q: "39. The small word 'BALL' is hidden in which bigger word?", options: ["BELL", "BILL", "BULL", "BALLOON"], ans: 3, exp: "स्पष्टीकरण: 'BALLOON' या शब्दात 'BALL' हा शब्द आहे." },
+    { q: "40. The small word 'ALL' is hidden in which bigger word?", options: ["TOP", "TAP", "TEN", "TALL"], ans: 3, exp: "स्पष्टीकरण: 'TALL' या शब्दात 'ALL' लपलेला आहे." },
+
+    { q: "41. Which word DOES NOT contain the small meaningful word 'IN'?", options: ["TRAIN", "WINDOW", "KING", "CAT"], ans: 3, exp: "स्पष्टीकरण: 'CAT' या शब्दात 'IN' हा शब्द येत नाही." },
+    { q: "42. Which word DOES NOT contain the small meaningful word 'OUT'?", options: ["SHOUT", "SCOUT", "ABOUT", "SCHOOL"], ans: 3, exp: "स्पष्टीकरण: 'SCHOOL' या शब्दात 'OUT' हा शब्द नाही." },
+    { q: "43. Which word DOES NOT contain the small meaningful word 'CAT'?", options: ["CATCH", "SCAT", "CATER", "DOG"], ans: 3, exp: "स्पष्टीकरण: 'DOG' या शब्दात 'CAT' हा शब्द नाही." },
+    { q: "44. Where is the small word 'TEA' located in the word 'TEACHER'?", options: ["At the beginning", "In the middle", "At the end", "None of these"], ans: 0, exp: "स्पष्टीकरण: 'TEACHER' या शब्दाच्या सुरुवातीला (At the beginning) 'TEA' हा शब्द आहे." },
+    { q: "45. Where is the small word 'HER' located in the word 'FLOWER'?", options: ["At the beginning", "In the middle", "At the end", "None of these"], ans: 2, exp: "स्पष्टीकरण: 'FLOWER' च्या शेवटी (At the end) 'HER' हा शब्द आहे." },
+    { q: "46. Where is the small word 'KEY' located in the word 'DONKEY'?", options: ["At the beginning", "In the middle", "At the end", "None of these"], ans: 2, exp: "स्पष्टीकरण: 'DONKEY' च्या शेवटी (At the end) 'KEY' हा शब्द आहे." },
+    { q: "47. Identify the small word hidden at the BEGINNING of 'BUTTERFLY'.", options: ["FLY", "BUT", "TER", "ER"], ans: 1, exp: "स्पष्टीकरण: 'BUTTERFLY' च्या सुरुवातीला 'BUT' हा शब्द आहे." },
+    { q: "48. Which word has 'CAR' at the beginning and 'PET' at the end?", options: ["CARPET", "PARROT", "MARKET", "BASKET"], ans: 0, exp: "स्पष्टीकरण: 'CARPET' या शब्दाच्या सुरुवातीला CAR आणि शेवटी PET आहे." },
+    { q: "49. Which word contains TWO hidden meaningful words: 'FOOT' and 'BALL'?", options: ["FOOTBALL", "VOLLEYBALL", "CRICKET", "HOCKEY"], ans: 0, exp: "स्पष्टीकरण: 'FOOTBALL' या शब्दात FOOT आणि BALL असे दोन शब्द आहेत." },
+    { q: "50. Which word DOES NOT contain the small word 'EAR'?", options: ["HEAR", "BEAR", "TEAR", "BIRD"], ans: 3, exp: "स्पष्टीकरण: 'BIRD' या शब्दात 'EAR' हा शब्द नाही." }
+];
+    let currentQuestionIndex = 0;
+let score = 0;
+let userAnswers = [];
+
+function startExam() {
+    const name = document.getElementById('studentName').value.trim();
+    const mobile = document.getElementById('studentMobile').value.trim();
+
+    if (name === "" || mobile === "" || mobile.length < 10) {
+        alert("कृपया तुमचे पूर्ण नाव आणि १० अंकी वैध मोबाईल नंबर टाका!");
+        return;
+    }
+
+    document.getElementById('start-page').style.display = 'none';
+    document.getElementById('exam-page').style.display = 'block';
+    
+    showQuestion();
+}
+
+function showQuestion() {
+    const qData = questionsData[currentQuestionIndex];
+    const container = document.getElementById('question-container');
+    const expBox = document.getElementById('explanation-box');
+    const nextBtn = document.getElementById('next-btn');
+
+    expBox.style.display = 'none';
+    nextBtn.disabled = true;
+
+    if (currentQuestionIndex === questionsData.length - 1) {
+        nextBtn.innerText = "परीक्षा सबमिट करा (Submit Exam)";
+    }
+
+    let html = `<div class="question-card active">
+        <h3>प्रश्न ${currentQuestionIndex + 1} / ५० (गुण: २)</h3>
+        <p style="font-size: 18px; font-weight: bold;">${qData.q}</p>
+        <div class="options">`;
+
+    qData.options.forEach((opt, idx) => {
+        html += `<button class="option-btn" onclick="selectAnswer(${idx})">${String.fromCharCode(65 + idx)}) ${opt}</button>`;
+    });
+
+    html += `</div></div>`;
+    container.innerHTML = html;
+}
+
+function selectAnswer(selectedIdx) {
+    const qData = questionsData[currentQuestionIndex];
+    const optionBtns = document.querySelectorAll('.option-btn');
+    const expBox = document.getElementById('explanation-box');
+    const nextBtn = document.getElementById('next-btn');
+
+    // Disable all options after click
+    optionBtns.forEach(btn => btn.style.pointerEvents = 'none');
+
+    let isCorrect = (selectedIdx === qData.ans);
+
+    if (isCorrect) {
+        optionBtns[selectedIdx].classList.add('correct');
+        score += 2; // Each question carrying 2 marks
+    } else {
+        optionBtns[selectedIdx].classList.add('wrong');
+        optionBtns[qData.ans].classList.add('correct');
+    }
+
+    userAnswers.push({
+        question: qData.q,
+        userAns: qData.options[selectedIdx],
+        correctAns: qData.options[qData.ans],
+        isCorrect: isCorrect,
+        explanation: qData.exp
+    });
+
+    expBox.innerHTML = qData.exp;
+    expBox.style.display = 'block';
+    nextBtn.disabled = false;
+}
+
+function nextQuestion() {
+    if (currentQuestionIndex < questionsData.length - 1) {
+        currentQuestionIndex++;
+        showQuestion();
+    } else {
+        finishExam();
+    }
+}
+
+function finishExam() {
+    document.getElementById('exam-page').style.display = 'none';
+    document.getElementById('certificate-section').style.display = 'block';
+
+    const studentName = document.getElementById('studentName').value;
+    document.getElementById('cert-student-name').innerText = studentName;
+    document.getElementById('cert-score').innerText = `प्राप्त गुण: ${score} / १००`;
+
+    const percentage = (score / 100) * 100;
+    const badgeBox = document.getElementById('cert-badge');
+
+    if (percentage >= 90) {
+        badgeBox.innerHTML = "🥇 Gold Medal + Trophy<br><small>अतिउत्कृष्ट कामगिरी!</small>";
+        badgeBox.style.color = "#d4af37";
+    } else if (percentage >= 80) {
+        badgeBox.innerHTML = "🥈 Silver Medal + Trophy<br><small>छान कामगिरी!</small>";
+        badgeBox.style.color = "#c0c0c0";
+    } else if (percentage >= 70) {
+        badgeBox.innerHTML = "🥉 Bronze Medal + Trophy<br><small>चांगला प्रयत्न!</small>";
+        badgeBox.style.color = "#cd7f32";
+    } else {
+        badgeBox.innerHTML = "💐 अभिनंदन!<br><small>फुलांचा गुच्छ व पुढील परीक्षेसाठी शुभेच्छा!</small>";
+        badgeBox.style.color = "#28a745";
+    }
+
+    generateReview();
+}
+
+function generateReview() {
+    const reviewContent = document.getElementById('review-content');
+    let html = "";
+
+    const wrongAnswers = userAnswers.filter(item => !item.isCorrect);
+
+    if (wrongAnswers.length === 0) {
+        html = "<p style='color: green; font-weight: bold;'>अभिनंदन! तुमचे सर्व प्रश्न बरोबर आले आहेत.</p>";
+    } else {
+        wrongAnswers.forEach(item => {
+            html += `<div class="review-item">
+                <p><strong>प्रश्न:</strong> ${item.question}</p>
+                <p style="color: red;"><strong>तुमचे उत्तर:</strong> ${item.userAns}</p>
+                <p style="color: green;"><strong>बरोबर उत्तर:</strong> ${item.correctAns}</p>
+                <p style="background: #f8f9fa; padding: 5px; border-left: 3px solid #007bff;">${item.explanation}</p>
+            </div>`;
+        });
+    }
+
+    reviewContent.innerHTML = html;
+}
+
+function toggleReview() {
+    const reviewBox = document.getElementById('review-box');
+    if (reviewBox.style.display === "none" || reviewBox.style.display === "") {
+        reviewBox.style.display = "block";
+    } else {
+        reviewBox.style.display = "none";
+    }
+}
+</script>
+</body>
+</html>
