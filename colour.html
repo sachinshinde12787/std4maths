@@ -1,0 +1,540 @@
+<!DOCTYPE html>
+<html lang="mr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Class 4 Scholarship Exam - Colour</title>
+    <style>
+        :root {
+            --primary: #1a365d;
+            --secondary: #2b6cb0;
+            --accent: #d69e2e;
+            --bg: #f7fafc;
+            --card-bg: #ffffff;
+            --text: #2d3748;
+            --success: #38a169;
+            --error: #e53e3e;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+            padding: 15px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 750px;
+            background: var(--card-bg);
+            border-radius: 12px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+            padding: 25px;
+            position: relative;
+        }
+
+        .header-title {
+            text-align: center;
+            font-size: 20px;
+            font-weight: bold;
+            color: var(--primary);
+            margin-bottom: 15px;
+            border-bottom: 2px solid var(--accent);
+            padding-bottom: 8px;
+        }
+
+        .author-box {
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            gap: 12px;
+            margin-bottom: 20px;
+            background: #f0f4f8;
+            padding: 10px 15px;
+            border-radius: 8px;
+        }
+
+        .author-box img {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid var(--secondary);
+        }
+
+        .author-details {
+            text-align: right;
+            font-size: 13px;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 600;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #cbd5e0;
+            border-radius: 6px;
+            font-size: 15px;
+        }
+
+        .btn {
+            background: var(--secondary);
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            font-size: 16px;
+            font-weight: bold;
+            border-radius: 6px;
+            cursor: pointer;
+            width: 100%;
+            transition: background 0.3s;
+            margin-top: 10px;
+        }
+
+        .btn:hover {
+            background: var(--primary);
+        }
+
+        .btn:disabled {
+            background: #a0aec0;
+            cursor: not-allowed;
+        }
+
+        .footer-note {
+            text-align: center;
+            font-size: 14px;
+            margin-top: 20px;
+            color: #4a5568;
+            border-top: 1px solid #e2e8f0;
+            padding-top: 10px;
+            font-weight: 500;
+        }
+
+        .q-header {
+            font-size: 17px;
+            font-weight: bold;
+            margin-bottom: 15px;
+            color: var(--primary);
+        }
+
+        .options-list {
+            list-style: none;
+        }
+
+        .option-item {
+            background: #f8fafc;
+            border: 2px solid #e2e8f0;
+            padding: 12px 15px;
+            border-radius: 8px;
+            margin-bottom: 10px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .option-item:hover {
+            background: #ebf8ff;
+            border-color: #3182ce;
+        }
+
+        .option-item.correct {
+            background-color: #c6f6d5 !important;
+            border-color: #38a169 !important;
+            color: #22543d;
+            font-weight: bold;
+        }
+
+        .option-item.wrong {
+            background-color: #fed7d7 !important;
+            border-color: #e53e3e !important;
+            color: #742a2a;
+            font-weight: bold;
+        }
+
+        .explanation {
+            margin-top: 15px;
+            padding: 12px;
+            background: #fffaf0;
+            border-left: 4px solid var(--accent);
+            border-radius: 4px;
+            font-size: 14px;
+            display: none;
+        }
+
+        .certificate {
+            display: none;
+            border: 6px double var(--primary);
+            padding: 20px;
+            text-align: center;
+            background: #fff;
+            border-radius: 10px;
+        }
+
+        .cert-title {
+            font-size: 20px;
+            color: var(--primary);
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+
+        .score-display {
+            font-size: 32px;
+            font-weight: bold;
+            color: var(--secondary);
+            margin: 15px 0;
+        }
+
+        .award-badge {
+            font-size: 18px;
+            font-weight: bold;
+            margin: 15px 0;
+            padding: 10px;
+            border-radius: 8px;
+            background: #f7fafc;
+        }
+
+        .review-section {
+            display: none;
+            margin-top: 20px;
+            text-align: left;
+        }
+
+        .review-item {
+            background: #fffaf0;
+            border: 1px solid #feebc8;
+            padding: 12px;
+            border-radius: 6px;
+            margin-bottom: 12px;
+        }
+
+        .progress-bar {
+            height: 8px;
+            background: #e2e8f0;
+            border-radius: 4px;
+            margin-bottom: 15px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: var(--secondary);
+            width: 0%;
+            transition: width 0.3s;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <!-- १. नोंदणी स्क्रीन (Registration Page) -->
+    <div id="registration-screen">
+        <div class="header-title">
+            जिल्हा परिषद प्राथमिक शाळा नरसोबावाडी संचलित
+        </div>
+        
+        <div class="author-box">
+            <div class="author-details">
+                <strong>संकल्पना व निर्मिती</strong><br>
+                श्री सचिन शिंदे सर<br>
+                जि प प्रा शाळा नरसोबावाडी<br>
+                मोबाईल नंबर 83 29 68 44 70
+            </div>
+            <img src="https://lh3.googleusercontent.com/d/1pkldnaLRyqBtfgiQKwtbeSSfXhENzbOm" alt="श्री सचिन शिंदे सर" onerror="this.src='https://via.placeholder.com/60?text=Photo'">
+        </div>
+
+        <form id="start-form" onsubmit="event.preventDefault(); startExam();">
+            <div class="form-group">
+                <label>परीक्षेचे नाव:</label>
+                <input type="text" value="colour" readonly>
+            </div>
+            <div class="form-group">
+                <label>विद्यार्थ्याचे नाव:</label>
+                <input type="text" id="student-name" required placeholder="पूर्ण नाव प्रविष्ट करा">
+            </div>
+            <div class="form-group">
+                <label>मोबाईल नंबर:</label>
+                <input type="tel" id="student-mobile" pattern="[0-9]{10}" required placeholder="१० अंकी मोबाईल नंबर">
+            </div>
+            <button type="submit" class="btn">EXAM START</button>
+        </form>
+
+        <div class="footer-note">
+            टेस्ट निर्मिती व संकल्पना श्री सचिन शिंदे मोबाईल नंबर 83 29 68 44 70
+        </div>
+    </div>
+
+    <!-- २. परीक्षा स्क्रीन (Exam Page) -->
+    <div id="exam-screen" style="display:none;">
+        <div class="progress-bar">
+            <div class="progress-fill" id="progress"></div>
+        </div>
+        <div id="question-box"></div>
+        
+        <button id="next-btn" class="btn" onclick="nextQuestion()" disabled>Next Question</button>
+        
+        <div class="footer-note">
+            टेस्ट निर्मिती व संकल्पना श्री सचिन शिंदे मोबाईल नंबर 83 29 68 44 70
+        </div>
+    </div>
+
+    <!-- ३. निकाल व प्रमाणपत्र स्क्रीन (Certificate Page) -->
+    <div id="certificate-screen" class="certificate">
+        <div class="cert-title">
+            🏆 जिल्हा परिषद प्राथमिक शाळा नरसोबावाडी संचालित
+        </div>
+        <p><strong>परीक्षेचे नाव:</strong> colour</p>
+        <p><strong>विद्यार्थ्याचे नाव:</strong> <span id="cert-name"></span></p>
+
+        <div class="score-display">
+            गुण: <span id="cert-score"></span> / 100
+        </div>
+
+        <div class="award-badge" id="cert-award"></div>
+
+        <button class="btn" style="background:var(--accent);" onclick="toggleReview()">
+            चुकलेले प्रश्न व स्पष्टीकरण पहा 🔍
+        </button>
+
+        <div id="review-container" class="review-section"></div>
+
+        <div class="author-box" style="margin-top:20px;">
+            <div class="author-details">
+                <strong>संकल्पना व निर्मिती</strong><br>
+                श्री सचिन शिंदे सर<br>
+                जि प प्रा शाळा नरसोबावाडी<br>
+                मोबाईल नंबर 83 29 68 44 70
+            </div>
+            <img src="https://lh3.googleusercontent.com/d/1pkldnaLRyqBtfgiQKwtbeSSfXhENzbOm" alt="श्री सचिन शिंदे सर" onerror="this.src='https://via.placeholder.com/60?text=Photo'">
+        </div>
+
+        <div class="footer-note">
+            टेस्ट निर्मिती व संकल्पना श्री सचिन शिंदे मोबाईल नंबर 83 29 68 44 70
+        </div>
+    </div>
+</div>
+<script>
+const questions = [
+    { q: "Q1. Identify the colour of Apple:", options: ["Blue", "Green", "Red", "Yellow"], correct: 2, exp: "सफरचंदाचा (Apple) सामान्य रंग लाल (Red) असतो." },
+    { q: "Q2. Identify the colour of Sky:", options: ["Blue", "Red", "Black", "Pink"], correct: 0, exp: "आकाशाचा (Sky) रंग निळा (Blue) असतो." },
+    { q: "Q3. Identify the colour of Leaf:", options: ["Yellow", "Green", "Orange", "Purple"], correct: 1, exp: "झाडाच्या पानाचा (Leaf) रंग हिरवा (Green) असतो." },
+    { q: "Q4. Identify the colour of Milk:", options: ["White", "Black", "Yellow", "Brown"], correct: 0, exp: "दुधाचा (Milk) रंग पांढरा (White) असतो." },
+    { q: "Q5. Identify the colour of Coal:", options: ["White", "Black", "Blue", "Red"], correct: 1, exp: "कोळशाचा (Coal) रंग काळा (Black) असतो." },
+    { q: "Q6. Which object is correctly matched with its colour?", options: ["Grass – Red", "Crow – White", "Milk – White", "Sky – Green"], correct: 2, exp: "Milk - White ही जोडी योग्य आहे." },
+    { q: "Q7. Which object is 'Yellow' in colour?", options: ["Ripe Banana", "Dry Leaf", "Apple", "Brinjal"], correct: 0, exp: "पिकलेले केळे (Ripe Banana) पिवळ्या (Yellow) रंगाचे असते." },
+    { q: "Q8. Which object is 'Purple' in colour?", options: ["Tomato", "Brinjal", "Mango", "Milk"], correct: 1, exp: "वांगे (Brinjal) जांभळ्या (Purple) रंगाचे असते." },
+    { q: "Q9. Select the CORRECT pair of Object and Colour:", options: ["Blood – Green", "Sunflower – Yellow", "Chocolate – Pink", "Cotton – Black"], correct: 1, exp: "सूर्यफूल (Sunflower) पिवळ्या (Yellow) रंगाचे असते." },
+    { q: "Q10. Select the INCORRECT pair:", options: ["Chocolate – Brown", "Snow – White", "Leaf – Blue", "Tomato – Red"], correct: 2, exp: "Leaf - Blue ही जोडी चुकीची आहे; पान हिरवे असते." },
+    { q: "Q11. The colour of grass is —", options: ["Blue", "Green", "Red", "Yellow"], correct: 1, exp: "गवताचा (Grass) रंग हिरवा (Green) असतो." },
+    { q: "Q12. The sky is generally —", options: ["Pink", "Green", "Blue", "Orange"], correct: 2, exp: "आकाश सामान्यतः निळ्या (Blue) रंगाचे असते." },
+    { q: "Q13. Hair of most humans is generally —", options: ["Black", "Red", "Green", "Yellow"], correct: 0, exp: "केस सामान्यतः काळ्या (Black) रंगाचे असतात." },
+    { q: "Q14. The colour of a ripe mango is —", options: ["Purple", "Blue", "Black", "Yellow"], correct: 3, exp: "पिकलेला आंबा (Ripe Mango) पिवळा (Yellow) असतो." },
+    { q: "Q15. Fresh blood is — in colour.", options: ["Green", "Red", "Yellow", "Blue"], correct: 1, exp: "रक्त (Blood) लाल (Red) रंगाचे असते." },
+    { q: "Q16. The sun is generally — in the afternoon.", options: ["Yellow", "Black", "Green", "Blue"], correct: 0, exp: "सूर्य पिवळ्या (Yellow) रंगाचा दिसतो." },
+    { q: "Q17. Snow is generally —", options: ["Black", "White", "Red", "Yellow"], correct: 1, exp: "बर्फ (Snow) पांढऱ्या (White) रंगाचा असतो." },
+    { q: "Q18. Wood is generally — in colour.", options: ["Blue", "Pink", "Brown", "Orange"], correct: 2, exp: "लाकूड (Wood) तपकिरी (Brown) रंगाचे असते." },
+    { q: "Q19. A carrot is generally — in colour.", options: ["Blue", "Orange", "Black", "Green"], correct: 1, exp: "गाजर (Carrot) नारंगी (Orange) रंगाचे असते." },
+    { q: "Q20. An eggplant (Brinjal) is — in colour.", options: ["Purple", "White", "Red", "Yellow"], correct: 0, exp: "वांगे (Brinjal) जांभळ्या (Purple) रंगाचे असते." },
+    { q: "Q21. A rose is usually ______ in colour.", options: ["Black", "Red", "Green", "Brown"], correct: 1, exp: "गुलाब (Rose) सामान्यतः लाल (Red) रंगाचे असते." },
+    { q: "Q22. Swan is ______ in colour.", options: ["White", "Red", "Blue", "Black"], correct: 0, exp: "हंस (Swan) पांढऱ्या (White) रंगाचा असतो." },
+    { q: "Q23. Dry grass turns ______ in colour.", options: ["Green", "Brown", "Pink", "Blue"], correct: 1, exp: "वाळलेले गवत तपकिरी (Brown) रंगाचे होते." },
+    { q: "Q24. A lemon is ______ in colour.", options: ["Yellow", "Red", "Blue", "Black"], correct: 0, exp: "लिंबू (Lemon) पिवळ्या (Yellow) रंगाचे असते." },
+    { q: "Q25. Cotton is ______ in colour.", options: ["Black", "White", "Green", "Red"], correct: 1, exp: "कापूस (Cotton) पांढऱ्या (White) रंगाचा असतो." },
+    { q: "Q26. Find the odd one out:", options: ["Red", "Green", "Blue", "Apple"], correct: 3, exp: "Red, Green, Blue हे रंग आहेत; Apple ही वस्तू/फळ आहे." },
+    { q: "Q27. Find the odd one out:", options: ["Yellow", "White", "Black", "Chair"], correct: 3, exp: "Chair ही वस्तू आहे, बाकी रंगांची नावे आहेत." },
+    { q: "Q28. Which of the following is NOT a primary colour name?", options: ["Red", "Yellow", "Table", "Blue"], correct: 2, exp: "Table हा रंग नाही." },
+    { q: "Q29. Find the odd option:", options: ["Pink", "Purple", "Orange", "Big"], correct: 3, exp: "Big हा आकार/विशेषण आहे, रंग नाही." },
+    { q: "Q30. Find the odd colour option:", options: ["Dark Blue", "Light Green", "Dark Red", "Cold Blue"], correct: 3, exp: "Cold Blue हा रंगाचा मान्यताप्राप्त प्रकार नाही." },
+    { q: "Q31. The top band of the Indian National Flag is —", options: ["Green", "White", "Saffron", "Blue"], correct: 2, exp: "राष्ट्रध्वजाचा वरचा पट्टा केशरी (Saffron) रंगाचा असतो." },
+    { q: "Q32. The middle band of the Indian National Flag is —", options: ["White", "Green", "Saffron", "Yellow"], correct: 0, exp: "राष्ट्रध्वजाचा मधला पट्टा पांढरा (White) असतो." },
+    { q: "Q33. The bottom band of the Indian National Flag is —", options: ["Saffron", "White", "Green", "Blue"], correct: 2, exp: "राष्ट्रध्वजाचा खालचा पट्टा हिरवा (Green) असतो." },
+    { q: "Q34. The Ashoka Chakra in the middle of the Indian Flag is — in colour.", options: ["Red", "Green", "Black", "Navy Blue"], correct: 3, exp: "अशोका चक्र गर्द निळ्या (Navy Blue) रंगाचे असते." },
+    { q: "Q35. How many main colours are there in the Indian National Flag (excluding Ashok Chakra)?", options: ["2", "3", "4", "5"], correct: 1, exp: "राष्ट्रध्वजात मुख्य ३ रंग (Saffron, White, Green) असतात." },
+    { q: "Q36. The colour of a clear daytime sky is —", options: ["Dark Blue", "Dark Green", "Dark Red", "Light Blue"], correct: 3, exp: "दिवसा स्वच्छ आकाश फिकट निळे (Light Blue) दिसते." },
+    { q: "Q37. Deep sea water appears —", options: ["Light Yellow", "Light Pink", "Dark Blue", "Light Red"], correct: 2, exp: "खोल समुद्राचे पाणी गर्द निळे (Dark Blue) दिसते." },
+    { q: "Q38. A fresh young leaf is usually —", options: ["Dark Black", "Light Green", "Dark Brown", "Light Pink"], correct: 1, exp: "नवीन पान फिकट हिरवे (Light Green) असते." },
+    { q: "Q39. What is the opposite shade of 'Light Green'?", options: ["Soft Green", "Bright Yellow", "Light Blue", "Dark Green"], correct: 3, exp: "Light चा विरुद्ध अर्थ Dark असा होतो -> Dark Green." },
+    { q: "Q40. Night sky looks —", options: ["Light Blue", "Dark Blue / Black", "Light Yellow", "Bright Pink"], correct: 1, exp: "रात्रीचे आकाश काळसर/गर्द निळे (Dark Blue / Black) दिसते." },
+    { q: "Q41. Complete the phrase: ______ grass", options: ["Blue", "Red", "Green", "Yellow"], correct: 2, exp: "योग्य शब्दसमूह: Green grass." },
+    { q: "Q42. Complete the phrase: ______ sky", options: ["Blue", "Green", "Red", "Black"], correct: 0, exp: "योग्य शब्दसमूह: Blue sky." },
+    { q: "Q43. Complete the phrase: ______ rose", options: ["Green", "Brown", "Black", "Red"], correct: 3, exp: "योग्य शब्दसमूह: Red rose." },
+    { q: "Q44. Complete the phrase: ______ sunflower", options: ["Blue", "Red", "Yellow", "Black"], correct: 2, exp: "योग्य शब्दसमूह: Yellow sunflower." },
+    { q: "Q45. Complete the phrase: ______ milk", options: ["Blue", "Red", "Green", "White"], correct: 3, exp: "योग्य शब्दसमूह: White milk." },
+    { q: "Q46. Which of the following is correctly spelt?", options: ["Yelow", "Yellow", "Yelloe", "Yallow"], correct: 1, exp: "योग्य स्पेलिंग: Yellow." },
+    { q: "Q47. Which is the correct spelling for the colour of blood?", options: ["Read", "Red", "Redd", "Rad"], correct: 1, exp: "योग्य स्पेलिंग: Red." },
+    { q: "Q48. Fill in the missing letters: B _ a c k", options: ["e", "r", "l", "u"], correct: 2, exp: "योग्य शब्द: Black (गहाळ अक्षर: l)." },
+    { q: "Q49. Fill in the missing letters: P u r _ l e", options: ["p", "b", "d", "k"], correct: 0, exp: "योग्य शब्द: Purple (गहाळ अक्षर: p)." },
+    { q: "Q50. Choose the correct spelling:", options: ["Pnk", "Pinck", "Penk", "Pink"], correct: 3, exp: "योग्य स्पेलिंग: Pink." }
+];
+let currentQ = 0;
+let score = 0;
+let userAnswers = [];
+
+function startExam() {
+    const name = document.getElementById('student-name').value.trim();
+    const mobile = document.getElementById('student-mobile').value.trim();
+
+    if (!name || mobile.length !== 10) {
+        alert("कृपया वैध नाव आणि १० अंकी मोबाईल नंबर टाका.");
+        return;
+    }
+
+    document.getElementById('registration-screen').style.display = 'none';
+    document.getElementById('exam-screen').style.display = 'block';
+    showQuestion();
+}
+
+function showQuestion() {
+    const qData = questions[currentQ];
+    const qBox = document.getElementById('question-box');
+    
+    document.getElementById('progress').style.width = `${((currentQ) / questions.length) * 100}%`;
+
+    let html = `
+        <div class="question-card">
+            <div class="q-header">${qData.q}</div>
+            <ul class="options-list">
+    `;
+
+    qData.options.forEach((opt, idx) => {
+        const optionLabel = String.fromCharCode(65 + idx);
+        html += `<li class="option-item" onclick="selectOption(${idx})" id="opt-${idx}">(${optionLabel}) ${opt}</li>`;
+    });
+
+    html += `</ul>
+            <div class="explanation" id="exp-box">
+                <strong>स्पष्टीकरण:</strong> <span id="exp-text"></span>
+            </div>
+        </div>
+    `;
+
+    qBox.innerHTML = html;
+    document.getElementById('next-btn').disabled = true;
+    
+    if (currentQ === questions.length - 1) {
+        document.getElementById('next-btn').innerText = "SUBMIT EXAM";
+    }
+}
+
+function selectOption(index) {
+    const qData = questions[currentQ];
+    const options = document.querySelectorAll('.option-item');
+    
+    options.forEach(opt => opt.style.pointerEvents = 'none');
+
+    const isCorrect = (index === qData.correct);
+    
+    userAnswers[currentQ] = {
+        selected: index,
+        isCorrect: isCorrect
+    };
+
+    if (isCorrect) {
+        options[index].classList.add('correct');
+        score += 2; // २ गुण प्रति प्रश्न
+    } else {
+        options[index].classList.add('wrong');
+        options[qData.correct].classList.add('correct');
+        
+        // चुकीच्या उत्तरासाठी मराठी स्पष्टीकरण दाखवणे
+        const expBox = document.getElementById('exp-box');
+        document.getElementById('exp-text').innerText = qData.exp;
+        expBox.style.display = 'block';
+    }
+
+    document.getElementById('next-btn').disabled = false;
+}
+
+function nextQuestion() {
+    currentQ++;
+    if (currentQ < questions.length) {
+        showQuestion();
+    } else {
+        finishExam();
+    }
+}
+
+function finishExam() {
+    document.getElementById('exam-screen').style.display = 'none';
+    document.getElementById('certificate-screen').style.display = 'block';
+
+    const studentName = document.getElementById('student-name').value;
+    document.getElementById('cert-name').innerText = studentName;
+    document.getElementById('cert-score').innerText = score;
+
+    const percentage = (score / 100) * 100;
+    const awardBox = document.getElementById('cert-award');
+
+    let awardBadge = "";
+    if (percentage >= 90) {
+        awardBadge = "🥇 Gold Medal + Trophy<br>उत्कृष्ट कामगिरी! तुमचे मनःपूर्वक अभिनंदन!";
+    } else if (percentage >= 80) {
+        awardBadge = "🥈 Silver Medal + Trophy<br>खूप छान कामगिरी!";
+    } else if (percentage >= 70) {
+        awardBadge = "🥉 Bronze Medal + Trophy<br>छान प्रयत्न!";
+    } else {
+        awardBadge = "💐 अभिनंदन! फुलांचा गुच्छ व पुढील परीक्षेसाठी शुभेच्छा!";
+    }
+
+    awardBox.innerHTML = awardBadge;
+    buildReviewSection();
+}
+
+function buildReviewSection() {
+    const reviewContainer = document.getElementById('review-container');
+    let reviewHTML = '<h3 style="margin-bottom:12px; color:var(--error);">चुकलेले प्रश्न व मार्गदर्शन:</h3>';
+    let wrongCount = 0;
+
+    userAnswers.forEach((ans, idx) => {
+        if (!ans || !ans.isCorrect) {
+            wrongCount++;
+            const qData = questions[idx];
+            const selectedLabel = ans ? String.fromCharCode(65 + ans.selected) : '';
+            const correctLabel = String.fromCharCode(65 + qData.correct);
+
+            reviewHTML += `
+                <div class="review-item">
+                    <strong>${qData.q}</strong><br>
+                    <span style="color:var(--error);">तुमचे उत्तर: ${ans ? '(' + selectedLabel + ') ' + qData.options[ans.selected] : 'सोडून दिले'}</span><br>
+                    <span style="color:var(--success);">बरोबर उत्तर: (${correctLabel}) ${qData.options[qData.correct]}</span><br>
+                    <small>💡 <strong>स्पष्टीकरण:</strong> ${qData.exp}</small>
+                </div>
+            `;
+        }
+    });
+
+    if (wrongCount === 0) {
+        reviewHTML += '<p style="color:var(--success); font-weight:bold;">अभिनंदन! तुमचा एकही प्रश्न चुकलेला नाही!</p>';
+    }
+
+    reviewContainer.innerHTML = reviewHTML;
+}
+
+function toggleReview() {
+    const reviewContainer = document.getElementById('review-container');
+    if (reviewContainer.style.display === 'none' || reviewContainer.style.display === '') {
+        reviewContainer.style.display = 'block';
+    } else {
+        reviewContainer.style.display = 'none';
+    }
+}
+</script>
+</body>
+</html>
