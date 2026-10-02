@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="mr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Class 4 Scholarship Exam - Games</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        body {
+            background-color: #f4f7f6;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+        }
+        .container {
+            max-width: 750px;
+            width: 100%;
+            background: #ffffff;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+            padding: 25px;
+            position: relative;
+        }
+        .header {
+            text-align: center;
+            border-bottom: 2px solid #e2e8f0;
+            padding-bottom: 15px;
+            margin-bottom: 20px;
+        }
+        .header h2 {
+            color: #1a365d;
+            margin: 0 0 10px 0;
+            font-size: 22px;
+        }
+        .header h3 {
+            color: #2b6cb0;
+            margin: 5px 0;
+            font-size: 18px;
+        }
+        .creator-info {
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            margin-top: 15px;
+            background: #edf2f7;
+            padding: 10px;
+            border-radius: 8px;
+        }
+        .creator-info img {
+            width: 65px;
+            height: 65px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-left: 12px;
+            border: 2px solid #3182ce;
+        }
+        .creator-text {
+            text-align: right;
+            font-size: 13px;
+            color: #2d3748;
+            line-height: 1.4;
+        }
+        .form-group {
+            margin-bottom: 15px;
+            text-align: left;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+            color: #4a5568;
+        }
+        .form-group input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #cbd5e0;
+            border-radius: 6px;
+            font-size: 15px;
+        }
+        .btn {
+            background-color: #3182ce;
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            font-size: 16px;
+            border-radius: 6px;
+            cursor: pointer;
+            width: 100%;
+            font-weight: bold;
+            transition: background 0.2s;
+            margin-top: 15px;
+        }
+        .btn:hover {
+            background-color: #2b6cb0;
+        }
+        .btn:disabled {
+            background-color: #cbd5e0;
+            cursor: not-allowed;
+        }
+        .footer-note {
+            text-align: center;
+            font-size: 14px;
+            color: #4a5568;
+            font-weight: 600;
+            margin-top: 20px;
+            padding-top: 10px;
+            border-top: 1px dashed #cbd5e0;
+        }
+        .question-box {
+            display: none;
+        }
+        .q-text {
+            font-size: 18px;
+            font-weight: bold;
+            color: #2d3748;
+            margin-bottom: 15px;
+        }
+        .option-btn {
+            display: block;
+            width: 100%;
+            text-align: left;
+            padding: 12px 15px;
+            margin-bottom: 10px;
+            border: 2px solid #e2e8f0;
+            border-radius: 6px;
+            background: #fff;
+            font-size: 16px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .option-btn:hover {
+            border-color: #3182ce;
+            background: #ebf8ff;
+        }
+        .option-btn.correct {
+            background-color: #c6f6d5 !important;
+            border-color: #38a169 !important;
+            color: #22543d;
+            font-weight: bold;
+        }
+        .option-btn.wrong {
+            background-color: #fed7d7 !important;
+            border-color: #e53e3e !important;
+            color: #742a2a;
+            font-weight: bold;
+        }
+        .explanation {
+            display: none;
+            background: #fffaf0;
+            border-left: 4px solid #dd6b20;
+            padding: 12px;
+            margin: 15px 0;
+            font-size: 15px;
+            color: #7b341e;
+            border-radius: 4px;
+        }
+        /* Certificate Style */
+        #certificate {
+            display: none;
+            border: 8px double #d69e2e;
+            padding: 25px;
+            background: #ffffff;
+            text-align: center;
+            border-radius: 10px;
+            box-shadow: inset 0 0 15px rgba(212, 175, 55, 0.2);
+        }
+        .cert-title {
+            color: #744210;
+            font-size: 22px;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+        .score-display {
+            font-size: 36px;
+            color: #2b6cb0;
+            font-weight: bold;
+            margin: 15px 0;
+        }
+        .badge {
+            font-size: 20px;
+            font-weight: bold;
+            padding: 12px;
+            margin: 15px 0;
+            border-radius: 8px;
+            display: inline-block;
+        }
+        .gold { background: #fefcbf; color: #744210; border: 1px solid #d69e2e; }
+        .silver { background: #edf2f7; color: #2d3748; border: 1px solid #a0aec0; }
+        .bronze { background: #feebc8; color: #7b341e; border: 1px solid #dd6b20; }
+        .participant { background: #eef2ff; color: #3730a3; border: 1px solid #818cf8; }
+        
+        #wrong-questions-section {
+            display: none;
+            margin-top: 20px;
+            text-align: left;
+            background: #fff5f5;
+            padding: 15px;
+            border-radius: 8px;
+            border: 1px solid #feb2b2;
+        }
+        .wrong-q-item {
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #fed7d7;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <!-- Registration Screen -->
+    <div id="start-screen">
+        <div class="header">
+            <h2>जिल्हा परिषद प्राथमिक शाळा नरसोबावाडी संचलित</h2>
+            <h3>ऑनलाईन स्कॉलरशिप सराव परीक्षा</h3>
+            <p><b>परीक्षेचे नाव:</b> games</p>
+        </div>
+
+        <div class="form-group">
+            <label for="studentName">विद्यार्थ्याचे नाव:</label>
+            <input type="text" id="studentName" placeholder="पूर्ण नाव टाका" required>
+        </div>
+        <div class="form-group">
+            <label for="mobileNo">मोबाईल नंबर:</label>
+            <input type="tel" id="mobileNo" placeholder="१० अंकी मोबाईल नंबर" maxlength="10" required>
+        </div>
+
+        <div class="creator-info">
+            <div class="creator-text">
+                <b>संकल्पना व निर्मिती</b><br>
+                श्री सचिन शिंदे सर<br>
+                जि प प्रा शाळा नरसोबावाडी<br>
+                मोबाईल नंबर 83 29 68 44 70
+            </div>
+            <img src="https://lh3.googleusercontent.com/d/1pkldnaLRyqBtfgiQKwtbeSSfXhENzbOm" alt="श्री सचिन शिंदे सर">
+        </div>
+
+        <div class="footer-note">टेस्ट निर्मिती व संकल्पना श्री सचिन शिंदे मोबाईल नंबर 83 29 68 44 70</div>
+        <button class="btn" onclick="startExam()">EXAM START</button>
+    </div>
+
+    <!-- Exam Screen -->
+    <div id="exam-screen" class="question-box">
+        <div style="display: flex; justify-content: space-between; font-weight: bold; color: #4a5568; margin-bottom: 10px;">
+            <span id="q-count">प्रश्न १ / ३०</span>
+            <span>गुण: २</span>
+        </div>
+        <div class="q-text" id="question-text"></div>
+        <div id="options-container"></div>
+        <div class="explanation" id="explanation-box"></div>
+        
+        <button class="btn" id="next-btn" onclick="nextQuestion()" disabled>नेक्स्ट (Next)</button>
+        <div class="footer-note">टेस्ट निर्मिती व संकल्पना श्री सचिन शिंदे मोबाईल नंबर 83 29 68 44 70</div>
+    </div>
+
+    <!-- Certificate Screen -->
+    <div id="certificate">
+        <div class="cert-title">🏆 जिल्हा परिषद प्राथमिक शाळा नरसोबावाडी संचलित</div>
+        <p style="margin: 5px 0;"><b>परीक्षेचे नाव:</b> games</p>
+        <p style="margin: 5px 0;"><b>विद्यार्थ्याचे नाव:</b> <span id="cert-name" style="color:#2b6cb0; font-size:18px;"></span></p>
+        
+        <div class="score-display" id="cert-score">0 / 60</div>
+        <div id="cert-badge" class="badge"></div>
+
+        <div id="wrong-btn-container" style="margin-top: 15px;">
+            <button class="btn" style="background-color: #e53e3e;" onclick="showWrongQuestions()">चुकलेले प्रश्न व स्पष्टीकरण पहा</button>
+        </div>
+
+        <div id="wrong-questions-section">
+            <h4 style="color: #9b2c2c; margin-top:0;">चुकलेले प्रश्न आणि स्पष्टीकरण:</h4>
+            <div id="wrong-list"></div>
+        </div>
+
+        <div class="creator-info" style="margin-top: 25px;">
+            <div class="creator-text">
+                <b>संकल्पना व निर्मिती</b><br>
+                श्री सचिन शिंदे सर<br>
+                जि प प्रा शाळा नरसोबावाडी<br>
+                मोबाईल नंबर 83 29 68 44 70
+            </div>
+            <img src="https://lh3.googleusercontent.com/d/1pkldnaLRyqBtfgiQKwtbeSSfXhENzbOm" alt="श्री सचिन शिंदे सर">
+        </div>
+        <div class="footer-note">टेस्ट निर्मिती व संकल्पना श्री सचिन शिंदे मोबाईल नंबर 83 29 68 44 70</div>
+    </div>
+</div>
+<script>
+const questions = [
+    { q: "1. Which of the following is an INDOOR game?", options: ["Cricket", "Football", "Chess", "Hockey"], ans: 2, exp: "स्पष्टीकरण: Chess (बुद्धिबळ) हा बंद खोलीत किंवा घरामध्ये खेळला जाणारा इंडोअर (Indoor) खेळ आहे." },
+    { q: "2. Where is Tennis usually played? Select the correct place.", options: ["Pool", "Court", "Ground", "Pitch"], ans: 1, exp: "स्पष्टीकरण: टेनिस हा खेळ 'Court' (कोर्ट) वर खेळला जातो." },
+    { q: "3. Identify the missing letters to complete the equipment name: R _ C K _ T", options: ["a, e", "e, a", "o, e", "u, e"], ans: 0, exp: "स्पष्टीकरण: R-a-c-k-e-t (रॅकेट) हे योग्य स्पेलिंग आहे." },
+    { q: "4. Choose the action related to the game of Football:", options: ["bowl", "kick", "bat", "serve"], ans: 1, exp: "स्पष्टीकरण: फुटबॉल खेळताना चेंडूला पाय मारणे म्हणजेच 'kick' करणे ही क्रिया केली जाते." },
+    { q: "5. Find the ODD one out based on the place of playing:", options: ["Cricket", "Football", "Hockey", "Chess"], ans: 3, exp: "स्पष्टीकरण: Cricket, Football आणि Hockey हे आउटडोअर खेळ आहेत, तर Chess हा इंडोअर खेळ आहे." },
+    { q: "6. \"I am played on a board with 64 black and white squares. Kings and Queens are my pieces.\" Identify the game.", options: ["Carrom", "Chess", "Badminton", "Tennis"], ans: 1, exp: "स्पष्टीकरण: ६४ काळ्या-पांढऱ्या चौकटींचा बोर्ड आणि राजा-राणी हे सर्व 'Chess' (बुद्धिबळ) चे भाग आहेत." },
+    { q: "7. Select the correct pair of Equipment and Game:", options: ["Shuttlecock — Tennis", "Racket — Swimming", "Stick — Hockey", "Wicket — Football"], ans: 2, exp: "स्पष्टीकरण: हॉकी खेळण्यासाठी स्टिक (Stick) वापरली जाते." },
+    { q: "8. Which game is played in a \"Pool\"?", options: ["Swimming", "Cricket", "Tennis", "Kho-Kho"], ans: 0, exp: "स्पष्टीकरण: Swimming (पोहणे) हा प्रकार 'Pool' (तलाव) मध्ये केला जातो." },
+    { q: "9. Complete the analogy: Cricket : Bat :: Tennis : ____", options: ["Stick", "Board", "Racket", "Shuttlecock"], ans: 2, exp: "स्पष्टीकरण: क्रिकेटसाठी Bat वापरतात, तर टेनिससाठी Racket वापरतात." },
+    { q: "10. What action does a player perform to start a game of Tennis?", options: ["kick", "serve", "bowl", "swim"], ans: 1, exp: "स्पष्टीकरण: टेनिसच्या खेळाची सुरुवात करण्यासाठी चेंडू सर्व्ह (serve) केला जातो." },
+    { q: "11. Select the correct spelling of the game:", options: ["Badmintan", "Badminton", "Bedminton", "Badmintun"], ans: 1, exp: "स्पष्टीकरण: बॅडमिंटनचे अचूक इंग्रजी स्पेलिंग Badminton असे आहे." },
+    { q: "12. Find the ODD one out from the given equipment:", options: ["Bat", "Wicket", "Ball", "Court"], ans: 3, exp: "स्पष्टीकरण: Bat, Wicket आणि Ball ही खेळण्याची साहित्ये आहेत, तर Court हे ठिकाण आहे." },
+    { q: "13. Which of the following is an OUTDOOR game?", options: ["Carrom", "Chess", "Kabaddi", "Ludo"], ans: 2, exp: "स्पष्टीकरण: कबड्डी हा मैदानावर खेळला जाणारा आउटडोअर (Outdoor) खेळ आहे." },
+    { q: "14. Complete the missing letters: S _ U T T L _ C O C K", options: ["h, e", "a, i", "h, o", "e, e"], ans: 0, exp: "स्पष्टीकरण: योग्य शब्द S-h-u-t-t-l-e-c-o-c-k (फूल) असा आहे." },
+    { q: "15. \"I use a stick and a ball to score goals on a field.\" Identify the game.", options: ["Cricket", "Hockey", "Tennis", "Badminton"], ans: 1, exp: "स्पष्टीकरण: स्टिक (Stick) आणि बॉलचा वापर करून गोल करण्याचा खेळ म्हणजेच Hockey." },
+    { q: "16. Complete the analogy based on action: Football : Kick :: Cricket : ____", options: ["Swim", "Serve", "Bowl", "Jump"], ans: 2, exp: "स्पष्टीकरण: फुटबॉलमध्ये Kick मारतात, तर क्रिकेटमध्ये बॉल टाकण्याला Bowl (बॉलिंग) म्हणतात." },
+    { q: "17. Which item is used to play Badminton along with a Racket?", options: ["Shuttlecock", "Wicket", "Bat", "Striker"], ans: 0, exp: "स्पष्टीकरण: बॅडमिंटन रॅकेटसोबत Shuttlecock (फूल) वापरले जाते." },
+    { q: "18. Find the ODD pair (Game : Place):", options: ["Swimming : Pool", "Cricket : Ground", "Tennis : Court", "Chess : Pitch"], ans: 3, exp: "स्पष्टीकरण: बुद्धिबळ (Chess) पीचवर खेळले जात नाही, त्यामुळे ही जोडी अयोग्य आहे." },
+    { q: "19. Identify the action word associated with Swimming:", options: ["hit", "swim", "serve", "kick"], ans: 1, exp: "स्पष्टीकरण: Swimming खेळाशी संबंधित क्रियापद 'swim' आहे." },
+    { q: "20. Choose the correct group of OUTDOOR games:", options: ["Chess, Carrom, Ludo", "Cricket, Football, Hockey", "Carrom, Football, Chess", "Cricket, Chess, Kabaddi"], ans: 1, exp: "स्पष्टीकरण: Cricket, Football आणि Hockey हे तिन्ही खेळ मैदानावर (Outdoor) खेळले जातात." },
+    { q: "21. Fill in the blank with the correct spelling: C _ E S S", options: ["h", "k", "r", "t"], ans: 0, exp: "स्पष्टीकरण: योग्य स्पेलिंग C-h-e-s-s (बुद्धिबळ) असे आहे." },
+    { q: "22. Which game uses \"Wickets\" as part of its play setup?", options: ["Badminton", "Football", "Cricket", "Tennis"], ans: 2, exp: "स्पष्टीकरण: क्रिकेट खेळात Wickets (स्टंप/दांड्या) वापरल्या जातात." },
+    { q: "23. \"I am a traditional Indian outdoor game where players tag opponents while holding their breath.\" Identify the game.", options: ["Kabaddi", "Chess", "Tennis", "Badminton"], ans: 0, exp: "स्पष्टीकरण: श्वास रोखून धरून खेळला जाणारा पारंपरिक भारतीय मैदानी खेळ म्हणजे 'Kabaddi'." },
+    { q: "24. Match the following equipment to its game: Stick", options: ["Cricket", "Hockey", "Tennis", "Carrom"], ans: 1, exp: "स्पष्टीकरण: Stick (काठी) चा वापर Hockey मध्ये होतो." },
+    { q: "25. Find the ODD one out:", options: ["Cricket", "Kabaddi", "Kho-Kho", "Carrom"], ans: 3, exp: "स्पष्टीकरण: Carrom हा इंडोअर खेळ आहे, तर इतर सर्व आउटडोअर खेळ आहेत." },
+    { q: "26. Complete the sequence of letters: F O O T B _ L L", options: ["e", "u", "a", "o"], ans: 2, exp: "स्पष्टीकरण: F-O-O-T-B-A-L-L असा शब्द तयार होतो." },
+    { q: "27. \"Hit\", \"Bat\", and \"Bowl\" are actions associated with which game?", options: ["Swimming", "Football", "Cricket", "Tennis"], ans: 2, exp: "स्पष्टीकरण: Hit, Bat आणि Bowl या सर्व क्रिया Cricket शी संबंधित आहेत." },
+    { q: "28. Which place is used for playing Cricket?", options: ["Court", "Pool", "Ground", "Table"], ans: 2, exp: "स्पष्टीकरण: क्रिकेट हा खेळ Ground (मैदानावर) खेळला जातो." },
+    { q: "29. Which of the following is NOT required to play Badminton?", options: ["Net", "Racket", "Shuttlecock", "Bat"], ans: 3, exp: "स्पष्टीकरण: बॅडमिंटन खेळण्यासाठी Bat ची गरज नसते." },
+    { q: "30. Select the correct match (Game : Equipment):", options: ["Tennis — Stick", "Cricket — Bat", "Hockey — Racket", "Football — Shuttlecock"], ans: 1, exp: "स्पष्टीकरण: क्रिकेट खेळण्यासाठी Bat वापरली जाते, ही जोडी अचूक आहे." }
+];
+let currentQ = 0;
+let score = 0;
+let userAnswers = [];
+
+function startExam() {
+    const name = document.getElementById('studentName').value.trim();
+    const mobile = document.getElementById('mobileNo').value.trim();
+
+    if (name === "" || mobile.length !== 10) {
+        alert("कृपया तुमचे पूर्ण नाव आणि १० अंकी वैध मोबाईल नंबर टाका.");
+        return;
+    }
+
+    document.getElementById('start-screen').style.display = 'none';
+    document.getElementById('exam-screen').style.display = 'block';
+    loadQuestion();
+}
+
+function loadQuestion() {
+    const qData = questions[currentQ];
+    document.getElementById('q-count').innerText = `प्रश्न ${currentQ + 1} / ${questions.length}`;
+    document.getElementById('question-text').innerText = qData.q;
+    
+    const optionsContainer = document.getElementById('options-container');
+    optionsContainer.innerHTML = '';
+    
+    const expBox = document.getElementById('explanation-box');
+    expBox.style.display = 'none';
+    expBox.innerText = '';
+
+    document.getElementById('next-btn').disabled = true;
+    if(currentQ === questions.length - 1) {
+        document.getElementById('next-btn').innerText = "SUBMIT EXAM";
+    }
+
+    qData.options.forEach((opt, idx) => {
+        const btn = document.createElement('button');
+        btn.className = 'option-btn';
+        btn.innerText = `(${String.fromCharCode(65 + idx)}) ${opt}`;
+        btn.onclick = () => selectOption(idx, btn);
+        optionsContainer.appendChild(btn);
+    });
+}
+
+function selectOption(selectedIdx, btn) {
+    const qData = questions[currentQ];
+    const options = document.querySelectorAll('.option-btn');
+    
+    options.forEach(o => o.style.pointerEvents = 'none');
+
+    userAnswers[currentQ] = {
+        selected: selectedIdx,
+        correct: qData.ans
+    };
+
+    if (selectedIdx === qData.ans) {
+        btn.classList.add('correct');
+        score += 2; // Each question carries 2 marks
+    } else {
+        btn.classList.add('wrong');
+        options[qData.ans].classList.add('correct');
+        
+        const expBox = document.getElementById('explanation-box');
+        expBox.innerText = qData.exp;
+        expBox.style.display = 'block';
+    }
+
+    document.getElementById('next-btn').disabled = false;
+}
+
+function nextQuestion() {
+    if (currentQ < questions.length - 1) {
+        currentQ++;
+        loadQuestion();
+    } else {
+        showCertificate();
+    }
+}
+
+function showCertificate() {
+    document.getElementById('exam-screen').style.display = 'none';
+    document.getElementById('certificate').style.display = 'block';
+
+    const studentName = document.getElementById('studentName').value;
+    document.getElementById('cert-name').innerText = studentName;
+    document.getElementById('cert-score').innerText = `${score} / 60`;
+
+    const percentage = (score / 60) * 100;
+    const badgeDiv = document.getElementById('cert-badge');
+
+    if (percentage >= 90) {
+        badgeDiv.className = 'badge gold';
+        badgeDiv.innerHTML = '🥇 Gold Medal + Trophy<br>उत्कृष्ट कामगिरी!';
+    } else if (percentage >= 80) {
+        badgeDiv.className = 'badge silver';
+        badgeDiv.innerHTML = '🥈 Silver Medal + Trophy<br>छान कामगिरी!';
+    } else if (percentage >= 70) {
+        badgeDiv.className = 'badge bronze';
+        badgeDiv.innerHTML = '🥉 Bronze Medal + Trophy<br>चांगली कामगिरी!';
+    } else {
+        badgeDiv.className = 'badge participant';
+        badgeDiv.innerHTML = '💐 अभिनंदन! फुलांचा गुच्छ<br>पुढील परीक्षेसाठी शुभेच्छा!';
+    }
+
+    const hasWrong = userAnswers.some(a => a && a.selected !== a.correct);
+    if (!hasWrong) {
+        document.getElementById('wrong-btn-container').style.display = 'none';
+    }
+}
+
+function showWrongQuestions() {
+    const listDiv = document.getElementById('wrong-list');
+    listDiv.innerHTML = '';
+
+    userAnswers.forEach((ans, idx) => {
+        if (ans && ans.selected !== ans.correct) {
+            const qData = questions[idx];
+            const item = document.createElement('div');
+            item.className = 'wrong-q-item';
+            item.innerHTML = `
+                <b>प्रश्न:</b> ${qData.q}<br>
+                <span style="color:#e53e3e;">तुमचे उत्तर: (${String.fromCharCode(65 + ans.selected)}) ${qData.options[ans.selected]}</span><br>
+                <span style="color:#38a169;">योग्य उत्तर: (${String.fromCharCode(65 + ans.correct)}) ${qData.options[ans.correct]}</span><br>
+                <i style="color:#7b341e;">${qData.exp}</i>
+            `;
+            listDiv.appendChild(item);
+        }
+    });
+
+    document.getElementById('wrong-questions-section').style.display = 'block';
+}
+</script>
+</body>
+</html>
+
