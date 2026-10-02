@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="mr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Days & Months Test - ZP School Narsobawadi</title>
+    <style>
+        * { box-sizing: border-box; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+        body { background-color: #f0f4f8; margin: 0; padding: 20px; color: #333; }
+        .container { max-width: 800px; margin: 0 auto; background: #ffffff; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); padding: 25px; border-top: 6px solid #1a73e8; }
+        
+        .header { text-align: center; border-bottom: 2px solid #e0e0e0; padding-bottom: 15px; margin-bottom: 20px; }
+        .header h1 { color: #1a73e8; margin: 0 0 10px 0; font-size: 24px; }
+        .header h2 { color: #2c3e50; margin: 5px 0; font-size: 20px; }
+        
+        .creator-info { text-align: right; background: #eef5ff; padding: 10px 15px; border-radius: 8px; margin-bottom: 20px; display: flex; align-items: center; justify-content: flex-end; gap: 15px; }
+        .creator-details { text-align: right; font-size: 14px; }
+        .creator-img { width: 65px; height: 65px; border-radius: 50%; object-fit: cover; border: 2px solid #1a73e8; }
+        
+        .form-group { margin-bottom: 15px; text-align: left; }
+        .form-group label { display: block; font-weight: bold; margin-bottom: 5px; color: #444; }
+        .form-group input { width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 6px; font-size: 16px; }
+        
+        .footer-text { text-align: center; font-size: 15px; font-weight: bold; color: #555; margin: 20px 0 10px 0; padding: 10px; background: #f8f9fa; border-radius: 6px; }
+        
+        .btn { background-color: #1a73e8; color: white; border: none; padding: 12px 25px; font-size: 16px; font-weight: bold; border-radius: 6px; cursor: pointer; transition: 0.3s; width: 100%; margin-top: 10px; }
+        .btn:hover { background-color: #1557b0; }
+        .btn:disabled { background-color: #ccc; cursor: not-allowed; }
+        
+        .question-card { display: none; }
+        .question-card.active { display: block; }
+        .question-title { font-size: 18px; font-weight: bold; margin-bottom: 15px; color: #2c3e50; white-space: pre-line; }
+        
+        .option-btn { display: block; width: 100%; padding: 12px; margin-bottom: 10px; text-align: left; background: #f8f9fa; border: 2px solid #e0e0e0; border-radius: 6px; font-size: 16px; cursor: pointer; transition: 0.2s; }
+        .option-btn:hover { background: #e8f0fe; border-color: #1a73e8; }
+        .option-btn.selected { background-color: #d2e3fc; border-color: #1a73e8; font-weight: bold; }
+        .option-btn.correct { background-color: #d4edda !important; border-color: #28a745 !important; color: #155724; }
+        .option-btn.incorrect { background-color: #f8d7da !important; border-color: #dc3545 !important; color: #721c24; }
+        
+        .explanation { display: none; background: #fff3cd; border: 1px solid #ffeeba; color: #856404; padding: 12px; border-radius: 6px; margin-top: 15px; font-size: 15px; }
+        
+        /* Certificate Style */
+        .certificate { display: none; border: 8px double #1a73e8; padding: 30px; background: #ffffff; text-align: center; border-radius: 12px; position: relative; }
+        .cert-header { color: #1a73e8; font-size: 22px; font-weight: bold; margin-bottom: 15px; }
+        .cert-score { font-size: 32px; font-weight: bold; color: #2c3e50; margin: 15px 0; }
+        .cert-badge { font-size: 20px; font-weight: bold; margin: 15px 0; padding: 10px; border-radius: 8px; display: inline-block; }
+        
+        .wrong-q-section { display: none; margin-top: 25px; text-align: left; border-top: 2px dashed #ccc; padding-top: 15px; }
+        .wrong-item { background: #fff5f5; border: 1px solid #feb2b2; padding: 12px; border-radius: 6px; margin-bottom: 10px; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <!-- First Page / Start Page -->
+    <div id="start-page">
+        <div class="header">
+            <h1>जिल्हा परिषद प्राथमिक शाळा नरसोबावाडी संचलित</h1>
+            <h2>परीक्षेचे नाव: Days of the Week & Months of the Year</h2>
+        </div>
+        
+        <div class="creator-info">
+            <div class="creator-details">
+                <strong>संकल्पना व निर्मिती</strong><br>
+                श्री सचिन शिंदे सर<br>
+                जि प प्रा शाळा नरसोबावाडी<br>
+                मोबाईल नंबर 83 29 68 44 70
+            </div>
+            <img src="https://lh3.googleusercontent.com/d/1pkldnaLRyqBtfgiQKwtbeSSfXhENzbOm" class="creator-img" alt="सचिन शिंदे सर">
+        </div>
+
+        <div class="form-group">
+            <label for="student-name">विद्यार्थ्याचे नाव:</label>
+            <input type="text" id="student-name" placeholder="पूर्ण नाव प्रविष्ट करा" required>
+        </div>
+        
+        <div class="form-group">
+            <label for="student-mobile">मोबाईल नंबर:</label>
+            <input type="tel" id="student-mobile" placeholder="१० अंकी मोबाईल नंबर" maxlength="10" required>
+        </div>
+
+        <div class="footer-text">
+            टेस्ट निर्मिती व संकल्पना श्री सचिन शिंदे मोबाईल नंबर 83 29 68 44 70
+        </div>
+
+        <button class="btn" onclick="startExam()">EXAM START</button>
+    </div>
+
+    <!-- Exam Container -->
+    <div id="exam-page" style="display: none;">
+        <div id="questions-container"></div>
+        
+        <div class="footer-text">
+            टेस्ट निर्मिती व संकल्पना श्री सचिन शिंदे मोबाईल नंबर 83 29 68 44 70
+        </div>
+
+        <button class="btn" id="next-btn" onclick="nextQuestion()" disabled>NEXT</button>
+        <button class="btn" id="submit-btn" onclick="submitExam()" style="display: none; background-color: #28a745;">SUBMIT EXAM</button>
+    </div>
+
+    <!-- Certificate Container -->
+    <div id="certificate-page" style="display: none;">
+        <div class="certificate">
+            <div class="cert-header">🏆 जिल्हा परिषद प्राथमिक शाळा नरसोबावाडी संचालित</div>
+            <p><strong>परीक्षेचे नाव:</strong> Days of the Week & Months of the Year</p>
+            <p><strong>विद्यार्थ्याचे नाव:</strong> <span id="cert-student-name"></span></p>
+            
+            <div class="cert-score">प्राप्त गुण: <span id="cert-score"></span> / 100</div>
+            <div id="cert-performance" class="cert-badge"></div>
+
+            <div class="creator-info" style="margin-top: 30px;">
+                <div class="creator-details">
+                    <strong>संकल्पना व निर्मिती</strong><br>
+                    श्री सचिन शिंदे सर<br>
+                    जि प प्रा शाळा नरसोबावाडी<br>
+                    मोबाईल नंबर 83 29 68 44 70
+                </div>
+                <img src="https://lh3.googleusercontent.com/d/1pkldnaLRyqBtfgiQKwtbeSSfXhENzbOm" class="creator-img" alt="सचिन शिंदे सर">
+            </div>
+        </div>
+
+        <button class="btn" style="background-color: #dc3545; margin-top: 20px;" onclick="toggleWrongQuestions()">चुकलेले प्रश्न व मार्गदर्शन पहा</button>
+
+        <div id="wrong-questions-container" class="wrong-q-section">
+            <h3>चुकलेले प्रश्न आणि स्पष्टीकरण:</h3>
+            <div id="wrong-questions-list"></div>
+        </div>
+    </div>
+</div>
+<script>
+const quizData = [
+    { q: "Q1. If yesterday was Tuesday, what day will be the day after tomorrow?", options: ["Thursday", "Friday", "Saturday", "Wednesday"], ans: 1, exp: "काल मंगळवार होता, म्हणजेच आज बुधवार आहे. उद्या गुरुवार असेल आणि परवा (day after tomorrow) शुक्रवार असेल." },
+    { q: "Q2. Which month comes immediately after the 8th month of the calendar year?", options: ["August", "September", "October", "July"], ans: 1, exp: "८ वा महिना ऑगस्ट आहे आणि ऑगस्टच्या लगेच नंतर ९ वा महिना सप्टेंबर येतो." },
+    { q: "Q3. Find the odd one out based on the number of days in the month:", options: ["April", "June", "September", "October"], ans: 3, exp: "एप्रिल, जून आणि सप्टेंबरमध्ये ३० दिवस असतात, तर ऑक्टोबरमध्ये ३१ दिवस असतात." },
+    { q: "Q4. Choose the correctly spelled name of the day:", options: ["Wednes day", "Wensday", "Wednasday", "Wednesday"], ans: 3, exp: "'Wednesday' हे अचूक स्पेलिंग आहे." },
+    { q: "Q5. How many months in a standard year have exactly 31 days?", options: ["7", "6", "5", "8"], ans: 0, exp: "एकूण ७ महिने ३१ दिवसांचे असतात (जनवारी, मार्च, मे, जुलै, ऑगस्ट, ऑक्टोबर, डिसेंबर)." },
+    { q: "Q6. Which day comes two days before Sunday?", options: ["Friday", "Thursday", "Saturday", "Monday"], ans: 0, exp: "रविवारच्या १ दिवस आधी शनिवार आणि २ दिवस आधी शुक्रवार येतो." },
+    { q: "Q7. If 1st January is a Monday, what day of the week will 8th January be?", options: ["Sunday", "Tuesday", "Monday", "Wednesday"], ans: 2, exp: "प्रत्येक ७ दिवसांनी तोच वार येतो. १ तारखेला सोमवार असल्यास १+७ = ८ तारखेला पुन्हा सोमवारच असेल." },
+    { q: "Q8. Which is the 10th month of the solar calendar year?", options: ["November", "September", "August", "October"], ans: 3, exp: "वर्षाचा १० वा महिना ऑक्टोबर आहे." },
+    { q: "Q9. Select the incorrect pair of month and its number of days:", options: ["February - 28/29 days", "November - 30 days", "July - 30 days", "March - 31 days"], ans: 2, exp: "जुलै महिन्यात ३१ दिवस असतात (३० नाही)." },
+    { q: "Q10. Identify the missing month in the sequence: May, ______, July, August.", options: ["June", "April", "September", "March"], ans: 0, exp: "मे आणि जुलैच्या मध्ये 'जून' महिना येतो." },
+    { q: "Q11. Which day of the week lies exactly between Tuesday and Friday?", options: ["Thursday", "Wednesday", "Saturday", "Monday"], ans: 0, exp: "मंगळवार आणि शुक्रवार यांच्या मधे बुधवार आणि गुरुवार येतात, मध्यभागी गुरुवार/बुधवार पैकी पर्याय (1) Thursday योग्य." },
+    { q: "Q12. If a year is a Leap Year, how many days does the month of February have?", options: ["28 days", "30 days", "29 days", "31 days"], ans: 2, exp: "लीप वर्षात (Leap Year) फेब्रुवारी महिन्यात २९ दिवस असतात." },
+    { q: "Q13. Choose the month that has the least number of letters in its English spelling:", options: ["June", "May", "July", "April"], ans: 1, exp: "'May' या शब्दात सर्वात कमी (३) अक्षरे आहेत." },
+    { q: "Q14. If tomorrow is Saturday, what day was the day before yesterday?", options: ["Tuesday", "Wednesday", "Thursday", "Friday"], ans: 1, exp: "उद्या शनिवार असेल तर आज शुक्रवार आहे. काल गुरुवार होता आणि परवा (day before yesterday) बुधवार होता." },
+    { q: "Q15. Which month begins with the same letter as the month of 'August'?", options: ["April", "Autumn", "December", "January"], ans: 0, exp: "'August' ची सुरुवात 'A' ने होते, पर्यायपैकी 'April' ची सुरुवातही 'A' ने होते." },
+    { q: "Q16. How many days are there altogether in the months of April and May?", options: ["60", "62", "61", "59"], ans: 2, exp: "एप्रिल (३० दिवस) + मे (३१ दिवस) = ६१ दिवस." },
+    { q: "Q17. Which day comes immediately after the fifth day of the week if Monday is considered the first day?", options: ["Saturday", "Friday", "Sunday", "Thursday"], ans: 0, exp: "सोमवार पहिला मानल्यास ५ वा दिवस शुक्रवार होतो आणि त्याच्या लगेच नंतर शनिवार येतो." },
+    { q: "Q18. Choose the correct spelling for the month that comes after February:", options: ["March", "Murch", "Maarch", "Marche"], ans: 0, exp: "फेब्रुवारीनंतर 'March' महिना येतो." },
+    { q: "Q19. Find the word with incorrect capitalisation:", options: ["Sunday", "August", "Thursday", "tuesday"], ans: 3, exp: "वार व महिन्यांचे पहिले अक्षर कॅपिटल हवे, त्यामुळे 'tuesday' मधील 't' लहान असणे चुकीचे आहे." },
+    { q: "Q20. If today is Thursday, what day was it 7 days ago?", options: ["Wednesday", "Friday", "Thursday", "Tuesday"], ans: 2, exp: "बरोबर ७ दिवसांपूर्वी तोच वार (गुरुवार) होता." },
+    { q: "Q21. Which month comes two months before December?", options: ["October", "September", "November", "August"], ans: 0, exp: "डिसेंबरच्या १ महिना आधी नोव्हेंबर आणि २ महिने आधी ऑक्टोबर येतो." },
+    { q: "Q22. Select the pair of consecutive months that both have 31 days:", options: ["June and July", "July and August", "August and September", "December and January"], ans: 1, exp: "जुलै आणि ऑगस्ट हे शेजारील दोन्ही महिने प्रत्येकी ३१ दिवसांचे असतात." },
+    { q: "Q23. If the day after tomorrow is Monday, what day is today?", options: ["Friday", "Saturday", "Sunday", "Thursday"], ans: 1, exp: "परवा सोमवार आहे, म्हणजे उद्या रविवार आणि आज शनिवार आहे." },
+    { q: "Q24. Identify the total number of letters in the word 'SEPTEMBER':", options: ["8", "10", "7", "9"], ans: 3, exp: "S-E-P-T-E-M-B-E-R या शब्दात एकूण ९ अक्षरे आहेत." },
+    { q: "Q25. Which day of the week starts with the letter 'T'?", options: ["Tuesday only", "Thursday only", "Tuesday and Thursday", "Tuesday, Thursday, and Today"], ans: 2, exp: "'Tuesday' आणि 'Thursday' हे दोन्ही वार 'T' ने सुरू होतात." },
+    { q: "Q26. Which month is celebrated as National Teachers' Day month in India?", options: ["September", "August", "October", "November"], ans: 0, exp: "भारतात शिक्षक दिन ५ सप्टेंबर रोजी साजरा केला जातो." },
+    { q: "Q27. Rearrange the jumbled letters to form a day of the week: 'I F R A Y D'", options: ["Fairday", "Friday", "Frayday", "Fridaee"], ans: 1, exp: "अक्षरांची योग्य रचना 'Friday' अशी होते." },
+    { q: "Q28. Which month comes directly between January and March?", options: ["April", "February", "May", "June"], ans: 1, exp: "जानेवारी आणि मार्चच्या मध्ये फेब्रुवारी महिना येतो." },
+    { q: "Q29. How many full weeks are there in any standard month?", options: ["5 weeks", "3 weeks", "4 weeks", "6 weeks"], ans: 2, exp: "कोणत्याही महिन्यात किमान ४ पूर्ण आठवडे (२८ दिवस) असतात." },
+    { q: "Q30. If Independence Day of India is celebrated in August, which month precedes it?", options: ["September", "June", "July", "October"], ans: 2, exp: "ऑगस्ट महिन्याच्या आधी (precedes) 'July' महिना येतो." },
+    { q: "Q31. Which day is considered the last day of a standard working week in schools (Monday to Saturday)?", options: ["Saturday", "Friday", "Sunday", "Thursday"], ans: 0, exp: "सोमवार ते शनिवार या कामाच्या आठवड्याचा शेवटचा दिवस शनिवार असतो." },
+    { q: "Q32. Select the month that has 30 days:", options: ["January", "March", "June", "May"], ans: 2, exp: "जून महिन्यात ३० दिवस असतात." },
+    { q: "Q33. If today is Wednesday, what day will it be after 3 days?", options: ["Saturday", "Friday", "Sunday", "Monday"], ans: 0, exp: "बुधवार + ३ दिवस = गुरुवार(१), शुक्रवार(२), शनिवार(३)." },
+    { q: "Q34. Which of the following months ends with the suffix '-ber'?", options: ["August", "October", "January", "March"], ans: 1, exp: "October च्या शेवटी '-ber' प्रत्यय आहे." },
+    { q: "Q35. How many days are there in a non-leap year in the month of February?", options: ["29", "30", "28", "31"], ans: 2, exp: "साध्या (non-leap) वर्षात फेब्रुवारीमध्ये २८ दिवस असतात." },
+    { q: "Q36. Which day comes immediately before Wednesday?", options: ["Thursday", "Tuesday", "Monday", "Sunday"], ans: 1, exp: "बुधवाराच्या आधी लगेच मंगळवार (Tuesday) येतो." },
+    { q: "Q37. Identify the 6th month of the calendar year:", options: ["May", "July", "June", "August"], ans: 2, exp: "६ वा महिना 'June' आहे." },
+    { q: "Q38. Choose the correct statement:", options: ["March has 30 days.", "July has 30 days.", "November has 31 days.", "April has 30 days."], ans: 3, exp: "एप्रिल महिन्यात ३० दिवस असतात हे विधान बरोबर आहे." },
+    { q: "Q39. If 31st December is a Tuesday, what day will 1st January of the next year be?", options: ["Wednesday", "Thursday", "Monday", "Sunday"], ans: 0, exp: "३१ डिसेंबरनंतर १ जानेवारी येते, त्यामुळे मंगळवारनंतर बुधवार असेल." },
+    { q: "Q40. Rearrange the jumbled letters to form a month: 'N A J U R A Y'", options: ["Junuary", "January", "Janury", "Januarey"], ans: 1, exp: "अक्षरांची योग्य जुळवाजुळव 'January' अशी होते." },
+    { q: "Q41. Which day is known as the weekend along with Sunday?", options: ["Friday", "Monday", "Saturday", "Thursday"], ans: 2, exp: "शनिवार (Saturday) आणि रविवार यांना विकेंड मानले जाते." },
+    { q: "Q42. How many months in a year begin with the letter 'M'?", options: ["1", "3", "4", "2"], ans: 3, exp: "'M' ने सुरू होणारे २ महिने आहेत: March आणि May." },
+    { q: "Q43. Which is the shortest month in terms of the number of days?", options: ["April", "February", "June", "September"], ans: 1, exp: "फेब्रुवारी हा सर्वात कमी (२८/२९) दिवसांचा महिना आहे." },
+    { q: "Q44. If yesterday was Friday, what day will tomorrow be?", options: ["Saturday", "Monday", "Sunday", "Tuesday"], ans: 2, exp: "काल शुक्रवार होता, म्हणजे आज शनिवार आहे आणि उद्या रविवार असेल." },
+    { q: "Q45. Which of these months has 31 days?", options: ["November", "January", "September", "April"], ans: 1, exp: "जानेवारी महिन्यात ३१ दिवस असतात." },
+    { q: "Q46. Choose the option with the correct sequential order of days:", options: ["Monday, Tuesday, Wednesday", "Tuesday, Thursday, Wednesday", "Friday, Sunday, Saturday", "Sunday, Tuesday, Monday"], ans: 0, exp: "सोमवार, मंगळवार, बुधवार हा योग्य क्रम आहे." },
+    { q: "Q47. What is the last month of the calendar year?", options: ["November", "December", "January", "October"], ans: 1, exp: "वर्षाचा १२ वा आणि शेवटचा महिना 'December' आहे." },
+    { q: "Q48. How many days are there in a complete week?", options: ["5", "6", "8", "7"], ans: 3, exp: "एका आठवड्यात ७ दिवस असतात." },
+    { q: "Q49. Which month comes immediately after October?", options: ["September", "December", "August", "November"], ans: 3, exp: "ऑक्टोबरनंतर नोव्हेंबर महिना येतो." },
+    { q: "Q50. If 1st of a month is Sunday, what date will be the next Sunday?", options: ["8th", "7th", "9th", "6th"], ans: 0, exp: "१ + ७ = ८ तारखेला पुढील रविवार असेल." }
+];
+let currentQ = 0;
+let userAnswers = new Array(quizData.length).fill(null);
+
+function startExam() {
+    const name = document.getElementById('student-name').value.trim();
+    const mobile = document.getElementById('student-mobile').value.trim();
+
+    if (!name || mobile.length !== 10) {
+        alert("कृपया तुमचे पूर्ण नाव आणि १० अंकी योग्य मोबाईल नंबर प्रविष्ट करा.");
+        return;
+    }
+
+    document.getElementById('start-page').style.display = 'none';
+    document.getElementById('exam-page').style.display = 'block';
+
+    renderQuestions();
+    showQuestion(0);
+}
+
+function renderQuestions() {
+    const container = document.getElementById('questions-container');
+    container.innerHTML = '';
+
+    quizData.forEach((data, index) => {
+        const card = document.createElement('div');
+        card.className = `question-card ${index === 0 ? 'active' : ''}`;
+        card.id = `q-card-${index}`;
+
+        let optionsHTML = '';
+        data.options.forEach((opt, optIdx) => {
+            optionsHTML += `<button class="option-btn" id="opt-${index}-${optIdx}" onclick="selectOption(${index}, ${optIdx})">(${optIdx + 1}) ${opt}</button>`;
+        });
+
+        card.innerHTML = `
+            <div class="question-title">${data.q}</div>
+            <div class="options">${optionsHTML}</div>
+            <div class="explanation" id="exp-${index}">
+                <strong>स्पष्टीकरण:</strong> ${data.exp}
+            </div>
+        `;
+        container.appendChild(card);
+    });
+}
+
+function showQuestion(index) {
+    document.querySelectorAll('.question-card').forEach(card => card.classList.remove('active'));
+    document.getElementById(`q-card-${index}`).classList.add('active');
+    
+    currentQ = index;
+
+    const nextBtn = document.getElementById('next-btn');
+    const submitBtn = document.getElementById('submit-btn');
+
+    if (currentQ === quizData.length - 1) {
+        nextBtn.style.display = 'none';
+        submitBtn.style.display = 'block';
+    } else {
+        nextBtn.style.display = 'block';
+        submitBtn.style.display = 'none';
+    }
+
+    nextBtn.disabled = userAnswers[currentQ] === null;
+}
+
+function selectOption(qIdx, optIdx) {
+    if (userAnswers[qIdx] !== null) return; 
+
+    userAnswers[qIdx] = optIdx;
+    const correctAns = quizData[qIdx].ans;
+
+    const selectedBtn = document.getElementById(`opt-${qIdx}-${optIdx}`);
+    const correctBtn = document.getElementById(`opt-${qIdx}-${correctAns}`);
+    const expDiv = document.getElementById(`exp-${qIdx}`);
+
+    if (optIdx === correctAns) {
+        selectedBtn.classList.add('correct');
+    } else {
+        selectedBtn.classList.add('incorrect');
+        correctBtn.classList.add('correct');
+        expDiv.style.display = 'block';
+    }
+
+    document.getElementById('next-btn').disabled = false;
+}
+
+function nextQuestion() {
+    if (currentQ < quizData.length - 1) {
+        showQuestion(currentQ + 1);
+    }
+}
+
+function submitExam() {
+    let score = 0;
+    quizData.forEach((q, idx) => {
+        if (userAnswers[idx] === q.ans) {
+            score += 2; // Each question is worth 2 marks
+        }
+    });
+
+    document.getElementById('exam-page').style.display = 'none';
+    document.getElementById('certificate-page').style.display = 'block';
+
+    const studentName = document.getElementById('student-name').value;
+    document.getElementById('cert-student-name').innerText = studentName;
+    document.getElementById('cert-score').innerText = score;
+
+    const percentage = (score / 100) * 100;
+    const perfDiv = document.getElementById('cert-performance');
+
+    if (percentage >= 90) {
+        perfDiv.innerHTML = "🥇 Gold Medal + Trophy";
+        perfDiv.style.background = "#fff3cd";
+        perfDiv.style.color = "#856404";
+    } else if (percentage >= 80) {
+        perfDiv.innerHTML = "🥈 Silver Medal + Trophy";
+        perfDiv.style.background = "#e2e3e5";
+        perfDiv.style.color = "#383d41";
+    } else if (percentage >= 70) {
+        perfDiv.innerHTML = "🥉 Bronze Medal + Trophy";
+        perfDiv.style.background = "#f8d7da";
+        perfDiv.style.color = "#721c24";
+    } else {
+        perfDiv.innerHTML = "💐 अभिनंदन! फुलांचा गुच्छ व पुढील परीक्षेसाठी शुभेच्छा!";
+        perfDiv.style.background = "#d4edda";
+        perfDiv.style.color = "#155724";
+    }
+
+    generateWrongQuestionsList();
+}
+
+function generateWrongQuestionsList() {
+    const listContainer = document.getElementById('wrong-questions-list');
+    listContainer.innerHTML = '';
+
+    let hasWrong = false;
+
+    quizData.forEach((q, idx) => {
+        if (userAnswers[idx] !== q.ans) {
+            hasWrong = true;
+            const item = document.createElement('div');
+            item.className = 'wrong-item';
+            
+            const userAnsText = userAnswers[idx] !== null ? q.options[userAnswers[idx]] : "सोडून दिला";
+            const correctAnsText = q.options[q.ans];
+
+            item.innerHTML = `
+                <strong>${q.q}</strong><br>
+                <span style="color: #dc3545;">तुमचे उत्तर: ${userAnsText}</span><br>
+                <span style="color: #28a745;">योग्य उत्तर: ${correctAnsText}</span><br>
+                <small><em>स्पष्टीकरण: ${q.exp}</em></small>
+            `;
+            listContainer.appendChild(item);
+        }
+    });
+
+    if (!hasWrong) {
+        listContainer.innerHTML = "<p style='color: #28a745; font-weight: bold;'>अभिनंदन! तुमचे सर्व ५० प्रश्न बरोबर आले आहेत.</p>";
+    }
+}
+
+function toggleWrongQuestions() {
+    const wrongSection = document.getElementById('wrong-questions-container');
+    if (wrongSection.style.display === 'none' || wrongSection.style.display === '') {
+        wrongSection.style.display = 'block';
+    } else {
+        wrongSection.style.display = 'none';
+    }
+}
+</script>
+</body>
+</html>
