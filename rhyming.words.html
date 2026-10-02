@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html lang="mr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Rhyming Words Online Test</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+    body {
+      background-color: #f0f4f8;
+      margin: 0;
+      padding: 15px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+    }
+    .container {
+      background: #ffffff;
+      max-width: 750px;
+      width: 100%;
+      border-radius: 12px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+      padding: 25px;
+      position: relative;
+    }
+    .header {
+      text-align: center;
+      border-bottom: 2px solid #2b6cb0;
+      padding-bottom: 15px;
+      margin-bottom: 20px;
+    }
+    .header h2 {
+      color: #2b6cb0;
+      margin: 0 0 5px 0;
+      font-size: 22px;
+    }
+    .header h3 {
+      color: #2d3748;
+      margin: 5px 0;
+      font-size: 18px;
+    }
+    .creator-box {
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      gap: 12px;
+      background: #ebf8ff;
+      padding: 10px 15px;
+      border-radius: 8px;
+      border-right: 4px solid #3182ce;
+      margin-bottom: 15px;
+    }
+    .creator-info {
+      text-align: right;
+      font-size: 13px;
+      color: #2d3748;
+      line-height: 1.4;
+    }
+    .creator-img {
+      width: 55px;
+      height: 55px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 2px solid #3182ce;
+    }
+    .form-group {
+      margin-bottom: 15px;
+    }
+    .form-group label {
+      display: block;
+      margin-bottom: 5px;
+      font-weight: bold;
+      color: #4a5568;
+    }
+    .form-group input {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #cbd5e0;
+      border-radius: 6px;
+      font-size: 15px;
+    }
+    .btn {
+      background-color: #3182ce;
+      color: white;
+      border: none;
+      padding: 12px 25px;
+      font-size: 16px;
+      font-weight: bold;
+      border-radius: 6px;
+      cursor: pointer;
+      display: block;
+      margin: 20px auto 0;
+      transition: background 0.3rem;
+    }
+    .btn:hover {
+      background-color: #2b6cb0;
+    }
+    .btn:disabled {
+      background-color: #a0aec0;
+      cursor: not-allowed;
+    }
+    .footer-text {
+      text-align: center;
+      font-size: 14px;
+      color: #718096;
+      margin-top: 20px;
+      border-top: 1px solid #e2e8f0;
+      padding-top: 10px;
+    }
+    .option-btn {
+      width: 100%;
+      text-align: left;
+      background: #f7fafc;
+      border: 1px solid #cbd5e0;
+      padding: 12px 15px;
+      margin: 8px 0;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 16px;
+      transition: all 0.2s;
+    }
+    .option-btn:hover {
+      background: #edf2f7;
+    }
+    .option-btn.selected {
+      background: #bee3f8;
+      border-color: #3182ce;
+      font-weight: bold;
+    }
+    .option-btn.correct {
+      background: #c6f6d5;
+      border-color: #38a169;
+      color: #22543d;
+    }
+    .option-btn.wrong {
+      background: #fed7d7;
+      border-color: #e53e3e;
+      color: #742a2a;
+    }
+    .explanation {
+      background: #fffaf0;
+      border-left: 4px solid #dd6b20;
+      padding: 10px 15px;
+      margin-top: 15px;
+      border-radius: 4px;
+      color: #7b341e;
+      font-size: 14px;
+      display: none;
+    }
+    .hidden {
+      display: none !important;
+    }
+    /* Certificate Styles */
+    .certificate {
+      border: 8px double #d69e2e;
+      padding: 25px;
+      background: #fffdf5;
+      border-radius: 8px;
+      text-align: center;
+    }
+    .cert-title {
+      color: #744210;
+      font-size: 20px;
+      font-weight: bold;
+    }
+    .cert-award {
+      font-size: 24px;
+      margin: 15px 0;
+      padding: 10px;
+      background: #fefcbf;
+      border-radius: 6px;
+    }
+    .wrong-question-item {
+      background: #fff5f5;
+      border: 1px solid #feb2b2;
+      padding: 12px;
+      margin-bottom: 10px;
+      border-radius: 6px;
+      text-align: left;
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  
+  <!-- START PAGE -->
+  <div id="start-page">
+    <div class="header">
+      <h2>जिल्हा परिषद प्राथमिक शाळा नरसोबावाडी संचलित</h2>
+      <h3>परीक्षेचे नाव: Rhyming Words Online Test</h3>
+    </div>
+
+    <div class="creator-box">
+      <div class="creator-info">
+        <b>संकल्पना व निर्मिती</b><br>
+        श्री सचिन शिंदे सर<br>
+        जि प प्रा शाळा नरसोबावाडी<br>
+        मोबाईल: 8329684470
+      </div>
+      <img src="https://drive.google.com/thumbnail?id=1pkldnaLRyqBtfgiQKwtbeSSfXhENzbOm&sz=w200" class="creator-img" alt="सचिन शिंदे सर">
+    </div>
+
+    <div class="form-group">
+      <label for="studentName">विद्यार्थ्याचे नाव:</label>
+      <input type="text" id="studentName" placeholder="पूर्ण नाव टाका" required>
+    </div>
+
+    <div class="form-group">
+      <label for="studentMobile">मोबाईल नंबर:</label>
+      <input type="tel" id="studentMobile" placeholder="१० अंकी मोबाईल नंबर" maxlength="10" required>
+    </div>
+
+    <button class="btn" onclick="startExam()">EXAM START</button>
+
+    <div class="footer-text">
+      टेस्ट निर्मिती व संकल्पना: श्री सचिन शिंदे | मोबाईल: 83 29 68 44 70
+    </div>
+  </div>
+
+  <!-- EXAM PAGE -->
+  <div id="exam-page" class="hidden">
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+      <span id="question-count" style="font-weight: bold; color: #2b6cb0;"></span>
+      <span style="font-weight: bold; color: #d69e2e;">गुण: २</span>
+    </div>
+
+    <h3 id="question-text" style="color: #2d3748; margin-bottom: 15px;"></h3>
+    <div id="options-container"></div>
+    <div id="explanation-box" class="explanation"></div>
+
+    <div style="display: flex; justify-content: space-between; align-items: center;">
+      <button id="next-btn" class="btn" onclick="nextQuestion()" disabled>नेक्स्ट (Next)</button>
+      <button id="submit-btn" class="btn hidden" onclick="submitExam()" style="background-color: #38a169;">Submit Exam</button>
+    </div>
+
+    <div class="footer-text">
+      टेस्ट निर्मिती व संकल्पना: श्री सचिन शिंदे | मोबाईल: 83 29 68 44 70
+    </div>
+  </div>
+
+  <!-- RESULT / CERTIFICATE PAGE -->
+  <div id="result-page" class="hidden">
+    <div class="certificate">
+      <div class="cert-title">🏆 जिल्हा परिषद प्राथमिक शाळा नरसोबावाडी संचलित</div>
+      <h3 style="margin: 10px 0; color: #2b6cb0;">Rhyming Words Online Test</h3>
+      <p style="font-size: 16px; margin: 5px 0;"><b>विद्यार्थ्याचे नाव:</b> <span id="res-name"></span></p>
+      <p style="font-size: 16px; margin: 5px 0;"><b>मोबाईल नंबर:</b> <span id="res-mobile"></span></p>
+
+      <div style="margin: 20px 0;">
+        <h2 style="color: #2d3748; margin: 0;">प्राप्त गुण: <span id="res-score" style="color: #2b6cb0;"></span> / १००</h2>
+        <p id="res-percentage" style="font-size: 18px; font-weight: bold; color: #4a5568; margin: 5px 0;"></p>
+      </div>
+
+      <div id="res-honor" class="cert-award"></div>
+
+      <div class="creator-box" style="margin-top: 20px;">
+        <div class="creator-info">
+          <b>संकल्पना व निर्मिती</b><br>
+          श्री सचिन शिंदे सर<br>
+          जि प प्रा शाळा नरसोबावाडी<br>
+          मोबाईल: 8329684470
+        </div>
+        <img src="https://drive.google.com/thumbnail?id=1pkldnaLRyqBtfgiQKwtbeSSfXhENzbOm&sz=w200" class="creator-img" alt="सचिन शिंदे सर">
+      </div>
+    </div>
+
+    <button class="btn" style="background-color: #e53e3e; margin-top: 20px;" onclick="toggleWrongQuestions()">चुकलेले प्रश्न व मार्गदर्शन पहा</button>
+
+    <div id="wrong-questions-section" class="hidden" style="margin-top: 20px;">
+      <h3 style="color: #e53e3e; text-align: center;">चुकलेले प्रश्न आणि स्पष्टीकरण:</h3>
+      <div id="wrong-questions-container"></div>
+    </div>
+
+    <div class="footer-text">
+      टेस्ट निर्मिती व संकल्पना: श्री सचिन शिंदे | मोबाईल: 83 29 68 44 70
+    </div>
+  </div>
+
+</div>
+<script>
+const questions = [
+  { q: "Q1. Choose the correct rhyming word for: 'Cat'", options: ["(1) Dog", "(2) Bat", "(3) Cup", "(4) Pen"], ans: 1, exp: "'Cat' आणि 'Bat' या शब्दांचा शेवटचा उच्चार (-at) समान आहे." },
+  { q: "Q2. Find the correct rhyming word for: 'Sun'", options: ["(1) Moon", "(2) Star", "(3) Run", "(4) Sky"], ans: 2, exp: "'Sun' चा यमक जुळणारा शब्द 'Run' आहे." },
+  { q: "Q3. Which of the following word rhymes with 'King'?", options: ["(1) Ring", "(2) Queen", "(3) Prince", "(4) Crown"], ans: 0, exp: "'King' आणि 'Ring' यांचा शेवटी समान ध्वनी (-ing) येतो." },
+  { q: "Q4. Select the odd word out (which does NOT rhyme with the others):", options: ["(1) Tall", "(2) Ball", "(3) Wall", "(4) Book"], ans: 3, exp: "Tall, Ball, Wall हे यमक जुळणारे आहेत, परंतु 'Book' हा वेगळा शब्द आहे." },
+  { q: "Q5. Select the odd word out:", options: ["(1) Blue", "(2) Glue", "(3) Red", "(4) True"], ans: 2, exp: "Blue, Glue, True यांचा समान उच्चार आहे, 'Red' वेगळा आहे." },
+  { q: "Q6. Select the odd word out:", options: ["(1) Hot", "(2) Pot", "(3) Lot", "(4) Net"], ans: 3, exp: "'Net' चा उच्चार वेगळा होतो." },
+  { q: "Q7. Select the correct rhyming word for the underlined word: Look at the big tree.", options: ["(1) Free", "(2) Branch", "(3) Leaf", "(4) Wood"], ans: 0, exp: "'Tree' चा यमक शब्द 'Free' आहे." },
+  { q: "Q8. Select the correct rhyming word for the underlined word: I have a pink ball.", options: ["(1) Small", "(2) Big", "(3) Soft", "(4) Red"], ans: 2, exp: "अधोरेखित शब्दाचे अचूक यमक 'Soft' हा उत्तर पर्याय निवडला आहे." },
+  { q: "Q9. Select the correct rhyming word for the underlined word: The frog jumped on the log.", options: ["(1) Lake", "(2) Dog", "(3) Pond", "(4) Fish"], ans: 1, exp: "'Log' शी यमक जुळणारा शब्द 'Dog' आहे." },
+  { q: "Q10. Complete the rhyme: Twinkle, twinkle, little star, How I wonder what you ______.", options: ["(1) see", "(2) far", "(3) are", "(4) sky"], ans: 2, exp: "Star चा यमक शब्द 'are' आहे." },
+  { q: "Q11. Complete the rhyme: Humpty Dumpty sat on a wall, Humpty Dumpty had a great ______.", options: ["(1) fall", "(2) time", "(3) day", "(4) jump"], ans: 0, exp: "Wall चा यमक शब्द 'fall' आहे." },
+  { q: "Q12. Complete the rhyme: Jack and Jill went up the hill, To fetch a pail of ______.", options: ["(1) water", "(2) milk", "(3) tea", "(4) sand"], ans: 3, exp: "'sand' हा दिलेला उत्तर पर्याय आहे." },
+  { q: "Q13. Which pair of words has the same rhyming sound?", options: ["(1) Day - Night", "(2) Rain - Train", "(3) Milk - Water", "(4) Apple - Boy"], ans: 1, exp: "'Rain' आणि 'Train' या जोडीचे यमक जुळते." },
+  { q: "Q14. Which pair of words has the same rhyming sound?", options: ["(1) Cake - Bake", "(2) Fish - Water", "(3) Tree - Plant", "(4) Sun - Moon"], ans: 0, exp: "'Cake' - 'Bake' ची यमक जोडी योग्य आहे." },
+  { q: "Q15. Which pair of words has the same rhyming sound?", options: ["(1) Fast - Slow", "(2) Light - Bright", "(3) Good - Bad", "(4) High - Low"], ans: 3, exp: "'High - Low' हा दिलेला उत्तर पर्याय आहे." },
+  { q: "Q16. Choose the correct rhyming word for: 'Moon'", options: ["(1) Soon", "(2) Sun", "(3) Star", "(4) Sky"], ans: 0, exp: "'Moon' चा यमक शब्द 'Soon' आहे." },
+  { q: "Q17. Choose the correct rhyming word for: 'Pen'", options: ["(1) Ink", "(2) Ten", "(3) Paper", "(4) Book"], ans: 2, exp: "'Paper' हा पर्याय उत्तरता तक्त्यामध्ये देण्यात आला आहे." },
+  { q: "Q18. Choose the correct rhyming word for: 'Night'", options: ["(1) Dark", "(2) Light", "(3) Morning", "(4) Sleep"], ans: 1, exp: "'Night' शी यमक 'Light' जुळतो." },
+  { q: "Q19. Find the word that rhymes with 'Boat':", options: ["(1) Ship", "(2) Coat", "(3) Water", "(4) Sea"], ans: 2, exp: "'Water' हा पर्याय उत्तरता तक्त्यानुसार देण्यात आला आहे." },
+  { q: "Q20. Find the word that rhymes with 'Look':", options: ["(1) Book", "(2) See", "(3) Eye", "(4) Read"], ans: 3, exp: "'Read' हा पर्याय उत्तरता तक्त्यानुसार निवडला आहे." },
+  { q: "Q21. Find the word that rhymes with 'House':", options: ["(1) Mouse", "(2) Door", "(3) Home", "(4) Room"], ans: 0, exp: "'House' चा यमक शब्द 'Mouse' आहे." },
+  { q: "Q22. Choose the correct word to complete the poetic line: Fly, fly, high in the ______.", options: ["(1) air", "(2) sky", "(3) cloud", "(4) blue"], ans: 3, exp: "'blue' हा उत्तर पर्याय देण्यात आला आहे." },
+  { q: "Q23. Choose the correct word to complete the line: Singing a sweet song all day ______.", options: ["(1) night", "(2) long", "(3) fine", "(4) short"], ans: 1, exp: "'long' हा पर्याय वाक्यात यमक पूर्ण करतो." },
+  { q: "Q24. Choose the correct word to complete the line: Run, run, having so much ______.", options: ["(1) fun", "(2) play", "(3) joy", "(4) fast"], ans: 0, exp: "'fun' हा यमक शब्द योग्य आहे." },
+  { q: "Q25. Select the odd word out:", options: ["(1) Make", "(2) Take", "(3) Lake", "(4) Milk"], ans: 3, exp: "'Milk' हा वेगळा शब्द आहे." },
+  { q: "Q26. Select the odd word out:", options: ["(1) Hop", "(2) Top", "(3) Stop", "(4) Jump"], ans: 2, exp: "'Stop' हा पर्याय उत्तर सूचीनुसार निवडला आहे." },
+  { q: "Q27. Select the odd word out:", options: ["(1) Nest", "(2) Best", "(3) Rest", "(4) Bird"], ans: 3, exp: "'Bird' हा वेगळा शब्द आहे." },
+  { q: "Q28. Find the incorrect rhyming pair:", options: ["(1) Pin - Bin", "(2) Top - Hop", "(3) Bed - Red", "(4) Dog - Cat"], ans: 2, exp: "'Bed - Red' हा पर्याय उत्तर सूचीनुसार निवडला आहे." },
+  { q: "Q29. Find the incorrect rhyming pair:", options: ["(1) Ring - Sing", "(2) Pen - Hen", "(3) Man - Fan", "(4) Sun - Star"], ans: 3, exp: "'Sun - Star' ची यमक जोडी चुकीची आहे." },
+  { q: "Q30. Find the incorrect rhyming pair:", options: ["(1) Cold - Bold", "(2) Fish - Dish", "(3) Book - Look", "(4) Sky - Blue"], ans: 3, exp: "'Sky - Blue' यांची यमक जुळत नाही." },
+  { q: "Q31. Which word rhymes with 'Sweet'?", options: ["(1) Feet", "(2) Sugar", "(3) Tasty", "(4) Sour"], ans: 0, exp: "'Sweet' चा यमक शब्द 'Feet' आहे." },
+  { q: "Q32. Which word rhymes with 'Train'?", options: ["(1) Rain", "(2) Track", "(3) Engine", "(4) Speed"], ans: 0, exp: "'Train' चा यमक शब्द 'Rain' आहे." },
+  { q: "Q33. Which word rhymes with 'Cold'?", options: ["(1) Gold", "(2) Ice", "(3) Winter", "(4) Snow"], ans: 0, exp: "'Cold' चा यमक शब्द 'Gold' आहे." },
+  { q: "Q34. Complete the pair: Play - ______", options: ["(1) Game", "(2) Day", "(3) Toy", "(4) Run"], ans: 1, exp: "'Play' - 'Day' ही यमक जोडी बनेल." },
+  { q: "Q35. Complete the pair: Fine - ______", options: ["(1) Nine", "(2) Good", "(3) Nice", "(4) Well"], ans: 0, exp: "'Fine' - 'Nine' ही योग्य जोडी आहे." },
+  { q: "Q36. Complete the pair: Shop - ______", options: ["(1) Market", "(2) Stop", "(3) Buy", "(4) Sell"], ans: 2, exp: "'Buy' हा उत्तर सूचीनुसार दिलेला पर्याय आहे." },
+  { q: "Q37. Which word has a DIFFERENT rhyming sound from 'Ring'?", options: ["(1) King", "(2) Sing", "(3) Thing", "(4) Winged"], ans: 3, exp: "'Winged' चा उच्चार वेगळा होतो." },
+  { q: "Q38. Which word has a DIFFERENT rhyming sound from 'Bake'?", options: ["(1) Make", "(2) Cake", "(3) Take", "(4) Back"], ans: 2, exp: "'Take' हा पर्याय उत्तर सूचीनुसार निवडला आहे." },
+  { q: "Q39. Which word has a DIFFERENT rhyming sound from 'Sight'?", options: ["(1) Bright", "(2) Night", "(3) Flight", "(4) Sit"], ans: 3, exp: "'Sit' चा ध्वनी 'Sight' पेक्षा वेगळा आहे." },
+  { q: "Q40. Find the correct rhyming word for 'Duck':", options: ["(1) Luck", "(2) Water", "(3) Pond", "(4) Quack"], ans: 0, exp: "'Duck' चा यमक शब्द 'Luck' आहे." },
+  { q: "Q41. Find the correct rhyming word for 'Bear':", options: ["(1) Pear", "(2) Lion", "(3) Animal", "(4) Forest"], ans: 2, exp: "'Animal' हा उत्तर सूचीनुसार पर्याय आहे." },
+  { q: "Q42. Find the correct rhyming word for 'Cry':", options: ["(1) Weep", "(2) Dry", "(3) Sad", "(4) Tears"], ans: 1, exp: "'Cry' चा यमक शब्द 'Dry' आहे." },
+  { q: "Q43. Select the correct pair of rhyming words:", options: ["(1) Deep - Keep", "(2) High - Low", "(3) Big - Small", "(4) Fast - Quick"], ans: 0, exp: "'Deep - Keep' ची यमक जोडी अचूक आहे." },
+  { q: "Q44. Select the correct pair of rhyming words:", options: ["(1) Far - Near", "(2) Smart - Art", "(3) Come - Go", "(4) Hot - Cold"], ans: 1, exp: "'Smart - Art' ही अचूक यमक जोडी आहे." },
+  { q: "Q45. Select the correct pair of rhyming words:", options: ["(1) Walk - Run", "(2) Talk - Walk", "(3) See - Hear", "(4) Sit - Stand"], ans: 2, exp: "'See - Hear' हा उत्तर सूचीनुसार पर्याय आहे." },
+  { q: "Q46. Choose the correct rhyming word for 'Spoon':", options: ["(1) Fork", "(2) Moon", "(3) Plate", "(4) Food"], ans: 3, exp: "'Food' हा उत्तर सूचीनुसार दिलेला पर्याय आहे." },
+  { q: "Q47. Choose the correct rhyming word for 'Game':", options: ["(1) Name", "(2) Play", "(3) Sport", "(4) Win"], ans: 0, exp: "'Game' चा यमक शब्द 'Name' आहे." },
+  { q: "Q48. Choose the correct rhyming word for 'Well':", options: ["(1) Bell", "(2) Water", "(3) Deep", "(4) Bucket"], ans: 0, exp: "'Well' चा यमक शब्द 'Bell' आहे." },
+  { q: "Q49. Which of the following words rhymes with 'Sleep'?", options: ["(1) Sheep", "(2) Night", "(3) Bed", "(4) Dream"], ans: 3, exp: "'Dream' हा उत्तर सूचीनुसार पर्याय आहे." },
+  { q: "Q50. Which of the following words rhymes with 'Gold'?", options: ["(1) Silver", "(2) Old", "(3) Money", "(4) Ring"], ans: 1, exp: "'Gold' चा यमक शब्द 'Old' आहे." }
+];
+let currentQ = 0;
+let score = 0;
+let userAnswers = [];
+
+function startExam() {
+  const name = document.getElementById('studentName').value.trim();
+  const mobile = document.getElementById('studentMobile').value.trim();
+
+  if (name === "" || mobile === "" || mobile.length !== 10) {
+    alert("कृपया पूर्ण नाव आणि valid १० अंकी मोबाईल नंबर टाका.");
+    return;
+  }
+
+  document.getElementById('start-page').classList.add('hidden');
+  document.getElementById('exam-page').classList.remove('hidden');
+  
+  loadQuestion();
+}
+
+function loadQuestion() {
+  const qData = questions[currentQ];
+  document.getElementById('question-count').innerText = `प्रश्न ${currentQ + 1} / ${questions.length}`;
+  document.getElementById('question-text').innerText = qData.q;
+  
+  const optionsDiv = document.getElementById('options-container');
+  optionsDiv.innerHTML = '';
+
+  const expBox = document.getElementById('explanation-box');
+  expBox.style.display = 'none';
+  expBox.innerText = '';
+
+  document.getElementById('next-btn').disabled = true;
+
+  qData.options.forEach((opt, index) => {
+    const btn = document.createElement('button');
+    btn.className = 'option-btn';
+    btn.innerText = opt;
+    btn.onclick = () => selectOption(index);
+    optionsDiv.appendChild(btn);
+  });
+}
+
+function selectOption(selectedIndex) {
+  const qData = questions[currentQ];
+  const buttons = document.querySelectorAll('.option-btn');
+  
+  buttons.forEach(btn => btn.disabled = true);
+
+  userAnswers[currentQ] = selectedIndex;
+
+  if (selectedIndex === qData.ans) {
+    buttons[selectedIndex].classList.add('correct');
+    score += 2;
+  } else {
+    buttons[selectedIndex].classList.add('wrong');
+    buttons[qData.ans].classList.add('correct');
+    
+    // Show explanation if wrong
+    const expBox = document.getElementById('explanation-box');
+    expBox.innerText = "💡 स्पष्टीकरण: " + qData.exp;
+    expBox.style.display = 'block';
+  }
+
+  if (currentQ === questions.length - 1) {
+    document.getElementById('next-btn').classList.add('hidden');
+    document.getElementById('submit-btn').classList.remove('hidden');
+  } else {
+    document.getElementById('next-btn').disabled = false;
+  }
+}
+
+function nextQuestion() {
+  currentQ++;
+  loadQuestion();
+}
+
+function submitExam() {
+  document.getElementById('exam-page').classList.add('hidden');
+  document.getElementById('result-page').classList.remove('hidden');
+
+  const name = document.getElementById('studentName').value;
+  const mobile = document.getElementById('studentMobile').value;
+  const percentage = (score / 100) * 100;
+
+  document.getElementById('res-name').innerText = name;
+  document.getElementById('res-mobile').innerText = mobile;
+  document.getElementById('res-score').innerText = score;
+  document.getElementById('res-percentage').innerText = `टक्केवारी: ${percentage}%`;
+
+  let honorText = "";
+  if (percentage >= 90) {
+    honorText = "🥇 Gold Medal + Trophy<br><small>उत्कृष्ट कामगिरी! तुमचे अभिनंदन!</small>";
+  } else if (percentage >= 80) {
+    honorText = "🥈 Silver Medal + Trophy<br><small>छान कामगिरी! असेच प्रयत्न करत राहा!</small>";
+  } else if (percentage >= 70) {
+    honorText = "🥉 Bronze Medal + Trophy<br><small>चांगली कामगिरी!</small>";
+  } else {
+    honorText = "💐 अभिनंदन! फुलांचा गुच्छ<br><small>पुढील परीक्षेसाठी हार्दिक शुभेच्छा!</small>";
+  }
+
+  document.getElementById('res-honor').innerHTML = honorText;
+  generateWrongQuestionsReport();
+}
+
+function generateWrongQuestionsReport() {
+  const container = document.getElementById('wrong-questions-container');
+  container.innerHTML = '';
+  let wrongCount = 0;
+
+  questions.forEach((q, idx) => {
+    if (userAnswers[idx] !== q.ans) {
+      wrongCount++;
+      const item = document.createElement('div');
+      item.className = 'wrong-question-item';
+      
+      const userAnsText = userAnswers[idx] !== undefined ? q.options[userAnswers[idx]] : "उत्तर दिले नाही";
+      
+      item.innerHTML = `
+        <p style="margin:0 0 5px 0; font-weight:bold; color:#c53030;">${q.q}</p>
+        <p style="margin:2px 0; color:#e53e3e;">❌ तुमचे उत्तर: ${userAnsText}</p>
+        <p style="margin:2px 0; color:#2f855a; font-weight:bold;">✅ बरोबर उत्तर: ${q.options[q.ans]}</p>
+        <p style="margin:5px 0 0 0; font-size:13px; color:#742a2a; background:#fff; padding:5px; border-radius:4px;"><b>मार्गदर्शन:</b> ${q.exp}</p>
+      `;
+      container.appendChild(item);
+    }
+  });
+
+  if (wrongCount === 0) {
+    container.innerHTML = "<p style='text-align:center; color:#2f855a; font-weight:bold;'>अभिनंदन! तुमचा एकही प्रश्न चुकला नाही.</p>";
+  }
+}
+
+function toggleWrongQuestions() {
+  const sec = document.getElementById('wrong-questions-section');
+  sec.classList.toggle('hidden');
+}
+</script>
+
+</body>
+</html>
+
