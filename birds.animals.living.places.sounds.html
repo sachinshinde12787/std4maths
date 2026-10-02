@@ -1,0 +1,529 @@
+<!DOCTYPE html>
+<html lang="mr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ऑनलाइन परीक्षा - Birds and Animals</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        body {
+            background-color: #f0f4f8;
+            margin: 0;
+            padding: 15px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+        .container {
+            background-color: #ffffff;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+            max-width: 700px;
+            width: 100%;
+            padding: 25px;
+            position: relative;
+        }
+        .header-title {
+            text-align: center;
+            color: #1a365d;
+            font-size: 22px;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        .exam-title {
+            text-align: center;
+            color: #2b6cb0;
+            font-size: 18px;
+            margin-bottom: 20px;
+            font-weight: 600;
+        }
+        .creator-top {
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            margin-bottom: 20px;
+            background: #edf2f7;
+            padding: 10px;
+            border-radius: 8px;
+        }
+        .creator-top img {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-left: 10px;
+            border: 2px solid #3182ce;
+        }
+        .creator-info {
+            text-align: right;
+            font-size: 13px;
+            color: #2d3748;
+            line-height: 1.3;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+            color: #4a5568;
+        }
+        input[type="text"], input[type="tel"] {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #cbd5e0;
+            border-radius: 6px;
+            font-size: 16px;
+        }
+        .btn {
+            background-color: #3182ce;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            font-size: 16px;
+            font-weight: bold;
+            border-radius: 6px;
+            cursor: pointer;
+            width: 100%;
+            transition: background 0.2s;
+        }
+        .btn:hover {
+            background-color: #2b6cb0;
+        }
+        .btn:disabled {
+            background-color: #cbd5e0;
+            cursor: not-allowed;
+        }
+        .footer-text {
+            text-align: center;
+            font-size: 14px;
+            color: #718096;
+            margin-top: 25px;
+            border-top: 1px solid #e2e8f0;
+            padding-top: 15px;
+        }
+        
+        /* Question Styles */
+        .question-card {
+            display: none;
+        }
+        .question-card.active {
+            display: block;
+        }
+        .question-text {
+            font-size: 18px;
+            font-weight: 600;
+            color: #2d3748;
+            margin-bottom: 15px;
+        }
+        .options-container {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        .option-btn {
+            background-color: #f7fafc;
+            border: 2px solid #e2e8f0;
+            border-radius: 8px;
+            padding: 12px 15px;
+            text-align: left;
+            font-size: 16px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .option-btn:hover {
+            background-color: #edf2f7;
+        }
+        .option-btn.selected {
+            border-color: #3182ce;
+            background-color: #ebf8ff;
+        }
+        .option-btn.correct {
+            background-color: #c6f6d5;
+            border-color: #38a169;
+            color: #22543d;
+        }
+        .option-btn.wrong {
+            background-color: #fed7d7;
+            border-color: #e53e3e;
+            color: #742a2a;
+        }
+        .explanation {
+            margin-top: 15px;
+            padding: 12px;
+            background-color: #fffaf0;
+            border-left: 4px solid #dd6b20;
+            border-radius: 4px;
+            color: #7b341e;
+            font-size: 15px;
+            display: none;
+        }
+        .nav-btn {
+            margin-top: 20px;
+        }
+
+        /* Certificate Styles */
+        .certificate-card {
+            display: none;
+            border: 8px double #2b6cb0;
+            padding: 25px;
+            background: #ffffff;
+            position: relative;
+        }
+        .cert-header {
+            text-align: center;
+            color: #1a365d;
+            font-weight: bold;
+            font-size: 20px;
+            margin-bottom: 10px;
+        }
+        .cert-title {
+            text-align: center;
+            font-size: 22px;
+            color: #d69e2e;
+            margin-bottom: 15px;
+            text-transform: uppercase;
+            font-weight: bold;
+        }
+        .cert-body {
+            text-align: center;
+            font-size: 16px;
+            line-height: 1.6;
+            color: #2d3748;
+        }
+        .score-box {
+            font-size: 26px;
+            font-weight: bold;
+            color: #2b6cb0;
+            margin: 15px 0;
+            padding: 10px;
+            background: #ebf8ff;
+            border-radius: 8px;
+            display: inline-block;
+        }
+        .award-badge {
+            font-size: 20px;
+            font-weight: bold;
+            color: #2f855a;
+            margin: 15px 0;
+            padding: 12px;
+            background: #f0fff4;
+            border: 2px dashed #38a169;
+            border-radius: 8px;
+        }
+        .wrong-questions-section {
+            display: none;
+            margin-top: 25px;
+            text-align: left;
+            border-top: 2px solid #e2e8f0;
+            padding-top: 15px;
+        }
+        .wrong-q-item {
+            background: #fff5f5;
+            border: 1px solid #feb2b2;
+            padding: 10px;
+            border-radius: 6px;
+            margin-bottom: 10px;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    
+    <!-- Step 1: Registration Form Page -->
+    <div id="start-page">
+        <div class="header-title">जिल्हा परिषद प्राथमिक शाळा नरसोबावाडी संचलित</div>
+        
+        <div class="creator-top">
+            <div class="creator-info">
+                <strong>संकल्पना व निर्मिती</strong><br>
+                श्री सचिन शिंदे सर<br>
+                जि प प्रा शाळा नरसोबावाडी<br>
+                मोबाईल: 8329684470
+            </div>
+            <img src="https://drive.google.com/file/d/1pkldnaLRyqBtfgiQKwtbeSSfXhENzbOm/view?usp=drivesdk" alt="सचिन शिंदे सर">
+        </div>
+
+        <div class="exam-title">परीक्षेचे नाव: Birds and Animals, Their Living Places and Sounds</div>
+
+        <form id="reg-form" onsubmit="startExam(event)">
+            <div class="form-group">
+                <label for="student-name">विद्यार्थ्याचे नाव:</label>
+                <input type="text" id="student-name" required placeholder="पूर्ण नाव टाका">
+            </div>
+            <div class="form-group">
+                <label for="student-mobile">मोबाईल नंबर:</label>
+                <input type="tel" id="student-mobile" pattern="[0-9]{10}" required placeholder="10 अंकी मोबाईल नंबर">
+            </div>
+            <button type="submit" class="btn">EXAM START</button>
+        </form>
+
+        <div class="footer-text">
+            टेस्ट निर्मिती व संकल्पना: श्री सचिन शिंदे | मोबाईल: 8329684470
+        </div>
+    </div>
+
+    <!-- Step 2: Exam Container -->
+    <div id="exam-page" style="display: none;">
+        <div class="exam-title" style="font-size: 16px;">Birds and Animals, Their Living Places and Sounds</div>
+        <div id="questions-wrapper"></div>
+        <div class="footer-text">
+            टेस्ट निर्मिती व संकल्पना: श्री सचिन शिंदे | मोबाईल: 8329684470
+        </div>
+    </div>
+
+    <!-- Step 3: Result & Certificate Page -->
+    <div id="certificate-page" class="certificate-card">
+        <div class="cert-header">🏆 जिल्हा परिषद प्राथमिक शाळा नरसोबावाडी संचालित 🏆</div>
+        <div class="cert-title">गुणपत्रक व सन्मानपत्र</div>
+        
+        <div class="cert-body">
+            <p><strong>परीक्षेचे नाव:</strong> Birds and Animals, Their Living Places and Sounds</p>
+            <p><strong>विद्यार्थ्याचे नाव:</strong> <span id="cert-name" style="color: #2b6cb0; font-size: 18px; font-weight: bold;"></span></p>
+            <p><strong>मोबाईल नंबर:</strong> <span id="cert-mobile"></span></p>
+            
+            <div class="score-box">
+                मिळालेले गुण: <span id="cert-score">0</span> / 100
+            </div>
+
+            <div class="award-badge" id="cert-badge"></div>
+
+            <button class="btn" style="background-color: #e53e3e; margin-top: 15px;" onclick="toggleWrongQuestions()">चुकलेले प्रश्न व मार्गदर्शन पहा</button>
+
+            <div id="wrong-questions-container" class="wrong-questions-section">
+                <h3 style="color: #c53030; font-size: 16px;">चुकलेले प्रश्न आणि योग्य उत्तरे:</h3>
+                <div id="wrong-list"></div>
+            </div>
+        </div>
+
+        <div class="creator-top" style="margin-top: 25px; margin-bottom: 0;">
+            <div class="creator-info">
+                <strong>संकल्पना व निर्मिती</strong><br>
+                श्री सचिन शिंदे सर<br>
+                जि प प्रा शाळा नरसोबावाडी<br>
+                मोबाईल: 8329684470
+            </div>
+            <img src="https://drive.google.com/file/d/1pkldnaLRyqBtfgiQKwtbeSSfXhENzbOm/view?usp=drivesdk" alt="सचिन शिंदे सर">
+        </div>
+        
+        <div class="footer-text">
+            टेस्ट निर्मिती व संकल्पना: श्री सचिन शिंदे | मोबाईल: 8329684470
+        </div>
+    </div>
+
+</div>
+<script>
+const questionsData = [
+    { q: "1. Choose the correct living place for a horse.", options: ["Shed", "Stable", "Kennel", "Den"], ans: 1, exp: "स्पष्टीकरण: घोड्याच्या राहण्याच्या ठिकाणाला 'Stable' (तबेला) म्हणतात." },
+    { q: "2. Select the sound made by a cat.", options: ["Bark", "Roar", "Mew", "Moo"], ans: 2, exp: "स्पष्टीकरण: मांजर 'Mew' असा आवाज काढते." },
+    { q: "3. Who lives in a kennel?", options: ["Cow", "Dog", "Horse", "Lion"], ans: 1, exp: "स्पष्टीकरण: कुत्र्याच्या घराला 'Kennel' म्हणतात." },
+    { q: "4. Which animal makes the sound 'Roar'?", options: ["Snake", "Dog", "Lion", "Crow"], ans: 2, exp: "स्पष्टीकरण: सिंह 'Roar' (गर्जना) करतो." },
+    { q: "5. Find the odd one out.", options: ["Dog", "Cat", "Cow", "Nest"], ans: 3, exp: "स्पष्टीकरण: Dog, Cat, Cow हे प्राणी आहेत; तर Nest (घरटे) हे निवासाचे ठिकाण आहे." },
+    { q: "6. Complete the sentence: A rabbit lives in a _____.", options: ["Burrow", "Den", "Stable", "Shed"], ans: 0, exp: "स्पष्टीकरण: ससा 'Burrow' (बीळ) मध्ये राहतो." },
+    { q: "7. Which bird makes the sound 'Caw'?", options: ["Sparrow", "Crow", "Parrot", "Owl"], ans: 1, exp: "स्पष्टीकरण: कावळा 'Caw' असा आवाज करतो." },
+    { q: "8. Choose the correct pair.", options: ["Cow - Den", "Dog - Kennel", "Horse - Nest", "Lion - Shed"], ans: 1, exp: "स्पष्टीकरण: कुत्र्याचे राहण्याचे ठिकाण Kennel ही जोडी योग्य आहे." },
+    { q: "9. A lion lives in a _____.", options: ["Stable", "Burrow", "Den", "Kennel"], ans: 2, exp: "स्पष्टीकरण: सिंह 'Den' (गुहा) मध्ये राहतो." },
+    { q: "10. Complete the sentence: A cow _____.", options: ["Moos", "Barks", "Roars", "Hisses"], ans: 0, exp: "स्पष्टीकरण: गाय 'Moo' (हंबरणे) असा आवाज करते." },
+    { q: "11. Which of the following is a bird?", options: ["Elephant", "Eagle", "Tiger", "Goat"], ans: 1, exp: "स्पष्टीकरण: Eagle (गरुड) हा पक्षी आहे." },
+    { q: "12. Find the odd one out.", options: ["Bark", "Mew", "Stable", "Hiss"], ans: 2, exp: "स्पष्टीकरण: Bark, Mew, Hiss हे प्राण्यांचे आवाज आहेत; तर Stable हे निवासाचे ठिकाण आहे." },
+    { q: "13. A bird builds a _____ to live in.", options: ["Kennel", "Nest", "Shed", "Burrow"], ans: 1, exp: "स्पष्टीकरण: पक्षी राहण्यासाठी 'Nest' (घरटे) बांधतात." },
+    { q: "14. Which animal makes a 'Hiss' sound?", options: ["Dog", "Snake", "Horse", "Cow"], ans: 1, exp: "स्पष्टीकरण: साप 'Hiss' (फुत्कार) असा आवाज करतो." },
+    { q: "15. Select the correct home for a cow.", options: ["Shed", "Den", "Kennel", "Burrow"], ans: 0, exp: "स्पष्टीकरण: गाईच्या राहण्याच्या ठिकाणाला 'Shed' (गोठा) म्हणतात." },
+    { q: "16. Complete the pair: Horse : Neigh :: Dog : _____", options: ["Roar", "Bark", "Mew", "Moo"], ans: 1, exp: "स्पष्टीकरण: घोडा Neigh करतो, तर कुत्रा Bark (भुकणे) करतो." },
+    { q: "17. Complete the pair: Lion : Den :: Rabbit : _____", options: ["Stable", "Shed", "Burrow", "Nest"], ans: 2, exp: "स्पष्टीकरण: सिंहाचे घर Den आहे, तर सशाचे घर Burrow आहे." },
+    { q: "18. Which of the following is NOT an animal?", options: ["Goat", "Elephant", "Peacock", "Tiger"], ans: 2, exp: "स्पष्टीकरण: Peacock (मोर) हा पक्षी आहे, प्राणी नाही." },
+    { q: "19. Select the sound made by a horse.", options: ["Neigh", "Caw", "Hiss", "Roar"], ans: 0, exp: "स्पष्टीकरण: घोडा 'Neigh' (खिंकाळणे) असा आवाज करतो." },
+    { q: "20. Who lives in a den?", options: ["Dog", "Cow", "Lion", "Bird"], ans: 2, exp: "स्पष्टीकरण: सिंह (Lion) गुहेमध्ये (Den) राहतो." },
+    { q: "21. Find the odd one out.", options: ["Sparrow", "Parrot", "Owl", "Tiger"], ans: 3, exp: "स्पष्टीकरण: Sparrow, Parrot, Owl हे पक्षी आहेत; तर Tiger हा प्राणी आहे." },
+    { q: "22. Complete the sentence: A dog _____.", options: ["Barks", "Roars", "Mews", "Caws"], ans: 0, exp: "स्पष्टीकरण: कुत्रा 'Bark' (भुंकणे) करतो." },
+    { q: "23. Which bird is known as the national bird of India?", options: ["Crow", "Peacock", "Sparrow", "Eagle"], ans: 1, exp: "स्पष्टीकरण: Peacock (मोर) हा भारताचा राष्ट्रीय पक्षी आहे." },
+    { q: "24. Select the incorrect pair.", options: ["Dog - Bark", "Cat - Mew", "Cow - Hiss", "Lion - Roar"], ans: 2, exp: "स्पष्टीकरण: Cow - Hiss ही जोडी चुकीची आहे; कारण गाय Moo असा आवाज करते." },
+    { q: "25. Find the odd pair.", options: ["Horse - Stable", "Cow - Shed", "Dog - Den", "Bird - Nest"], ans: 2, exp: "स्पष्टीकरण: Dog - Den ही जोडी चुकीची आहे; कारण कुत्रा Kennel मध्ये राहतो." },
+    { q: "26. Which animal is kept in a stable?", options: ["Cow", "Horse", "Rabbit", "Lion"], ans: 1, exp: "स्पष्टीकरण: घोड्याला Stable (तबेला) मध्ये ठेवले जाते." },
+    { q: "27. Complete the sentence: An owl _____.", options: ["Hoot", "Bark", "Roar", "Moo"], ans: 0, exp: "स्पष्टीकरण: घुबड 'Hoot' असा आवाज करतो." },
+    { q: "28. Which of the following lives in a burrow?", options: ["Lion", "Dog", "Rabbit", "Horse"], ans: 2, exp: "स्पष्टीकरण: ससा (Rabbit) बीळात (Burrow) राहतो." },
+    { q: "29. Choose the correct sound for a snake.", options: ["Bark", "Hiss", "Mew", "Caw"], ans: 1, exp: "स्पष्टीकरण: सापाचा आवाज 'Hiss' असा असतो." },
+    { q: "30. Find the odd one out.", options: ["Stable", "Shed", "Kennel", "Pigeon"], ans: 3, exp: "स्पष्टीकरण: Stable, Shed, Kennel ही प्राण्यांची घरे आहेत, तर Pigeon हा पक्षी आहे." },
+    { q: "31. Complete the pair: Cow : Moo :: Cat : _____", options: ["Bark", "Mew", "Roar", "Hiss"], ans: 1, exp: "स्पष्टीकरण: गाय Moo करते, तर मांजर Mew करते." },
+    { q: "32. Which of the following is a wild animal?", options: ["Cow", "Goat", "Tiger", "Dog"], ans: 2, exp: "स्पष्टीकरण: Tiger (वाघ) हा जंगली प्राणी आहे." },
+    { q: "33. Choose the correct bird name: A _____ hoots at night.", options: ["Parrot", "Owl", "Peacock", "Hen"], ans: 1, exp: "स्पष्टीकरण: Owl (घुबड) रात्री Hoot असा आवाज करतो." },
+    { q: "34. Who lives in a shed?", options: ["Lion", "Rabbit", "Cow", "Bird"], ans: 2, exp: "स्पष्टीकरण: गाय (Cow) गोठ्यात (Shed) राहते." },
+    { q: "35. Select the correct option: A lion _____.", options: ["Barks", "Roars", "Hisses", "Mews"], ans: 1, exp: "स्पष्टीकरण: सिंह 'Roar' (गर्जना) करतो." },
+    { q: "36. Complete the pair: Bird : Nest :: Cow : _____", options: ["Shed", "Den", "Stable", "Burrow"], ans: 0, exp: "स्पष्टीकरण: पक्षी Nest मध्ये राहतात, तर गाय Shed मध्ये राहते." },
+    { q: "37. Which sound is made by a duck?", options: ["Quack", "Moo", "Bark", "Caw"], ans: 0, exp: "स्पष्टीकरण: बदक 'Quack' असा आवाज करते." },
+    { q: "38. Find the odd one out.", options: ["Lion", "Tiger", "Elephant", "Eagle"], ans: 3, exp: "स्पष्टीकरण: Eagle हा पक्षी आहे, तर इतर सर्व प्राणी आहेत." },
+    { q: "39. Choose the correct living place for a dog.", options: ["Kennel", "Shed", "Stable", "Burrow"], ans: 0, exp: "स्पष्टीकरण: कुत्र्याचे राहण्याचे ठिकाण 'Kennel' आहे." },
+    { q: "40. Identify the sound of a crow.", options: ["Mew", "Caw", "Hiss", "Roar"], ans: 1, exp: "स्पष्टीकरण: कावळ्याचा आवाज 'Caw' असा असतो." },
+    { q: "41. Select the animal that lives in a den.", options: ["Dog", "Horse", "Tiger", "Cow"], ans: 2, exp: "स्पष्टीकरण: वाघ (Tiger) गुहेमध्ये (Den) राहतो." },
+    { q: "42. Fill in the blank: A hen lives in a _____.", options: ["Coop", "Den", "Stable", "Shed"], ans: 0, exp: "स्पष्टीकरण: कोंबडी 'Coop' मध्ये राहते." },
+    { q: "43. Complete the sentence: A pig lives in a _____.", options: ["Sty", "Kennel", "Den", "Burrow"], ans: 0, exp: "स्पष्टीकरण: डुकराच्या राहण्याच्या ठिकाणाला 'Sty' म्हणतात." },
+    { q: "44. Choose the sound made by a sheep/goat.", options: ["Bleat", "Roar", "Hiss", "Bark"], ans: 0, exp: "स्पष्टीकरण: शेळी/मेंढी 'Bleat' (बे-बे करणे) असा आवाज करते." },
+    { q: "45. Find the odd pair.", options: ["Hen - Coop", "Pig - Sty", "Rabbit - Burrow", "Horse - Den"], ans: 3, exp: "स्पष्टीकरण: Horse - Den ही जोडी चुकीची आहे; कारण घोडा Stable मध्ये राहतो." },
+    { q: "46. Which animal gives us milk and lives in a shed?", options: ["Lion", "Cow", "Snake", "Eagle"], ans: 1, exp: "स्पष्टीकरण: Cow (गाय) दूध देते व गोठ्यात (Shed) राहते." },
+    { q: "47. Complete the pair: Snake : Hiss :: Dog : _____", options: ["Roar", "Bark", "Caw", "Mew"], ans: 1, exp: "स्पष्टीकरण: साप Hiss करतो, तर कुत्रा Bark करतो." },
+    { q: "48. Identify the water bird.", options: ["Duck", "Crow", "Sparrow", "Owl"], ans: 0, exp: "स्पष्टीकरण: Duck (बदक) हा पाण्यात राहणारा पक्षी आहे." },
+    { q: "49. Which animal is known as the 'King of the Jungle'?", options: ["Elephant", "Lion", "Tiger", "Horse"], ans: 1, exp: "स्पष्टीकरण: Lion (सिंह) हा जंगलाचा राजा मानला जातो." },
+    { q: "50. Choose the correct combination:", options: ["Lion - Stable - Bark", "Cow - Shed - Moo", "Dog - Den - Roar", "Rabbit - Nest - Hiss"], ans: 1, exp: "स्पष्टीकरण: Cow - Shed - Moo (प्राणी - निवारा - आवाज) हे संयोजन अचूक आहे." }
+];
+let studentName = "";
+let studentMobile = "";
+let score = 0;
+let userAnswers = new Array(questionsData.length).fill(null);
+
+function startExam(e) {
+    e.preventDefault();
+    studentName = document.getElementById("student-name").value;
+    studentMobile = document.getElementById("student-mobile").value;
+
+    document.getElementById("start-page").style.display = "none";
+    document.getElementById("exam-page").style.display = "block";
+
+    renderQuestions();
+}
+
+function renderQuestions() {
+    const wrapper = document.getElementById("questions-wrapper");
+    wrapper.innerHTML = "";
+
+    questionsData.forEach((item, index) => {
+        const card = document.createElement("div");
+        card.className = `question-card ${index === 0 ? 'active' : ''}`;
+        card.id = `q-card-${index}`;
+
+        let optionsHtml = "";
+        item.options.forEach((opt, optIdx) => {
+            optionsHtml += `
+                <button type="button" class="option-btn" id="opt-${index}-${optIdx}" onclick="selectOption(${index}, ${optIdx})">
+                    ${String.fromCharCode(65 + optIdx)}) ${opt}
+                </button>
+            `;
+        });
+
+        const isLast = index === questionsData.length - 1;
+
+        card.innerHTML = `
+            <div class="question-text">${item.q}</div>
+            <div class="options-container">
+                ${optionsHtml}
+            </div>
+            <div class="explanation" id="exp-${index}">
+                ${item.exp}
+            </div>
+            <div class="nav-btn">
+                ${isLast ? 
+                    `<button class="btn" id="next-btn-${index}" disabled onclick="submitExam()">Submit Exam</button>` : 
+                    `<button class="btn" id="next-btn-${index}" disabled onclick="nextQuestion(${index})">Next Question</button>`
+                }
+            </div>
+        `;
+
+        wrapper.appendChild(card);
+    });
+}
+
+function selectOption(qIdx, optIdx) {
+    if (userAnswers[qIdx] !== null) return; // Allow selection only once
+
+    userAnswers[qIdx] = optIdx;
+    const qData = questionsData[qIdx];
+    const isCorrect = optIdx === qData.ans;
+
+    // Apply color styling to clicked option
+    const selectedBtn = document.getElementById(`opt-${qIdx}-${optIdx}`);
+    if (isCorrect) {
+        selectedBtn.classList.add("correct");
+        score += 2; // Each question carries 2 marks
+    } else {
+        selectedBtn.classList.add("wrong");
+        // Highlight correct option as well
+        document.getElementById(`opt-${qIdx}-${qData.ans}`).classList.add("correct");
+        // Show Marathi Explanation
+        document.getElementById(`exp-${qIdx}`).style.display = "block";
+    }
+
+    // Disable all options for this question
+    qData.options.forEach((_, i) => {
+        document.getElementById(`opt-${qIdx}-${i}`).style.disabled = true;
+    });
+
+    // Enable Next / Submit button
+    document.getElementById(`next-btn-${qIdx}`).disabled = false;
+}
+
+function nextQuestion(currentIndex) {
+    document.getElementById(`q-card-${currentIndex}`).classList.remove("active");
+    document.getElementById(`q-card-${currentIndex + 1}`).classList.add("active");
+}
+
+function submitExam() {
+    document.getElementById("exam-page").style.display = "none";
+    document.getElementById("certificate-page").style.display = "block";
+
+    document.getElementById("cert-name").innerText = studentName;
+    document.getElementById("cert-mobile").innerText = studentMobile;
+    document.getElementById("cert-score").innerText = score;
+
+    // Calculate percentage
+    const percentage = (score / 100) * 100;
+    const badgeElement = document.getElementById("cert-badge");
+
+    if (percentage >= 90) {
+        badgeElement.innerHTML = "🥇 कामगिरी: Gold Medal + Trophy<br><small>उत्कृष्ट कामगिरी! तुमचे अभिनंदन!</small>";
+    } else if (percentage >= 80) {
+        badgeElement.innerHTML = "🥈 कामगिरी: Silver Medal + Trophy<br><small>छाण कामगिरी! खूप छान प्रयत्न!</small>";
+    } else if (percentage >= 70) {
+        badgeElement.innerHTML = "🥉 कामगिरी: Bronze Medal + Trophy<br><small>चांगली कामगिरी!</small>";
+    } else {
+        badgeElement.innerHTML = "💐 अभिनंदन! फुलांचा गुच्छ<br><small>पुढील परीक्षेसाठी खूप खूप शुभेच्छा!</small>";
+    }
+
+    prepareWrongQuestionsList();
+}
+
+function prepareWrongQuestionsList() {
+    const listContainer = document.getElementById("wrong-list");
+    listContainer.innerHTML = "";
+    let wrongCount = 0;
+
+    questionsData.forEach((q, idx) => {
+        if (userAnswers[idx] !== q.ans) {
+            wrongCount++;
+            const userChoiceText = userAnswers[idx] !== null ? q.options[userAnswers[idx]] : "सोडून दिला";
+            const correctChoiceText = q.options[q.ans];
+
+            const item = document.createElement("div");
+            item.className = "wrong-q-item";
+            item.innerHTML = `
+                <strong>${q.q}</strong><br>
+                <span style="color: #e53e3e;">तुमचे उत्तर: ${userChoiceText}</span><br>
+                <span style="color: #2f855a;">अचूक उत्तर: ${correctChoiceText}</span><br>
+                <small style="color: #d69e2e;">${q.exp}</small>
+            `;
+            listContainer.appendChild(item);
+        }
+    });
+
+    if (wrongCount === 0) {
+        listContainer.innerHTML = "<p style='color: #2f855a; font-weight: bold;'>अभिनंदन! तुमचे सर्व प्रश्न बरोबर आले आहेत.</p>";
+    }
+}
+
+function toggleWrongQuestions() {
+    const sec = document.getElementById("wrong-questions-container");
+    if (sec.style.display === "none" || sec.style.display === "") {
+        sec.style.display = "block";
+    } else {
+        sec.style.display = "none";
+    }
+}
+</script>
+
+</body>
+</html>
