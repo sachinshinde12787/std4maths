@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="mr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Opposite Words Online Exam</title>
+    <style>
+        * { box-sizing: border-box; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+        body { background-color: #f0f4f8; margin: 0; padding: 20px; color: #333; }
+        .container { max-width: 800px; margin: 0 auto; background: #fff; padding: 25px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
+        h1, h2, h3 { text-align: center; color: #1a5276; margin-top: 5px; }
+        .header-school { text-align: center; font-size: 20px; font-weight: bold; color: #2874a6; border-bottom: 2px solid #2874a6; padding-bottom: 10px; margin-bottom: 15px; }
+        .creator-info { text-align: right; font-size: 14px; background: #ebf5fb; padding: 10px; border-radius: 8px; margin-bottom: 20px; display: flex; align-items: center; justify-content: flex-end; gap: 12px; }
+        .creator-info img { width: 60px; height: 60px; border-radius: 50%; object-fit: cover; border: 2px solid #2874a6; }
+        .form-group { margin-bottom: 15px; }
+        label { font-weight: bold; display: block; margin-bottom: 5px; }
+        input[type="text"], input[type="tel"] { width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 6px; font-size: 16px; }
+        .btn { display: block; width: 100%; padding: 12px; background: #28b463; color: white; border: none; border-radius: 6px; font-size: 18px; font-weight: bold; cursor: pointer; margin-top: 15px; text-align: center; }
+        .btn:hover { background: #239b56; }
+        .footer-credit { text-align: center; font-size: 15px; font-weight: bold; color: #555; margin-top: 25px; padding-top: 10px; border-top: 1px dashed #ccc; }
+        
+        /* Quiz Styling */
+        .option-btn { display: block; width: 100%; text-align: left; padding: 12px 15px; margin: 8px 0; border: 1px solid #aed6f1; border-radius: 6px; background: #f7f9f9; font-size: 16px; cursor: pointer; transition: 0.2s; }
+        .option-btn:hover { background: #eaf2f8; }
+        .correct { background-color: #d4edda !important; border-color: #28a745 !important; color: #155724; font-weight: bold; }
+        .wrong { background-color: #f8d7da !important; border-color: #dc3545 !important; color: #721c24; font-weight: bold; }
+        .explanation { display: none; background: #fff3cd; border: 1px solid #ffeeba; color: #856404; padding: 12px; border-radius: 6px; margin-top: 12px; font-size: 15px; }
+        
+        /* Certificate Styling */
+        .certificate { border: 10px double #2874a6; padding: 30px; background: #fffdf9; border-radius: 10px; text-align: center; position: relative; margin-top: 20px; }
+        .badge { font-size: 50px; margin: 15px 0; }
+        .score-display { font-size: 28px; color: #b9770e; font-weight: bold; margin: 15px 0; }
+        
+        .hidden { display: none; }
+        .review-card { background: #f9f9f9; border-left: 4px solid #dc3545; padding: 12px; margin-bottom: 12px; border-radius: 4px; text-align: left; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <!-- START PAGE -->
+    <div id="start-page">
+        <div class="header-school">जिल्हा परिषद प्राथमिक शाळा नरसोबावाडी संचलित</div>
+        
+        <div class="creator-info">
+            <div>
+                <strong>संकल्पना व निर्मिती</strong><br>
+                श्री सचिन शिंदे सर<br>
+                जि. प. प्रा. शाळा नरसोबावाडी<br>
+                मोबाईल नं: 8329684470
+            </div>
+            <img src="https://lh3.googleusercontent.com/d/1pkldnaLRyqBtfgiQKwtbeSSfXhENzbOm" alt="श्री सचिन शिंदे">
+        </div>
+
+        <h2>परीक्षेचे नाव: Opposite Words</h2>
+        
+        <div class="form-group">
+            <label for="student-name">विद्यार्थ्याचे नाव:</label>
+            <input type="text" id="student-name" placeholder="पूर्ण नाव टाका" required>
+        </div>
+        
+        <div class="form-group">
+            <label for="student-mobile">मोबाईल नंबर:</label>
+            <input type="tel" id="student-mobile" placeholder="१० अंकी मोबाईल नंबर" required>
+        </div>
+
+        <div class="footer-credit">टेस्ट निर्मिती व संकल्पना: श्री सचिन शिंदे | मो. 8329684470</div>
+        <button class="btn" onclick="startExam()">EXAM START</button>
+    </div>
+
+    <!-- QUIZ PAGE -->
+    <div id="quiz-page" class="hidden">
+        <div class="header-school">जिल्हा परिषद प्राथमिक शाळा नरसोबावाडी</div>
+        <div id="progress-text" style="font-weight:bold; color:#2874a6;"></div>
+        <hr>
+        <h3 id="question-text" style="text-align:left;"></h3>
+        <div id="options-container"></div>
+        <div id="explanation-box" class="explanation"></div>
+        
+        <button id="next-btn" class="btn hidden" onclick="nextQuestion()">Next Question</button>
+        <button id="submit-btn" class="btn hidden" style="background:#e74c3c;" onclick="submitExam()">Submit Exam</button>
+        
+        <div class="footer-credit">टेस्ट निर्मिती व संकल्पना: श्री सचिन शिंदे | मो. 8329684470</div>
+    </div>
+
+    <!-- RESULT PAGE -->
+    <div id="result-page" class="hidden">
+        <div class="certificate">
+            <div class="header-school">🏆 जिल्हा परिषद प्राथमिक शाळा नरसोबावाडी संचलित 🏆</div>
+            <h2>गुणपत्रक व सन्मानपत्र</h2>
+            <hr>
+            <p style="font-size: 18px;"><strong>परीक्षेचे नाव:</strong> Opposite Words</p>
+            <p style="font-size: 20px;"><strong>विद्यार्थ्याचे नाव:</strong> <span id="res-name" style="color:#1a5276;"></span></p>
+            
+            <div class="score-display" id="res-score"></div>
+            <div class="badge" id="res-badge"></div>
+            <h3 id="res-honour" style="color: #27ae60;"></h3>
+            
+            <div class="creator-info" style="margin-top: 30px;">
+                <div>
+                    <strong>संकल्पना व निर्मिती</strong><br>
+                    श्री सचिन शिंदे सर<br>
+                    जि. प. प्रा. शाळा नरसोबावाडी<br>
+                    मोबाईल नं: 8329684470
+                </div>
+                <img src="https://lh3.googleusercontent.com/d/1pkldnaLRyqBtfgiQKwtbeSSfXhENzbOm" alt="श्री सचिन शिंदे">
+            </div>
+        </div>
+
+        <button class="btn" style="background:#3498db; margin-top:20px;" onclick="toggleReview()">चुकलेले प्रश्न व स्पष्टीकरण पहा</button>
+        
+        <div id="review-container" class="hidden" style="margin-top:20px;">
+            <h3>चुकलेल्या प्रश्नांचे स्पष्टीकरण:</h3>
+            <div id="review-list"></div>
+        </div>
+        
+        <div class="footer-credit">टेस्ट निर्मिती व संकल्पना: श्री सचिन शिंदे | मो. 8329684470</div>
+    </div>
+              </div>
+              <script>
+const questions = [
+    { q: "Q1. Select the correct opposite word for 'Strong':", options: ["Heavy", "Weak", "Soft", "Fast"], ans: 1, exp: "Strong (मजबूत) चा विरुद्धार्थी शब्द Weak (कमकुवत) आहे." },
+    { q: "Q2. Select the correct opposite word for 'Clean':", options: ["Neat", "Fresh", "Dirty", "Bad"], ans: 2, exp: "Clean (स्वच्छ) चा विरुद्धार्थी शब्द Dirty (घाणेरडे) आहे." },
+    { q: "Q3. Select the correct opposite word for 'Rich':", options: ["Poor", "Cheap", "Small", "Low"], ans: 0, exp: "Rich (श्रीमंत) चा विरुद्धार्थी शब्द Poor (गरीब) आहे." },
+    { q: "Q4. Select the correct opposite word for 'Safe':", options: ["Hard", "Unfair", "Dangerous", "Wrong"], ans: 2, exp: "Safe (सुरक्षित) चा विरुद्धार्थी शब्द Dangerous (धोकादायक) आहे." },
+    { q: "Q5. Select the correct opposite word for 'Bright':", options: ["Dark", "Clear", "White", "Dim"], ans: 3, exp: "Bright (तेजस्वी/प्रकाशमय) चा विरुद्धार्थी शब्द Dim (मंद) आहे." },
+    { q: "Q6. Select the correct pair of opposite words from the options:", options: ["High – Tall", "Hard – Soft", "Fast – Quick", "Large – Big"], ans: 1, exp: "Hard (कठीण) – Soft (मऊ) ही योग्य विरुद्धार्थी जोडी आहे." },
+    { q: "Q7. Select the correct pair of opposite words from the options:", options: ["Sweet – Sour", "Cold – Cool", "Slow – Small", "Heavy – Strong"], ans: 0, exp: "Sweet (गोड) – Sour (आंबट) ही योग्य विरुद्धार्थी जोडी आहे." },
+    { q: "Q8. Select the INCORRECT pair of opposite words from the options:", options: ["Easy – Difficult", "Start – Stop", "Brave – Coward", "Smooth – Flat"], ans: 3, exp: "Smooth आणि Flat हे समानार्थी संकल्पनेशी संबंधित आहेत, विरुद्धार्थी नाहीत." },
+    { q: "Q9. Select the correct pair of opposite words from the options:", options: ["Full – Empty", "Thick – Fat", "Clean – Pure", "Sharp – Pointed"], ans: 0, exp: "Full (भरलेले) – Empty (रिकामे) ही अचूक विरुद्धार्थी जोडी आहे." },
+    { q: "Q10. Select the correct pair of opposite words from the options:", options: ["Deep – High", "Wide – Long", "Loud – Fast", "Near – Far"], ans: 3, exp: "Near (जवळ) – Far (दूर) ही योग्य विरुद्धार्थी जोडी आहे." },
+    { q: "Q11. The sun rises in the East and sets in the _______.", options: ["North", "South", "West", "Sky"], ans: 2, exp: "East (पूर्व) चा विरुद्धार्थी शब्द West (पश्चिम) आहे." },
+    { q: "Q12. An elephant is huge, but an ant is _______.", options: ["tiny", "tall", "heavy", "wild"], ans: 0, exp: "Huge (प्रचंड मोठा) चा विरुद्धार्थी शब्द tiny (छोटा/सूक्ष्म) आहे." },
+    { q: "Q13. Tea is hot, but ice-cream is _______.", options: ["warm", "sweet", "cold", "fresh"], ans: 2, exp: "Hot (गरम) चा विरुद्धार्थी शब्द Cold (थंड) आहे." },
+    { q: "Q14. The cotton is soft, but the rock is _______.", options: ["light", "hard", "smooth", "sharp"], ans: 1, exp: "Soft (मऊ) चा विरुद्धार्थी शब्द Hard (कठीण/काणखर) आहे." },
+    { q: "Q15. The tiger is a wild animal, but the dog is a _______ animal.", options: ["pet", "small", "dangerous", "domestic"], ans: 3, exp: "Wild (रानावनातील/जंगली) चा विरुद्धार्थी शब्द Domestic (पालतू/गृहोपयोगी) आहे." },
+    { q: "Q16. \"The tortoise is very slow.\" - Select the opposite of the word 'slow':", options: ["Late", "Fast", "Quiet", "Lazy"], ans: 1, exp: "Slow (हळू) चा विरुद्धार्थी शब्द Fast (वेगात) आहे." },
+    { q: "Q17. \"The room was very dark.\" - Select the opposite of the word 'dark':", options: ["Bright", "Black", "Clean", "Warm"], ans: 0, exp: "Dark (अंधारे) चा विरुद्धार्थी शब्द Bright (प्रकाशमय) आहे." },
+    { q: "Q18. \"This knife is sharp.\" - Select the opposite of the word 'sharp':", options: ["Smooth", "Blunt", "Soft", "Thin"], ans: 1, exp: "Sharp (धारदार) चा विरुद्धार्थी शब्द Blunt (बोथट) आहे." },
+    { q: "Q19. \"The king was very kind to everyone.\" - Select the opposite of the word 'kind':", options: ["Gentle", "Rich", "Cruel", "Proud"], ans: 2, exp: "Kind (दयाळू) चा विरुद्धार्थी शब्द Cruel (क्रूर) आहे." },
+    { q: "Q20. \"My clothes are dry now.\" - Select the opposite of the word 'dry':", options: ["Clean", "Wet", "Cold", "Wash"], ans: 1, exp: "Dry (सुके) चा विरुद्धार्थी शब्द Wet (ओले) आहे." },
+    { q: "Q21. Opposite of 'Always' is:", options: ["Sometimes", "Often", "Daily", "Never"], ans: 3, exp: "Always (नेहमी) चा विरुद्धार्थी शब्द Never (कधीच नाही) आहे." },
+    { q: "Q22. Opposite of 'Win' is:", options: ["Lose", "Fail", "Defeat", "Drop"], ans: 0, exp: "Win (जिंकणे) चा विरुद्धार्थी शब्द Lose (हरणे) आहे." },
+    { q: "Q23. Opposite of 'Buy' is:", options: ["Take", "Give", "Sell", "Pay"], ans: 2, exp: "Buy (खरेदी करणे) चा विरुद्धार्थी शब्द Sell (विकणे) आहे." },
+    { q: "Q24. Opposite of 'Remember' is:", options: ["Remind", "Think", "Lost", "Forget"], ans: 3, exp: "Remember (आठवणे) चा विरुद्धार्थी शब्द Forget (विसरणे) आहे." },
+    { q: "Q25. Opposite of 'Truth' is:", options: ["Wrong", "Lie", "Fake", "Cheat"], ans: 1, exp: "Truth (सत्य) चा विरुद्धार्थी शब्द Lie (खोटे) आहे." },
+    { q: "Q26. Which of the following is NOT an opposite word for 'Old'?", options: ["New", "Young", "Ancient", "Fresh"], ans: 2, exp: "Ancient (प्राचीन/जुने) हा Old चा समानार्थी शब्द आहे, विरुद्धार्थी नाही." },
+    { q: "Q27. Which of the following is NOT an opposite word for 'Light'?", options: ["Dark", "Heavy", "Dim", "Bright"], ans: 3, exp: "Bright हा Light चा समानार्थी छटा दर्शवतो, विरुद्धार्थी नाही." },
+    { q: "Q28. Which of the following CANNOT be an opposite word for 'Fair'?", options: ["Unfair", "Dark", "Ugly", "Fast"], ans: 3, exp: "Fast (जलद) हा शब्द Fair च्या कोणत्याही अर्थाचा विरुद्धार्थी शब्द नाही." },
+    { q: "Q29. Select the INCORRECT option as an opposite for 'Hard':", options: ["Soft", "Easy", "Tough", "Simple"], ans: 2, exp: "Tough म्हणजे कठीण (समानार्थी शब्द आहे)." },
+    { q: "Q30. Which option does NOT represent an opposite meaning of 'Right'?", options: ["Wrong", "Left", "Bad", "Correct"], ans: 3, exp: "Correct हा Right चा समानार्थी शब्द आहे." },
+    { q: "Q31. (Top – Bottom), (Inside – Outside), (Above – _______) - Fill in the blank:", options: ["Below", "Under", "Down", "Low"], ans: 0, exp: "Above (वर) चा योग्य विरुद्धार्थी शब्द Below (खाली) आहे." },
+    { q: "Q32. (First – Last), (Beginning – End), (Create – _______):", options: ["Stop", "Destroy", "Finish", "Break"], ans: 1, exp: "Create (निर्मिती करणे) चा विरुद्धार्थी शब्द Destroy (नष्ट करणे) आहे." },
+    { q: "Q33. Choose the correct chain of opposite words:", options: ["Day – Night, Sun – Moon, Up – Sky", "High – Low, Fast – Quick, Good – Bad", "Big – Large, Short – Tall, Hot – Cold", "In – Out, Open – Close, Push – Pull"], ans: 3, exp: "In-Out, Open-Close, Push-Pull या तिन्ही योग्य विरुद्धार्थी जोड्या आहेत." },
+    { q: "Q34. Choose the correct chain of opposite words:", options: ["Heavy – Light, Sweet – Bitter, True – False", "Soft – Smooth, Rich – Poor, Wise – Clever", "Clean – Neat, Far – Near, Safe – Danger", "Sharp – Blunt, Deep – Long, Early – Late"], ans: 0, exp: "Heavy-Light, Sweet-Bitter, True-False या पूर्णपणे अचूक जोड्या आहेत." },
+    { q: "Q35. Choose the correct chain of opposite words:", options: ["Laugh – Cry, Smile – Happy, Love – Hate", "Give – Take, Borrow – Lend, Win – Lose", "Buy – Sell, Pay – Money, Gain – Loss", "Start – Begin, Stop – End, Come – Go"], ans: 1, exp: "Give-Take, Borrow-Lend, Win-Lose या तिन्ही अचूक विरुद्धार्थी क्रियापदांच्या जोड्या आहेत." },
+    { q: "Q36. \"This stick is not long.\" What does it mean?", options: ["It is wide.", "It is thin.", "It is small.", "It is short."], ans: 3, exp: "Not long (लांब नाही) म्हणजेच Short (आकाराने लहान/अंशतः छोटी) आहे." },
+    { q: "Q37. \"The knife is not sharp.\" What does this mean?", options: ["The knife is blunt.", "The knife is smooth.", "The knife is broken.", "The knife is heavy."], ans: 0, exp: "Not sharp म्हणजे Blunt (बोथट) आहे." },
+    { q: "Q38. \"This shirt is clean.\" - Select the correct negative sentence using an opposite word without changing the main meaning:", options: ["This shirt is not clean.", "This shirt is not dirty.", "This shirt is dirty.", "This shirt is old."], ans: 1, exp: "Clean चा अर्थ 'not dirty' (घाणेरडे नाही) असा होतो." },
+    { q: "Q39. \"The road is wide.\" - Select the correct sentence using the opposite of 'wide':", options: ["The road is small.", "The road is short.", "The road is long.", "The road is narrow."], ans: 3, exp: "Wide (रुंद) चा विरुद्धार्थी शब्द Narrow (अरुंद) आहे." },
+    { q: "Q40. \"Raman is an honest boy.\" - Select the correct sentence using an opposite word:", options: ["Raman is a bad boy.", "Raman is a dishonest boy.", "Raman is a false boy.", "Raman is a poor boy."], ans: 1, exp: "Honest (प्रामाणिक) चा विरुद्धार्थी शब्द Dishonest (अप्रामाणिक) आहे." },
+    { q: "Q41. \"Please turn on the light.\" - Select the opposite word for 'light' in this context:", options: ["Heavy", "Soft", "Dim", "Dark / Darkness"], ans: 3, exp: "प्रकाशाच्या संदर्भात Light चा विरुद्धार्थी शब्द Dark / Darkness (अंधार) होतो." },
+    { q: "Q42. \"This bag is very light.\" - Select the opposite word for 'light' in this context:", options: ["Heavy", "Dark", "Hard", "Strong"], ans: 0, exp: "वजनाच्या संदर्भात Light (हलके) चा विरुद्धार्थी शब्द Heavy (जड) होतो." },
+    { q: "Q43. \"Choose the right answer.\" - Select the opposite word for 'right' in this context:", options: ["Left", "Wrong", "Bad", "Incorrect"], ans: 1, exp: "बरोबर/चूक या संदर्भात Right चा विरुद्धार्थी शब्द Wrong होतो." },
+    { Q44: "Turn to your right side.", options: ["Wrong", "Straight", "Left", "Back"], ans: 2, exp: "दिषेच्या संदर्भात Right (उजवी कडे) चा विरुद्धार्थी शब्द Left (डावीकडे) होतो." },
+    { q: "Q45. \"The fruit is fresh.\" - Select the opposite word for 'fresh' in the context of food:", options: ["Old", "Stale", "Dirty", "Rotten"], ans: 1, exp: "अन्नाच्या संदर्भात Fresh (ताजे) चा विरुद्धार्थी शब्द Stale (शिळे) होतो." },
+    { q: "Q46. A cat is sitting 'under' the table. Which word will you use if the cat moves to the top of the table?", options: ["On / Above", "In", "Front", "Behind"], ans: 0, exp: "Under (खाली) चा विरुद्धार्थी शब्द On / Above (वर) आहे." },
+    { q: "Q47. A bird flies 'high' in the sky and a fish swims 'low' in the water. What is the opposite of 'high'?", options: ["Tall", "Low", "Short", "Down"], ans: 1, exp: "High (उंच) चा विरुद्धार्थी शब्द Low (सखल/खाली) आहे." },
+    { q: "Q48. A dog is standing 'in front of' the door. Which opposite word will be used if it moves behind the door?", options: ["Back", "Beside", "After", "Behind"], ans: 3, exp: "In front of (समोर) चा विरुद्धार्थी शब्द Behind (मागे) आहे." },
+    { q: "Q49. A bottle is 'full' of water. What will it become if you drink all the water?", options: ["Clean", "Empty", "Dry", "Small"], ans: 1, exp: "Full (भरलेली) चा विरुद्धार्थी शब्द Empty (रिकामी) आहे." },
+    { q: "Q50. The sun goes 'up' in the sky in the morning and comes 'down' in the evening. Select the correct opposite for 'up':", options: ["Bottom", "Low", "Down", "Below"], ans: 2, exp: "Up (वर) चा विरुद्धार्थी शब्द Down (खाली) आहे." }
+];
+                let currentQ = 0;
+let score = 0;
+let userAnswers = [];
+let studentName = "";
+let studentMobile = "";
+
+function startExam() {
+    studentName = document.getElementById("student-name").value.trim();
+    studentMobile = document.getElementById("student-mobile").value.trim();
+
+    if (studentName === "" || studentMobile === "") {
+        alert("कृपया नाव आणि मोबाईल नंबर पूर्ण भरा!");
+        return;
+    }
+
+    document.getElementById("start-page").classList.add("hidden");
+    document.getElementById("quiz-page").classList.remove("hidden");
+    loadQuestion();
+}
+
+function loadQuestion() {
+    let qData = questions[currentQ];
+    document.getElementById("progress-text").innerText = `प्रश्‍न ${currentQ + 1} / ${questions.length}`;
+    document.getElementById("question-text").innerText = qData.q;
+    
+    let optContainer = document.getElementById("options-container");
+    optContainer.innerHTML = "";
+    
+    document.getElementById("explanation-box").style.display = "none";
+    document.getElementById("next-btn").classList.add("hidden");
+    document.getElementById("submit-btn").classList.add("hidden");
+
+    qData.options.forEach((opt, index) => {
+        let btn = document.createElement("button");
+        btn.className = "option-btn";
+        btn.innerText = `${String.fromCharCode(65 + index)}) ${opt}`;
+        btn.onclick = () => selectAnswer(index);
+        optContainer.appendChild(btn);
+    });
+}
+
+function selectAnswer(selectedIndex) {
+    let qData = questions[currentQ];
+    let options = document.querySelectorAll(".option-btn");
+    
+    // Disable all options
+    options.forEach(btn => btn.style.pointerEvents = "none");
+
+    let isCorrect = (selectedIndex === qData.ans);
+    userAnswers[currentQ] = {
+        selected: selectedIndex,
+        correct: qData.ans,
+        isCorrect: isCorrect,
+        qText: qData.q,
+        exp: qData.exp,
+        options: qData.options
+    };
+
+    if (isCorrect) {
+        options[selectedIndex].classList.add("correct");
+        score += 2; // Each question carry 2 marks
+    } else {
+        options[selectedIndex].classList.add("wrong");
+        options[qData.ans].classList.add("correct");
+        
+        let expBox = document.getElementById("explanation-box");
+        expBox.innerHTML = `<strong>स्पष्टीकरण:</strong> ${qData.exp}`;
+        expBox.style.display = "block";
+    }
+
+    if (currentQ < questions.length - 1) {
+        document.getElementById("next-btn").classList.remove("hidden");
+    } else {
+        document.getElementById("submit-btn").classList.remove("hidden");
+    }
+}
+
+function nextQuestion() {
+    currentQ++;
+    loadQuestion();
+}
+
+function submitExam() {
+    document.getElementById("quiz-page").classList.add("hidden");
+    document.getElementById("result-page").classList.remove("hidden");
+
+    let totalMarks = questions.length * 2;
+    let percentage = (score / totalMarks) * 100;
+
+    document.getElementById("res-name").innerText = studentName;
+    document.getElementById("res-score").innerText = `मिळालेले गुण: ${score} / ${totalMarks} (${percentage.toFixed(2)}%)`;
+
+    let badge = "";
+    let honour = "";
+
+    if (percentage >= 90) {
+        badge = "🥇 🏆";
+        honour = "उत्कृष्ट कामगिरी! Gold Medal + Trophy";
+    } else if (percentage >= 80) {
+        badge = "🥈 🏆";
+        honour = "अभिनंदन! Silver Medal + Trophy";
+    } else if (percentage >= 70) {
+        badge = "🥉 🏆";
+        honour = "छान प्रयत्न! Bronze Medal + Trophy";
+    } else {
+        badge = "💐";
+        honour = "अभिनंदन! फुलांचा गुच्छ व पुढील परीक्षेसाठी शुभेच्छा!";
+    }
+
+    document.getElementById("res-badge").innerText = badge;
+    document.getElementById("res-honour").innerText = honour;
+
+    prepareReviewList();
+}
+
+function prepareReviewList() {
+    let reviewList = document.getElementById("review-list");
+    reviewList.innerHTML = "";
+
+    let wrongCount = 0;
+    userAnswers.forEach((ansData, idx) => {
+        if (!ansData.isCorrect) {
+            wrongCount++;
+            let item = document.createElement("div");
+            item.className = "review-card";
+            item.innerHTML = `
+                <strong>${ansData.qText}</strong><br>
+                <span style="color:red;">तुमचे उत्तर: ${String.fromCharCode(65 + ansData.selected)}) ${ansData.options[ansData.selected]}</span><br>
+                <span style="color:green;">अचूक उत्तर: ${String.fromCharCode(65 + ansData.correct)}) ${ansData.options[ansData.correct]}</span><br>
+                <em><strong>स्पष्टीकरण:</strong> ${ansData.exp}</em>
+            `;
+            reviewList.appendChild(item);
+        }
+    });
+
+    if (wrongCount === 0) {
+        reviewList.innerHTML = "<p style='color:green; font-weight:bold;'>अभिनंदन! तुमचे सर्व प्रश्न बरोबर आले आहेत.</p>";
+    }
+}
+
+function toggleReview() {
+    let rev = document.getElementById("review-container");
+    if (rev.classList.contains("hidden")) {
+        rev.classList.remove("hidden");
+    } else {
+        rev.classList.add("hidden");
+    }
+}
+</script>
+</body>
+</html>
