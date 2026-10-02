@@ -177,7 +177,8 @@
             <img src="https://drive.google.com/file/d/1pkldnaLRyqBtfgiQKwtbeSSfXhENzbOm/view?usp=drivesdk" alt="Creator Photo">
         </div>
     </div>
-        <!-- EXAM SCREEN -->
+
+    <!-- EXAM SCREEN -->
     <div id="exam-screen" class="hidden">
         <div class="school-header">जिल्हा परिषद प्राथमिक शाळा नरसोबावाडी संचलित</div>
         <div style="display: flex; justify-content: space-between; font-weight: bold; margin-bottom: 10px;">
@@ -203,6 +204,42 @@
 
         <div class="watermark-bottom">टेस्ट निर्मिती व संकल्पना श्री सचिन शिंदे मोबाईल नंबर 83 29 68 44 70</div>
     </div>
+
+    <!-- RESULT SCREEN -->
+    <div id="result-screen" class="hidden">
+        <div class="certificate-box">
+            <div class="school-header">🏆 जिल्हा परिषद प्राथमिक शाळा नरसोबावाडी संचालित</div>
+            <h2>Scholarship Exam Result & Certificate</h2>
+            <p><strong>परीक्षेचे नाव:</strong> riddles</p>
+            <p><strong>विद्यार्थ्याचे नाव:</strong> <span id="res-name"></span></p>
+            
+            <h1 style="font-size: 2.5em; color: #d35400; margin: 10px 0;">
+                Marks: <span id="res-marks"></span> / 100
+            </h1>
+            <h3 id="res-percentage"></h3>
+            <div id="achievement-badge" style="font-size: 1.2em; font-weight: bold; color: #27ae60; margin: 15px 0;"></div>
+            
+            <button class="btn" style="background-color: #e67e22; margin-bottom: 15px;" onclick="showMistakesModal()">चुकीचे प्रश्न तपासा (Review Mistakes)</button>
+        </div>
+
+        <div class="watermark-bottom">टेस्ट निर्मिती व संकल्पना श्री सचिन शिंदे मोबाईल नंबर 83 29 68 44 70</div>
+
+        <div class="creator-footer">
+            संकल्पना व निर्मिती<br>
+            <strong>श्री सचिन शिंदे सर</strong><br>
+            जि प प्रा शाळा नरसोबावाडी<br>
+            मोबाईल नंबर: 83 29 68 44 70
+            <img src="https://drive.google.com/file/d/1pkldnaLRyqBtfgiQKwtbeSSfXhENzbOm/view?usp=drivesdk" alt="Creator Photo">
+        </div>
+    </div>
+
+    <!-- MISTAKES REVIEW SCREEN -->
+    <div id="mistakes-screen" class="hidden">
+        <h3>चुकीचे प्रश्न व त्यांचे स्पष्टीकरण</h3>
+        <div id="mistakes-list" style="max-height: 400px; overflow-y: auto; margin-bottom: 20px; text-align: left;"></div>
+        <button class="btn" onclick="location.reload()">पुन्हा परीक्षा द्या (Restart Exam)</button>
+    </div>
+</div>
 
 <script>
     const questions = [
@@ -257,43 +294,7 @@
         { q: "I am a red fruit, I am round in shape, and teachers often receive me from students. What am I?", options: ["Mango", "Banana", "Apple", "Orange"], answer: 2, explanation: "सफरचंद लाल व गोलाकार असते." },
         { q: "I am a bright object in the sky, I shine during the day, and I give us heat and light. What am I?", options: ["Moon", "Star", "Cloud", "Sun"], answer: 3, explanation: "सूर्य दिवसा चमकतो व प्रकाश देतो." }
     ];
-        <!-- RESULT SCREEN -->
-    <div id="result-screen" class="hidden">
-        <div class="certificate-box">
-            <div class="school-header">🏆 जिल्हा परिषद प्राथमिक शाळा नरसोबावाडी संचालित</div>
-            <h2>Scholarship Exam Result & Certificate</h2>
-            <p><strong>परीक्षेचे नाव:</strong> riddles</p>
-            <p><strong>विद्यार्थ्याचे नाव:</strong> <span id="res-name"></span></p>
-            
-            <h1 style="font-size: 2.5em; color: #d35400; margin: 10px 0;">
-                Marks: <span id="res-marks"></span> / 100
-            </h1>
-            <h3 id="res-percentage"></h3>
-            <div id="achievement-badge" style="font-size: 1.2em; font-weight: bold; color: #27ae60; margin: 15px 0;"></div>
-            
-            <button class="btn" style="background-color: #e67e22; margin-bottom: 15px;" onclick="showMistakesModal()">चुकीचे प्रश्न तपासा (Review Mistakes)</button>
-        </div>
 
-        <div class="watermark-bottom">टेस्ट निर्मिती व संकल्पना श्री सचिन शिंदे मोबाईल नंबर 83 29 68 44 70</div>
-
-        <div class="creator-footer">
-            संकल्पना व निर्मिती<br>
-            <strong>श्री सचिन शिंदे सर</strong><br>
-            जि प प्रा शाळा नरसोबावाडी<br>
-            मोबाईल नंबर: 83 29 68 44 70
-            <img src="https://drive.google.com/file/d/1pkldnaLRyqBtfgiQKwtbeSSfXhENzbOm/view?usp=drivesdk" alt="Creator Photo">
-        </div>
-    </div>
-
-    <!-- MISTAKES REVIEW SCREEN -->
-    <div id="mistakes-screen" class="hidden">
-        <h3>चुकीचे प्रश्न व त्यांचे स्पष्टीकरण</h3>
-        <div id="mistakes-list" style="max-height: 400px; overflow-y: auto; margin-bottom: 20px; text-align: left;"></div>
-        <button class="btn" onclick="location.reload()">पुन्हा परीक्षा द्या (Restart Exam)</button>
-    </div>
-</div>
-
-<script>
     let currentIdx = 0;
     let score = 0;
     let studentName = "";
@@ -337,22 +338,19 @@
         let q = questions[currentIdx];
         let options = document.querySelectorAll('.options-list li');
         
-        // Disable further clicks after selection
         options.forEach(opt => opt.onclick = null);
 
         if(selectedIndex === q.answer) {
             liElement.classList.add('selected-correct');
-            score += 2; // प्रत्येक प्रश्नाला २ गुण (एकूण ५० प्रश्न * २ = १०० गुण)
+            score += 2; 
             document.getElementById('current-score').innerText = score;
         } else {
             liElement.classList.add('selected-wrong');
             options[q.answer].classList.add('show-correct');
             
-            // Show explanation in Marathi
             document.getElementById('explanation-text').innerText = q.explanation;
             document.getElementById('explanation-box').style.display = 'block';
 
-            // Track mistake
             incorrectAttempts.push({
                 question: q.q,
                 selected: q.options[selectedIndex],
@@ -424,4 +422,3 @@
 </script>
 </body>
 </html>
-    
