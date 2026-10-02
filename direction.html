@@ -181,8 +181,8 @@
     </style>
 </head>
 <body>
-  <div class="container">
-    <!-- Login / Start Screen -->
+<div class="container">
+        <!-- Login / Start Screen -->
     <div id="start-screen">
         <div class="header-title">जिल्हा परिषद प्राथमिक शाळा नरसोबावाडी संचलित</div>
         <div class="exam-name">परीक्षेचे नाव: Direction</div>
@@ -221,7 +221,7 @@
 
     <!-- Certificate & Result Container -->
     <div id="result-container" class="certificate-box">
-        <div style="font-size: 1.1rem; font-weight: bold; color: #744210;">🏆 जिल्हा परिषद प्राथमिक शाळा नरसोबावाडी संचालित</div>
+        <div style="font-size: 1.1rem; font-weight: bold; color: #744210;">🏆 जिल्हा परिषद प्राथमिक शाळा नरसोबावाडी संचलित</div>
         <h2 style="margin: 10px 0;">परीक्षेचे नाव - Direction</h2>
         <p><strong>विद्यार्थ्याचे नाव:</strong> <span id="res-name"></span></p>
         
@@ -240,9 +240,8 @@
             मोबाईल नंबर 83 29 68 44 70<br>
             <img src="https://drive.google.com/file/d/1pkldnaLRyqBtfgiQKwtbeSSfXhENzbOm/view?usp=drivesdk" alt="Sir Photo">
         </div>
-    </div>
-  </div>
-  <script>
+        </div>
+    <script>
 const questionsData = [
     { q: "Which direction is opposite to the South?", o: ["East", "West", "North", "North-East"], a: 2, exp: "दक्षिण (South) दिशेच्या विरुद्ध दिशा उत्तर (North) असते." },
     { q: "The sun rises in the ______ direction.", o: ["West", "North", "South", "East"], a: 3, exp: "सूर्य नेहमी पूर्व (East) दिशेला उगवतो." },
@@ -263,7 +262,7 @@ const questionsData = [
     { q: "If Priya is facing West and turns 90 degrees to her left, which direction is she facing?", o: ["North", "South", "East", "North-West"], a: 1, exp: "पश्चिमेकडे तोंड करून डावीकडे वळल्यास दक्षिण (South) दिशा येते." },
     { q: "The sun sets in the ______ direction.", o: ["East", "North", "South", "West"], a: 3, exp: "सूर्य पश्चिम (West) दिशेला मावळतो." },
     { q: "If you are standing facing North-East, which direction is exactly behind you?", o: ["North-West", "South-East", "South-West", "North"], a: 2, exp: "ईशान्येच्या अगदी विरुद्ध दिशा नैऋत्य (South-West) असते." },
-    { q: "On a map, if the right side is East, what is on the left side?", o: ["North", "South", "West", "South-East"], a: 2, exp:ूपूर्वेच्या विरुद्ध बाजू पश्चिम (West) असते." },
+    { q: "On a map, if the right side is East, what is on the left side?", o: ["North", "South", "West", "South-East"], a: 2, exp: "पूर्वेच्या विरुद्ध बाजू पश्चिम (West) असते." },
     { q: "Amit walks 5 meters towards North, then turns right and walks 5 meters. Which direction is he walking now?", o: ["South", "West", "East", "North"], a: 2, exp: "उत्तरेकडून उजवीकडे वळल्यास पूर्व (East) दिशा येते." },
     { q: "Which direction lies between South and East?", o: ["South-West", "North-East", "South-East", "North-West"], a: 2, exp: "दक्षिण आणि पूर्व यांच्या दरम्यान आग्नेय (South-East) येते." },
     { q: "If Sneha faces South-West and makes a complete 360-degree turn, which direction is she facing now?", o: ["North-East", "South-West", "North-West", "South-East"], a: 1, exp: "पूर्ण ३६० अंश फिरल्यास तीच दिशा (South-West) येते." },
@@ -393,7 +392,7 @@ function submitExam() {
     questionsData.forEach((q, index) => {
         let userAns = userAnswers[index];
         if(userAns === q.a) {
-            score += 2; // प्रत्येक प्रश्नाला २ गुण
+            score += 2;
         } else {
             let userAnsText = userAns !== undefined ? q.o[userAns] : "उत्तर दिलेले नाही";
             let correctAnsText = q.o[q.a];
@@ -408,7 +407,7 @@ function submitExam() {
         }
     });
     
-    let totalMarks = questionsData.length * 2; // एकूण १०० गुण
+    let totalMarks = questionsData.length * 2;
     let percentage = (score / totalMarks) * 100;
     
     document.getElementById("quiz-container").style.display = "none";
@@ -431,7 +430,8 @@ function submitExam() {
     document.getElementById("result-container").style.display = "block";
 }
 </script>
+</div>
 </body>
-  </html>
+    </html>
 
-          
+            
