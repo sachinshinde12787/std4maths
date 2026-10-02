@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="mr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cardinal & Ordinal Numbers Test - ZP School Narsobawadi</title>
+    <style>
+        * { box-sizing: border-box; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+        body { background-color: #f0f4f8; margin: 0; padding: 20px; color: #333; }
+        .container { max-width: 800px; margin: 0 auto; background: #ffffff; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); padding: 25px; border-top: 6px solid #1a73e8; }
+        
+        .header { text-align: center; border-bottom: 2px solid #e0e0e0; padding-bottom: 15px; margin-bottom: 20px; }
+        .header h1 { color: #1a73e8; margin: 0 0 10px 0; font-size: 24px; }
+        .header h2 { color: #2c3e50; margin: 5px 0; font-size: 20px; }
+        
+        .creator-info { text-align: right; background: #eef5ff; padding: 10px 15px; border-radius: 8px; margin-bottom: 20px; display: flex; align-items: center; justify-content: flex-end; gap: 15px; }
+        .creator-details { text-align: right; font-size: 14px; }
+        .creator-img { width: 65px; height: 65px; border-radius: 50%; object-fit: cover; border: 2px solid #1a73e8; }
+        
+        .form-group { margin-bottom: 15px; text-align: left; }
+        .form-group label { display: block; font-weight: bold; margin-bottom: 5px; color: #444; }
+        .form-group input { width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 6px; font-size: 16px; }
+        
+        .footer-text { text-align: center; font-size: 15px; font-weight: bold; color: #555; margin: 20px 0 10px 0; padding: 10px; background: #f8f9fa; border-radius: 6px; }
+        
+        .btn { background-color: #1a73e8; color: white; border: none; padding: 12px 25px; font-size: 16px; font-weight: bold; border-radius: 6px; cursor: pointer; transition: 0.3s; width: 100%; margin-top: 10px; }
+        .btn:hover { background-color: #1557b0; }
+        .btn:disabled { background-color: #ccc; cursor: not-allowed; }
+        
+        .question-card { display: none; }
+        .question-card.active { display: block; }
+        .question-title { font-size: 18px; font-weight: bold; margin-bottom: 15px; color: #2c3e50; white-space: pre-line; }
+        
+        .option-btn { display: block; width: 100%; padding: 12px; margin-bottom: 10px; text-align: left; background: #f8f9fa; border: 2px solid #e0e0e0; border-radius: 6px; font-size: 16px; cursor: pointer; transition: 0.2s; }
+        .option-btn:hover { background: #e8f0fe; border-color: #1a73e8; }
+        .option-btn.selected { background-color: #d2e3fc; border-color: #1a73e8; font-weight: bold; }
+        .option-btn.correct { background-color: #d4edda !important; border-color: #28a745 !important; color: #155724; }
+        .option-btn.incorrect { background-color: #f8d7da !important; border-color: #dc3545 !important; color: #721c24; }
+        
+        .explanation { display: none; background: #fff3cd; border: 1px solid #ffeeba; color: #856404; padding: 12px; border-radius: 6px; margin-top: 15px; font-size: 15px; }
+        
+        /* Certificate Style */
+        .certificate { display: none; border: 8px double #1a73e8; padding: 30px; background: #ffffff; text-align: center; border-radius: 12px; position: relative; }
+        .cert-header { color: #1a73e8; font-size: 22px; font-weight: bold; margin-bottom: 15px; }
+        .cert-score { font-size: 32px; font-weight: bold; color: #2c3e50; margin: 15px 0; }
+        .cert-badge { font-size: 20px; font-weight: bold; margin: 15px 0; padding: 10px; border-radius: 8px; display: inline-block; }
+        
+        .wrong-q-section { display: none; margin-top: 25px; text-align: left; border-top: 2px dashed #ccc; padding-top: 15px; }
+        .wrong-item { background: #fff5f5; border: 1px solid #feb2b2; padding: 12px; border-radius: 6px; margin-bottom: 10px; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <!-- First Page / Start Page -->
+    <div id="start-page">
+        <div class="header">
+            <h1>जिल्हा परिषद प्राथमिक शाळा नरसोबावाडी संचलित</h1>
+            <h2>परीक्षेचे नाव: Cardinal and Ordinal Numbers</h2>
+        </div>
+        
+        <div class="creator-info">
+            <div class="creator-details">
+                <strong>संकल्पना व निर्मिती</strong><br>
+                श्री सचिन शिंदे सर<br>
+                जि प प्रा शाळा नरसोबावाडी<br>
+                मोबाईल नंबर 83 29 68 44 70
+            </div>
+            <img src="https://lh3.googleusercontent.com/d/1pkldnaLRyqBtfgiQKwtbeSSfXhENzbOm" class="creator-img" alt="सचिन शिंदे सर">
+        </div>
+
+        <div class="form-group">
+            <label for="student-name">विद्यार्थ्याचे नाव:</label>
+            <input type="text" id="student-name" placeholder="पूर्ण नाव प्रविष्ट करा" required>
+        </div>
+        
+        <div class="form-group">
+            <label for="student-mobile">मोबाईल नंबर:</label>
+            <input type="tel" id="student-mobile" placeholder="१० अंकी मोबाईल नंबर" maxlength="10" required>
+        </div>
+
+        <div class="footer-text">
+            टेस्ट निर्मिती व संकल्पना श्री सचिन शिंदे मोबाईल नंबर 83 29 68 44 70
+        </div>
+
+        <button class="btn" onclick="startExam()">EXAM START</button>
+    </div>
+
+    <!-- Exam Container -->
+    <div id="exam-page" style="display: none;">
+        <div id="questions-container"></div>
+        
+        <div class="footer-text">
+            टेस्ट निर्मिती व संकल्पना श्री सचिन शिंदे मोबाईल नंबर 83 29 68 44 70
+        </div>
+
+        <button class="btn" id="next-btn" onclick="nextQuestion()" disabled>NEXT</button>
+        <button class="btn" id="submit-btn" onclick="submitExam()" style="display: none; background-color: #28a745;">SUBMIT EXAM</button>
+    </div>
+
+    <!-- Certificate Container -->
+    <div id="certificate-page" style="display: none;">
+        <div class="certificate">
+            <div class="cert-header">🏆 जिल्हा परिषद प्राथमिक शाळा नरसोबावाडी संचालित</div>
+            <p><strong>परीक्षेचे नाव:</strong> Cardinal and Ordinal Numbers</p>
+            <p><strong>विद्यार्थ्याचे नाव:</strong> <span id="cert-student-name"></span></p>
+            
+            <div class="cert-score">प्राप्त गुण: <span id="cert-score"></span> / 100</div>
+            <div id="cert-performance" class="cert-badge"></div>
+
+            <div class="creator-info" style="margin-top: 30px;">
+                <div class="creator-details">
+                    <strong>संकल्पना व निर्मिती</strong><br>
+                    श्री सचिन शिंदे सर<br>
+                    जि प प्रा शाळा नरसोबावाडी<br>
+                    मोबाईल नंबर 83 29 68 44 70
+                </div>
+                <img src="https://lh3.googleusercontent.com/d/1pkldnaLRyqBtfgiQKwtbeSSfXhENzbOm" class="creator-img" alt="सचिन शिंदे सर">
+            </div>
+        </div>
+
+        <button class="btn" style="background-color: #dc3545; margin-top: 20px;" onclick="toggleWrongQuestions()">चुकलेले प्रश्न व मार्गदर्शन पहा</button>
+
+        <div id="wrong-questions-container" class="wrong-q-section">
+            <h3>चुकलेले प्रश्न आणि स्पष्टीकरण:</h3>
+            <div id="wrong-questions-list"></div>
+        </div>
+    </div>
+</div>
+<script>
+const quizData = [
+    { q: "Q1. Choose the correct ordinal number for the cardinal number '12':", options: ["Twelveth", "Twelfth", "Twelvet", "Twelth"], ans: 1, exp: "१२ चा ऑर्डिनॉल नंबर 'Twelfth' असा लिहिला जातो, ज्याचे स्पेलिंग महत्त्वाचे आहे." },
+    { q: "Q2. Which of the following is a cardinal number?", options: ["Forty", "Fortieth", "Fourth", "Fourteenth"], ans: 0, exp: "'Forty' हा संख्या (quantity) दर्शवणारा कार्डिनल नंबर आहे." },
+    { q: "Q3. Identify the correct spelling of the ordinal form of '20':", options: ["Twentith", "Twenteeth", "Twentieth", "Twentyth"], ans: 2, exp: "२० चा ऑर्डिनॉल नंबर 'Twentieth' असा होतो." },
+    { q: "Q4. Choose the option that shows the ordinal number for '9':", options: ["Nineth", "Ninethe", "Ninthe", "Ninth"], ans: 3, exp: "९ चा ऑर्डिनॉल नंबर 'Ninth' असा होतो (यात 'e'गाळला जातो)." },
+    { q: "Q5. In the word 'SCHOLARSHIP', which letter is in the 5th position from the left?", options: ["A", "L", "O", "H"], ans: 0, exp: "S(1) C(2) H(3) O(4) L(5) - ५ वे अक्षर 'A' आहे." },
+    { q: "Q6. What is the cardinal form of 'Eleventh'?", options: ["11", "11th", "XI", "Eleven-th"], ans: 0, exp: "'Eleventh' चा कार्डिनल नंबर '11' असा आहे." },
+    { q: "Q7. Select the correct ordinal abbreviation for 'thirty-first':", options: ["31th", "31nd", "31st", "31rd"], ans: 2, exp: "१ ने संपणाऱ्या संख्येसाठी 'st' प्रत्यय लागतो, म्हणून 31st." },
+    { q: "Q8. Choose the correct spelling for the ordinal number of '40':", options: ["Fourtieth", "Fortyth", "Fourtyth", "Fortieth"], ans: 3, exp: "४० चा ऑर्डिनॉल नंबर 'Fortieth' असा आहे." },
+    { q: "Q9. If July is the 7th month, what ordinal position does November hold in a year?", options: ["11th", "10th", "12th", "9th"], ans: 0, exp: "नोव्हेंबर हा वर्षाचा ११ वा महिना आहे (11th)." },
+    { q: "Q10. Which cardinal number comes immediately after 'Ninety-nine'?", options: ["One hundred", "Hundredth", "Ninetieth", "Thousand"], ans: 0, exp: "९९ नंतर 'One hundred' (१००) हा कार्डिनल नंबर येतो." },
+    { q: "Q11. Choose the correct pair of Cardinal - Ordinal number:", options: ["Five - Fiveth", "Five - Fifth", "Five - Fifteeth", "Five - Fiveth"], ans: 1, exp: "५ चा ऑर्डिनॉल 'Fifth' हा अचूक पर्याय आहे." },
+    { q: "Q12. What is the ordinal position of the letter 'E' in the English Alphabet?", options: ["Fourth", "Sixth", "Fifth", "Seventh"], ans: 2, exp: "इंग्रजी वर्णमालेत 'E' ५ व्या स्थानी येतो, म्हणून 'Fifth'." },
+    { q: "Q13. Choose the correct spelling for the ordinal number corresponding to '15':", options: ["Fifteenth", "Fiveteenth", "Fifteenth", "Fifthteenth"], ans: 0, exp: "१५ चा ऑर्डिनॉल नंबर 'Fifteenth' आहे." },
+    { q: "Q14. How many cardinal numbers are there between 11 and 20 (excluding both)?", options: ["Eight", "Nine", "Ten", "Seven"], ans: 0, exp: "११ आणि २० च्या मध 12 ते 19 अशा एकूण ८ संख्या असतात." },
+    { q: "Q15. Select the incorrect ordinal representation:", options: ["22nd", "43rd", "54th", "12st"], ans: 3, exp: "१२ सोबत 'st' चालत नाही, '12th' हवे. त्यामुळे 12st चुकीचे आहे." },
+    { q: "Q16. Choose the correct ordinal word for '80':", options: ["Eightieth", "Eightyth", "Eighthieth", "Eigthieth"], ans: 0, exp: "८० चा ऑर्डिनॉल नंबर 'Eightieth' आहे." },
+    { q: "Q17. Reorder the letters to form an ordinal number: 'T H I R T E E N T H'", options: ["Thirteenth", "Thirtieth", "Thirdteen", "Tenththree"], ans: 0, exp: "अक्षरांची योग्य जुळवाजुळव 'Thirteenth' (तेरावा) अशी होते." },
+    { q: "Q18. If Ramesh won the race, he came in ______ place.", options: ["One", "First", "Once", "Single"], ans: 1, pkg: "", ans: 1, exp: "शर्यत जिंकणारा पहिला येतो, म्हणून 'First'." },
+    { q: "Q19. Convert the cardinal number '100' into its ordinal word:", options: ["Hundred", "Hundredth", "One-hundreds", "Hundreds"], ans: 1, exp: "१०० चा ऑर्डिनॉल 'Hundredth' आहे." },
+    { q: "Q20. Which of the following numbers shows quantity (Cardinal) rather than order (Ordinal)?", options: ["Third", "Second", "Three", "Thirtieth"], ans: 2, exp: "'Three' संख्या दर्शवतो (Cardinal), बाकी सर्व क्रम दर्शवतात." },
+    { q: "Q21. Choose the correctly spelled ordinal number for '50':", options: ["Fiftieth", "Fiftyth", "Fifteeth", "Fivetieth"], ans: 0, exp: "५० चा ऑर्डिनॉल 'Fiftieth' आहे." },
+    { q: "Q22. In the sentence, 'I have four pencils', the word 'four' is a / an ______ number.", options: ["Ordinal", "Cardinal", "Fraction", "Roman"], ans: 1, exp: "'four' हे प्रमाण/संख्या दर्शवते, म्हणून तो Cardinal नंबर आहे." },
+    { q: "Q23. Which day of the week is considered the 3rd day if Monday is the 1st day?", options: ["Tuesday", "Thursday", "Wednesday", "Friday"], ans: 2, exp: "सोमवार(१), मंगळवार(२), बुधवार(३)." },
+    { q: "Q24. Choose the correct ordinal suffix for the number '23':", options: ["-th", "-st", "-nd", "-rd"], ans: 3, exp: "२३ च्या शेवटी ३ असल्याने 'rd' (23rd) प्रत्यय लागतो." },
+    { q: "Q25. Identify the odd one out:", options: ["First", "Second", "Eight", "Tenth"], ans: 2, exp: "'Eight' हा कार्डिनल नंबर आहे, तर इतर सर्व ऑर्डिनॉल नंबर आहेत." },
+    { q: "Q26. What is the sum of the 2nd cardinal number and the 3rd cardinal number (starting from 1)?", options: ["Five", "Four", "Six", "Fifth"], ans: 0, exp: "२ आणि ३ ची बेरीज ५ ('Five') येते." },
+    { q: "Q27. Choose the correct spelling for the ordinal number of '8':", options: ["Eightth", "Eighth", "Eigth", "Eightee"], ans: 1, exp: "८ चा ऑर्डिनॉल 'Eighth' असा लिहिला जातो." },
+    { q: "Q28. What is the ordinal form of '14':", options: ["Fourteenth", "Fourteenth", "Forteenth", "Fourtinth"], ans: 0, exp: "१४ चा ऑर्डिनॉल 'Fourteenth' आहे." },
+    { q: "Q29. How do you write 'ninety-ninth' in figures?", options: ["99", "99th", "90th", "9th"], ans: 1, exp: "'ninety-ninth' अंकात '99th' असे लिहितात." },
+    { q: "Q30. If February is the second month, which is the 8th month of the year?", options: ["September", "July", "August", "October"], ans: 2, exp: "वर्षाचा ८ वा महिना ऑगस्ट (August) आहे." },
+    { q: "Q31. Choose the correct ordinal form of the number '3':", options: ["Three", "Thrice", "Third", "Triple"], ans: 2, exp: "३ चा ऑर्डिनॉल 'Third' आहे." },
+    { q: "Q32. Select the option with the correct spelling:", options: ["Twentyninth", "Twenty-ninth", "Twentynineth", "Twenty-nineth"], ans: 1, exp: "योग्य स्पेलिंग 'Twenty-ninth' असे आहे." },
+    { q: "Q33. \"There are sixty students in the class.\" Here 'sixty' is a ______ number.", options: ["Cardinal", "Ordinal", "Serial", "Decimal"], ans: 0, exp: "'sixty' हे विद्यार्थ्यांची संख्या सांगते, म्हणून तो Cardinal नंबर आहे." },
+    { q: "Q34. Which ordinal number comes just before 'Tenth'?", options: ["Eighth", "Ninth", "Eleventh", "Seventh"], ans: 1, exp: "'Tenth' च्या लगेच आधी 'Ninth' (९ वा) येतो." },
+    { q: "Q35. What is the ordinal number for '11':", options: ["Elevent", "Eleven", "Eleventh", "Eleveth"], ans: 2, exp: "११ चा ऑर्डिनॉल 'Eleventh' आहे." },
+    { q: "Q36. Find the correct match of Ordinal word and Figure:", options: ["Second - 2th", "Tuesday - 2nd", "Second - 2nd", "Secondary - 2"], ans: 2, exp: "Second चे योग्य चिन्ह '2nd' आहे." },
+    { q: "Q37. Which position comes right after 'Nineteenth'?", options: ["Eighteenth", "Twentieth", "Twenty-first", "Ninetieth"], ans: 1, exp: "एकोणिसाव्यानंतर (Nineteenth) विसावे (Twentieth) स्थान येते." },
+    { q: "Q38. Choose the cardinal number represented by 'Seventeenth':", options: ["7", "70", "17", "71"], ans: 2, exp: "'Seventeenth' म्हणजेच १७ वा, ज्याचा कार्डिनल '17' आहे." },
+    { q: "Q39. What is the correct ordinal spelling for '21':", options: ["Twenty-one", "Twenty-first", "Twenty-oneth", "Twenty-firsth"], ans: 1, exp: "२१ चा ऑर्डिनॉल 'Twenty-first' असा होतो." },
+    { q: "Q40. How many letters are there in the word 'CARDINAL':", options: ["Eight", "Eighth", "Seven", "Seventh"], ans: 0, exp: "C-A-R-D-I-N-A-L मध्ये एकूण ८ अक्षरे आहेत (Cardinal number)." },
+    { q: "Q41. Choose the correct ordinal form of '1000':", options: ["Thousand", "Thousandth", "Thousands", "One-thousand"], ans: 1, exp: "१००० चा ऑर्डिनॉल 'Thousandth' आहे." },
+    { q: "Q42. Which ordinal suffix is used with the number '52':", options: ["-st", "-rd", "-th", "-nd"], ans: 3, exp: "५२ च्या शेवटी २ (second) असल्याने '-nd' (52nd) वापरतात." },
+    { q: "Q43. Select the correct word for the cardinal number '70':", options: ["Seventieth", "Seventy", "Seven", "Seventeen"], ans: 1, exp: "७० चा कार्डिनल शब्द 'Seventy' आहे." },
+    { q: "Q44. Which of the following represents an order or position?", options: ["Sixteen", "Six", "Sixth", "Sixty"], ans: 2, exp: "'Sixth' हे स्थान दर्शवते (Ordinal)." },
+    { q: "Q45. Choose the correct ordinal form of '30':", options: ["Thirty", "Thirtieth", "Thirtyth", "Thirdtieth"], ans: 1, exp: "३० चा ऑर्डिनॉल 'Thirtieth' आहे." },
+    { q: "Q46. In the word 'MATHEMATICS', the letter 'C' is at which position from the left?", options: ["Tenth", "Ninth", "Eleventh", "Eighth"], ans: 0, exp: "M-A-T-H-E-M-A-T-I-C (C हे १० व्या स्थानी आहे, Tenth)." },
+    { q: "Q47. Identify the correct statement:", options: ["'First' is a cardinal number.", "'One' is an ordinal number.", "'Twelfth' is an ordinal number.", "'Twelve' is an ordinal number."], ans: 2, exp: "'Twelfth' हा एक ऑर्डिनॉल नंबर आहे हे विधान बरोबर आहे." },
+    { q: "Q48. What is the cardinal form of 'Sixtieth'?", options: ["16", "6", "600", "60"], ans: 3, exp: "'Sixtieth' चा कार्डिनल नंबर '60' आहे." },
+    { q: "Q49. Choose the correct spelling for '60th':", options: ["Sixtieth", "Sixtyth", "Sixteenth", "Sixteth"], ans: 0, exp: "60th चे अचूक स्पेलिंग 'Sixtieth' आहे." },
+    { q: "Q50. Which number indicates 'How many' items there are?", options: ["Ordinal number", "Cardinal number", "Position number", "Rank number"], ans: 1, exp: "'How many' (किती) हे प्रमाण कार्डिनल नंबर सांगतो." }
+];
+let currentQ = 0;
+let userAnswers = new Array(quizData.length).fill(null);
+
+function startExam() {
+    const name = document.getElementById('student-name').value.trim();
+    const mobile = document.getElementById('student-mobile').value.trim();
+
+    if (!name || mobile.length !== 10) {
+        alert("कृपया तुमचे पूर्ण नाव आणि १० अंकी योग्य मोबाईल नंबर प्रविष्ट करा.");
+        return;
+    }
+
+    document.getElementById('start-page').style.display = 'none';
+    document.getElementById('exam-page').style.display = 'block';
+
+    renderQuestions();
+    showQuestion(0);
+}
+
+function renderQuestions() {
+    const container = document.getElementById('questions-container');
+    container.innerHTML = '';
+
+    quizData.forEach((data, index) => {
+        const card = document.createElement('div');
+        card.className = `question-card ${index === 0 ? 'active' : ''}`;
+        card.id = `q-card-${index}`;
+
+        let optionsHTML = '';
+        data.options.forEach((opt, optIdx) => {
+            optionsHTML += `<button class="option-btn" id="opt-${index}-${optIdx}" onclick="selectOption(${index}, ${optIdx})">(${optIdx + 1}) ${opt}</button>`;
+        });
+
+        card.innerHTML = `
+            <div class="question-title">${data.q}</div>
+            <div class="options">${optionsHTML}</div>
+            <div class="explanation" id="exp-${index}">
+                <strong>स्पष्टीकरण:</strong> ${data.exp}
+            </div>
+        `;
+        container.appendChild(card);
+    });
+}
+
+function showQuestion(index) {
+    document.querySelectorAll('.question-card').forEach(card => card.classList.remove('active'));
+    document.getElementById(`q-card-${index}`).classList.add('active');
+    
+    currentQ = index;
+
+    const nextBtn = document.getElementById('next-btn');
+    const submitBtn = document.getElementById('submit-btn');
+
+    if (currentQ === quizData.length - 1) {
+        nextBtn.style.display = 'none';
+        submitBtn.style.display = 'block';
+    } else {
+        nextBtn.style.display = 'block';
+        submitBtn.style.display = 'none';
+    }
+
+    nextBtn.disabled = userAnswers[currentQ] === null;
+}
+
+function selectOption(qIdx, optIdx) {
+    if (userAnswers[qIdx] !== null) return; 
+
+    userAnswers[qIdx] = optIdx;
+    const correctAns = quizData[qIdx].ans;
+
+    const selectedBtn = document.getElementById(`opt-${qIdx}-${optIdx}`);
+    const correctBtn = document.getElementById(`opt-${qIdx}-${correctAns}`);
+    const expDiv = document.getElementById(`exp-${qIdx}`);
+
+    if (optIdx === correctAns) {
+        selectedBtn.classList.add('correct');
+    } else {
+        selectedBtn.classList.add('incorrect');
+        correctBtn.classList.add('correct');
+        expDiv.style.display = 'block';
+    }
+
+    document.getElementById('next-btn').disabled = false;
+}
+
+function nextQuestion() {
+    if (currentQ < quizData.length - 1) {
+        showQuestion(currentQ + 1);
+    }
+}
+
+function submitExam() {
+    let score = 0;
+    quizData.forEach((q, idx) => {
+        if (userAnswers[idx] === q.ans) {
+            score += 2; // Each question is worth 2 marks
+        }
+    });
+
+    document.getElementById('exam-page').style.display = 'none';
+    document.getElementById('certificate-page').style.display = 'block';
+
+    const studentName = document.getElementById('student-name').value;
+    document.getElementById('cert-student-name').innerText = studentName;
+    document.getElementById('cert-score').innerText = score;
+
+    const percentage = (score / 100) * 100;
+    const perfDiv = document.getElementById('cert-performance');
+
+    if (percentage >= 90) {
+        perfDiv.innerHTML = "🥇 Gold Medal + Trophy";
+        perfDiv.style.background = "#fff3cd";
+        perfDiv.style.color = "#856404";
+    } else if (percentage >= 80) {
+        perfDiv.innerHTML = "🥈 Silver Medal + Trophy";
+        perfDiv.style.background = "#e2e3e5";
+        perfDiv.style.color = "#383d41";
+    } else if (percentage >= 70) {
+        perfDiv.innerHTML = "🥉 Bronze Medal + Trophy";
+        perfDiv.style.background = "#f8d7da";
+        perfDiv.style.color = "#721c24";
+    } else {
+        perfDiv.innerHTML = "💐 अभिनंदन! फुलांचा गुच्छ व पुढील परीक्षेसाठी शुभेच्छा!";
+        perfDiv.style.background = "#d4edda";
+        perfDiv.style.color = "#155724";
+    }
+
+    generateWrongQuestionsList();
+}
+
+function generateWrongQuestionsList() {
+    const listContainer = document.getElementById('wrong-questions-list');
+    listContainer.innerHTML = '';
+
+    let hasWrong = false;
+
+    quizData.forEach((q, idx) => {
+        if (userAnswers[idx] !== q.ans) {
+            hasWrong = true;
+            const item = document.createElement('div');
+            item.className = 'wrong-item';
+            
+            const userAnsText = userAnswers[idx] !== null ? q.options[userAnswers[idx]] : "सोडून दिला";
+            const correctAnsText = q.options[q.ans];
+
+            item.innerHTML = `
+                <strong>${q.q}</strong><br>
+                <span style="color: #dc3545;">तुमचे उत्तर: ${userAnsText}</span><br>
+                <span style="color: #28a745;">योग्य उत्तर: ${correctAnsText}</span><br>
+                <small><em>स्पष्टीकरण: ${q.exp}</em></small>
+            `;
+            listContainer.appendChild(item);
+        }
+    });
+
+    if (!hasWrong) {
+        listContainer.innerHTML = "<p style='color: #28a745; font-weight: bold;'>अभिनंदन! तुमचे सर्व ५० प्रश्न बरोबर आले आहेत.</p>";
+    }
+}
+
+function toggleWrongQuestions() {
+    const wrongSection = document.getElementById('wrong-questions-container');
+    if (wrongSection.style.display === 'none' || wrongSection.style.display === '') {
+        wrongSection.style.display = 'block';
+    } else {
+        wrongSection.style.display = 'none';
+    }
+}
+</script>
+</body>
+</html>
+
