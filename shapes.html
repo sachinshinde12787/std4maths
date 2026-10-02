@@ -1,0 +1,484 @@
+<!DOCTYPE html>
+<html lang="mr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shapes - स्कॉलरशिप ऑनलाईन टेस्ट</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        body {
+            background-color: #f0f4f8;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+        }
+        .container {
+            max-width: 750px;
+            width: 100%;
+            background: #ffffff;
+            border-radius: 12px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            padding: 25px;
+            position: relative;
+        }
+        .header {
+            text-align: center;
+            border-bottom: 2px solid #e2e8f0;
+            padding-bottom: 15px;
+            margin-bottom: 20px;
+        }
+        .header h2 {
+            color: #1a365d;
+            margin: 0 0 10px 0;
+            font-size: 22px;
+        }
+        .header h3 {
+            color: #2b6cb0;
+            margin: 5px 0;
+            font-size: 18px;
+        }
+        .creator-info {
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            margin-top: 15px;
+            background: #edf2f7;
+            padding: 10px;
+            border-radius: 8px;
+        }
+        .creator-info img {
+            width: 65px;
+            height: 65px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-left: 12px;
+            border: 2px solid #3182ce;
+        }
+        .creator-text {
+            text-align: right;
+            font-size: 13px;
+            color: #2d3748;
+            line-height: 1.4;
+        }
+        .form-group {
+            margin-bottom: 15px;
+            text-align: left;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+            color: #4a5568;
+        }
+        .form-group input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #cbd5e0;
+            border-radius: 6px;
+            font-size: 15px;
+        }
+        .btn {
+            background-color: #3182ce;
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            font-size: 16px;
+            border-radius: 6px;
+            cursor: pointer;
+            width: 100%;
+            font-weight: bold;
+            transition: background 0.2s;
+            margin-top: 15px;
+        }
+        .btn:hover {
+            background-color: #2b6cb0;
+        }
+        .btn:disabled {
+            background-color: #cbd5e0;
+            cursor: not-allowed;
+        }
+        .footer-note {
+            text-align: center;
+            font-size: 13px;
+            color: #718096;
+            margin-top: 20px;
+            padding-top: 10px;
+            border-top: 1px dashed #e2e8f0;
+        }
+        .question-box {
+            display: none;
+        }
+        .q-text {
+            font-size: 18px;
+            font-weight: bold;
+            color: #2d3748;
+            margin-bottom: 15px;
+        }
+        .option-btn {
+            display: block;
+            width: 100%;
+            text-align: left;
+            padding: 12px 15px;
+            margin-bottom: 10px;
+            border: 2px solid #e2e8f0;
+            border-radius: 6px;
+            background: #fff;
+            font-size: 16px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .option-btn:hover {
+            border-color: #3182ce;
+            background: #ebf8ff;
+        }
+        .option-btn.correct {
+            background-color: #c6f6d5 !important;
+            border-color: #38a169 !important;
+            color: #22543d;
+            font-weight: bold;
+        }
+        .option-btn.wrong {
+            background-color: #fed7d7 !important;
+            border-color: #e53e3e !important;
+            color: #742a2a;
+            font-weight: bold;
+        }
+        .explanation {
+            display: none;
+            background: #fffaf0;
+            border-left: 4px solid #dd6b20;
+            padding: 12px;
+            margin: 15px 0;
+            font-size: 14px;
+            color: #7b341e;
+            border-radius: 4px;
+        }
+        /* Certificate Styling */
+        #certificate {
+            display: none;
+            border: 8px double #d69e2e;
+            padding: 25px;
+            background: #ffffff;
+            text-align: center;
+            border-radius: 10px;
+            box-shadow: inset 0 0 15px rgba(212, 175, 55, 0.2);
+        }
+        .cert-title {
+            color: #744210;
+            font-size: 22px;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+        .score-display {
+            font-size: 36px;
+            color: #2b6cb0;
+            font-weight: bold;
+            margin: 15px 0;
+        }
+        .badge {
+            font-size: 20px;
+            font-weight: bold;
+            padding: 10px;
+            margin: 15px 0;
+            border-radius: 8px;
+            display: inline-block;
+        }
+        .gold { background: #fefcbf; color: #744210; border: 1px solid #d69e2e; }
+        .silver { background: #edf2f7; color: #2d3748; border: 1px solid #a0aec0; }
+        .bronze { background: #feebc8; color: #7b341e; border: 1px solid #dd6b20; }
+        .participant { background: #eef2ff; color: #3730a3; border: 1px solid #818cf8; }
+        
+        #wrong-questions-section {
+            display: none;
+            margin-top: 20px;
+            text-align: left;
+            background: #fff5f5;
+            padding: 15px;
+            border-radius: 8px;
+            border: 1px solid #feb2b2;
+        }
+        .wrong-q-item {
+            margin-bottom: 12px;
+            padding-bottom: 8px;
+            border-bottom: 1px solid #fed7d7;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <!-- Registration Screen -->
+    <div id="start-screen">
+        <div class="header">
+            <h2>जिल्हा परिषद प्राथमिक शाळा नरसोबावाडी संचलित</h2>
+            <h3>ऑनलाईन स्कॉलरशिप सराव परीक्षा</h3>
+            <p><b>परीक्षेचे नाव:</b> Shapes (आकार)</p>
+        </div>
+
+        <div class="form-group">
+            <label for="studentName">विद्यार्थ्याचे नाव:</label>
+            <input type="text" id="studentName" placeholder="पूर्ण नाव टाका" required>
+        </div>
+        <div class="form-group">
+            <label for="mobileNo">मोबाईल नंबर:</label>
+            <input type="tel" id="mobileNo" placeholder="१० अंकी मोबाईल नंबर" maxlength="10" required>
+        </div>
+
+        <div class="creator-info">
+            <div class="creator-text">
+                <b>संकल्पना व निर्मिती</b><br>
+                श्री सचिन शिंदे सर<br>
+                जि प प्रा शाळा नरसोबावाडी<br>
+                मो. ८३ २९ ६८ ४४ ७०
+            </div>
+            <img src="https://lh3.googleusercontent.com/d/1pkldnaLRyqBtfgiQKwtbeSSfXhENzbOm" alt="सचिन शिंदे सर">
+        </div>
+
+        <button class="btn" onclick="startExam()">EXAM START</button>
+        <div class="footer-note">टेस्ट निर्मिती व संकल्पना श्री सचिन शिंदे मोबाईल नंबर 83 29 68 44 70</div>
+    </div>
+
+    <!-- Exam Screen -->
+    <div id="exam-screen" class="question-box">
+        <div style="display: flex; justify-content: space-between; font-weight: bold; color: #4a5568; margin-bottom: 10px;">
+            <span id="q-count">प्रश्न १ / ५०</span>
+            <span>गुण: २</span>
+        </div>
+        <div class="q-text" id="question-text"></div>
+        <div id="options-container"></div>
+        <div class="explanation" id="explanation-box"></div>
+        
+        <button class="btn" id="next-btn" onclick="nextQuestion()" disabled>नेक्स्ट (Next)</button>
+        <div class="footer-note">टेस्ट निर्मिती व संकल्पना श्री सचिन शिंदे मोबाईल नंबर 83 29 68 44 70</div>
+    </div>
+
+    <!-- Certificate / Result Screen -->
+    <div id="certificate">
+        <div class="cert-title">🏆 जिल्हा परिषद प्राथमिक शाळा नरसोबावाडी संचालित 🏆</div>
+        <p style="margin: 5px 0;"><b>परीक्षेचे नाव:</b> Shapes (आकार)</p>
+        <p style="margin: 5px 0;"><b>विद्यार्थ्याचे नाव:</b> <span id="cert-name" style="color:#2b6cb0; font-size:18px;"></span></p>
+        
+        <div class="score-display" id="cert-score">0 / 100</div>
+        <div id="cert-badge" class="badge"></div>
+
+        <div id="wrong-btn-container" style="margin-top: 15px;">
+            <button class="btn" style="background-color: #e53e3e;" onclick="showWrongQuestions()">चुकलेले प्रश्न व स्पष्टीकरण पहा</button>
+        </div>
+
+        <div id="wrong-questions-section">
+            <h4 style="color: #9b2c2c; margin-top:0;">चुकलेले प्रश्न आणि अचूक स्पष्टीकरण:</h4>
+            <div id="wrong-list"></div>
+        </div>
+
+        <div class="creator-info" style="margin-top: 25px;">
+            <div class="creator-text">
+                <b>संकल्पना व निर्मिती</b><br>
+                श्री सचिन शिंदे सर<br>
+                जि प प्रा शाळा नरसोबावाडी<br>
+                मो. ८३ २९ ६८ ४४ ७०
+            </div>
+            <img src="https://lh3.googleusercontent.com/d/1pkldnaLRyqBtfgiQKwtbeSSfXhENzbOm" alt="सचिन शिंदे सर">
+        </div>
+        <div class="footer-note">टेस्ट निर्मिती व संकल्पना श्री सचिन शिंदे मोबाईल नंबर 83 29 68 44 70</div>
+    </div>
+                                         </div>
+  <script>
+const questions = [
+    { q: "1. Which shape is round and has no straight sides?", options: ["Square", "Circle", "Triangle", "Rectangle"], ans: 1, exp: "स्पष्टीकरण: Circle (वर्तुळ) गोल असते आणि त्याला एकही सरळ बाजू (straight side) नसते." },
+    { q: "2. How many sides does a triangle have?", options: ["Two", "Three", "Four", "Five"], ans: 1, exp: "स्पष्टीकरण: Triangle (त्रिकोण) ला ३ बाजू असतात." },
+    { q: "3. Which shape has 4 equal sides and 4 corners?", options: ["Rectangle", "Triangle", "Square", "Circle"], ans: 2, exp: "स्पष्टीकरण: Square (चौरस) च्या चारही बाजू समान आणि ४ कोपरे असतात." },
+    { q: "4. Choose the shape of a full moon.", options: ["Oval", "Circle", "Triangle", "Square"], ans: 1, exp: "स्पष्टीकरण: पूर्ण चंद्राचा आकार गोल म्हणजे Circle (वर्तुळ) असतो." },
+    { q: "5. Find the odd one out based on geometric shape.", options: ["Coin", "Bangle", "Carrom Board", "Wheel"], ans: 2, exp: "स्पष्टीकरण: कॅरम बोर्ड चौरसाकृती (Square) आहे, बाकी सर्व वर्तुळाकार (Circle) आहेत." },
+    { q: "6. A book cover usually resembles which shape?", options: ["Circle", "Rectangle", "Triangle", "Oval"], ans: 1, exp: "स्पष्टीकरण: पुस्तकाचे मुखपृष्ठ साधारणपणे Rectangle (आयत) आकाराचे असते." },
+    { q: "7. Identify the shape: 'I have 3 corners and 3 straight lines.'", options: ["Circle", "Square", "Triangle", "Rectangle"], ans: 2, exp: "स्पष्टीकरण: ३ कोपरे आणि ३ रेषा असलेला आकार Triangle (त्रिकोण) असतो." },
+    { q: "8. An egg is best described by which shape?", options: ["Oval", "Circle", "Square", "Triangle"], ans: 0, exp: "स्पष्टीकरण: अंड्याचा आकार Oval (अंडाकृती) असतो." },
+    { q: "9. How many total corners do a Square and a Triangle have together?", options: ["6", "7", "8", "5"], ans: 1, exp: "स्पष्टीकरण: Square चे ४ + Triangle चे ३ = एकूण ७ कोपरे." },
+    { q: "10. Which object is shaped like a Triangle?", options: ["A slice of Pizza", "A Football", "A Mobile Phone", "A Chessboard"], ans: 0, exp: "स्पष्टीकरण: पिझ्झाचा कापलेला तुकडा त्रिकोणाकृती (Triangle) दिसतो." },
+    
+    { q: "11. Complete the sentence: 'A circle has ____ sides.'", options: ["4", "3", "0", "1"], ans: 2, exp: "स्पष्टीकरण: वर्तुळाला (Circle) शून्य बाजू असतात." },
+    { q: "12. Opposite sides are equal in a ____.", options: ["Square", "Circle", "Rectangle", "Triangle"], ans: 2, exp: "स्पष्टीकरण: Rectangle (आयत) च्या समोरासमोरील बाजू समान लांबीच्या असतात." },
+    { q: "13. Find the odd object out.", options: ["Blackboard", "Door", "Postcard", "Sun"], ans: 3, exp: "स्पष्टीकरण: Sun (सूर्य) गोल आहे, तर इतर सर्व वस्तू आयाताकृती (Rectangle) आहेत." },
+    { q: "14. Which shape has MORE sides: a Triangle or a Rectangle?", options: ["Triangle", "Rectangle", "Both have same sides", "None of these"], ans: 1, exp: "स्पष्टीकरण: Rectangle ला ४ बाजू असतात तर Triangle ला ३ बाजू असतात." },
+    { q: "15. How many corners does an Oval shape have?", options: ["Zero", "One", "Two", "Four"], ans: 0, exp: "स्पष्टीकरण: Oval (अंडाकृती) आकाराला एकही कोपरा (0) नसतो." },
+    { q: "16. What is the shape of a standard Chessboard?", options: ["Rectangle", "Square", "Circle", "Triangle"], ans: 1, exp: "स्पष्टीकरण: बुद्धीबळाचा पट (Chessboard) हा Square (चौरस) असतो." },
+    { q: "17. A Traffic Signboard shaped like '∆' has how many sides?", options: ["2", "3", "4", "0"], ans: 1, exp: "स्पष्टीकरण: '∆' हा त्रिकोणी फलक असल्याने त्याला ३ बाजू असतात." },
+    { q: "18. Which shape is formed by connecting 4 equal matchsticks at corners?", options: ["Triangle", "Circle", "Square", "Oval"], ans: 2, exp: "स्पष्टीकरण: ४ समान काड्या जोडल्यास Square (चौरस) तयार होतो." },
+    { q: "19. Find the INCORRECT pair.", options: ["Wheel — Circle", "Envelope — Rectangle", "Dice Face — Square", "Clock — Always Triangle"], ans: 3, exp: "स्पष्टीकरण: घड्याळ नेहमी त्रिकोणी असत नाही, ही जोडी चुकीची आहे." },
+    { q: "20. How many sides does a Rectangle have in total?", options: ["3", "4", "5", "2"], ans: 1, exp: "स्पष्टीकरण: Rectangle (आयत) ला एकूण ४ बाजू असतात." },
+
+    { q: "21. If you cut a Square diagonally into two equal halves, what shapes do you get?", options: ["Two Circles", "Two Triangles", "Two Rectangles", "Two Ovals"], ans: 1, exp: "स्पष्टीकरण: चौरसाला कर्णावर कापल्यास २ त्रिकोण (Triangles) मिळतात." },
+    { q: "22. Which shape has NO corners and is NOT a perfect circle?", options: ["Square", "Triangle", "Oval", "Rectangle"], ans: 2, exp: "स्पष्टीकरण: Oval ला कोपरे नसतात आणि तो पूर्ण गोलही नसतो." },
+    { q: "23. 'I am used to write on the wall in school. My face is rectangular.' What am I?", options: ["Clock", "Blackboard", "Coin", "Ball"], ans: 1, exp: "स्पष्टीकरण: शाळेतील फळा (Blackboard) हा आयाताकृती असतो." },
+    { q: "24. Choose the correct spelling for 'वर्तुळ':", options: ["Sircle", "Circle", "Cirkle", "Serkle"], ans: 1, exp: "स्पष्टीकरण: वर्तुळाचे इंग्रजी नाव 'Circle' असे आहे." },
+    { q: "25. Find the group of shapes having exactly 4 corners.", options: ["Square and Triangle", "Circle and Oval", "Square and Rectangle", "Triangle and Circle"], ans: 2, exp: "स्पष्टीकरण: Square आणि Rectangle दोघांनाही ४-४ कोपरे असतात." },
+    { q: "26. Complete the analogy: Square : 4 sides :: Triangle : ____ sides", options: ["2", "3", "4", "5"], ans: 1, exp: "स्पष्टीकरण: चौरसाला ४ बाजू तर त्रिकोणाला ३ बाजू असतात." },
+    { q: "27. Choose the object that has a CIRCULAR shape.", options: ["One Rupee Coin", "Notebook", "Ruler (Scale)", "Eraser"], ans: 0, exp: "स्पष्टीकरण: १ रुपयाचे नाणे वर्तुळाकार (Circle) असते." },
+    { q: "28. Which of the following shapes can roll easily on the floor?", options: ["Square", "Rectangle", "Circle", "Triangle"], ans: 2, exp: "स्पष्टीकरण: वक्र कडा असल्यामुळे Circle (वर्तुळ) सहजरित्या गढंगळत/गरंगळत (roll) जाते." },
+    { q: "29. How many Triangles are needed to make a simple Star (✡)?", options: ["1", "2", "3", "4"], ans: 1, exp: "स्पष्टीकरण: २ त्रिकोण उलटे-सुलटे ठेवून ६ कोनांचा तारा (Star) बनतो." },
+    { q: "30. Find the odd shape group:", options: ["Door, Window, Table top", "Coin, Bangle, Ring", "Sandwich slice, Roof top, Hanger", "Ball, Book, Pencil"], ans: 3, exp: "स्पष्टीकरण: Ball, Book, Pencil या तिन्हींचे आकार एकमेकांशी सुसंगत नाहीत (गट वेगळा आहे)." },
+
+    { q: "31. A folded paper hat usually resembles which shape?", options: ["Triangle", "Circle", "Square", "Oval"], ans: 0, exp: "स्पष्टीकरण: कागदाची टोपी साधारणपणे त्रिकोणी (Triangle) आकाराची दिसते." },
+    { q: "32. Which shape has fewer sides than a Square?", options: ["Rectangle", "Triangle", "Pentagon", "Hexagon"], ans: 1, exp: "स्पष्टीकरण: Square (४ बाजू) पेक्षा Triangle (३ बाजू) ला कमी बाजू असतात." },
+    { q: "33. Identify the true statement:", options: ["A circle has 4 corners.", "A triangle has 3 sides.", "A square has 3 corners.", "An oval has 4 sides."], ans: 1, exp: "स्पष्टीकरण: 'A triangle has 3 sides' हे विधान सत्य आहे." },
+    { q: "34. 'A TV screen is usually ____ in shape.'", options: ["Triangular", "Rectangular", "Circular", "Oval"], ans: 1, exp: "स्पष्टीकरण: टीव्हीचा पडदा आयाताकृती (Rectangular) असतो." },
+    { q: "35. How many total sides are there in 2 Triangles and 1 Square?", options: ["9", "10", "8", "7"], ans: 1, exp: "स्पष्टीकरण: २ त्रिकोण = ३+३=६ बाजू, १ चौरस = ४ बाजू. एकूण ६+४ = १० बाजू." },
+    { q: "36. Which geometric shape has all 4 sides equal in length?", options: ["Rectangle", "Oval", "Square", "Circle"], ans: 2, exp: "स्पष्टीकरण: Square (चौरस) च्या चारही बाजू समान लांबीच्या असतात." },
+    { q: "37. Select the object matching the shape 'Oval'.", options: ["Watermelon (Long type)", "Carrom Coin", "Chessboard", "Slice of Toast"], ans: 0, exp: "स्पष्टीकरण: लांबट कलिंगड अंडाकृती (Oval) असते." },
+    { q: "38. Find the shape hidden in the roof of a house diagram (▲).", options: ["Square", "Rectangle", "Triangle", "Circle"], ans: 2, exp: "स्पष्टीकरण: घराचे छप्पर त्रिकोणी (Triangle) आकाराचे दाखवले जाते." },
+    { q: "39. How many corners does a shape made of a curved line have?", options: ["0", "1", "2", "4"], ans: 0, exp: "स्पष्टीकरण: वक्र रेषेने (curved line) बनलेल्या आकाराला (उदा. वर्तुळ) शून्य कोपरे असतात." },
+    { q: "40. Which shape will you get if you trace the bottom of a water glass?", options: ["Square", "Circle", "Triangle", "Rectangle"], ans: 1, exp: "स्पष्टीकरण: पेल्याचा तळ कागदावर ठेवून रेघ मारल्यास वर्तुळ (Circle) मिळते." },
+
+    { q: "41. Difference between the number of sides of a Rectangle and a Triangle is:", options: ["0", "1", "2", "3"], ans: 1, exp: "स्पष्टीकरण: आयताच्या ४ बाजू - त्रिकोणाच्या ३ बाजू = १ मधील फरक." },
+    { q: "42. Which letter of the English Alphabet looks like a Triangle?", options: ["O", "A", "B", "C"], ans: 1, exp: "स्पष्टीकरण: 'A' या अक्षराचा वरील भाग त्रिकोणासारखा (Triangle) दिसतो." },
+    { q: "43. Which letter of the English Alphabet is CIRCULAR in shape?", options: ["L", "T", "O", "X"], ans: 2, exp: "स्पष्टीकरण: 'O' हे इंग्रजी अक्षर वर्तुळाकार (Circular) असते." },
+    { q: "44. Which of the following has 4 corners but is NOT a Square?", options: ["Rectangle", "Triangle", "Circle", "Oval"], ans: 0, exp: "स्पष्टीकरण: Rectangle (आयताला) ४ कोपरे असतात, पण तो Square (चौरस) नसतो." },
+    { q: "45. Pick the correct Marathi name for 'Rectangle':", options: ["चौरस", "वर्तुळ", "आयत", "त्रिकोण"], ans: 2, exp: "स्पष्टीकरण: Rectangle म्हणजे आयत." },
+    { q: "46. Pick the correct Marathi name for 'Square':", options: ["चौरस", "आयत", "त्रिकोण", "अंडाकृती"], ans: 0, exp: "स्पष्टीकरण: Square म्हणजे चौरस." },
+    { q: "47. Identify the odd pair out:", options: ["Circle — No corners", "Triangle — 3 corners", "Square — 4 corners", "Rectangle — 3 corners"], ans: 3, exp: "स्पष्टीकरण: Rectangle ला ४ कोपरे असतात, त्यामुळे ही जोडी चुकीची/वेगळी आहे." },
+    { q: "48. If we join two equal Squares side-by-side, what shape do we get?", options: ["Circle", "Triangle", "Rectangle", "Oval"], ans: 2, exp: "स्पष्टीकरण: दोन समान चौरस शेजारी जोडल्यास आयत (Rectangle) बनतो." },
+    { q: "49. A birthday cap looks like which shape from the front view?", options: ["Circle", "Triangle", "Square", "Rectangle"], ans: 1, exp: "स्पष्टीकरण: वाढदिवसाची टोपी समोरून पाहिल्यास त्रिकोणासारखी (Triangle) दिसते." },
+    { q: "50. Which shape has maximum number of straight sides among: Triangle, Square, Circle?", options: ["Triangle", "Circle", "Square", "All have equal sides"], ans: 2, exp: "स्पष्टीकरण: दिलेल्या आकारांपैकी Square ला सर्वाधिक (४) बाजू आहेत (Triangle=३, Circle=०)." }
+];
+  let currentQ = 0;
+let score = 0;
+let userAnswers = [];
+
+function startExam() {
+    const name = document.getElementById('studentName').value.trim();
+    const mobile = document.getElementById('mobileNo').value.trim();
+
+    if (name === "" || mobile.length !== 10) {
+        alert("कृपया तुमचे पूर्ण नाव आणि १० अंकी वैध मोबाईल नंबर प्रविष्ट करा.");
+        return;
+    }
+
+    document.getElementById('start-screen').style.display = 'none';
+    document.getElementById('exam-screen').style.display = 'block';
+    loadQuestion();
+}
+
+function loadQuestion() {
+    const qData = questions[currentQ];
+    document.getElementById('q-count').innerText = `प्रश्न ${currentQ + 1} / ${questions.length}`;
+    document.getElementById('question-text').innerText = qData.q;
+    
+    const optionsContainer = document.getElementById('options-container');
+    optionsContainer.innerHTML = '';
+    
+    const expBox = document.getElementById('explanation-box');
+    expBox.style.display = 'none';
+    expBox.innerText = '';
+
+    document.getElementById('next-btn').disabled = true;
+    if(currentQ === questions.length - 1) {
+        document.getElementById('next-btn').innerText = "Submit Exam (परीक्षेचा निकाल पहा)";
+    }
+
+    qData.options.forEach((opt, idx) => {
+        const btn = document.createElement('button');
+        btn.className = 'option-btn';
+        btn.innerText = `(${String.fromCharCode(65 + idx)}) ${opt}`;
+        btn.onclick = () => selectOption(idx, btn);
+        optionsContainer.appendChild(btn);
+    });
+}
+
+function selectOption(selectedIdx, btn) {
+    const qData = questions[currentQ];
+    const options = document.querySelectorAll('.option-btn');
+    
+    // Disable all options
+    options.forEach(o => o.style.pointerEvents = 'none');
+
+    userAnswers[currentQ] = {
+        selected: selectedIdx,
+        correct: qData.ans
+    };
+
+    if (selectedIdx === qData.ans) {
+        btn.classList.add('correct');
+        score += 2; // 2 marks per question
+    } else {
+        btn.classList.add('wrong');
+        options[qData.ans].classList.add('correct');
+        
+        // Show explanation
+        const expBox = document.getElementById('explanation-box');
+        expBox.innerText = qData.exp;
+        expBox.style.display = 'block';
+    }
+
+    document.getElementById('next-btn').disabled = false;
+}
+
+function nextQuestion() {
+    if (currentQ < questions.length - 1) {
+        currentQ++;
+        loadQuestion();
+    } else {
+        showCertificate();
+    }
+}
+
+function showCertificate() {
+    document.getElementById('exam-screen').style.display = 'none';
+    document.getElementById('certificate').style.display = 'block';
+
+    const studentName = document.getElementById('studentName').value;
+    document.getElementById('cert-name').innerText = studentName;
+    document.getElementById('cert-score').innerText = `${score} / 100`;
+
+    const percentage = (score / 100) * 100;
+    const badgeDiv = document.getElementById('cert-badge');
+
+    if (percentage >= 90) {
+        badgeDiv.className = 'badge gold';
+        badgeDiv.innerHTML = '🥇 Gold Medal + Trophy<br>उत्कृष्ट कामगिरी!';
+    } else if (percentage >= 80) {
+        badgeDiv.className = 'badge silver';
+        badgeDiv.innerHTML = '🥈 Silver Medal + Trophy<br>छान कामगिरी!';
+    } else if (percentage >= 70) {
+        badgeDiv.className = 'badge bronze';
+        badgeDiv.innerHTML = '🥉 Bronze Medal + Trophy<br>चांगली कामगिरी!';
+    } else {
+        badgeDiv.className = 'badge participant';
+        badgeDiv.innerHTML = '💐 अभिनंदन! फुलांचा गुच्छ<br>पुढील परीक्षेसाठी शुभेच्छा!';
+    }
+
+    // Check if there are wrong answers
+    const hasWrong = userAnswers.some(a => a && a.selected !== a.correct);
+    if (!hasWrong) {
+        document.getElementById('wrong-btn-container').style.display = 'none';
+    }
+}
+
+function showWrongQuestions() {
+    const listDiv = document.getElementById('wrong-list');
+    listDiv.innerHTML = '';
+
+    userAnswers.forEach((ans, idx) => {
+        if (ans && ans.selected !== ans.correct) {
+            const qData = questions[idx];
+            const item = document.createElement('div');
+            item.className = 'wrong-q-item';
+            item.innerHTML = `
+                <b>प्रश्न:</b> ${qData.q}<br>
+                <span style="color:#e53e3e;">तुमचे उत्तर: (${String.fromCharCode(65 + ans.selected)}) ${qData.options[ans.selected]}</span><br>
+                <span style="color:#38a169;">योग्य उत्तर: (${String.fromCharCode(65 + ans.correct)}) ${qData.options[ans.correct]}</span><br>
+                <i style="color:#7b341e;">${qData.exp}</i>
+            `;
+            listDiv.appendChild(item);
+        }
+    });
+
+    document.getElementById('wrong-questions-section').style.display = 'block';
+}
+</script>
+</body>
+</html>
+  
