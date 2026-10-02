@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="mr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mottos and Messages - Exam</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #f5f7fa, #c3cfe2);
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+        .container {
+            background: #ffffff;
+            width: 100%;
+            max-width: 650px;
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            position: relative;
+        }
+        .header-top {
+            text-align: center;
+            font-weight: bold;
+            color: #2c3e50;
+            font-size: 1.1rem;
+            margin-bottom: 15px;
+        }
+        .creator-bottom-right {
+            text-align: right;
+            margin-top: 30px;
+            font-size: 0.9rem;
+            color: #555;
+            line-height: 1.4;
+        }
+        .creator-bottom-right img {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-top: 5px;
+            border: 2px solid #3498db;
+        }
+        .footer-note {
+            text-align: center;
+            font-size: 0.95rem;
+            color: #666;
+            margin: 15px 0;
+            font-weight: 600;
+        }
+        .btn {
+            background-color: #27ae60;
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            font-size: 1rem;
+            border-radius: 8px;
+            cursor: pointer;
+            width: 100%;
+            margin-top: 15px;
+            transition: background 0.3s;
+        }
+        .btn:hover {
+            background-color: #219653;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+            color: #333;
+        }
+        .form-group input {
+            width: 100%;
+            padding: 10px;
+            box-sizing: border-box;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            font-size: 1rem;
+        }
+        .screen {
+            display: none;
+        }
+        .active-screen {
+            display: block;
+        }
+        .option-btn {
+            display: block;
+            width: 100%;
+            text-align: left;
+            padding: 10px 15px;
+            margin: 8px 0;
+            background: #f8f9fa;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: all 0.2s;
+        }
+        .option-btn:hover:not(:disabled) {
+            background: #e2e8f0;
+        }
+        .correct {
+            background-color: #d4edda !important;
+            border-color: #c3e6cb !important;
+            color: #155724;
+        }
+        .incorrect {
+            background-color: #f8d7da !important;
+            border-color: #f5c6cb !important;
+            color: #721c24;
+        }
+        .explanation {
+            margin-top: 10px;
+            padding: 10px;
+            background: #e9ecef;
+            border-left: 4px solid #3498db;
+            font-size: 0.9rem;
+            color: #333;
+            display: none;
+        }
+        /* Certificate Style */
+        .certificate {
+            border: 8px double #d4af37;
+            padding: 20px;
+            text-align: center;
+            background: #fffdf9;
+            border-radius: 10px;
+        }
+        .certificate h2 {
+            color: #b78103;
+            margin-bottom: 5px;
+        }
+        .score-big {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: #2c3e50;
+            margin: 10px 0;
+        }
+        .review-box {
+            max-height: 200px;
+            overflow-y: auto;
+            text-align: left;
+            background: #fff;
+            padding: 10px;
+            border: 1px solid #ddd;
+            margin-top: 15px;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <!-- Screen 1: Welcome & Input Form -->
+    <div id="screen-1" class="screen active-screen">
+        <div class="header-top">जिल्हा परिषद प्राथमिक शाळा नरसोबावाडी संचलित</div>
+        
+        <h2 style="text-align: center; color: #2c3e50; margin-top: 5px;">परीक्षेचे नाव: Mottos and Messages</h2>
+        
+        <div class="form-group">
+            <label for="student-name">विद्यार्थ्याचे नाव:</label>
+            <input type="text" id="student-name" placeholder="तुमचे पूर्ण नाव प्रविष्ट करा">
+        </div>
+        
+        <div class="form-group">
+            <label for="student-phone">मोबाईल नंबर:</label>
+            <input type="tel" id="student-phone" placeholder="मोबाईल नंबर प्रविष्ट करा">
+        </div>
+
+        <div class="footer-note">टेस्ट निर्मिती व संकल्पना श्री सचिन शिंदे मोबाईल नंबर 83 29 68 44 70</div>
+
+        <button class="btn" onclick="startExam()">EXAM START</button>
+
+        <div class="creator-bottom-right">
+            संकल्पना व निर्मिती<br>
+            <strong>श्री सचिन शिंदे सर</strong><br>
+            जि प प्रा शाळा नरसोबावाडी<br>
+            मोबाईल नंबर: 83 29 68 44 70<br>
+            <img src="https://drive.google.com/file/d/1pkldnaLRyqBtfgiQKwtbeSSfXhENzbOm/view?usp=drivesdk" alt="Sachin Shinde Sir" onerror="this.style.display='none'">
+        </div>
+    </div>
+
+    <!-- Screen 2: Quiz Question Screen -->
+    <div id="screen-2" class="screen">
+        <div style="display: flex; justify-content: space-between; font-weight: bold; color: #555; margin-bottom: 10px;">
+            <span id="q-number">प्रश्न: 1/50</span>
+            <span id="score-tracker">गुण: 0</span>
+        </div>
+        <h3 id="question-text" style="color: #2c3e50;">Question text goes here</h3>
+        
+        <div id="options-container">
+            <!-- Dynamic Options will load here -->
+        </div>
+
+        <div id="explanation-box" class="explanation"></div>
+
+        <button id="next-btn" class="btn" style="display: none;" onclick="nextQuestion()">Next Question</button>
+    </div>
+
+    <!-- Screen 3: Certificate & Results Screen -->
+    <div id="screen-3" class="screen">
+        <div class="certificate">
+            <h2>🏆 प्रमाणपत्र / निकाल 🏆</h2>
+            <div id="cert-org" style="font-weight: bold; font-size: 0.95rem; color: #444;">जिल्हा परिषद प्राथमिक शाळा नरसोबावाडी संचलित</div>
+            <p style="margin: 5px 0; font-size: 0.9rem;">परीक्षेचे नाव: Mottos and Messages</p>
+            <p style="margin: 5px 0; font-size: 1rem; font-weight: bold;" id="cert-name">विद्यार्थ्याचे नाव: </p>
+            
+            <div class="score-big" id="cert-score">0 / 100</div>
+            <div id="cert-percentage" style="font-weight: bold; color: #27ae60; font-size: 1.1rem;">टक्केवारी: 0%</div>
+            <div id="cert-grade" style="margin: 10px 0; font-weight: bold; color: #e67e22; font-size: 1.05rem;"></div>
+
+            <div style="text-align: left; margin-top: 15px;">
+                <strong>चुकीचे प्रश्न व मार्गदर्शन (Review):</strong>
+                <div id="wrong-answers-list" class="review-box">
+                    <p style="text-align: center; color: #7f8c8d;">सर्व प्रश्न बरोबर आहेत किंवा चुकलेला कोणताही प्रश्न नाही!</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="creator-bottom-right">
+            संकल्पना व निर्मिती<br>
+            <strong>श्री सचिन शिंदे सर</strong><br>
+            जि प प्रा शाळा नरसोबावाडी<br>
+            मोबाईल नंबर: 83 29 68 44 70<br>
+            <img src="https://drive.google.com/file/d/1pkldnaLRyqBtfgiQKwtbeSSfXhENzbOm/view?usp=drivesdk" alt="Sachin Shinde Sir" onerror="this.style.display='none'">
+        </div>
+    </div>
+</div>
+<script>
+const quizData = [
+    { q: "Complete the motto: \"Honesty is the best ______.\"", options: ["policy", "habit", "way", "rule"], correct: 0, exp: "योग्य उत्तर 'policy' आहे. 'Honesty is the best policy' ही एक प्रसिद्ध म्हण आहे ज्याचा अर्थ 'प्रामाणिकपणा हेच उत्तम धोरण आहे' असा होतो." },
+    { q: "What is the meaning of the motto \"Health is wealth\"?", options: ["Money can buy health", "Being healthy is more valuable than money", "Wealth makes you healthy", "Health is not important"], correct: 1, exp: "योग्य उत्तर दुसरा पर्याय आहे. आरोग्याचे महत्त्व धनापेक्षाही जास्त असते." },
+    { q: "Complete the motto: \"Actions speak louder than ______.\"", options: ["words", "noises", "sounds", "voices"], correct: 0, exp: "योग्य उत्तर 'words' आहे. बोलण्यापेक्षा कृती महत्त्वाची असते." },
+    { q: "What does the message \"Save Water, Save Life\" mean?", options: ["Water is a waste", "Water is necessary for survival", "Save water in a bottle", "Do not swim"], correct: 2, exp: "योग्य उत्तर तिसरा पर्याय आहे. पाणी जगण्यासाठी आवश्यक आहे." },
+    { q: "Complete the motto: \"Where there is a will, there is a ______.\"", options: ["way", "path", "road", "door"], correct: 0, exp: "योग्य उत्तर 'way' आहे. जिथे इच्छा तिथे मार्ग." },
+    { q: "What does \"Practice makes a man perfect\" teach us?", options: ["Never practice", "Regular practice leads to perfection", "Practice makes work difficult", "No one is perfect"], correct: 1, exp: "योग्य उत्तर दुसरा पर्याय आहे. नियमित सरावाने माणूस परिपूर्ण बनतो." },
+    { q: "Choose the correct motto for time: \"Time and tide wait for ______.\"", options: ["none", "no one", "everyone", "somebody"], correct: 3, exp: "योग्य उत्तर चौथा पर्याय ('no one') आहे. वेळ कोणासाठीही थांबत नाही." },
+    { q: "What does the message \"Keep your city clean\" tell us?", options: ["Throw garbage on roads", "Do not sweep", "Maintain cleanliness in public places", "Dirty cities are good"], correct: 2, exp: "योग्य उत्तर तिसरा पर्याय आहे. सार्वजनिक ठिकाणी स्वच्छता ठेवावी." },
+    { q: "Complete the motto: \"Unity is ______.\"", options: ["strength", "power", "weakness", "divided"], correct: 0, exp: "योग्य उत्तर 'strength' (बळ/शक्ती) आहे. ऐक्य हीच शक्ती आहे." },
+    { q: "What does the message \"Plant trees, save earth\" encourage us to do?", options: ["Cut down trees", "Grow more trees to protect nature", "Build houses", "Burn wood"], correct: 2, exp: "योग्य उत्तर तिसरा पर्याय आहे. निसर्गाचे संरक्षण करण्यासाठी जास्तीत जास्त झाडे लावावीत." },
+    { q: "Complete the motto: \"Slow and steady wins the ______.\"", options: ["race", "game", "match", "prize"], correct: 0, exp: "योग्य उत्तर 'race' आहे. हळूहळू आणि सातत्य ठेवल्यास शर्यत जिंकता येते." },
+    { q: "What is the meaning of \"Think before you speak\"?", options: ["Never talk", "Speak loudly", "Consider your words before saying them", "Sing a song"], correct: 3, exp: "योग्य उत्तर चौथा पर्याय आहे. काहीही बोलण्यापूर्वी शब्दांचा विचार करावा." },
+    { q: "Complete the motto: \"A friend in need is a friend ______.\"", options: ["indeed", "good", "bad", "sweet"], correct: 0, exp: "योग्य उत्तर 'indeed' आहे. संकटात मदत करणाराच खरा मित्र." },
+    { q: "What does the message \"Don't drink and drive\" mean?", options: ["Drink water while driving", "Do not consume alcohol and drive a vehicle", "Drive fast", "Drink juice"], correct: 1, exp: "योग्य उत्तर दुसरा पर्याय आहे. दारू पिऊन वाहन चालवू नये." },
+    { q: "Complete the motto: \"Knowledge is ______.\"", options: ["power", "money", "weakness", "fear"], correct: 3, exp: "योग्य उत्तर चौथा पर्याय ('power') आहे. ज्ञान हीच शक्ती आहे." },
+    { q: "What does \"Look before you leap\" mean?", options: ["Jump high", "Think carefully before taking action", "Look at the sky", "Run fast"], correct: 1, exp: "योग्य उत्तर दुसरा पर्याय आहे. कोणतीही कृती करण्यापूर्वी विचार करा." },
+    { q: "Complete the motto: \"All that glitters is not ______.\"", options: ["gold", "silver", "diamond", "bright"], correct: 0, exp: "योग्य उत्तर 'gold' आहे. प्रत्येक चमकणारी वस्तू सोने नसते." },
+    { q: "What does the message \"Save Electricity\" tell us?", options: ["Waste power", "Turn off lights and fans when not in use", "Buy more bulbs", "Keep lights on all day"], correct: 2, exp: "योग्य उत्तर तिसरा पर्याय आहे. वीज बचावासाठी गरज नसताना दिवे-पंखे बंद ठेवा." },
+    { q: "Complete the motto: \"As you sow, so shall you ______.\"", options: ["reap", "grow", "dig", "water"], correct: 3, exp: "योग्य उत्तर चौथा पर्याय ('reap') आहे. जसे पेराल तसे उगवेल." },
+    { q: "What is the meaning of \"Never give up\"?", options: ["Stop trying", "Keep trying and never surrender", "Give things to others", "Give up easily"], correct: 1, exp: "योग्य उत्तर दुसरा पर्याय आहे. कधीही प्रयत्न सोडायचे नाहीत." },
+    { q: "Complete the motto: \"Empty vessels make much ______.\"", options: ["noise", "sound", "water", "money"], correct: 3, exp: "योग्य उत्तर चौथा पर्याय ('noise') आहे. उथळ पाण्याला खळाळ फार." },
+    { q: "What does \"Prevention is better than cure\" mean?", options: ["Treating a disease is easy", "Preventing a disease is better than curing it", "Cures are bad", "Never take medicine"], correct: 1, exp: "योग्य उत्तर दुसरा पर्याय आहे. आजार झाल्यानंतर उपचार करण्यापेक्षा आजार होऊच न देणे चांगले." },
+    { q: "Complete the motto: \"Barking dogs seldom ______.\"", options: ["bite", "run", "bark", "sleep"], correct: 2, exp: "योग्य उत्तर तिसरा पर्याय ('bite') आहे. भुंकणारे कुत्रे सहसा चावत नाहीत." },
+    { q: "Which message is suitable when your friend wins a prize in an exam?", options: ["Get well soon", "Happy Birthday", "Congratulations!", "Sorry"], correct: 2, exp: "योग्य उत्तर तिसरा पर्याय ('Congratulations!') आहे." },
+    { q: "Complete the motto: \"Birds of a feather flock ______.\"", options: ["together", "apart", "away", "alone"], correct: 3, exp: "योग्य उत्तर चौथा पर्याय ('together') आहे. सारख्या स्वभावाचे लोक एकत्र येतात." },
+    { q: "What does \"Cleanliness is next to godliness\" mean?", options: ["God lives in dust", "Keeping clean is as important as being pious", "God is dirty", "Cleaning is a sin"], correct: 1, exp: "योग्य उत्तर दुसरा पर्याय आहे. स्वच्छता ही ईश्वरीय भक्ती एवढीच महत्त्वाची आहे." },
+    { q: "Complete the motto: \"Too many cooks spoil the ______.\"", options: ["broth", "food", "kitchen", "soup"], correct: 2, exp: "योग्य उत्तर तिसरा पर्याय ('broth') आहे. एका कामात खूप जण असतील तर काम बिघडते." },
+    { q: "What does the message \"Drive Safely\" mean?", options: ["Drive as fast as you can", "Follow traffic rules and avoid accidents", "Close your eyes while driving", "Drive without a license"], correct: 1, exp: "योग्य उत्तर दुसरा पर्याय आहे. वाहतूक नियमांचे पालन करून सुरक्षित वाहन चालवा." },
+    { q: "Complete the motto: \"Make hay while the sun ______.\"", options: ["shines", "sets", "rises", "glows"], correct: 0, exp: "योग्य उत्तर 'shines' आहे. वेळेचा सदुपयोग करा." },
+    { q: "What does \"Silence is golden\" mean?", options: ["Silence is made of gold", "Sometimes remaining silent is wiser than speaking", "Gold is silent", "Do not speak ever"], correct: 3, exp: "योग्य उत्तर चौथा पर्याय आहे. कधीकधी बोलण्यापेक्षा गप्प राहणे अधिक शहाणपणाचे ठरते." },
+    { q: "Complete the motto: \"Necessity is the mother of ______.\"", options: ["invention", "creation", "discovery", "need"], correct: 0, exp: "योग्य उत्तर 'invention' आहे. गरज ही संशोधनाची जननी आहे." },
+    { q: "What does \"Rome wasn't built in a day\" mean?", options: ["Rome is small", "Great tasks take time and effort", "Cities are built overnight", "Do not work hard"], correct: 2, exp: "योग्य उत्तर तिसरा पर्याय आहे. मोठी कामे होण्यासाठी वेळ आणि प्रयत्न लागतात." },
+    { q: "Complete the motto: \"A stitch in time saves ______.\"", options: ["nine", "ten", "five", "eight"], correct: 0, exp: "योग्य उत्तर 'nine' आहे. वेळेवर घेतलेली काळजी मोठे नुकसान वाचवते." },
+    { q: "What does the message \"Respect Elders\" mean?", options: ["Disrespect teachers", "Show respect to older people and parents", "Ignore old people", "Shout at elders"], correct: 3, exp: "योग्य उत्तर चौथा पर्याय आहे. वडीलधाऱ्यांचा आणि पालकांचा आदर करा." },
+    { q: "Complete the motto: \"Fortune favors the ______.\"", options: ["brave", "coward", "lazy", "foolish"], correct: 0, exp: "योग्य उत्तर 'brave' आहे. नशीब शूर लोकांना साथ देते." },
+    { q: "What does \"Hard work is the key to success\" mean?", options: ["Success comes without working", "Working hard leads to success", "Keys open success", "Sleep all day"], correct: 1, exp: "योग्य उत्तर दुसरा पर्याय आहे. कष्टाशिवाय यश मिळत नाही." },
+    { q: "Complete the motto: \"Better late than ______.\"", options: ["never", "early", "fast", "soon"], correct: 3, exp: "योग्य उत्तर चौथा पर्याय ('never') आहे. उशिरा पोहोचणे अजिबात न पोहोचण्यापेक्षा चांगले." },
+    { q: "What does the message \"Say No to Plastic\" mean?", options: ["Use plastic bags everywhere", "Avoid using plastic to protect the environment", "Eat plastic", "Burn plastic"], correct: 1, exp: "योग्य उत्तर दुसरा पर्याय आहे. पर्यावरणाच्या रक्षणासाठी प्लॅस्टिकचा वापर टाळा." },
+    { q: "Choose the correct message for a friend who is sick in the hospital:", options: ["Happy Journey", "Get well soon", "Happy Birthday", "All the best"], correct: 2, exp: "योग्य उत्तर तिसरा पर्याय ('Get well soon') आहे." },
+    { q: "What does \"Smile and the world smiles with you\" mean?", options: ["Being cheerful spreads happiness to others", "Laugh alone", "Do not smile", "The world is funny"], correct: 0, exp: "योग्य उत्तर पहिला पर्याय आहे. आनंदी राहिल्याने इतरांमध्येही आनंद पसरतो." },
+    { q: "Complete the motto: \"Haste makes ______.\"", options: ["waste", "speed", "quick", "fast"], correct: 0, exp: "योग्य उत्तर 'waste' आहे. घाईत काम केल्यास नुकसान होते." },
+    { q: "What does the message \"Help Others\" mean?", options: ["Be selfish", "Assist people in need", "Harm others", "Ignore everyone"], correct: 2, exp: "योग्य उत्तर तिसरा पर्याय आहे. गरजूंना मदत करा." },
+    { q: "Complete the motto: \"A bad workman blames his ______.\"", options: ["tools", "boss", "work", "hands"], correct: 0, exp: "योग्य उत्तर 'tools' आहे. काम न येणारी व्यक्ती उपकरणांना नावे ठेवते." },
+    { q: "What does \"Knowledge increases by sharing\" mean?", options: ["Keep secrets", "Share what you know with others to learn more", "Do not study", "Hide your books"], correct: 1, exp: "योग्य उत्तर दुसरा पर्याय आहे. ज्ञान वाटल्याने वाढते." },
+    { q: "Complete the motto: \"Look before you ______.\"", options: ["leap", "run", "walk", "jump"], correct: 3, exp: "योग्य उत्तर चौथा पर्याय ('jump') आहे." },
+    { q: "What does the message \"Save Paper, Save Trees\" mean?", options: ["Waste paper", "Use less paper to save trees from being cut", "Burn papers", "Plant paper"], correct: 1, exp: "योग्य उत्तर दुसरा पर्याय आहे. कागदाचा कमी वापर करून झाडे वाचवा." },
+    { q: "Complete the motto: \"Tit for ______.\"", options: ["tat", "cat", "bat", "rat"], correct: 2, exp: "योग्य उत्तर तिसरा पर्याय ('tat') आहे. जशाला तसे." },
+    { q: "What does \"Reading is a good habit\" mean?", options: ["Reading books improves knowledge", "Reading is boring", "Never read books", "Tear pages"], correct: 3, exp: "योग्य उत्तर चौथा पर्याय आहे. वाचनामुळे ज्ञान वाढते." },
+    { q: "Complete the motto: \"No pain, no ______.\"", options: ["gain", "loss", "pain", "win"], correct: 0, exp: "योग्य उत्तर 'gain' आहे. कष्टाशिवाय फळ मिळत नाही." },
+    { q: "What does the message \"Be Punctual\" mean?", options: ["Always be late", "Do things on time", "Waste time", "Never go to school"], correct: 2, exp: "योग्य उत्तर तिसरा पर्याय आहे. सर्व गोष्टी वेळेवर कराव्यात." }
+];
+
+let currentQuestion = 0;
+let score = 0;
+let studentName = "";
+let wrongAnswers = [];
+
+function startExam() {
+    studentName = document.getElementById("student-name").value.trim();
+    let studentPhone = document.getElementById("student-phone").value.trim();
+
+    if (studentName === "" || studentPhone === "") {
+        alert("कृपया तुमचे नाव आणि मोबाईल नंबर दोन्ही प्रविष्ट करा!");
+        return;
+    }
+
+    document.getElementById("screen-1").classList.remove("active-screen");
+    document.getElementById("screen-2").classList.add("active-screen");
+    loadQuestion();
+}
+
+function loadQuestion() {
+    let q = quizData[currentQuestion];
+    document.getElementById("q-number").innerText = `प्रश्न: ${currentQuestion + 1}/${quizData.length}`;
+    document.getElementById("score-tracker").innerText = `गुण: ${score}`;
+    document.getElementById("question-text").innerText = `${currentQuestion + 1}. ${q.q}`;
+    
+    let optionsHtml = "";
+    q.options.forEach((opt, index) => {
+        optionsHtml += `<button class="option-btn" onclick="checkAnswer(${index}, this)">${index + 1}) ${opt}</button>`;
+    });
+
+    document.getElementById("options-container").innerHTML = optionsHtml;
+    document.getElementById("explanation-box").style.display = "none";
+    document.getElementById("next-btn").style.display = "none";
+}
+
+function checkAnswer(selectedIndex, btnElement) {
+    let q = quizData[currentQuestion];
+    let allButtons = document.querySelectorAll(".option-btn");
+    
+    // Disable all option buttons after one selection
+    allButtons.forEach(btn => btn.disabled = true);
+
+    if (selectedIndex === q.correct) {
+        btnElement.classList.add("correct");
+        score += 2; // प्रत्येक प्रश्नाला 2 गुण
+        document.getElementById("score-tracker").innerText = `गुण: ${score}`;
+    } else {
+        btnElement.classList.add("incorrect");
+        allButtons[q.correct].classList.add("correct"); // Show correct answer
+        
+        // Save wrong answer for review
+        wrongAnswers.push({
+            question: q.q,
+            selected: q.options[selectedIndex],
+            correct: q.options[q.correct],
+            exp: q.exp
+        });
+    }
+
+    // Show Explanation
+    let expBox = document.getElementById("explanation-box");
+    expBox.innerHTML = `<strong>स्पष्टीकरण:</strong> ${q.exp}`;
+    expBox.style.display = "block";
+
+    // Show Next or Submit button
+    let nextBtn = document.getElementById("next-btn");
+    if (currentQuestion < quizData.length - 1) {
+        nextBtn.innerText = "Next Question";
+    } else {
+        nextBtn.innerText = "Submit Exam";
+    }
+    nextBtn.style.display = "block";
+}
+
+function nextQuestion() {
+    currentQuestion++;
+    if (currentQuestion < quizData.length) {
+        loadQuestion();
+    } else {
+        showCertificate();
+    }
+}
+
+function showCertificate() {
+    document.getElementById("screen-2").classList.remove("active-screen");
+    document.getElementById("screen-3").classList.add("active-screen");
+
+    let totalMarks = quizData.length * 2; // 100 Marks max
+    let percentage = (score / totalMarks) * 100;
+
+    document.getElementById("cert-name").innerText = `विद्यार्थ्याचे नाव: ${studentName}`;
+    document.getElementById("cert-score").innerText = `${score} / ${totalMarks}`;
+    document.getElementById("cert-percentage").innerText = `टक्केवारी: ${percentage.toFixed(1)}%`;
+
+    let gradeText = "";
+    if (percentage >= 90) {
+        gradeText = "🥇 Gold Medal + Trophy (उत्कृष्ट कामगिरी!)";
+    } else if (percentage >= 80) {
+        gradeText = "🥈 Silver Medal + Trophy (छान कामगिरी!)";
+    } else if (percentage >= 70) {
+        gradeText = "🥉 Bronze Medal + Trophy (छान प्रयत्न!)";
+    } else {
+        gradeText = "💐 अभिनंदन! फुलांचा गुच्छ व 'पुढील परीक्षेसाठी शुभेच्छा'";
+    }
+
+    document.getElementById("cert-grade").innerText = `कामगिरीनुसार सन्मान: ${gradeText}`;
+
+    // Render Wrong Answers Review
+    let wrongListHtml = "";
+    if (wrongAnswers.length > 0) {
+        wrongAnswers.forEach((item, idx) => {
+            wrongListHtml += `<div style="margin-bottom: 10px; border-bottom: 1px dashed #ccc; padding-bottom: 8px;">
+                <strong>${idx + 1}. ${item.question}</strong><br>
+                <span style="color: red;">तुमचे उत्तर: ${item.selected}</span><br>
+                <span style="color: green;">योग्य उत्तर: ${item.correct}</span><br>
+                <small style="color: #555;">स्पष्टीकरण: ${item.exp}</small>
+            </div>`;
+        });
+    } else {
+        wrongListHtml = `<p style="text-align: center; color: green; font-weight: bold;">अभिनंदन! तुमचे सर्व प्रश्न अचूक आले आहेत!</p>`;
+    }
+    document.getElementById("wrong-answers-list").innerHTML = wrongListHtml;
+}
+</script>
+</body>
+</html>
+
