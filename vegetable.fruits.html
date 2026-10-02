@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="mr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Class 4 Scholarship Exam - Vegetables and Fruits</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        body {
+            background-color: #f4f7f6;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+        }
+        .container {
+            max-width: 750px;
+            width: 100%;
+            background: #ffffff;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+            padding: 25px;
+            position: relative;
+        }
+        .header {
+            text-align: center;
+            border-bottom: 2px solid #e2e8f0;
+            padding-bottom: 15px;
+            margin-bottom: 20px;
+        }
+        .header h2 {
+            color: #1a365d;
+            margin: 0 0 10px 0;
+            font-size: 22px;
+        }
+        .header h3 {
+            color: #2b6cb0;
+            margin: 5px 0;
+            font-size: 18px;
+        }
+        .creator-info {
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            margin-top: 15px;
+            background: #edf2f7;
+            padding: 10px;
+            border-radius: 8px;
+        }
+        .creator-info img {
+            width: 65px;
+            height: 65px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-left: 12px;
+            border: 2px solid #3182ce;
+        }
+        .creator-text {
+            text-align: right;
+            font-size: 13px;
+            color: #2d3748;
+            line-height: 1.4;
+        }
+        .form-group {
+            margin-bottom: 15px;
+            text-align: left;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+            color: #4a5568;
+        }
+        .form-group input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #cbd5e0;
+            border-radius: 6px;
+            font-size: 15px;
+        }
+        .btn {
+            background-color: #3182ce;
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            font-size: 16px;
+            border-radius: 6px;
+            cursor: pointer;
+            width: 100%;
+            font-weight: bold;
+            transition: background 0.2s;
+            margin-top: 15px;
+        }
+        .btn:hover {
+            background-color: #2b6cb0;
+        }
+        .btn:disabled {
+            background-color: #cbd5e0;
+            cursor: not-allowed;
+        }
+        .footer-note {
+            text-align: center;
+            font-size: 14px;
+            color: #4a5568;
+            font-weight: 600;
+            margin-top: 20px;
+            padding-top: 10px;
+            border-top: 1px dashed #cbd5e0;
+        }
+        .question-box {
+            display: none;
+        }
+        .q-text {
+            font-size: 18px;
+            font-weight: bold;
+            color: #2d3748;
+            margin-bottom: 15px;
+        }
+        .option-btn {
+            display: block;
+            width: 100%;
+            text-align: left;
+            padding: 12px 15px;
+            margin-bottom: 10px;
+            border: 2px solid #e2e8f0;
+            border-radius: 6px;
+            background: #fff;
+            font-size: 16px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .option-btn:hover {
+            border-color: #3182ce;
+            background: #ebf8ff;
+        }
+        .option-btn.correct {
+            background-color: #c6f6d5 !important;
+            border-color: #38a169 !important;
+            color: #22543d;
+            font-weight: bold;
+        }
+        .option-btn.wrong {
+            background-color: #fed7d7 !important;
+            border-color: #e53e3e !important;
+            color: #742a2a;
+            font-weight: bold;
+        }
+        .explanation {
+            display: none;
+            background: #fffaf0;
+            border-left: 4px solid #dd6b20;
+            padding: 12px;
+            margin: 15px 0;
+            font-size: 15px;
+            color: #7b341e;
+            border-radius: 4px;
+        }
+        /* Certificate Style */
+        #certificate {
+            display: none;
+            border: 8px double #d69e2e;
+            padding: 25px;
+            background: #ffffff;
+            text-align: center;
+            border-radius: 10px;
+            box-shadow: inset 0 0 15px rgba(212, 175, 55, 0.2);
+        }
+        .cert-title {
+            color: #744210;
+            font-size: 22px;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+        .score-display {
+            font-size: 36px;
+            color: #2b6cb0;
+            font-weight: bold;
+            margin: 15px 0;
+        }
+        .badge {
+            font-size: 20px;
+            font-weight: bold;
+            padding: 12px;
+            margin: 15px 0;
+            border-radius: 8px;
+            display: inline-block;
+        }
+        .gold { background: #fefcbf; color: #744210; border: 1px solid #d69e2e; }
+        .silver { background: #edf2f7; color: #2d3748; border: 1px solid #a0aec0; }
+        .bronze { background: #feebc8; color: #7b341e; border: 1px solid #dd6b20; }
+        .participant { background: #eef2ff; color: #3730a3; border: 1px solid #818cf8; }
+        
+        #wrong-questions-section {
+            display: none;
+            margin-top: 20px;
+            text-align: left;
+            background: #fff5f5;
+            padding: 15px;
+            border-radius: 8px;
+            border: 1px solid #feb2b2;
+        }
+        .wrong-q-item {
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #fed7d7;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <!-- First Page / Registration Screen -->
+    <div id="start-screen">
+        <div class="header">
+            <h2>जिल्हा परिषद प्राथमिक शाळा नरसोबावाडी संचलित</h2>
+            <h3>ऑनलाईन स्कॉलरशिप सराव परीक्षा</h3>
+            <p><b>परीक्षेचे नाव:</b> Vegetables and Fruits</p>
+        </div>
+
+        <div class="form-group">
+            <label for="studentName">विद्यार्थ्याचे नाव:</label>
+            <input type="text" id="studentName" placeholder="पूर्ण नाव टाका" required>
+        </div>
+        <div class="form-group">
+            <label for="mobileNo">मोबाईल नंबर:</label>
+            <input type="tel" id="mobileNo" placeholder="१० अंकी मोबाईल नंबर" maxlength="10" required>
+        </div>
+
+        <div class="creator-info">
+            <div class="creator-text">
+                <b>संकल्पना व निर्मिती</b><br>
+                श्री सचिन शिंदे सर<br>
+                जि प प्रा शाळा नरसोबावाडी<br>
+                मोबाईल नंबर 83 29 68 44 70
+            </div>
+            <img src="https://lh3.googleusercontent.com/d/1pkldnaLRyqBtfgiQKwtbeSSfXhENzbOm" alt="श्री सचिन शिंदे सर">
+        </div>
+
+        <div class="footer-note">टेस्ट निर्मिती व संकल्पना श्री सचिन शिंदे मोबाईल नंबर 83 29 68 44 70</div>
+        <button class="btn" onclick="startExam()">EXAM START</button>
+    </div>
+
+    <!-- Exam Screen -->
+    <div id="exam-screen" class="question-box">
+        <div style="display: flex; justify-content: space-between; font-weight: bold; color: #4a5568; margin-bottom: 10px;">
+            <span id="q-count">प्रश्न १ / २५</span>
+            <span>गुण: २</span>
+        </div>
+        <div class="q-text" id="question-text"></div>
+        <div id="options-container"></div>
+        <div class="explanation" id="explanation-box"></div>
+        
+        <button class="btn" id="next-btn" onclick="nextQuestion()" disabled>नेक्स्ट (Next)</button>
+        <div class="footer-note">टेस्ट निर्मिती व संकल्पना श्री सचिन शिंदे मोबाईल नंबर 83 29 68 44 70</div>
+    </div>
+
+    <!-- Certificate / Result Screen -->
+    <div id="certificate">
+        <div class="cert-title">🏆 जिल्हा परिषद प्राथमिक शाळा नरसोबावाडी संचालित</div>
+        <p style="margin: 5px 0;"><b>परीक्षेचे नाव:</b> Vegetables and Fruits</p>
+        <p style="margin: 5px 0;"><b>विद्यार्थ्याचे नाव:</b> <span id="cert-name" style="color:#2b6cb0; font-size:18px;"></span></p>
+        
+        <div class="score-display" id="cert-score">0 / 50</div>
+        <div id="cert-badge" class="badge"></div>
+
+        <div id="wrong-btn-container" style="margin-top: 15px;">
+            <button class="btn" style="background-color: #e53e3e;" onclick="showWrongQuestions()">चुकलेले प्रश्न व स्पष्टीकरण पहा</button>
+        </div>
+
+        <div id="wrong-questions-section">
+            <h4 style="color: #9b2c2c; margin-top:0;">चुकलेले प्रश्न आणि मराठी स्पष्टीकरण:</h4>
+            <div id="wrong-list"></div>
+        </div>
+
+        <div class="creator-info" style="margin-top: 25px;">
+            <div class="creator-text">
+                <b>संकल्पना व निर्मिती</b><br>
+                श्री सचिन शिंदे सर<br>
+                जि प प्रा शाळा नरसोबावाडी<br>
+                मोबाईल नंबर 83 29 68 44 70
+            </div>
+            <img src="https://lh3.googleusercontent.com/d/1pkldnaLRyqBtfgiQKwtbeSSfXhENzbOm" alt="श्री सचिन शिंदे सर">
+        </div>
+        <div class="footer-note">टेस्ट निर्मिती व संकल्पना श्री सचिन शिंदे मोबाईल नंबर 83 29 68 44 70</div>
+    </div>
+</div>
+<script>
+const questions = [
+    { q: "1. Which fruit has many small black seeds inside it and is red from inside?", options: ["Mango", "Watermelon", "Apple", "Chikoo"], ans: 1, exp: "स्पष्टीकरण: Watermelon (कलिंगड) हे आतून लाल रंगाचे असते आणि त्यात अनेक लहान काळ्या बिया असतात." },
+    { q: "2. \"I am red, round, and often used as a vegetable in cooking, but botanically I am a fruit.\" Who am I?", options: ["Carrot", "Potato", "Tomato", "Radish"], ans: 2, exp: "स्पष्टीकरण: Tomato (टोमॅटो) हा वनस्पतीशास्त्रानुसार फळ आहे, पण आपण त्याचा भाजीसारखा वापर करतो." },
+    { q: "3. Which vegetable grows BELOW the ground (underground)?", options: ["Brinjal", "Cabbage", "Lady's finger", "Carrot"], ans: 3, exp: "स्पष्टीकरण: Carrot (गाजर) हे जमिनीच्या खाली वाढणारे मूळ (Root Vegetable) आहे." },
+    { q: "4. Find the odd one out based on the inside color of the fruit:", options: ["Banana", "Custard Apple", "Watermelon", "White Guava"], ans: 2, exp: "स्पष्टीकरण: Watermelon आतून लाल रंगाचे असते, तर बाकी सर्व फळे आतून पांढऱ्या किंवा पिवळसर रंगाची असतात." },
+    { q: "5. Which fruit is known as the \"King of Fruits\" in India?", options: ["Pineapple", "Mango", "Apple", "Orange"], ans: 1, exp: "स्पष्टीकरण: Mango (आंबा) या फळाला भारतामध्ये 'फळांचा राजा' मानले जाते." },
+    { q: "6. Complete the analogy based on taste: Lemon : Sour :: Banana : ____", options: ["Bitter", "Spicy", "Salty", "Sweet"], ans: 3, exp: "स्पष्टीकरण: लिंबू आंबट (Sour) असते, तर केळे गोड (Sweet) असते." },
+    { q: "7. Select the vegetable that is a LEAFY vegetable:", options: ["Spinach", "Pumpkin", "Cucumber", "Cauliflower"], ans: 0, exp: "स्पष्टीकरण: Spinach (पालक) ही पालेभाजी (Leafy vegetable) आहे." },
+    { q: "8. Which fruit has a hard and thorny/rough outer skin, but is sweet inside?", options: ["Chikoo", "Grape", "Papaya", "Pineapple"], ans: 3, exp: "स्पष्टीकरण: Pineapple (अननस) चे बाहेरील आवरण काटेरी व कडक असते, पण आतून ते गोड असते." },
+    { q: "9. \"I make people cry when they cut me, but I add great taste to food.\" What vegetable am I?", options: ["Garlic", "Potato", "Onion", "Ginger"], ans: 2, exp: "स्पष्टीकरण: Onion (कांदा) कापताना डोळ्यातून पाणी येते." },
+    { q: "10. Which of the following is NOT a citrus fruit?", options: ["Lemon", "Sweet Lime", "Orange", "Chikoo"], ans: 3, exp: "स्पष्टीकरण: Chikoo हे सिट्रस (आंबट वर्ग) फळ नाही." },
+    { q: "11. Which fruit contains a lot of water and is mostly eaten during summer?", options: ["Watermelon", "Apple", "Pomegranate", "Chikoo"], ans: 0, exp: "स्पष्टीकरण: Watermelon (कलिंगड) मध्ये पाण्याचे प्रमाण जास्त असते आणि ते उन्हाळ्यात खाल्ले जाते." },
+    { q: "12. Unscramble the letters to form a valid leafy vegetable name: \"P-A-S-I-N-C-H\"", options: ["Spinach", "Spanish", "Pinchas", "Snipach"], ans: 0, exp: "स्पष्टीकरण: या अक्षरांचा योग्य क्रम लावून 'Spinach' (पालक) हा शब्द बनतो." },
+    { q: "13. Which of these fruits has ONLY ONE big seed inside it?", options: ["Papaya", "Mango", "Apple", "Pomegranate"], ans: 1, exp: "स्पष्टीकरण: Mango (आंबा) मध्ये फक्त एकच मोठी बी (कोय) असते." },
+    { q: "14. Find the INCORRECT fruit-color pair:", options: ["Apple — Red", "Banana — Yellow", "Guava — Blue", "Papaya — Orange/Yellow"], ans: 2, exp: "स्पष्टीकरण: Guava (पेरू) चा रंग निळा (Blue) नसतो, त्यामुळे ही जोडी चुकीची आहे." },
+    { q: "15. \"I am purple in color and wear a green crown on my head.\" Which vegetable am I?", options: ["Brinjal", "Capsicum", "Beetroot", "Onion"], ans: 0, exp: "स्पष्टीकरण: Brinjal (वांगे) जांभळ्या रंगाचे असते आणि त्यावर हिरवा देठ (मुकुट) असतो." },
+    { q: "16. Which fruit is named after its color?", options: ["Apple", "Orange", "Banana", "Chikoo"], ans: 1, exp: "स्पष्टीकरण: Orange (संत्रे) या फळाचे नाव त्याच्या रंगावरूनच (Orange color) ठेवलेले आहे." },
+    { q: "17. Identify the group that contains ONLY vegetables:", options: ["Potato, Onion, Mango", "Apple, Carrot, Cucumber", "Cabbage, Bitter gourd, Spinach", "Tomato, Banana, Lady's finger"], ans: 2, exp: "स्पष्टीकरण: Cabbage, Bitter gourd आणि Spinach हे तिन्ही भाजीचे प्रकार आहेत." },
+    { q: "18. Which vegetable has a BITTER taste?", options: ["Bottle Gourd", "Bitter Gourd", "Pumpkin", "Ridge Gourd"], ans: 1, exp: "स्पष्टीकरण: Bitter Gourd (कारले) ची चव कडू (Bitter) असते." },
+    { q: "19. Find the odd one out based on seeds (Many seeds vs One seed):", options: ["Watermelon", "Papaya", "Pomegranate", "Mango"], ans: 3, exp: "स्पष्टीकरण: Mango मध्ये १ बी असते, तर इतर सर्व फळांमध्ये अनेक बिया असतात." },
+    { q: "20. \"Drinking my juice helps improve eyesight because I am rich in Vitamin A.\" Which root vegetable is this?", options: ["Carrot", "Potato", "Cauliflower", "Onion"], ans: 0, exp: "स्पष्टीकरण: Carrot (गाजर) मध्ये व्हिटॅमिन 'अ' चे प्रमाण जास्त असते, जे डोळ्यांच्या आरोग्यासाठी उत्तम असते." },
+    { q: "21. Choose the CORRECT spelling:", options: ["Cucumbar", "Cucumber", "Cukumber", "Cucimber"], ans: 1, exp: "स्पष्टीकरण: काकडीचे अचूक इंग्रजी स्पेलिंग 'Cucumber' असे आहे." },
+    { q: "22. Which fruit grows in bunches on vines/climbers?", options: ["Coconut", "Papaya", "Guava", "Grapes"], ans: 3, exp: "स्पष्टीकरण: Grapes (द्राक्षे) वेलींवर घडामध्ये उगवतात." },
+    { q: "23. \"I am green outside and red inside with small black seeds.\" Who am I?", options: ["Muskmelon", "Guava", "Watermelon", "Apple"], ans: 2, exp: "स्पष्टीकरण: Watermelon बाहेरून हिरवे व आतून काळ्या बियांसह लाल रंगाचे असते." },
+    { q: "24. Which vegetable is actually the FLOWER part of the plant?", options: ["Cabbage", "Cauliflower", "Spinach", "Radish"], ans: 1, exp: "स्पष्टीकरण: Cauliflower (फ्लॉवर) हा वनस्पतीचा फुलाचा भाग असतो." },
+    { q: "25. Complete the relationship: Mature Apple : Red :: Raw Mango : ____", options: ["Yellow", "Brown", "Orange", "Green"], ans: 3, exp: "स्पष्टीकरण: पिकलेले सफरचंद लाल असते, तर कच्चा आंबा (कैरी) हिरव्या (Green) रंगाचा असतो." }
+];
+let currentQ = 0;
+let score = 0;
+let userAnswers = [];
+
+function startExam() {
+    const name = document.getElementById('studentName').value.trim();
+    const mobile = document.getElementById('mobileNo').value.trim();
+
+    if (name === "" || mobile.length !== 10) {
+        alert("कृपया तुमचे पूर्ण नाव आणि १० अंकी वैध मोबाईल नंबर टाका.");
+        return;
+    }
+
+    document.getElementById('start-screen').style.display = 'none';
+    document.getElementById('exam-screen').style.display = 'block';
+    loadQuestion();
+}
+
+function loadQuestion() {
+    const qData = questions[currentQ];
+    document.getElementById('q-count').innerText = `प्रश्न ${currentQ + 1} / ${questions.length}`;
+    document.getElementById('question-text').innerText = qData.q;
+    
+    const optionsContainer = document.getElementById('options-container');
+    optionsContainer.innerHTML = '';
+    
+    const expBox = document.getElementById('explanation-box');
+    expBox.style.display = 'none';
+    expBox.innerText = '';
+
+    document.getElementById('next-btn').disabled = true;
+    if(currentQ === questions.length - 1) {
+        document.getElementById('next-btn').innerText = "SUBMIT EXAM";
+    }
+
+    qData.options.forEach((opt, idx) => {
+        const btn = document.createElement('button');
+        btn.className = 'option-btn';
+        btn.innerText = `(${String.fromCharCode(65 + idx)}) ${opt}`;
+        btn.onclick = () => selectOption(idx, btn);
+        optionsContainer.appendChild(btn);
+    });
+}
+
+function selectOption(selectedIdx, btn) {
+    const qData = questions[currentQ];
+    const options = document.querySelectorAll('.option-btn');
+    
+    options.forEach(o => o.style.pointerEvents = 'none');
+
+    userAnswers[currentQ] = {
+        selected: selectedIdx,
+        correct: qData.ans
+    };
+
+    if (selectedIdx === qData.ans) {
+        btn.classList.add('correct');
+        score += 2; // Each question carries 2 marks
+    } else {
+        btn.classList.add('wrong');
+        options[qData.ans].classList.add('correct');
+        
+        const expBox = document.getElementById('explanation-box');
+        expBox.innerText = qData.exp;
+        expBox.style.display = 'block';
+    }
+
+    document.getElementById('next-btn').disabled = false;
+}
+
+function nextQuestion() {
+    if (currentQ < questions.length - 1) {
+        currentQ++;
+        loadQuestion();
+    } else {
+        showCertificate();
+    }
+}
+
+function showCertificate() {
+    document.getElementById('exam-screen').style.display = 'none';
+    document.getElementById('certificate').style.display = 'block';
+
+    const studentName = document.getElementById('studentName').value;
+    document.getElementById('cert-name').innerText = studentName;
+    document.getElementById('cert-score').innerText = `${score} / 50`;
+
+    const percentage = (score / 50) * 100;
+    const badgeDiv = document.getElementById('cert-badge');
+
+    if (percentage >= 90) {
+        badgeDiv.className = 'badge gold';
+        badgeDiv.innerHTML = '🥇 Gold Medal + Trophy<br>उत्कृष्ट कामगिरी!';
+    } else if (percentage >= 80) {
+        badgeDiv.className = 'badge silver';
+        badgeDiv.innerHTML = '🥈 Silver Medal + Trophy<br>छान कामगिरी!';
+    } else if (percentage >= 70) {
+        badgeDiv.className = 'badge bronze';
+        badgeDiv.innerHTML = '🥉 Bronze Medal + Trophy<br>चांगली कामगिरी!';
+    } else {
+        badgeDiv.className = 'badge participant';
+        badgeDiv.innerHTML = '💐 अभिनंदन! फुलांचा गुच्छ<br>पुढील परीक्षेसाठी शुभेच्छा!';
+    }
+
+    const hasWrong = userAnswers.some(a => a && a.selected !== a.correct);
+    if (!hasWrong) {
+        document.getElementById('wrong-btn-container').style.display = 'none';
+    }
+}
+
+function showWrongQuestions() {
+    const listDiv = document.getElementById('wrong-list');
+    listDiv.innerHTML = '';
+
+    userAnswers.forEach((ans, idx) => {
+        if (ans && ans.selected !== ans.correct) {
+            const qData = questions[idx];
+            const item = document.createElement('div');
+            item.className = 'wrong-q-item';
+            item.innerHTML = `
+                <b>प्रश्न:</b> ${qData.q}<br>
+                <span style="color:#e53e3e;">तुमचे उत्तर: (${String.fromCharCode(65 + ans.selected)}) ${qData.options[ans.selected]}</span><br>
+                <span style="color:#38a169;">योग्य उत्तर: (${String.fromCharCode(65 + ans.correct)}) ${qData.options[ans.correct]}</span><br>
+                <i style="color:#7b341e;">${qData.exp}</i>
+            `;
+            listDiv.appendChild(item);
+        }
+    });
+
+    document.getElementById('wrong-questions-section').style.display = 'block';
+}
+</script>
+</body>
+</html>
