@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html lang="mr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Class 4 Scholarship Exam - Punctuation Marks</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        body {
+            background-color: #f4f7f6;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+        }
+        .container {
+            max-width: 750px;
+            width: 100%;
+            background: #ffffff;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+            padding: 25px;
+            position: relative;
+        }
+        .header {
+            text-align: center;
+            border-bottom: 2px solid #e2e8f0;
+            padding-bottom: 15px;
+            margin-bottom: 20px;
+        }
+        .header h2 {
+            color: #1a365d;
+            margin: 0 0 10px 0;
+            font-size: 22px;
+        }
+        .header h3 {
+            color: #2b6cb0;
+            margin: 5px 0;
+            font-size: 18px;
+        }
+        .creator-info {
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            margin-top: 15px;
+            background: #edf2f7;
+            padding: 10px;
+            border-radius: 8px;
+        }
+        .creator-info img {
+            width: 65px;
+            height: 65px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-left: 12px;
+            border: 2px solid #3182ce;
+        }
+        .creator-text {
+            text-align: right;
+            font-size: 13px;
+            color: #2d3748;
+            line-height: 1.4;
+        }
+        .form-group {
+            margin-bottom: 15px;
+            text-align: left;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+            color: #4a5568;
+        }
+        .form-group input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #cbd5e0;
+            border-radius: 6px;
+            font-size: 15px;
+        }
+        .btn {
+            background-color: #3182ce;
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            font-size: 16px;
+            border-radius: 6px;
+            cursor: pointer;
+            width: 100%;
+            font-weight: bold;
+            transition: background 0.2s;
+            margin-top: 15px;
+        }
+        .btn:hover {
+            background-color: #2b6cb0;
+        }
+        .btn:disabled {
+            background-color: #cbd5e0;
+            cursor: not-allowed;
+        }
+        .footer-note {
+            text-align: center;
+            font-size: 14px;
+            color: #4a5568;
+            font-weight: 600;
+            margin-top: 20px;
+            padding-top: 10px;
+            border-top: 1px dashed #cbd5e0;
+        }
+        .question-box {
+            display: none;
+        }
+        .q-text {
+            font-size: 18px;
+            font-weight: bold;
+            color: #2d3748;
+            margin-bottom: 15px;
+        }
+        .option-btn {
+            display: block;
+            width: 100%;
+            text-align: left;
+            padding: 12px 15px;
+            margin-bottom: 10px;
+            border: 2px solid #e2e8f0;
+            border-radius: 6px;
+            background: #fff;
+            font-size: 16px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .option-btn:hover {
+            border-color: #3182ce;
+            background: #ebf8ff;
+        }
+        .option-btn.correct {
+            background-color: #c6f6d5 !important;
+            border-color: #38a169 !important;
+            color: #22543d;
+            font-weight: bold;
+        }
+        .option-btn.wrong {
+            background-color: #fed7d7 !important;
+            border-color: #e53e3e !important;
+            color: #742a2a;
+            font-weight: bold;
+        }
+        .explanation {
+            display: none;
+            background: #fffaf0;
+            border-left: 4px solid #dd6b20;
+            padding: 12px;
+            margin: 15px 0;
+            font-size: 15px;
+            color: #7b341e;
+            border-radius: 4px;
+        }
+        /* Certificate Style */
+        #certificate {
+            display: none;
+            border: 8px double #d69e2e;
+            padding: 25px;
+            background: #ffffff;
+            text-align: center;
+            border-radius: 10px;
+            box-shadow: inset 0 0 15px rgba(212, 175, 55, 0.2);
+        }
+        .cert-title {
+            color: #744210;
+            font-size: 22px;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+        .score-display {
+            font-size: 36px;
+            color: #2b6cb0;
+            font-weight: bold;
+            margin: 15px 0;
+        }
+        .badge {
+            font-size: 20px;
+            font-weight: bold;
+            padding: 12px;
+            margin: 15px 0;
+            border-radius: 8px;
+            display: inline-block;
+        }
+        .gold { background: #fefcbf; color: #744210; border: 1px solid #d69e2e; }
+        .silver { background: #edf2f7; color: #2d3748; border: 1px solid #a0aec0; }
+        .bronze { background: #feebc8; color: #7b341e; border: 1px solid #dd6b20; }
+        .participant { background: #eef2ff; color: #3730a3; border: 1px solid #818cf8; }
+        
+        #wrong-questions-section {
+            display: none;
+            margin-top: 20px;
+            text-align: left;
+            background: #fff5f5;
+            padding: 15px;
+            border-radius: 8px;
+            border: 1px solid #feb2b2;
+        }
+        .wrong-q-item {
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #fed7d7;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <!-- Registration Screen -->
+    <div id="start-screen">
+        <div class="header">
+            <h2>जिल्हा परिषद प्राथमिक शाळा नरसोबावाडी संचलित</h2>
+            <h3>ऑनलाईन स्कॉलरशिप सराव परीक्षा</h3>
+            <p><b>परीक्षेचे नाव:</b> punctuation marks</p>
+        </div>
+
+        <div class="form-group">
+            <label for="studentName">विद्यार्थ्याचे नाव:</label>
+            <input type="text" id="studentName" placeholder="पूर्ण नाव टाका" required>
+        </div>
+        <div class="form-group">
+            <label for="mobileNo">मोबाईल नंबर:</label>
+            <input type="tel" id="mobileNo" placeholder="१० अंकी मोबाईल नंबर" maxlength="10" required>
+        </div>
+
+        <div class="creator-info">
+            <div class="creator-text">
+                <b>संकल्पना व निर्मिती</b><br>
+                श्री सचिन शिंदे सर<br>
+                जि प प्रा शाळा नरसोबावाडी<br>
+                मोबाईल नंबर 83 29 68 44 70
+            </div>
+            <img src="https://lh3.googleusercontent.com/d/1pkldnaLRyqBtfgiQKwtbeSSfXhENzbOm" alt="श्री सचिन शिंदे सर">
+        </div>
+
+        <div class="footer-note">टेस्ट निर्मिती व संकल्पना श्री सचिन शिंदे मोबाईल नंबर 83 29 68 44 70</div>
+        <button class="btn" onclick="startExam()">EXAM START</button>
+    </div>
+
+    <!-- Exam Screen -->
+    <div id="exam-screen" class="question-box">
+        <div style="display: flex; justify-content: space-between; font-weight: bold; color: #4a5568; margin-bottom: 10px;">
+            <span id="q-count">प्रश्न १ / ३०</span>
+            <span>गुण: २</span>
+        </div>
+        <div class="q-text" id="question-text"></div>
+        <div id="options-container"></div>
+        <div class="explanation" id="explanation-box"></div>
+        
+        <button class="btn" id="next-btn" onclick="nextQuestion()" disabled>नेक्स्ट (Next)</button>
+        <div class="footer-note">टेस्ट निर्मिती व संकल्पना श्री सचिन शिंदे मोबाईल नंबर 83 29 68 44 70</div>
+    </div>
+
+    <!-- Certificate Screen -->
+    <div id="certificate">
+        <div class="cert-title">🏆 जिल्हा परिषद प्राथमिक शाळा नरसोबावाडी संचलित</div>
+        <p style="margin: 5px 0;"><b>परीक्षेचे नाव:</b> punctuation marks</p>
+        <p style="margin: 5px 0;"><b>विद्यार्थ्याचे नाव:</b> <span id="cert-name" style="color:#2b6cb0; font-size:18px;"></span></p>
+        
+        <div class="score-display" id="cert-score">0 / 60</div>
+        <div id="cert-badge" class="badge"></div>
+
+        <div id="wrong-btn-container" style="margin-top: 15px;">
+            <button class="btn" style="background-color: #e53e3e;" onclick="showWrongQuestions()">चुकलेले प्रश्न व स्पष्टीकरण पहा</button>
+        </div>
+
+        <div id="wrong-questions-section">
+            <h4 style="color: #9b2c2c; margin-top:0;">चुकलेले प्रश्न आणि स्पष्टीकरण:</h4>
+            <div id="wrong-list"></div>
+        </div>
+
+        <div class="creator-info" style="margin-top: 25px;">
+            <div class="creator-text">
+                <b>संकल्पना व निर्मिती</b><br>
+                श्री सचिन शिंदे सर<br>
+                जि प प्रा शाळा नरसोबावाडी<br>
+                मोबाईल नंबर 83 29 68 44 70
+            </div>
+            <img src="https://lh3.googleusercontent.com/d/1pkldnaLRyqBtfgiQKwtbeSSfXhENzbOm" alt="श्री सचिन शिंदे सर">
+        </div>
+        <div class="footer-note">टेस्ट निर्मिती व संकल्पना श्री सचिन शिंदे मोबाईल नंबर 83 29 68 44 70</div>
+    </div>
+</div>
+<script>
+const questions = [
+    { q: "Q1. Identify the given punctuation mark: (?)", options: ["Comma", "Full Stop", "Question Mark", "Exclamation Mark"], ans: 2, exp: "स्पष्टीकरण: (?) हे चिन्ह Question Mark (प्रश्नचिन्ह) आहे." },
+    { q: "Q2. Which punctuation mark is used at the end of a simple statement?", options: ["Question Mark (?)", "Full Stop (.)", "Comma (,)", "Exclamation Mark (!)"], ans: 1, exp: "स्पष्टीकरण: साध्या वाक्याच्या शेवटी Full Stop (.) म्हणजेच पूर्णविराम वापरला जातो." },
+    { q: "Q3. Which of the following shows the correct use of Apostrophe (') for possession?", options: ["Rahuls' book", "Rahul'sbook", "Rahul book's", "Rahul's book"], ans: 3, exp: "स्पष्टीकरण: मालकी दर्शवण्यासाठी नाव आणि 's यामध्ये Apostrophe वापरून योग्य अंतर ठेवून 'Rahul's book' असे लिहितात." },
+    { q: "Q4. Fill in the missing punctuation mark: \"What a beautiful flower _\"", options: [".", "?", "!", ","], ans: 2, exp: "स्पष्टीकरण: भावना व्यक्त करणाऱ्या उद्गारवाचक वाक्याच्या शेवटी Exclamation Mark (!) वापरतात." },
+    { q: "5. Choose the correct short form (contraction) for \"do not\":", options: ["don't", "dont'", "do'nt", "dont"], ans: 0, exp: "स्पष्टीकरण: 'do not' चा संक्षिप्त रूप (contraction) 'don't' असा होतो, जिथे 'o' च्या जागी Apostrophe येतो." },
+    { q: "Q6. Select the correctly punctuated sentence:", options: ["Where are you going.", "Where are you going?", "Where are you going!", "Where, are you going"], ans: 1, exp: "स्पष्टीकरण: प्रश्नार्थक वाक्याच्या शेवटी Question Mark (?) असणे आवश्यक आहे." },
+    { q: "Q7. Identify the punctuation mark used in direct speech to show exact words spoken by someone: (\" \")", options: ["Single Quotation Marks", "Comma", "Apostrophe", "Double Quotation Marks"], ans: 3, exp: "स्पष्टीकरण: बोलणाऱ्याचे प्रत्यक्ष शब्द दाखवण्यासाठी Double Quotation Marks (\" \") वापरतात." },
+    { q: "Q8. Which mark is missing to separate the items in the list? \"I bought apples _ oranges and bananas.\"", options: ["Full Stop (.)", "Comma (,)", "Question Mark (?)", "Apostrophe (')"], ans: 1, exp: "स्पष्टीकरण: यादीतील शब्द वेगळे दाखवण्यासाठी Comma (,) वापरतात." },
+    { q: "Q9. Choose the correct option to complete the sentence: \"____ fine, thank you.\"", options: ["Im", "I'm", "Im'", "I'm'"], ans: 1, exp: "स्पष्टीकरण: 'I am' चा संक्षिप्त फॉर्म 'I'm' असा होतो." },
+    { q: "Q10. Identify the mark: (!)", options: ["Exclamation Mark", "Question Mark", "Full Stop", "Comma"], ans: 0, exp: "स्पष्टीकरण: (!) हे Exclamation Mark (उद्गारचिन्ह) आहे." },
+    { q: "Q11. Choose the sentence with CORRECT punctuation marks:", options: ["teacher said, \"Open your books.\"", "Teacher said \"Open your books\"", "Teacher said, \"Open your books.\"", "Teacher said, Open your books."], ans: 2, exp: "स्पष्टीकरण: वाक्याची सुरुवात Capital असायला हवी, स्वल्पविराम (,) आणि अवतरण चिन्ह (\" \") दोन्ही योग्य ठिकाणी हवेत." },
+    { q: "Q12. Find the ODD one out based on punctuation marks:", options: ["How are you?", "What is your name?", "Where do you live?", "Hurrah! We won the match."], ans: 3, exp: "स्पष्टीकरण: पहिले तीन प्रश्नार्थक वाक्य आहेत (Question Mark), तर शेवटचे वाक्य उद्गारवाचक आहे." },
+    { q: "Q13. How many commas (,) should be used in the following sentence? \"Red blue green and yellow are colors.\"", options: ["1", "2", "3", "0"], ans: 1, exp: "स्पष्टीकरण: 'Red, blue, green and yellow' अशा प्रकारे २ स्वल्पविराम वापरले जातील." },
+    { q: "Q14. What punctuation mark should come at the end of this sentence? \"May God bless you _\"", options: ["Exclamation Mark (!)", "Question Mark (?)", "Comma (,)", "Apostrophe (')"], ans: 0, exp: "स्पष्टीकरण: शुभेच्छा किंवा इच्छा व्यक्त करणाऱ्या वाक्याच्या शेवटी Exclamation Mark (!) वापरतात." },
+    { q: "Q15. Select the sentence with proper capital letter and punctuation:", options: ["rohan is a good boy.", "Rohan is a good boy", "Rohan is a good boy.", "rohan is a good boy"], ans: 2, exp: "स्पष्टीकरण: नावाचे पहिले अक्षर 'R' Capital असावे आणि वाक्याच्या शेवटी Full Stop असावा." },
+    { q: "Q16. Complete the contraction: \"cannot\" = ______", options: ["cann't", "can't", "cant'", "ca'nnot"], ans: 1, exp: "स्पष्टीकरण: 'cannot' चे अचूक संक्षिप्त रूप 'can't' असे आहे." },
+    { q: "Q17. Which punctuation mark is represented by ( , )?", options: ["Full Stop", "Apostrophe", "Comma", "Hyphen"], ans: 2, exp: "स्पष्टीकरण: ( , ) या चिन्हाला Comma (स्वल्पविराम) म्हणतात." },
+    { q: "Q18. Identify the sentence that requires a Question Mark (?) at the end:", options: ["Please give me a pen", "Who is your class teacher", "Wow, what a lovely cat", "She is reading a story"], ans: 1, exp: "स्पष्टीकरण: 'Who is your class teacher' हा प्रश्न असल्याने त्याच्या शेवटी Question Mark (?) येईल." },
+    { q: "Q19. Find the correct punctuation mark for the blank: \"Oh no _ I lost my key.\"", options: ["!", "?", ".", "\""], ans: 0, exp: "स्पष्टीकरण: 'Oh no' नंतर तीव्र भावना दाखवण्यासाठी Exclamation Mark (!) वापरला जातो." },
+    { q: "Q20. Select the correctly punctuated sentence showing possession:", options: ["This is my mothers' purse.", "This is my mother's purse.", "This is my mothers purse.", "This is my mother purse's."], ans: 1, exp: "स्पष्टीकरण: एकावचनी नामाची मालकी दाखवण्यासाठी 'mother's' असा Apostrophe वापरतात." },
+    { q: "Q21. Count the number of capital letters needed in this sentence: \"my friend amit lives in pune.\"", options: ["2", "1", "4", "3"], ans: 3, exp: "स्पष्टीकरण: वाक्याची सुरुवात (My), विशेषनाम (Amit) आणि शहराचे नाव (Pune) अशा ३ ठिकाणी Capital letters लागतील." },
+    { q: "Q22. Choose the correct full form for the contracted word: \"It's\"", options: ["It was", "It is", "It has", "It shall"], ans: 1, exp: "स्पष्टीकरण: 'It's' चा पूर्ण अर्थ 'It is' असा होतो." },
+    { q: "Q23. Which punctuation mark separates a speaker's name from direct words? \"Riya said _ 'I am happy.'\"", options: ["Full Stop (.)", "Exclamation Mark (!)", "Question Mark (?)", "Comma (,)"], ans: 3, exp: "स्पष्टीकरण: बोलणाऱ्या व्यक्तीचे नाव/क्रियापद आणि direct speech वेगळे करण्यासाठी Comma (,) वापरतात." },
+    { q: "Q24. Identify the mistake in the given sentence: \"She can't swim?\"", options: ["Apostrophe is missing", "Question mark is wrongly used instead of a full stop", "Capital letter is missing", "No mistake"], ans: 1, exp: "स्पष्टीकरण: हे विधान साधे विधान आहे, त्यामुळे Question Mark ऐवजी Full Stop असायला हवा." },
+    { q: "Q25. Which of the following sentences uses Quotation Marks (\" \") correctly?", options: ["\"The teacher said,\" Sit down.", "The teacher said, \"Sit down.\"", "The teacher \"said, Sit down.\"", "\"The teacher said, Sit down.\""], ans: 1, exp: "स्पष्टीकरण: बोललेले मूळ शब्द \"Sit down.\" हे दुहेरी अवतरण चिन्हात असले पाहिजेत." },
+    { q: "Q26. Fill in the blank with the correct punctuation mark: \"Yes _ I am coming.\"", options: ["Comma (,)", "Question Mark (?)", "Exclamation Mark (!)", "Double Quotes (\" \")"], ans: 0, exp: "स्पष्टीकरण: Yes/No ने सुरु होणाऱ्या उत्तरानंतर Comma (,) वापरतात." },
+    { q: "Q27. Match the correct contraction for \"is not\":", options: ["isnt'", "is'nt", "isn't", "isnot'"], ans: 2, exp: "स्पष्टीकरण: 'is not' चा अचूक संक्षिप्त रूप 'isn't' असा आहे." },
+    { q: "Q28. Choose the correct option: \"Stop _ There is a train coming.\"", options: [".", "!", "?", ","], ans: 1, exp: "स्पष्टीकरण: 'Stop' हा तातडीचा इशारा किंवा आज्ञा असल्याने Exclamation Mark (!) वापरतात." },
+    { q: "Q29. What is the symbol for Apostrophe?", options: [",", "\"", "'", "."], ans: 2, exp: "स्पष्टीकरण: Apostrophe चे चिन्ह ( ' ) असे असते." },
+    { q: "Q30. Select the sentence that has ALL correct punctuation marks:", options: ["\"Hurrah,\" we won the match?", "Hurrah! We won the match.", "Hurrah? We won the match!", "\"Hurrah!\" we won the match?"], ans: 1, exp: "स्पष्टीकरण: 'Hurrah!' नंतर उद्गारचिन्ह आणि पुढील वाक्याच्या शेवटी Full Stop असलेली अचूक रचना पर्याय (B) मध्ये आहे." }
+];
+  let currentQ = 0;
+let score = 0;
+let userAnswers = [];
+
+function startExam() {
+    const name = document.getElementById('studentName').value.trim();
+    const mobile = document.getElementById('mobileNo').value.trim();
+
+    if (name === "" || mobile.length !== 10) {
+        alert("कृपया तुमचे पूर्ण नाव आणि १० अंकी वैध मोबाईल नंबर टाका.");
+        return;
+    }
+
+    document.getElementById('start-screen').style.display = 'none';
+    document.getElementById('exam-screen').style.display = 'block';
+    loadQuestion();
+}
+
+function loadQuestion() {
+    const qData = questions[currentQ];
+    document.getElementById('q-count').innerText = `प्रश्न ${currentQ + 1} / ${questions.length}`;
+    document.getElementById('question-text').innerText = qData.q;
+    
+    const optionsContainer = document.getElementById('options-container');
+    optionsContainer.innerHTML = '';
+    
+    const expBox = document.getElementById('explanation-box');
+    expBox.style.display = 'none';
+    expBox.innerText = '';
+
+    document.getElementById('next-btn').disabled = true;
+    if(currentQ === questions.length - 1) {
+        document.getElementById('next-btn').innerText = "SUBMIT EXAM";
+    }
+
+    qData.options.forEach((opt, idx) => {
+        const btn = document.createElement('button');
+        btn.className = 'option-btn';
+        btn.innerText = `(${String.fromCharCode(65 + idx)}) ${opt}`;
+        btn.onclick = () => selectOption(idx, btn);
+        optionsContainer.appendChild(btn);
+    });
+}
+
+function selectOption(selectedIdx, btn) {
+    const qData = questions[currentQ];
+    const options = document.querySelectorAll('.option-btn');
+    
+    options.forEach(o => o.style.pointerEvents = 'none');
+
+    userAnswers[currentQ] = {
+        selected: selectedIdx,
+        correct: qData.ans
+    };
+
+    if (selectedIdx === qData.ans) {
+        btn.classList.add('correct');
+        score += 2; // Each question carries 2 marks
+    } else {
+        btn.classList.add('wrong');
+        options[qData.ans].classList.add('correct');
+        
+        const expBox = document.getElementById('explanation-box');
+        expBox.innerText = qData.exp;
+        expBox.style.display = 'block';
+    }
+
+    document.getElementById('next-btn').disabled = false;
+}
+
+function nextQuestion() {
+    if (currentQ < questions.length - 1) {
+        currentQ++;
+        loadQuestion();
+    } else {
+        showCertificate();
+    }
+}
+
+function showCertificate() {
+    document.getElementById('exam-screen').style.display = 'none';
+    document.getElementById('certificate').style.display = 'block';
+
+    const studentName = document.getElementById('studentName').value;
+    document.getElementById('cert-name').innerText = studentName;
+    document.getElementById('cert-score').innerText = `${score} / 60`;
+
+    const percentage = (score / 60) * 100;
+    const badgeDiv = document.getElementById('cert-badge');
+
+    if (percentage >= 90) {
+        badgeDiv.className = 'badge gold';
+        badgeDiv.innerHTML = '🥇 Gold Medal + Trophy<br>उत्कृष्ट कामगिरी!';
+    } else if (percentage >= 80) {
+        badgeDiv.className = 'badge silver';
+        badgeDiv.innerHTML = '🥈 Silver Medal + Trophy<br>छान कामगिरी!';
+    } else if (percentage >= 70) {
+        badgeDiv.className = 'badge bronze';
+        badgeDiv.innerHTML = '🥉 Bronze Medal + Trophy<br>चांगली कामगिरी!';
+    } else {
+        badgeDiv.className = 'badge participant';
+        badgeDiv.innerHTML = '💐 अभिनंदन! फुलांचा गुच्छ<br>पुढील परीक्षेसाठी शुभेच्छा!';
+    }
+
+    const hasWrong = userAnswers.some(a => a && a.selected !== a.correct);
+    if (!hasWrong) {
+        document.getElementById('wrong-btn-container').style.display = 'none';
+    }
+}
+
+function showWrongQuestions() {
+    const listDiv = document.getElementById('wrong-list');
+    listDiv.innerHTML = '';
+
+    userAnswers.forEach((ans, idx) => {
+        if (ans && ans.selected !== ans.correct) {
+            const qData = questions[idx];
+            const item = document.createElement('div');
+            item.className = 'wrong-q-item';
+            item.innerHTML = `
+                <b>प्रश्न:</b> ${qData.q}<br>
+                <span style="color:#e53e3e;">तुमचे उत्तर: (${String.fromCharCode(65 + ans.selected)}) ${qData.options[ans.selected]}</span><br>
+                <span style="color:#38a169;">योग्य उत्तर: (${String.fromCharCode(65 + ans.correct)}) ${qData.options[ans.correct]}</span><br>
+                <i style="color:#7b341e;">${qData.exp}</i>
+            `;
+            listDiv.appendChild(item);
+        }
+    });
+
+    document.getElementById('wrong-questions-section').style.display = 'block';
+}
+</script>
+</body>
+</html>
+
+  
