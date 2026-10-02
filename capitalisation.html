@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="mr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Capitalisation Test - ZP School Narsobawadi</title>
+    <style>
+        * { box-sizing: border-box; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+        body { background-color: #f0f4f8; margin: 0; padding: 20px; color: #333; }
+        .container { max-width: 800px; margin: 0 auto; background: #ffffff; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); padding: 25px; border-top: 6px solid #1a73e8; }
+        
+        .header { text-align: center; border-bottom: 2px solid #e0e0e0; padding-bottom: 15px; margin-bottom: 20px; }
+        .header h1 { color: #1a73e8; margin: 0 0 10px 0; font-size: 24px; }
+        .header h2 { color: #2c3e50; margin: 5px 0; font-size: 20px; }
+        
+        .creator-info { text-align: right; background: #eef5ff; padding: 10px 15px; border-radius: 8px; margin-bottom: 20px; display: flex; align-items: center; justify-content: flex-end; gap: 15px; }
+        .creator-details { text-align: right; font-size: 14px; }
+        .creator-img { width: 65px; height: 65px; border-radius: 50%; object-fit: cover; border: 2px solid #1a73e8; }
+        
+        .form-group { margin-bottom: 15px; text-align: left; }
+        .form-group label { display: block; font-weight: bold; margin-bottom: 5px; color: #444; }
+        .form-group input { width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 6px; font-size: 16px; }
+        
+        .footer-text { text-align: center; font-size: 15px; font-weight: bold; color: #555; margin: 20px 0 10px 0; padding: 10px; background: #f8f9fa; border-radius: 6px; }
+        
+        .btn { background-color: #1a73e8; color: white; border: none; padding: 12px 25px; font-size: 16px; font-weight: bold; border-radius: 6px; cursor: pointer; transition: 0.3s; width: 100%; margin-top: 10px; }
+        .btn:hover { background-color: #1557b0; }
+        .btn:disabled { background-color: #ccc; cursor: not-allowed; }
+        
+        .question-card { display: none; }
+        .question-card.active { display: block; }
+        .question-title { font-size: 18px; font-weight: bold; margin-bottom: 15px; color: #2c3e50; }
+        
+        .option-btn { display: block; width: 100%; padding: 12px; margin-bottom: 10px; text-align: left; background: #f8f9fa; border: 2px solid #e0e0e0; border-radius: 6px; font-size: 16px; cursor: pointer; transition: 0.2s; }
+        .option-btn:hover { background: #e8f0fe; border-color: #1a73e8; }
+        .option-btn.selected { background-color: #d2e3fc; border-color: #1a73e8; font-weight: bold; }
+        .option-btn.correct { background-color: #d4edda !important; border-color: #28a745 !important; color: #155724; }
+        .option-btn.incorrect { background-color: #f8d7da !important; border-color: #dc3545 !important; color: #721c24; }
+        
+        .explanation { display: none; background: #fff3cd; border: 1px solid #ffeeba; color: #856404; padding: 12px; border-radius: 6px; margin-top: 15px; font-size: 15px; }
+        
+        /* Certificate Style */
+        .certificate { display: none; border: 8px double #1a73e8; padding: 30px; background: #ffffff; text-align: center; border-radius: 12px; position: relative; }
+        .cert-header { color: #1a73e8; font-size: 22px; font-weight: bold; margin-bottom: 15px; }
+        .cert-score { font-size: 32px; font-weight: bold; color: #2c3e50; margin: 15px 0; }
+        .cert-badge { font-size: 24px; font-weight: bold; margin: 15px 0; padding: 10px; border-radius: 8px; display: inline-block; }
+        
+        .wrong-q-section { display: none; margin-top: 25px; text-align: left; border-top: 2px dashed #ccc; padding-top: 15px; }
+        .wrong-item { background: #fff5f5; border: 1px solid #feb2b2; padding: 12px; border-radius: 6px; margin-bottom: 10px; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <!-- Intro Page -->
+    <div id="start-page">
+        <div class="header">
+            <h1>जिल्हा परिषद प्राथमिक शाळा नरसोबावाडी संचलित</h1>
+            <h2>परीक्षेचे नाव: Capitalisation (इंग्रजी)</h2>
+        </div>
+        
+        <div class="creator-info">
+            <div class="creator-details">
+                <strong>संकल्पना व निर्मिती</strong><br>
+                श्री सचिन शिंदे सर<br>
+                जि प प्रा शाळा नरसोबावाडी<br>
+                मोबाईल: 83 29 68 44 70
+            </div>
+            <img src="https://lh3.googleusercontent.com/d/1pkldnaLRyqBtfgiQKwtbeSSfXhENzbOm" class="creator-img" alt="सचिन शिंदे सर">
+        </div>
+
+        <div class="form-group">
+            <label for="student-name">विद्यार्थ्याचे नाव:</label>
+            <input type="text" id="student-name" placeholder="पूर्ण नाव टाका" required>
+        </div>
+        
+        <div class="form-group">
+            <label for="student-mobile">मोबाईल नंबर:</label>
+            <input type="tel" id="student-mobile" placeholder="10 अंकी मोबाईल नंबर" maxlength="10" required>
+        </div>
+
+        <div class="footer-text">
+            टेस्ट निर्मिती व संकल्पना श्री सचिन शिंदे मोबाईल नंबर 83 29 68 44 70
+        </div>
+
+        <button class="btn" onclick="startExam()">EXAM START</button>
+    </div>
+
+    <!-- Exam Container -->
+    <div id="exam-page" style="display: none;">
+        <div id="questions-container"></div>
+        
+        <div class="footer-text">
+            टेस्ट निर्मिती व संकल्पना श्री सचिन शिंदे मोबाईल नंबर 83 29 68 44 70
+        </div>
+
+        <button class="btn" id="next-btn" onclick="nextQuestion()" disabled>NEXT</button>
+        <button class="btn" id="submit-btn" onclick="submitExam()" style="display: none; background-color: #28a745;">SUBMIT EXAM</button>
+    </div>
+
+    <!-- Certificate Container -->
+    <div id="certificate-page" style="display: none;">
+        <div class="certificate">
+            <div class="cert-header">🏆 जिल्हा परिषद प्राथमिक शाळा नरसोबावाडी संचालित</div>
+            <p><strong>परीक्षेचे नाव:</strong> Capitalisation Test</p>
+            <p><strong>विद्यार्थ्याचे नाव:</strong> <span id="cert-student-name"></span></p>
+            
+            <div class="cert-score">प्राप्त गुण: <span id="cert-score"></span> / 100</div>
+            <div id="cert-performance" class="cert-badge"></div>
+
+            <div class="creator-info" style="margin-top: 30px;">
+                <div class="creator-details">
+                    <strong>संकल्पना व निर्मिती</strong><br>
+                    श्री सचिन शिंदे सर<br>
+                    जि प प्रा शाळा नरसोबावाडी<br>
+                    मोबाईल: 83 29 68 44 70
+                </div>
+                <img src="https://lh3.googleusercontent.com/d/1pkldnaLRyqBtfgiQKwtbeSSfXhENzbOm" class="creator-img" alt="सचिन शिंदे सर">
+            </div>
+        </div>
+
+        <button class="btn" style="background-color: #dc3545; margin-top: 20px;" onclick="toggleWrongQuestions()">चुकलेले प्रश्न व मार्गदर्शन पहा</button>
+
+        <div id="wrong-questions-container" class="wrong-q-section">
+            <h3>चुकलेले प्रश्न आणि त्यांचे स्पष्टीकरण:</h3>
+            <div id="wrong-questions-list"></div>
+        </div>
+    </div>
+              </div>
+  <script>
+const quizData = [
+    { q: "Q1. Choose the correctly capitalised sentence:", options: ["my name is raju.", "My name is raju.", "My name is Raju.", "my Name Is Raju."], ans: 2, exp: "वाक्याची सुरुवात कॅपिटल अक्षराने (My) आणि विशेष नाम (Raju) कॅपिटल अक्षराने लिहावे." },
+    { q: "Q2. Which word in the following sentence should begin with a capital letter?\n'i love my school.'", options: ["love", "i", "my", "school"], ans: 1, exp: "सर्वनाम 'I' नेहमी कॅपिटल लिहायचे असते." },
+    { q: "Q3. Find the word that needs a capital letter:\n'We will visit mumbai tomorrow.'", options: ["visit", "tomorrow", "mumbai", "will"], ans: 2, exp: "शहर/ठिकाणाचे नाव (Mumbai) विशेष नाम असल्याने कॅपिटल असावे." },
+    { q: "Q4. Select the correctly capitalised word for the day of the week:", options: ["sunday", "Sunday", "sUnDaY", "SuNday"], ans: 1, exp: "वारांची नावे नेहमी कॅपिटल अक्षराने सुरू होतात (Sunday)." },
+    { q: "Q5. Select the correctly capitalised word for the month:", options: ["august", "AuGuSt", "August", "AUGusT"], ans: 2, exp: "महिन्यांचे नाव नेहमी कॅपिटल अक्षराने सुरू होते (August)." },
+    { q: "Q6. Choose the sentence with the CORRECT use of capital letters:", options: ["Ramesh and Suresh are friends.", "ramesh and suresh are friends.", "Ramesh and suresh are Friends.", "ramesh and Suresh are friends."], ans: 0, exp: "विशेष नामे (Ramesh, Suresh) कॅपिटल असावीत." },
+    { q: "Q7. Which letters should be capitalised in the sentence?\n'she lives in delhi.'", options: ["Only 's' in she", "Only 'd' in delhi", "Both 's' in she and 'd' in delhi", "No letter needs to be capitalised"], ans: 2, exp: "वाक्याची सुरुवात (She) आणि शहराचे नाव (Delhi) दोन्ही कॅपिटल असावे." },
+    { q: "Q8. Choose the correct option to fill in the blank:\n'______ is the capital of India.'", options: ["new delhi", "New delhi", "new Delhi", "New Delhi"], ans: 3, exp: "राजधानीचे नाव 'New Delhi' दोन्ही शब्द कॅपिटल असतात." },
+    { q: "Q9. Select the option with the INCORRECT capitalisation:", options: ["English", "Marathi", "hindi", "History"], ans: 2, exp: "भाषांची नावे कॅपिटल असावीत, त्यामुळे 'hindi' हे चुकीचे आहे (Hindi हवे)." },
+    { q: "Q10. Choose the correct sentence:", options: ["The Taj Mahal is in Agra.", "The taj mahal is in agra.", "the Taj mahal is in Agra.", "The taj Mahal is in agra."], ans: 0, exp: "प्रसिद्ध वास्तू (Taj Mahal) आणि शहराचे नाव (Agra) कॅपिटल असावे." },
+    { q: "Q11. Which word should always be written in capital when used alone as a pronoun?", options: ["me", "i", "we", "us"], ans: 1, exp: "एकटे येणारे 'I' हे सर्वनाम नेहमी कॅपिटल लिहिले जाते." },
+    { q: "Q12. Choose the correctly capitalised sentence:", options: ["Mr. sharma is a teacher.", "mr. Sharma is a teacher.", "Mr. Sharma is a teacher.", "mr. sharma is a teacher."], ans: 2, exp: "आदरार्थी पद (Mr.) आणि आडनाव (Sharma) दोन्ही कॅपिटल असावेत." },
+    { q: "Q13. Select the correct option to fill in the blank:\n'Our test is on ______.'", options: ["Friday", "friday", "FriDay", "FRIDAY"], ans: 0, exp: "वाराचे नाव (Friday) कॅपिटल अक्षराने सुरू होते." },
+    { q: "Q14. Find the sentence with NO capitalisation errors:", options: ["today is monday.", "Today is monday.", "today is Monday.", "Today is Monday."], ans: 3, exp: "वाक्याची सुरुवात (Today) आणि वाराचे नाव (Monday) दोन्ही कॅपिटल हवे." },
+    { q: "Q15. Which of the following names of a river is correctly written?", options: ["the Ganga", "The Ganga", "the ganga", "The ganga"], ans: 1, exp: "नदीचे नाव आणि त्यापूर्वीचे 'The' कॅपिटल अक्षराने सुरू व्हावे." },
+    { q: "Q16. Identify the word that does NOT require a capital letter unless it is at the start of a sentence:", options: ["Pune", "India", "Doctor", "January"], ans: 2, exp: "'Doctor' हे सामान्य नाम (Common Noun) आहे, त्यामुळे ते मधे असल्यास कॅपिटलची गरज नसते." },
+    { q: "Q17. Choose the correct title for a person:", options: ["dr. patil", "Dr. patil", "dr. Patil", "Dr. Patil"], ans: 3, exp: "पदवी (Dr.) आणि नाव (Patil) दोन्ही कॅपिटल अक्षराने सुरू होतात." },
+    { q: "Q18. Choose the correctly capitalised sentence:", options: ["We celebrate diwali in october.", "We celebrate Diwali in October.", "We celebrate Diwali in october.", "we celebrate diwali in October."], ans: 1, exp: "सणांचे नाव (Diwali) आणि महिन्याचे नाव (October) कॅपिटल असावे." },
+    { q: "Q19. How many capital letters are needed in the sentence below?\n'rahul and anita live in pune.'", options: ["1", "2", "4", "3"], ans: 3, exp: "Rahul, Anita, Pune या तीन विशेष नामांसाठी 3 कॅपिटल अक्षरे लागतील." },
+    { q: "Q20. Choose the correct sentence:", options: ["I can speak English and Marathi.", "I can speak english and marathi.", "i can speak English and Marathi.", "I can speak English and marathi."], ans: 0, exp: "भाषांची नावे (English, Marathi) नेहमी कॅपिटल लिहावीत." },
+    { q: "Q21. Which word should begin with a capital letter in the given sentence?\n'The indian ocean is very big.'", options: ["ocean", "indian", "very", "big"], ans: 1, exp: "महासागराच्या नावातील 'Indian' शब्द कॅपिटल असावा." },
+    { q: "Q22. Choose the correctly capitalised sentence:", options: ["Where are you going, john?", "Where are you going, John?", "where are you going, john?", "Where Are You Going, John?"], ans: 1, exp: "वाक्याची सुरुवात (Where) आणि व्यक्तीचे नाव (John) कॅपिटल हवे." },
+    { q: "Q23. Select the correct option to complete the sentence:\n'My dog's name is ______.'", options: ["Bruno", "bruno", "bRUNO", "bruNO"], ans: 0, exp: "प्राण्याचे ठेवलेले विशेष नाव (Bruno) कॅपिटल असावे." },
+    { q: "Q24. Find the sentence with an INCORRECT capitalisation:", options: ["I like reading books.", "She goes to School every day.", "New York is a big city.", "Independence Day is in August."], ans: 1, exp: "'School' हे सामान्य नाम असल्याने वाक्याच्या मध्यभागी कॅपिटल असणे चुकीचे आहे." },
+    { q: "Q25. Which of the following festival names is correctly capitalised?", options: ["christmas", "christMas", "CHristmas", "Christmas"], ans: 3, exp: "सणाचे नाव 'Christmas' ची सुरुवात कॅपिटल असावी." },
+    { q: "Q26. Choose the correct sentence with proper quotation capitalisation:", options: ["\"the sun rises in the east,\" said the teacher.", "\"The sun rises in the east,\" said the teacher.", "\"The Sun Rises In The East,\" said the teacher.", "\"the Sun rises in the East,\" said the teacher."], ans: 1, exp: "अवतरण चिन्हातील वाक्याची सुरुवात कॅपिटल अक्षराने (The) होते." },
+    { q: "Q27. How many capital letters are missing in the sentence below?\n'my brother's name is amit.'", options: ["1", "3", "4", "2"], ans: 3, exp: "वाक्याची सुरुवात (My) आणि नाव (Amit) अशा २ अक्षरांची गरज आहे." },
+    { q: "Q28. Select the correct option:\n'______ is the first month of the year.'", options: ["january", "January", "JaNuArY", "janUary"], ans: 1, exp: "महिन्याचे नाव 'January' कॅपिटल असावे." },
+    { q: "Q29. Choose the correctly capitalised sentence:", options: ["Ms. Priya is our new Principal.", "ms. priya is our new principal.", "Ms. priya is our new Principal.", "Ms. Priya is our new principal."], ans: 3, exp: "Ms., Priya कॅपिटल असावेत आणि principal हे सामान्य नाम लहान अक्षरात असावे." },
+    { q: "Q30. Find the word(s) that should start with a capital letter:\n'We visited the red fort yesterday.'", options: ["visited", "red fort", "yesterday", "the"], ans: 1, exp: "ऐतिहासिक वास्तू 'Red Fort' दोन्ही शब्द कॅपिटल असावेत." },
+    { q: "Q31. Which of the following mountain ranges is written correctly?", options: ["Himalaya Mountains", "himalaya mountains", "Himalaya mountains", "himalaya Mountains"], ans: 0, exp: "पर्वतश्रेणीचे नाव 'Himalaya Mountains' कॅपिटल असावे." },
+    { q: "Q32. Select the correct sentence:", options: ["Have you seen the Gateway Of India?", "Have you seen the Gateway of India?", "have you seen the gateway of india?", "Have you seen the gateway of india?"], ans: 1, exp: "'Gateway of India' मधील 'of' सोडून इतर विशेष नामे कॅपिटल असावीत." },
+    { q: "Q33. Which word in the following list MUST start with a capital letter?", options: ["country", "city", "japan", "village"], ans: 2, exp: "देशाचे नाव (Japan) विशेष नाम आहे." },
+    { q: "Q34. Choose the sentence with the correct capitalisation:", options: ["God is great.", "god is great.", "God Is Great.", "god Is Great."], ans: 0, exp: "'God' चा पहिला वर्ण नेहमी कॅपिटल लिहावा." },
+    { q: "Q35. Select the incorrect option:", options: ["Monday", "tuesday", "Wednesday", "Thursday"], ans: 1, exp: "'tuesday' मधील t लहान अक्षरी आहे, ते Tuesday हवे." },
+    { q: "Q36. Choose the correctly capitalised sentence:", options: ["I am studying science and History.", "I am studying Science and history.", "I am studying science and history.", "i am studying science and history."], ans: 2, exp: "विषयांची सामान्य नावे (science, history) कॅपिटल करण्याची गरज नसते." },
+    { q: "Q37. Which letter should be capitalised at the start of this sentence?\n'oh! what a beautiful flower.'", options: ["Only 'o' in oh", "Only 'b' in beautiful", "Only 'f' in flower", "No letter"], ans: 0, exp: "वाक्याच्या सुरुवातीला केवळ 'O' हे अक्षर कॅपिटल असावे." },
+    { q: "Q38. Select the correct capitalisation for the title of a book:", options: ["Harry potter", "Harry Potter", "harry potter", "harry Potter"], ans: 1, exp: "पुस्तकाच्या शीर्षकातील दोन्ही शब्द (Harry Potter) कॅपिटल असावेत." },
+    { q: "Q39. Choose the correctly capitalised sentence:", options: ["Sachin Tendulkar is a famous cricketer.", "sachin tendulkar is a famous cricketer.", "Sachin tendulkar is a famous Cricketer.", "sachin Tendulkar is a Famous cricketer."], ans: 0, exp: "व्यक्तीचे पूर्ण नाव (Sachin Tendulkar) कॅपिटल असावे." },
+    { q: "Q40. How many words should begin with a capital letter in the sentence: 'my aunt lives in nashik.'?", options: ["1", "2", "3", "4"], ans: 1, exp: "२ शब्द - वाक्याची सुरुवात (My) आणि शहराचे नाव (Nashik)." },
+    { q: "Q41. Choose the correctly capitalised sentence:", options: ["We went to goa during the diwali holidays.", "we went to Goa during the Diwali holidays.", "We went to Goa during the diwali holidays.", "We went to Goa during the Diwali holidays."], ans: 3, exp: "वाक्याची सुरुवात (We), राज्याचे नाव (Goa) आणि सणाचे नाव (Diwali) कॅपिटल असावे." },
+    { q: "Q42. Which of the following official titles is correctly capitalised?", options: ["Prime Minister", "prime minister", "Prime minister", "prime Minister"], ans: 0, exp: "अधिकृत पदवी 'Prime Minister' दोन्ही शब्द कॅपिटल असावेत." },
+    { q: "Q43. Select the correct sentence:", options: ["\"what are you doing?\" asked Maya.", "\"What are you doing?\" asked Maya.", "\"What are you doing?\" asked maya.", "\"what are you doing?\" asked maya."], ans: 1, exp: "अवतरण चिन्हाची सुरुवात (What) आणि नाव (Maya) कॅपिटल असावे." },
+    { q: "Q44. Choose the word that requires a capital letter:\n'My friend speaks french very well.'", options: ["friend", "speaks", "french", "well"], ans: 2, exp: "भाषेचे नाव (French) नेहमी कॅपिटल असावे." },
+    { q: "Q45. Choose the correct sentence:", options: ["Is your birthday in june or july?", "Is your birthday in June or July?", "is your birthday in June or July?", "Is your Birthday in june or july?"], ans: 1, exp: "महिन्यांची नावे (June, July) कॅपिटल असावीत." },
+    { q: "Q46. Find the sentence with the correct capitalisation:", options: ["Mount Everest is the highest peak.", "mount Everest is the highest peak.", "Mount everest is the highest peak.", "mount everest is the highest peak."], ans: 0, exp: "शिखराचे नाव (Mount Everest) कॅपिटल असावे." },
+    { q: "Q47. Which of the following sentences uses capital letters correctly for a sea name?", options: ["They live near the Arabian sea.", "They live near the Arabian Sea.", "They live near the arabian sea.", "They live Near the Arabian Sea."], ans: 1, exp: "समुद्राचे नाव (Arabian Sea) दोन्ही शब्द कॅपिटल असावेत." },
+    { q: "Q48. Choose the correct sentence:", options: ["dr. apj abdul kalam was a great scientist.", "Dr. apj abdul Kalam was a great scientist.", "Dr. APJ Abdul kalam was a Great scientist.", "Dr. APJ Abdul Kalam was a great scientist."], ans: 3, exp: "डॉक्टरेट व नाव (Dr. APJ Abdul Kalam) संपूर्ण योग्य कॅपिटल हवे." },
+    { q: "Q49. Which word in the following sentence needs a capital letter?\n'The tiger is the national animal of india.'", options: ["tiger", "national", "animal", "india"], ans: 3, exp: "देशाचे नाव (India) कॅपिटल असावे." },
+    { q: "Q50. Choose the correctly capitalised sentence:", options: ["Happy Republic Day to all!", "happy republic day to all!", "Happy republic day to all!", "Happy Republic day to all!"], ans: 0, exp: "राष्ट्रीय सणाचे नाव (Republic Day) आणि वाक्याची सुरुवात कॅपिटल असावी." }
+];
+    let currentQ = 0;
+let userAnswers = new Array(quizData.length).fill(null);
+
+function startExam() {
+    const name = document.getElementById('student-name').value.trim();
+    const mobile = document.getElementById('student-mobile').value.trim();
+
+    if (!name || mobile.length !== 10) {
+        alert("कृपया तुमचे पूर्ण नाव आणि १० अंकी योग्य मोबाईल नंबर प्रविष्ट करा.");
+        return;
+    }
+
+    document.getElementById('start-page').style.display = 'none';
+    document.getElementById('exam-page').style.display = 'block';
+
+    renderQuestions();
+    showQuestion(0);
+}
+
+function renderQuestions() {
+    const container = document.getElementById('questions-container');
+    container.innerHTML = '';
+
+    quizData.forEach((data, index) => {
+        const card = document.createElement('div');
+        card.className = `question-card ${index === 0 ? 'active' : ''}`;
+        card.id = `q-card-${index}`;
+
+        let optionsHTML = '';
+        data.options.forEach((opt, optIdx) => {
+            optionsHTML += `<button class="option-btn" id="opt-${index}-${optIdx}" onclick="selectOption(${index}, ${optIdx})">${opt}</button>`;
+        });
+
+        card.innerHTML = `
+            <div class="question-title">${data.q}</div>
+            <div class="options">${optionsHTML}</div>
+            <div class="explanation" id="exp-${index}">
+                <strong>स्पष्टीकरण:</strong> ${data.exp}
+            </div>
+        `;
+        container.appendChild(card);
+    });
+}
+
+function showQuestion(index) {
+    document.querySelectorAll('.question-card').forEach(card => card.classList.remove('active'));
+    document.getElementById(`q-card-${index}`).classList.add('active');
+    
+    currentQ = index;
+
+    const nextBtn = document.getElementById('next-btn');
+    const submitBtn = document.getElementById('submit-btn');
+
+    if (currentQ === quizData.length - 1) {
+        nextBtn.style.display = 'none';
+        submitBtn.style.display = 'block';
+    } else {
+        nextBtn.style.display = 'block';
+        submitBtn.style.display = 'none';
+    }
+
+    nextBtn.disabled = userAnswers[currentQ] === null;
+}
+
+function selectOption(qIdx, optIdx) {
+    if (userAnswers[qIdx] !== null) return; // Disable changing after answer
+
+    userAnswers[qIdx] = optIdx;
+    const correctAns = quizData[qIdx].ans;
+
+    const selectedBtn = document.getElementById(`opt-${qIdx}-${optIdx}`);
+    const correctBtn = document.getElementById(`opt-${qIdx}-${correctAns}`);
+    const expDiv = document.getElementById(`exp-${qIdx}`);
+
+    if (optIdx === correctAns) {
+        selectedBtn.classList.add('correct');
+    } else {
+        selectedBtn.classList.add('incorrect');
+        correctBtn.classList.add('correct');
+        expDiv.style.display = 'block';
+    }
+
+    document.getElementById('next-btn').disabled = false;
+}
+
+function nextQuestion() {
+    if (currentQ < quizData.length - 1) {
+        showQuestion(currentQ + 1);
+    }
+}
+
+function submitExam() {
+    let score = 0;
+    quizData.forEach((q, idx) => {
+        if (userAnswers[idx] === q.ans) {
+            score += 2; // Each question carrying 2 marks
+        }
+    });
+
+    document.getElementById('exam-page').style.display = 'none';
+    document.getElementById('certificate-page').style.display = 'block';
+
+    const studentName = document.getElementById('student-name').value;
+    document.getElementById('cert-student-name').innerText = studentName;
+    document.getElementById('cert-score').innerText = score;
+
+    const percentage = (score / 100) * 100;
+    const perfDiv = document.getElementById('cert-performance');
+
+    if (percentage >= 90) {
+        perfDiv.innerHTML = "🥇 Gold Medal + Trophy";
+        perfDiv.style.background = "#fff3cd";
+        perfDiv.style.color = "#856404";
+    } else if (percentage >= 80) {
+        perfDiv.innerHTML = "🥈 Silver Medal + Trophy";
+        perfDiv.style.background = "#e2e3e5";
+        perfDiv.style.color = "#383d41";
+    } else if (percentage >= 70) {
+        perfDiv.innerHTML = "🥉 Bronze Medal + Trophy";
+        perfDiv.style.background = "#f8d7da";
+        perfDiv.style.color = "#721c24";
+    } else {
+        perfDiv.innerHTML = "💐 अभिनंदन! फुलांचा गुच्छ व पुढील परीक्षेसाठी शुभेच्छा!";
+        perfDiv.style.background = "#d4edda";
+        perfDiv.style.color = "#155724";
+    }
+
+    generateWrongQuestionsList();
+}
+
+function generateWrongQuestionsList() {
+    const listContainer = document.getElementById('wrong-questions-list');
+    listContainer.innerHTML = '';
+
+    let hasWrong = false;
+
+    quizData.forEach((q, idx) => {
+        if (userAnswers[idx] !== q.ans) {
+            hasWrong = true;
+            const item = document.createElement('div');
+            item.className = 'wrong-item';
+            
+            const userAnsText = userAnswers[idx] !== null ? q.options[userAnswers[idx]] : "सोडून दिला";
+            const correctAnsText = q.options[q.ans];
+
+            item.innerHTML = `
+                <strong>${q.q}</strong><br>
+                <span style="color: #dc3545;">तुमचे उत्तर: ${userAnsText}</span><br>
+                <span style="color: #28a745;">योग्य उत्तर: ${correctAnsText}</span><br>
+                <small><em>स्पष्टीकरण: ${q.exp}</em></small>
+            `;
+            listContainer.appendChild(item);
+        }
+    });
+
+    if (!hasWrong) {
+        listContainer.innerHTML = "<p style='color: #28a745; font-weight: bold;'>अभिनंदन! तुमचे सर्व प्रश्न बरोबर आले आहेत.</p>";
+    }
+}
+
+function toggleWrongQuestions() {
+    const wrongSection = document.getElementById('wrong-questions-container');
+    if (wrongSection.style.display === 'none' || wrongSection.style.display === '') {
+        wrongSection.style.display = 'block';
+    } else {
+        wrongSection.style.display = 'none';
+    }
+}
+</script>
+</body>
+</html>
