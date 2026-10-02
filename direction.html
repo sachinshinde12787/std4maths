@@ -1,298 +1,275 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="mr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Scholarship Exam - Direction</title>
+    <title>Direction Test - ZP PS Narsobawadi</title>
     <style>
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            background: linear-gradient(135deg, #f5f7fa, #c3cfe2);
             margin: 0;
             padding: 20px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
+            color: #333;
         }
         .container {
+            max-width: 800px;
+            margin: 0 auto;
             background: #ffffff;
-            width: 100%;
-            max-width: 700px;
-            padding: 30px;
             border-radius: 15px;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            padding: 30px;
             position: relative;
         }
-        .header-title {
-            text-align: center;
-            color: #1a365d;
-            font-size: 1.2rem;
+        .header-top {
             font-weight: bold;
-            margin-bottom: 5px;
+            color: #1a5276;
+            font-size: 1.1em;
+            text-align: left;
         }
-        .exam-name {
-            text-align: center;
-            color: #2b6cb0;
-            font-size: 1.5rem;
-            margin-bottom: 20px;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-        .footer-credit {
-            text-align: center;
-            font-size: 0.9rem;
-            color: #4a5568;
-            margin-top: 30px;
-            border-top: 1px solid #e2e8f0;
-            padding-top: 15px;
-        }
-        .right-credit {
+        .footer-creator {
             text-align: right;
-            font-size: 0.85rem;
-            color: #718096;
-            margin-top: 20px;
-            line-height: 1.4;
+            margin-top: 40px;
+            font-size: 0.95em;
+            color: #555;
+            line-height: 1.5;
         }
-        .right-credit img {
-            width: 50px;
-            height: 50px;
+        .footer-creator img {
+            width: 60px;
+            height: 60px;
             border-radius: 50%;
             object-fit: cover;
             vertical-align: middle;
-            margin-left: 5px;
+            margin-left: 10px;
+            border: 2px solid #1a5276;
+        }
+        .center-footer {
+            text-align: center;
+            font-size: 0.9em;
+            color: #666;
+            margin: 20px 0;
+            font-weight: 600;
+        }
+        h1, h2 {
+            text-align: center;
+            color: #2c3e50;
         }
         .form-group {
             margin-bottom: 20px;
         }
-        .form-group label {
+        label {
             display: block;
             margin-bottom: 8px;
-            font-weight: 600;
-            color: #2d3748;
+            font-weight: bold;
+            color: #34495e;
         }
-        .form-group input {
+        input[type="text"], input[type="tel"] {
             width: 100%;
             padding: 12px;
-            border: 1px solid #cbd5e0;
+            border: 2px solid #bdc3c7;
             border-radius: 8px;
-            font-size: 1rem;
+            font-size: 1em;
             box-sizing: border-box;
         }
         .btn {
-            background-color: #3182ce;
+            background-color: #27ae60;
             color: white;
-            border: none;
             padding: 12px 25px;
-            font-size: 1.1rem;
+            border: none;
             border-radius: 8px;
+            font-size: 1.1em;
             cursor: pointer;
+            display: block;
             width: 100%;
+            margin-top: 20px;
             font-weight: bold;
             transition: background 0.3s;
         }
         .btn:hover {
-            background-color: #2b6cb0;
+            background-color: #219653;
         }
-        .question-card {
+        .screen {
             display: none;
         }
-        .question-card.active {
+        .active {
             display: block;
         }
-        .q-text {
-            font-size: 1.15rem;
-            font-weight: 600;
-            color: #1a202c;
-            margin-bottom: 20px;
+        .question-box {
+            margin-bottom: 25px;
+            padding: 20px;
+            background: #f9f9f9;
+            border-radius: 10px;
+            border-left: 5px solid #2980b9;
         }
-        .option-btn {
+        .options label {
             display: block;
-            width: 100%;
-            text-align: left;
-            padding: 12px 15px;
-            margin-bottom: 10px;
-            border: 2px solid #e2e8f0;
-            border-radius: 8px;
-            background: #f7fafc;
-            font-size: 1rem;
+            background: #fff;
+            padding: 10px 15px;
+            margin: 8px 0;
+            border: 1px solid #ddd;
+            border-radius: 6px;
             cursor: pointer;
+            font-weight: normal;
             transition: all 0.2s;
         }
-        .option-btn:hover:not(:disabled) {
-            background: #edf2f7;
-            border-color: #cbd5e0;
-        }
-        .option-btn.correct {
-            background-color: #c6f6d5 !important;
-            border-color: #38a169 !important;
-            color: #22543d;
-        }
-        .option-btn.wrong {
-            background-color: #fed7d7 !important;
-            border-color: #e53e3e !important;
-            color: #742a2a;
+        .options label:hover {
+            background: #ebf5fb;
         }
         .explanation {
-            margin-top: 15px;
-            padding: 12px;
-            background: #ebf8ff;
-            border-left: 4px solid #3182ce;
-            color: #2b6cb0;
-            font-size: 0.95rem;
+            margin-top: 10px;
+            padding: 10px;
+            background: #fcf3cf;
+            border-left: 4px solid #f39c12;
+            font-size: 0.95em;
             display: none;
-            border-radius: 4px;
         }
-        .nav-btn-container {
-            display: flex;
-            justify-content: space-between;
-            margin-top: 25px;
-        }
-        .next-btn, .submit-btn {
-            width: auto;
-            padding: 10px 30px;
-        }
-        .certificate-box {
-            border: 5px solid #d69e2e;
-            padding: 25px;
-            border-radius: 15px;
+        .certificate {
+            border: 8px double #d4ac0d;
+            padding: 30px;
             text-align: center;
             background: #fffdf0;
-            display: none;
-        }
-        .certificate-box h2 {
-            color: #b7791f;
-            margin-top: 0;
-        }
-        .score-display {
-            font-size: 2.5rem;
-            font-weight: bold;
-            color: #2c5282;
-            margin: 15px 0;
-        }
-        .review-section {
-            text-align: left;
-            margin-top: 20px;
-            max-height: 250px;
-            overflow-y: auto;
-            border-top: 1px dashed #cbd5e0;
-            padding-top: 15px;
+            border-radius: 15px;
         }
     </style>
 </head>
 <body>
+
 <div class="container">
-        <!-- Login / Start Screen -->
-    <div id="start-screen">
-        <div class="header-title">जिल्हा परिषद प्राथमिक शाळा नरसोबावाडी संचलित</div>
-        <div class="exam-name">परीक्षेचे नाव: Direction</div>
+    <!-- STEP 1: Registration Screen -->
+    <div id="screen-register" class="screen active">
+        <div class="header-top">जिल्हा परिषद प्राथमिक शाळा नरसोबावाडी संचलित</div>
+        <br>
+        <h2>Scholarship Exam - Class 4</h2>
+        <h3 style="color: #e74c3c;">परीक्षेचे नाव: Direction</h3>
+        <hr style="border: 0; height: 1px; background: #ddd; margin: 20px 0;">
         
         <div class="form-group">
-            <label for="student-name">विद्यार्थ्याचे नाव:</label>
-            <input type="text" id="student-name" placeholder="पूर्ण नाव प्रविष्ट करा">
+            <label for="student-name">विद्यार्थ्याचे नाव (Student Name):</label>
+            <input type="text" id="student-name" placeholder="तुमचे पूर्ण नाव लिहा">
         </div>
         
         <div class="form-group">
-            <label for="student-mobile">मोबाईल नंबर:</label>
-            <input type="tel" id="student-mobile" placeholder="१० अंकी मोबाईल नंबर">
+            <label for="student-mobile">मोबाईल नंबर (Mobile Number):</label>
+            <input type="tel" id="student-mobile" placeholder="१० अंकी मोबाईल नंबर लिहा" maxlength="10">
+        </div>
+
+        <div class="center-footer">
+            टेस्ट निर्मिती व संकल्पना श्री सचिन शिंदे मोबाईल नंबर 83 29 68 44 70
         </div>
 
         <button class="btn" onclick="startExam()">EXAM START</button>
 
-        <div class="footer-credit">टेस्ट निर्मिती व संकल्पना श्री सचिन शिंदे मोबाईल नंबर 83 29 68 44 70</div>
-        
-        <div class="right-credit">
+        <div class="footer-creator">
             संकल्पना व निर्मिती<br>
-            श्री सचिन शिंदे सर<br>
+            <strong>श्री सचिन शिंदे सर</strong><br>
             जि प प्रा शाळा नरसोबावाडी<br>
-            मोबाईल नंबर 83 29 68 44 70<br>
-            <img src="https://drive.google.com/file/d/1pkldnaLRyqBtfgiQKwtbeSSfXhENzbOm/view?usp=drivesdk" alt="Sir Photo">
+            मोबाईल नंबर: 83 29 68 44 70<br>
+            <a href="https://drive.google.com/file/d/1pkldnaLRyqBtfgiQKwtbeSSfXhENzbOm/view?usp=drivesdk" target="_blank">
+                <img src="https://lh3.googleusercontent.com/d/1pkldnaLRyqBtfgiQKwtbeSSfXhENzbOm" alt="Sachin Shinde Sir" onerror="this.src='https://via.placeholder.com/60'">
+            </a>
+        </div>
+    </div>
+        <!-- STEP 2: Quiz Screen -->
+    <div id="screen-quiz" class="screen">
+        <div style="display: flex; justify-content: space-between; font-weight: bold; color: #2c3e50; margin-bottom: 15px;">
+            <span id="student-display"></span>
+            <span id="timer-display">प्रश्न: <span id="current-q-num">1</span>/50</span>
+        </div>
+
+        <div id="question-container"></div>
+
+        <button class="btn" id="next-btn" onclick="nextQuestion()" style="display:none;">पुढील प्रश्न (Next)</button>
+        
+        <div class="center-footer" style="margin-top: 30px;">
+            टेस्ट निर्मिती व संकल्पना श्री सचिन शिंदे मोबाईल नंबर 83 29 68 44 70
         </div>
     </div>
 
-    <!-- Exam Quiz Container -->
-    <div id="quiz-container" style="display: none;">
-        <div class="header-title" id="quiz-header-info"></div>
-        
-        <div id="questions-list"></div>
+    <!-- STEP 3: Result / Certificate Screen -->
+    <div id="screen-result" class="screen">
+        <div class="certificate">
+            <h2 style="color: #b7950b;">🏆 जिल्हा परिषद प्राथमिक शाळा नरसोबावाडी संचालित</h2>
+            <h3 id="res-exam-name">परीक्षेचे नाव - Direction</h3>
+            <h3 id="res-student-name">विद्यार्थ्याचे नाव - </h3>
+            <h1 id="res-marks" style="font-size: 2.5em; color: #27ae60; margin: 20px 0;"></h1>
+            <div id="res-performance" style="font-size: 1.2em; font-weight: bold; margin: 15px 0; color: #d35400;"></div>
+            
+            <div style="margin-top: 30px;">
+                <button class="btn" onclick="showReview()" style="background-color: #e67e22;">चुकीचे प्रश्न व मार्गदर्शन पहा</button>
+            </div>
+        </div>
 
-        <div class="footer-credit" style="margin-top:15px;">टेस्ट निर्मिती व संकल्पना श्री सचिन शिंदे मोबाईल नंबर 83 29 68 44 70</div>
+        <div class="footer-creator">
+            संकल्पना व निर्मिती<br>
+            <strong>श्री सचिन शिंदे सर</strong><br>
+            जि प प्रा शाळा नरसोबावाडी<br>
+            मोबाईल नंबर: 83 29 68 44 70<br>
+            <a href="https://drive.google.com/file/d/1pkldnaLRyqBtfgiQKwtbeSSfXhENzbOm/view?usp=drivesdk" target="_blank">
+                <img src="https://lh3.googleusercontent.com/d/1pkldnaLRyqBtfgiQKwtbeSSfXhENzbOm" alt="Sachin Shinde Sir" onerror="this.src='https://via.placeholder.com/60'">
+            </a>
+        </div>
     </div>
 
-    <!-- Certificate & Result Container -->
-    <div id="result-container" class="certificate-box">
-        <div style="font-size: 1.1rem; font-weight: bold; color: #744210;">🏆 जिल्हा परिषद प्राथमिक शाळा नरसोबावाडी संचलित</div>
-        <h2 style="margin: 10px 0;">परीक्षेचे नाव - Direction</h2>
-        <p><strong>विद्यार्थ्याचे नाव:</strong> <span id="res-name"></span></p>
-        
-        <div class="score-display" id="res-score"></div>
-        <div id="res-badge" style="font-size: 1.2rem; font-weight: bold; margin-bottom: 15px;"></div>
+    <!-- STEP 4: Review Screen for Incorrect Questions -->
+    <div id="screen-review" class="screen">
+        <h2>चुकीचे प्रश्न व स्पष्टीकरण (Review Incorrect Answers)</h2>
+        <div id="review-container"></div>
+        <button class="btn" onclick="location.reload()">पुन्हा परीक्षा द्या (Restart Test)</button>
+    </div>
+</div>
 
-        <div class="review-section" id="review-list">
-            <h3 style="color: #2d3748; margin-top:0;">चुकलेले प्रश्न व मार्गदर्शन:</h3>
-            <div id="wrong-questions-box"></div>
-        </div>
-
-        <div class="right-credit" style="text-align: right; margin-top: 15px;">
-            संकल्पना व निर्मिती<br>
-            श्री सचिन शिंदे सर<br>
-            जि प प्रा शाळा नरसोबावाडी<br>
-            मोबाईल नंबर 83 29 68 44 70<br>
-            <img src="https://drive.google.com/file/d/1pkldnaLRyqBtfgiQKwtbeSSfXhENzbOm/view?usp=drivesdk" alt="Sir Photo">
-        </div>
-        </div>
-    <script>
-const questionsData = [
-    { q: "Which direction is opposite to the South?", o: ["East", "West", "North", "North-East"], a: 2, exp: "दक्षिण (South) दिशेच्या विरुद्ध दिशा उत्तर (North) असते." },
-    { q: "The sun rises in the ______ direction.", o: ["West", "North", "South", "East"], a: 3, exp: "सूर्य नेहमी पूर्व (East) दिशेला उगवतो." },
-    { q: "Which of the following is a sub-direction?", o: ["North", "South-East", "West", "East"], a: 1, exp: "South-East ही उपदिशा (Sub-direction) आहे." },
-    { q: "If you are facing North, your right hand points towards the ______ direction.", o: ["East", "West", "South", "North-West"], a: 0, exp: "उत्तर दिशेला तोंड करून उभे असताना उजवा हात पूर्व (East) दिशेला असतो." },
-    { q: "The sub-direction between North and East is called ______.", o: ["South-East", "North-West", "North-East", "South-West"], a: 2, exp: "उत्तर आणि पूर्व यांच्या मधोमध 'ईशान्य' (North-East) असते." },
-    { q: "If you stand facing the setting sun, which direction is to your left?", o: ["East", "North", "South", "West"], a: 2, exp: "मावळत्या सूर्याकडे (पश्चिम) तोंड करून उभे असताना डावी बाजू दक्षिण (South) असते." },
-    { q: "Which direction is opposite to North-West?", o: ["South-East", "North-East", "South-West", "North"], a: 0, exp: "वायव्य (North-West) च्या विरुद्ध दिशा आग्नेय (South-East) असते." },
-    { q: "In a map, the top side generally represents which direction?", o: ["South", "East", "West", "North"], a: 3, exp: "नकाशात वरची बाजू ही नेहमी उत्तर (North) दिशा दर्शवते." },
-    { q: "If Rohan is facing South and turns 90 degrees to his right, which direction is he facing now?", o: ["East", "West", "North", "South-West"], a: 1, exp: "दक्षिणेला तोंड करून उजवीकडे ९० अंशात वळल्यास पश्चिम (West) दिशा येते." },
-    { q: "Which of the following pairs contains opposite directions?", o: ["North and North-East", "East and West", "South and South-East", "North and West"], a: 1, exp: "पूर्व आणि पश्चिम (East and West) या परस्परविरोधी दिशा आहेत." },
-    { q: "If a map's bottom side is South, which side is on your right hand while looking at the map?", o: ["North", "West", "East", "South-East"], a: 2, exp: "नकाशा बघताना उजवा हात पूर्व (East) दिशेकडे असतो." },
-    { q: "The sub-direction between South and West is called ______.", o: ["North-West", "South-East", "North-East", "South-West"], a: 3, exp: "दक्षिण आणि पश्चिम यांच्या मधील उपदिशा नैऋत्य (South-West) आहे." },
-    { q: "If you face North and turn 180 degrees, which direction will you face?", o: ["East", "West", "South", "North-West"], a: 2, exp: "उत्तरेकडून १८० अंश फिरल्यास थेट दक्षिण (South) दिशा येते." },
-    { q: "Rahul's house is to the North of the school and the playground is to the East of the school. In which direction is the playground from Rahul's house?", o: ["South-East", "North-East", "South-West", "North-West"], a: 0, exp: "शाळेच्या उत्तरेला घर आणि पूर्वेला मैदान असल्यामुळे घरापासून मैदान आग्नेय (South-East) दिशेला आहे." },
-    { q: "How many main directions are there on a standard compass?", o: ["Two", "Four", "Six", "Eight"], a: 1, exp: "मुख्य दिशा ४ (Four) आहेत." },
-    { q: "How many total directions (main and sub-directions combined) are there on a standard compass?", o: ["Four", "Six", "Eight", "Ten"], a: 2, exp: "मुख्य आणि उपदिशा मिळून एकूण ८ (Eight) दिशा असतात." },
-    { q: "If Priya is facing West and turns 90 degrees to her left, which direction is she facing?", o: ["North", "South", "East", "North-West"], a: 1, exp: "पश्चिमेकडे तोंड करून डावीकडे वळल्यास दक्षिण (South) दिशा येते." },
-    { q: "The sun sets in the ______ direction.", o: ["East", "North", "South", "West"], a: 3, exp: "सूर्य पश्चिम (West) दिशेला मावळतो." },
-    { q: "If you are standing facing North-East, which direction is exactly behind you?", o: ["North-West", "South-East", "South-West", "North"], a: 2, exp: "ईशान्येच्या अगदी विरुद्ध दिशा नैऋत्य (South-West) असते." },
-    { q: "On a map, if the right side is East, what is on the left side?", o: ["North", "South", "West", "South-East"], a: 2, exp: "पूर्वेच्या विरुद्ध बाजू पश्चिम (West) असते." },
-    { q: "Amit walks 5 meters towards North, then turns right and walks 5 meters. Which direction is he walking now?", o: ["South", "West", "East", "North"], a: 2, exp: "उत्तरेकडून उजवीकडे वळल्यास पूर्व (East) दिशा येते." },
-    { q: "Which direction lies between South and East?", o: ["South-West", "North-East", "South-East", "North-West"], a: 2, exp: "दक्षिण आणि पूर्व यांच्या दरम्यान आग्नेय (South-East) येते." },
-    { q: "If Sneha faces South-West and makes a complete 360-degree turn, which direction is she facing now?", o: ["North-East", "South-West", "North-West", "South-East"], a: 1, exp: "पूर्ण ३६० अंश फिरल्यास तीच दिशा (South-West) येते." },
-    { q: "A map key or legend helps us to understand ______ on a map.", o: ["Colors and symbols", "Only distances", "Only people", "Time zones"], a: 0, exp: "नकाशाची सूची (Key/Legend) रंगांची चिन्हे समजण्यास मदत करते." },
-    { q: "If you walk towards the rising sun in the morning, which direction is to your right?", o: ["North", "South", "West", "North-East"], a: 1, exp: "सकाळी उगवत्या सूर्याकडे (पूर्व) चालताना उजवी बाजू दक्षिण (South) असते." },
-    { q: "Which of the following is NOT a main direction?", o: ["North", "East", "North-East", "West"], a: 2, exp: "North-East ही उपदिशा आहे, मुख्य दिशा नाही." },
-    { q: "If you are facing East and turn 90 degrees to your left, which direction will you face?", o: ["South", "North", "West", "South-East"], a: 1, exp: "पूर्वेकडून डावीकडे ९० अंश फिरल्यास उत्तर (North) दिशा येते." },
-    { q: "The direction exactly between North and West is called ______.", o: ["North-East", "South-West", "South-East", "North-West"], a: 3, exp: "उत्तर आणि पश्चिम यांच्या मधील उपदिशा वायव्य (North-West) आहे." },
-    { q: "In a map, the bottom part of the map usually shows the ______ direction.", o: ["North", "South", "East", "West"], a: 1, exp: "नकाशाच्या खालच्या बाजूला दक्षिण (South) दिशा असते." },
-    { q: "If a post office is to the West of a railway station, in which direction is the railway station from the post office?", o: ["East", "West", "North", "South"], a: 0, exp: "रेल्वे स्थानक हे पोस्ट ऑफिसच्या पूर्व (East) दिशेला आहे." },
-    { q: "Which of the following sub-directions is opposite to North-East?", o: ["North-West", "South-East", "South-West", "South"], a: 2, exp: "ईशान्येच्या विरुद्ध दिशा नैऋत्य (South-West) आहे." },
-    { q: "If a clock's hour hand points towards North at 12 o'clock, where does it point at 6 o'clock?", o: ["East", "West", "South", "North"], a: 2, exp: "६ वाजता काटा दक्षिण (South) दिशेला असेल." },
-    { q: "Kiran starts from point A and walks 4 km East, then turns right and walks 3 km. In which direction is Kiran moving during the second part of the walk?", o: ["North", "South", "East", "West"], a: 1, exp: "पूर्वेकडून उजवीकडे वळल्यास दक्षिण (South) दिशा येते." },
-    { q: "Which instrument is used by sailors and travelers to find directions?", o: ["Thermometer", "Barometer", "Compass", "Speedometer"], a: 2, exp: "दिशा शोधण्यासाठी होकायंत्र (Compass) वापरतात." },
-    { q: "If you stand facing South, your left hand points towards which direction?", o: ["East", "West", "North", "South-East"], a: 0, exp: "दक्षिणेकडे तोंड करून उभे असताना डावा हात पूर्व (East) दिशेला असतो." },
-    { q: "Which of the following pairs of directions are at right angles (90 degrees) to each other?", o: ["North and South", "East and West", "North and East", "North-West and South-East"], a: 2, exp: "उत्तर आणि पूर्व (North and East) यांच्यात ९० अंशाचा काटकोन असतो." },
-    { q: "If the direction behind you is West, what direction are you facing?", o: ["North", "South", "East", "West"], a: 2, exp: "मागे पश्चिम असल्यास समोर पूर्व (East) दिशा असते." },
-    { q: "In map reading, the conventional sign for a temple or hospital is usually explained in the ______.", o: ["Scale", "Title", "Key / Legend", "Compass"], a: 2, exp: "चिन्हांचे अर्थ सूचीमध्ये (Key / Legend) दिले जातात." },
-    { q: "If you start from the center and move towards the top-left corner of a map, which direction are you moving?", o: ["North-East", "North-West", "South-East", "South-West"], a: 1, exp: "वरचा डावा कोपरा म्हणजे वायव्य (North-West) होय." },
-    { q: "Which direction is opposite to West?", o: ["North", "South", "East", "North-West"], a: 2, exp: "पश्चिमेच्या विरुद्ध पूर्व (East) दिशा असते." },
-    { q: "A park is situated to the South of a school. A library is situated to the West of the park. In which direction is the library from the school?", o: ["South-West", "North-West", "South-East", "North-East"], a: 0, exp: "शाळेपासून ग्रंथालय नैऋत्य (South-West) दिशेला आहे." },
-    { q: "If you turn 45 degrees clockwise from North, which direction do you face?", o: ["North-East", "North-West", "South-East", "South-West"], a: 0, exp: "उत्तरेवरून घड्याळाच्या दिशेने ४५ अंश फिरल्यास ईशान्य (North-East) येते." },
-    { q: "Which of the following is a pair of complementary sub-directions that form a straight line?", o: ["North-East and North-West", "North-East and South-West", "South-East and South-West", "North-East and South-East"], a: 1, exp: "ईशान्य आणि नैऋत्य (North-East and South-West) सरळ रेषा तयार करतात." },
-    { q: "If you face South-East and turn 180 degrees, which direction do you face?", o: ["North-East", "North-West", "South-West", "South-East"], a: 1, exp: "आग्नेयेकडून १८० अंश फिरल्यास वायव्य (North-West) दिशा येते." },
-    { q: "Which direction is to the immediate right of South?", o: ["West", "East", "North", "South-West"], a: 0, exp: "दक्षिणेच्या लगेच उजवीकडे पश्चिम (West) दिशा येते." },
-    { q: "If a map shows a river flowing from North to South, in which direction is the water moving relative to a bridge located on it?", o: ["Towards South", "Towards North", "Towards East", "Towards West"], a: 0, exp: "पाणी उत्तर ते दक्षिण वाहत असल्याने ते दक्षिणेकडे (Towards South) जात आहे." },
-    { q: "If you are facing North-West and turn 90 degrees clockwise, which direction do you face?", o: ["North-East", "South-East", "South-West", "North"], a: 0, exp: "वायव्येकडून ९० अंश फिरल्यास ईशान्य (North-East) येते." },
-    { q: "Which of these is NOT a sub-direction?", o: ["North-East", "South-West", "North-West", "North-South"], a: 3, exp: "North-South अशी कोणतीही उपदिशा अस्तित्वात नाही." },
-    { q: "On a standard map, if you travel from the bottom-right corner towards the top-left corner, which general directions are you covering?", o: ["North and West", "South and East", "North and East", "South and West"], a: 0, exp: "तळ-उजवीकडून वर-डावीकडे जाताना उत्तर आणि पश्चिम (North and West) प्रवास होतो." },
-    { q: "If today at noon your shadow falls towards the North, where is the sun?", o: ["North", "South", "East", "West"], a: 1, exp: "दुपारी सावली उत्तरेकडे पडत असल्यास सूर्य दक्षिण (South) दिशेला असतो." }
+<script>
+const questions = [
+    { q: "Q1. Which direction is opposite to the South?", options: ["East", "West", "North", "North-East"], ans: 2, exp: "दक्षिण (South) दिशेच्या विरुद्ध दिशा उत्तर (North) असते." },
+    { q: "Q2. The sun rises in the ______ direction.", options: ["West", "North", "South", "East"], ans: 3, exp: "सूर्य नेहमी पूर्व (East) दिशेला उगवतो." },
+    { q: "Q3. Which of the following is a sub-direction?", options: ["North", "South-East", "West", "East"], ans: 1, exp: "दक्षिण-पूर्व (South-East) ही मुख्य दिशांमधील उपदिशा (Sub-direction) आहे." },
+    { q: "Q4. If you are facing North, your right hand points towards the ______ direction.", options: ["East", "West", "South", "North-West"], ans: 0, exp: "जर तुम्ही उत्तर दिशेला तोंड करून उभे असाल, तर तुमचा उजवा हात पूर्व (East) दिशेला दाखवतो." },
+    { q: "Q5. The sub-direction between North and East is called ______.", options: ["South-East", "North-West", "North-East", "South-West"], ans: 2, exp: "उत्तर आणि पूर्व यांच्यामधली उपदिशा ईशान्य (North-East) असते." },
+    { q: "Q6. If you stand facing the setting sun, which direction is to your left?", options: ["East", "North", "South", "West"], ans: 2, exp: "मावळत्या सूर्याकडे (पश्चिम) तोंड करून उभे असताना डाव्या हाताची दिशा दक्षिण (South) असते." },
+    { q: "Q7. Which direction is opposite to North-West?", options: ["South-East", "North-East", "South-West", "North"], ans: 0, exp: "वायव्य (North-West) दिशेच्या विरुद्ध दिशा आग्नेय (South-East) असते." },
+    { q: "Q8. In a map, the top side generally represents which direction?", options: ["South", "East", "West", "North"], ans: 3, exp: "नकाशात वरची बाजू ही नेहमी उत्तर (North) दिशा दर्शवते." },
+    { q: "Q9. If Rohan is facing South and turns 90 degrees to his right, which direction is he facing now?", options: ["East", "West", "North", "South-West"], ans: 1, exp: "दक्षिणेकडे तोंड करून उजवीकडे ९० अंशात वळल्यास पश्चिम (West) दिशा येते." },
+    { q: "Q10. Which of the following pairs contains opposite directions?", options: ["North and North-East", "East and West", "South and South-East", "North and West"], ans: 1, exp: "पूर्व आणि पश्चिम (East and West) या एकमेकांच्या विरुद्ध दिशा आहेत." },
+    { q: "Q11. If a map's bottom side is South, which side is on your right hand while looking at the map?", options: ["North", "West", "East", "South-East"], ans: 2, exp: "नकाशासमोर उभे राहून खालची बाजू दक्षिण असताना उजवा हात पूर्व (East) दिशेला असतो." },
+    { q: "Q12. The sub-direction between South and West is called ______.", options: ["North-West", "South-East", "North-East", "South-West"], ans: 3, exp: "दक्षिण आणि पश्चिम यांच्यामधील उपदिशा नैऋत्य (South-West) असते." },
+    { q: "Q13. If you face North and turn 180 degrees, which direction will you face?", options: ["East", "West", "South", "North-West"], ans: 2, exp: "उत्तर दिशेकडून १८० अंश (विरुद्ध दिशेला) फिरल्यास दक्षिण (South) दिशा येते." },
+    { q: "Q14. Rahul's house is to the North of the school and the playground is to the East of the school. In which direction is the playground from Rahul's house?", options: ["South-East", "North-East", "South-West", "North-West"], ans: 0, exp: "शाळेच्या उत्तरेला घर आणि पूर्वेला मैदान असल्यामुळे घरापासून मैदान आग्नेय (South-East) दिशेला होईल." },
+    { q: "Q15. How many main directions are there on a standard compass?", options: ["Two", "Four", "Six", "Eight"], ans: 1, exp: "स्टँडर्ड कंपासवर एकूण ४ मुख्य दिशा (East, West, North, South) असतात." },
+    { q: "Q16. How many total directions (main and sub-directions combined) are there on a standard compass?", options: ["Four", "Six", "Eight", "Ten"], ans: 2, exp: "मुख्य आणि उपदिशा मिळून कंपासवर एकूण ८ दिशा असतात." },
+    { q: "Q17. If Priya is facing West and turns 90 degrees to her left, which direction is she facing?", options: ["North", "South", "East", "North-West"], ans: 1, exp: "पश्चिमेकडे तोंड करून डावीकडे ९० अंश फिरल्यास दक्षिण (South) दिशा मिळते." },
+    { q: "Q18. The sun sets in the ______ direction.", options: ["East", "North", "South", "West"], ans: 3, exp: "सूर्य पश्चिम (West) दिशेला मावळतो." },
+    { q: "Q19. If you are standing facing North-East, which direction is exactly behind you?", options: ["North-West", "South-East", "South-West", "North"], ans: 2, exp: "ईशान्येच्या (North-East) बरोबर विरुद्ध बाजू नैऋत्य (South-West) असते." },
+    { q: "Q20. On a map, if the right side is East, what is on the left side?", options: ["North", "South", "West", "South-East"], ans: 2, exp: "नकाशाच्या उजवीकडे पूर्व असल्यास डावीकडे पश्चिम (West) असते." },
+    { q: "Q21. Amit walks 5 meters towards North, then turns right and walks 5 meters. Which direction is he walking now?", options: ["South", "West", "East", "North"], ans: 2, exp: "उत्तराकडे चालून उजवीकडे वळल्यास पूर्व (East) दिशा येते." },
+    { q: "Q22. Which direction lies between South and East?", options: ["South-West", "North-East", "South-East", "North-West"], ans: 2, exp: "दक्षिण आणि पूर्व यांच्या दरम्यान आग्नेय (South-East) दिशा येते." },
+    { q: "Q23. If Sneha faces South-West and makes a complete 360-degree turn, which direction is she facing now?", options: ["North-East", "South-West", "North-West", "South-East"], ans: 1, exp: "३६0 अंश पूर्ण फिरल्यास व्यक्ती पुन्हा त्याच मूळ दिशेला (South-West) येते." },
+    { q: "Q24. A map key or legend helps us to understand ______ on a map.", options: ["Colors and symbols", "Only distances", "Only people", "Time zones"], ans: 0, exp: "नकाशाची सूची (Key/Legend) आपल्याला रंगांचे व चिन्हांचे (Colors and symbols) अर्थ समजून घेण्यास मदत करते." },
+    { q: "Q25. If you walk towards the rising sun in the morning, which direction is to your right?", options: ["North", "South", "West", "North-East"], ans: 1, exp: "पूर्वेकडे (उगवत्या सूर्याकडे) चालताना उजवा हात दक्षिण (South) दिशेला असतो." },
+    { q: "Q26. Which of the following is NOT a main direction?", options: ["North", "East", "North-East", "West"], ans: 2, exp: "ईशान्य (North-East) ही उपदिशा आहे, मुख्य दिशा नाही." },
+    { q: "Q27. If you are facing East and turn 90 degrees to your left, which direction will you face?", options: ["South", "North", "West", "South-East"], ans: 1, exp: "पूर्वेकडे तोंड करून डावीकडे ९० अंश फिरल्यास उत्तर (North) दिशा येते." },
+    { q: "Q28. The direction exactly between North and West is called ______.", options: ["North-East", "South-West", "South-East", "North-West"], ans: 3, exp: "उत्तर आणि पश्चिम यांच्यामधील उपदिशा वायव्य (North-West) असते." },
+    { q: "Q29. In a map, the bottom part of the map usually shows the ______ direction.", options: ["North", "South", "East", "West"], ans: 1, exp: "नकाशाच्या खालच्या भागात दक्षिण (South) दिशा दर्शवली जाते." },
+    { q: "Q30. If a post office is to the West of a railway station, in which direction is the railway station from the post office?", options: ["East", "West", "North", "South"], ans: 0, exp: "पोस्ट ऑफिस जर रेल्वे स्टेशनच्या पश्चिमेला असेल, तर रेल्वे स्टेशन पोस्ट ऑफिसच्या पूर्वेकडे (East) असेल." },
+    { q: "Q31. Which of the following sub-directions is opposite to North-East?", options: ["North-West", "South-East", "South-West", "South"], ans: 2, exp: "ईशान्येच्या (North-East) विरुद्ध उपदिशा नैऋत्य (South-West) आहे." },
+    { q: "Q32. If a clock's hour hand points towards North at 12 o'clock, where does it point at 6 o'clock?", options: ["East", "West", "South", "North"], ans: 2, exp: "१२ वाजता काटा उत्तरेकडे असल्यास ६ वाजता तो दक्षिण (South) दिशेकडे जाईल." },
+    { q: "Q33. Kiran starts from point A and walks 4 km East, then turns right and walks 3 km. In which direction is Kiran moving during the second part of the walk?", options: ["North", "South", "East", "West"], ans: 1, exp: "पूर्वेकडून उजवीकडे वळल्यास दक्षिण (South) दिशा येते." },
+    { q: "Q34. Which instrument is used by sailors and travelers to find directions?", options: ["Thermometer", "Barometer", "Compass", "Speedometer"], ans: 2, exp: "दिशा शोधण्यासाठी हुशार प्रवासी व खलाशी होकायंत्र (Compass) वापरतात." },
+    { q: "Q35. If you stand facing South, your left hand points towards which direction?", options: ["East", "West", "North", "South-East"], ans: 0, exp: "दक्षिणेकडे तोंड करून उभे असताना डावा हात पूर्व (East) दिशेला असतो." },
+    { q: "Q36. Which of the following pairs of directions are at right angles (90 degrees) to each other?", options: ["North and South", "East and West", "North and East", "North-West and South-East"], ans: 2, exp: "उत्तर आणि पूर्व (North and East) या दिशा एकमेकांशी काटकोनात (९० अंशावर) असतात." },
+    { q: "Q37. If the direction behind you is West, what direction are you facing?", options: ["North", "South", "East", "West"], ans: 2, exp: "मागे पश्चिम असल्यास तुमचे तोंड पूर्व (East) दिशेला आहे." },
+    { q: "Q38. In map reading, the conventional sign for a temple or hospital is usually explained in the ______.", options: ["Scale", "Title", "Key / Legend", "Compass"], ans: 2, exp: "नकाशातील चिन्हांचे स्पष्टीकरण सूचीमध्ये (Key / Legend) दिले जाते." },
+    { q: "Q39. If you start from the center and move towards the top-left corner of a map, which direction are you moving?", options: ["North-East", "North-West", "South-East", "South-West"], ans: 1, exp: "नकाशाच्या वरच्या डाव्या कोपऱ्यात जाणे म्हणजेच वायव्य (North-West) दिशेकडे जाणे होय." },
+    { q: "Q40. Which direction is opposite to West?", options: ["North", "South", "East", "North-West"], ans: 2, exp: "पश्चिमेच्या विरुद्ध दिशा पूर्व (East) आहे." },
+    { q: "Q41. A park is situated to the South of a school. A library is situated to the West of the park. In which direction is the library from the school?", options: ["South-West", "North-West", "South-East", "North-East"], ans: 0, exp: "शाळेच्या दक्षिण आणि नंतर पश्चिम दिशेला म्हणजेच नैऋत्येस (South-West) लायब्ररी येईल." },
+    { q: "Q42. If you turn 45 degrees clockwise from North, which direction do you face?", options: ["North-East", "North-West", "South-East", "South-West"], ans: 0, exp: "उत्तरेवरून ४५ अंश घड्याळाच्या दिशेने फिरल्यास ईशान्य (North-East) दिशा मिळते." },
+    { q: "Q43. Which of the following is a pair of complementary sub-directions that form a straight line?", options: ["North-East and North-West", "North-East and South-West", "South-East and South-West", "North-East and South-East"], ans: 1, exp: "ईशान्य आणि नैऋत्य (North-East and South-West) या परस्परविरुद्ध सरळ रेषेतील उपदिशा आहेत." },
+    { q: "Q44. If you face South-East and turn 180 degrees, which direction do you face?", options: ["North-East", "North-West", "South-West", "South-East"], ans: 1, exp: "आग्नेय दिशेकडून १८० अंश फिरल्यास वायव्य (North-West) दिशा येते." },
+    { q: "Q45. Which direction is to the immediate right of South?", options: ["West", "East", "North", "South-West"], ans: 0, exp: "दक्षिणेच्या लगेच उजव्या हाताला पश्चिम (West) दिशा येते." },
+    { q: "Q46. If a map shows a river flowing from North to South, in which direction is the water moving relative to a bridge located on it?", options: ["Towards South", "Towards North", "Towards East", "Towards West"], ans: 0, exp: "नदी उत्तरेकडून दक्षिणेकडे वाहत असल्यास पाण्याचा प्रवाह दक्षिणेकडे (Towards South) असतो." },
+    { q: "Q47. If you are facing North-West and turn 90 degrees clockwise, which direction do you face?", options: ["North-East", "South-East", "South-West", "North"], ans: 0, exp: "वायव्येकडून ९० अंश घड्याळाच्या दिशेने फिरल्यास ईशान्य (North-East) दिशा येते." },
+    { q: "Q48. Which of these is NOT a sub-direction?", options: ["North-East", "South-West", "North-West", "North-South"], ans: 3, exp: "North-South ही उपदिशा नाही." },
+    { q: "Q49. On a standard map, if you travel from the bottom-right corner towards the top-left corner, which general directions are you covering?", options: ["North and West", "South and East", "North and East", "South and West"], ans: 0, exp: "तळ-उजव्या कोपऱ्यातून वरच्या डाव्या कोपऱ्यात जाताना उत्तर आणि पश्चिम (North and West) दिशा कव्हर होतात." },
+    { q: "Q50. If today at noon your shadow falls towards the North, where is the sun?", options: ["North", "South", "East", "West"], ans: 1, exp: "दुपारी सावली उत्तरेकडे पडत असल्यास सूर्य दक्षिण (South) दिशेला असतो." }
 ];
 
 let currentQuestion = 0;
@@ -305,133 +282,123 @@ function startExam() {
     studentName = document.getElementById("student-name").value.trim();
     studentMobile = document.getElementById("student-mobile").value.trim();
     
-    if(!studentName || !studentMobile) {
-        alert("कृपया विद्यार्थ्याचे नाव आणि मोबाईल नंबर प्रविष्ट करा!");
+    if(studentName === "" || studentMobile === "") {
+        alert("कृपया तुमचे नाव आणि मोबाईल नंबर प्रविष्ट करा!");
         return;
     }
-    
-    document.getElementById("start-screen").style.display = "none";
-    document.getElementById("quiz-container").style.display = "block";
-    renderQuestions();
-    showQuestion(0);
-}
 
-function renderQuestions() {
-    const container = document.getElementById("questions-list");
-    let html = "";
+    document.getElementById("student-display").innerText = "विद्यार्थी: " + studentName;
+    document.getElementById("screen-register").classList.remove("active");
+    document.getElementById("screen-quiz").classList.add("active");
+    loadQuestion();
+}
+            function loadQuestion() {
+    if(currentQuestion >= questions.length) {
+        showResult();
+        return;
+    }
+
+    let qData = questions[currentQuestion];
+    document.getElementById("current-q-num").innerText = currentQuestion + 1;
     
-    questionsData.forEach((q, index) => {
-        html += `
-            <div class="question-card" id="q-card-${index}">
-                <div class="q-text">प्रश्न ${index + 1}: ${q.q}</div>
-                <div class="options-container">
-                    ${q.o.map((opt, optIndex) => `
-                        <button class="option-btn" id="opt-${index}-${optIndex}" onclick="selectOption(${index},${optIndex})">
-                            (${optIndex + 1})${opt}
-                        </button>
-                    `).join('')}
-                </div>
-                <div class="explanation" id="exp-${index}">
-                    <strong>स्पष्टीकरण:</strong> ${q.exp}
-                </div>
-                <div class="nav-btn-container">
-                    ${index > 0 ? `<button class="btn next-btn" onclick="showQuestion(${index - 1})">मागील</button>` : '<div></div>'}
-                    ${index < questionsData.length - 1 ? 
-                        `<button class="btn next-btn" id="next-btn-${index}" disabled style="opacity: 0.6;" onclick="showQuestion(${index + 1})">पुढील</button>` : 
-                        `<button class="btn submit-btn" id="submit-btn" disabled style="opacity: 0.6;" onclick="submitExam()">पेपर सबमिट करा</button>`
-                    }
-                </div>
-            </div>
-        `;
+    let html = `<div class="question-box">
+                    <h3>${qData.q}</h3>
+                    <div class="options">`;
+    
+    qData.options.forEach((opt, index) => {
+        html += `<label onclick="selectOption(${index})">
+                    <input type="radio" name="q${currentQuestion}" value="${index}"> ${opt}
+                 </label>`;
     });
-    container.innerHTML = html;
+
+    html += `</div><div class="explanation" id="exp-${currentQuestion}"><strong>स्पष्टीकरण:</strong> ${qData.exp}</div></div>`;
+    
+    document.getElementById("question-container").innerHTML = html;
+    document.getElementById("next-btn").style.display = "none";
 }
 
-function showQuestion(index) {
-    document.querySelectorAll(".question-card").forEach(card => card.classList.remove("active"));
-    document.getElementById(`q-card-${index}`).classList.add("active");
-    currentQuestion = index;
-    document.getElementById("quiz-header-info").innerText = `परीक्षेचे नाव: Direction | प्रश्न: ${index + 1} / ${questionsData.length}`;
-}
-
-function selectOption(qIndex, selectedOpt) {
-    const q = questionsData[qIndex];
-    userAnswers[qIndex] = selectedOpt;
+function selectOption(selectedIdx) {
+    let qData = questions[currentQuestion];
+    userAnswers[currentQuestion] = selectedIdx;
     
-    for(let i = 0; i < 4; i++) {
-        const btn = document.getElementById(`opt-${qIndex}-${i}`);
-        btn.disabled = true;
-        if(i === q.a) {
-            btn.classList.add("correct");
-        } else if(i === selectedOpt) {
-            btn.classList.add("wrong");
-        }
-    }
+    let optionsLabels = document.querySelectorAll(".options label");
     
-    document.getElementById(`exp-${qIndex}`).style.display = "block";
-    
-    if(qIndex < questionsData.length - 1) {
-        const nextBtn = document.getElementById(`next-btn-${qIndex}`);
-        if(nextBtn) {
-            nextBtn.disabled = false;
-            nextBtn.style.opacity = "1";
-        }
-    } else {
-        const subBtn = document.getElementById("submit-btn");
-        if(subBtn) {
-            subBtn.disabled = false;
-            subBtn.style.opacity = "1";
-        }
-    }
-}
-
-function submitExam() {
-    score = 0;
-    let wrongHtml = "";
-    
-    questionsData.forEach((q, index) => {
-        let userAns = userAnswers[index];
-        if(userAns === q.a) {
-            score += 2;
-        } else {
-            let userAnsText = userAns !== undefined ? q.o[userAns] : "उत्तर दिलेले नाही";
-            let correctAnsText = q.o[q.a];
-            wrongHtml += `
-                <div style="margin-bottom: 12px; padding: 10px; background: #fff5f5; border-left: 3px solid #e53e3e; border-radius: 4px;">
-                    <strong>प्रश्न ${index + 1}:</strong> ${q.q}<br>
-                    <span style="color: #e53e3e;">तुमचे उत्तर: (${userAns !== undefined ? userAns + 1 : 'नाही'}) ${userAnsText}</span><br>
-                    <span style="color: #38a169;">योग्य उत्तर: (${q.a + 1}) ${correctAnsText}</span><br>
-                    <small style="color: #4a5568;">स्पष्टीकरण: ${q.exp}</small>
-                </div>
-            `;
+    optionsLabels.forEach((lbl, idx) => {
+        lbl.style.pointerEvents = "none"; // Disable further clicks
+        if(idx === qData.ans) {
+            lbl.style.background = "#d4efdf"; // Correct color green
+            lbl.style.borderColor = "#27ae60";
+        } else if(idx === selectedIdx) {
+            lbl.style.background = "#ffadad"; // Incorrect color red
+            lbl.style.borderColor = "#c0392b";
         }
     });
+
+    // Show explanation
+    document.getElementById(`exp-${currentQuestion}`).style.display = "block";
     
-    let totalMarks = questionsData.length * 2;
+    // Calculate marks dynamically (2 marks per question)
+    if(selectedIdx === qData.ans) {
+        score += 2;
+    }
+
+    // Show Next Button
+    document.getElementById("next-btn").style.display = "block";
+}
+
+function nextQuestion() {
+    currentQuestion++;
+    loadQuestion();
+}
+
+function showResult() {
+    document.getElementById("screen-quiz").classList.remove("active");
+    document.getElementById("screen-result").classList.add("active");
+    
+    document.getElementById("res-student-name").innerText = "विद्यार्थ्याचे नाव - " + studentName;
+    let totalMarks = questions.length * 2; // 100 marks total
     let percentage = (score / totalMarks) * 100;
     
-    document.getElementById("quiz-container").style.display = "none";
-    document.getElementById("res-name").innerText = studentName;
-    document.getElementById("res-score").innerText = `${score} / ${totalMarks} गुण (${percentage.toFixed(1)}%)`;
+    document.getElementById("res-marks").innerText = `मिळालेले गुण: ${score} / ${totalMarks} (${percentage}%)`;
     
-    let badgeText = "";
+    let performanceText = "";
     if(percentage >= 90) {
-        badgeText = "🥇 Gold Medal + Trophy (उत्कृष्ट कामगिरी!)";
+        performanceText = "🥇 कामगिरी: Gold Medal + Trophy (उत्कृष्ट कामगिरी!)";
     } else if(percentage >= 80) {
-        badgeText = "🥈 Silver Medal + Trophy (छान कामगिरी!)";
+        performanceText = "🥈 कामगिरी: Silver Medal + Trophy (छान कामगिरी!)";
     } else if(percentage >= 70) {
-        badgeText = "🥉 Bronze/Good Performance (चांगली कामगिरी!)";
+        performanceText = "🥉 कामगिरी: Bronze/Certificate (चांगली कामगिरी!)";
     } else {
-        badgeText = "💐 अभिनंदन! फुलांचा गुच्छ व 'पुढील परीक्षेसाठी शुभेच्छा'";
+        performanceText = "💐 अभिनंदन! फुलांचा गुच्छ व 'पुढील परीक्षेसाठी शुभेच्छा'";
     }
     
-    document.getElementById("res-badge").innerText = badgeText;
-    document.getElementById("wrong-questions-box").innerHTML = wrongHtml || "<p style='color: #38a169;'>अभिनंदन! तुमचे सर्व प्रश्न बरोबर आले आहेत!</p>";
-    document.getElementById("result-container").style.display = "block";
+    document.getElementById("res-performance").innerText = performanceText;
+}
+
+function showReview() {
+    document.getElementById("screen-result").classList.remove("active");
+    document.getElementById("screen-review").classList.add("active");
+    
+    let reviewHtml = "";
+    questions.forEach((qData, idx) => {
+        let userAns = userAnswers[idx];
+        if(userAns !== qData.ans) {
+            reviewHtml += `<div style="background:#fff; padding:15px; margin-bottom:15px; border-radius:8px; border-left:4px solid #e74c3c;">
+                <p><strong>${qData.q}</strong></p>
+                <p style="color: #c0392b;">तुमचे उत्तर: ${userAns !== undefined ? qData.options[userAns] : 'उत्तर दिले नाही'}</p>
+                <p style="color: #27ae60;">योग्य उत्तर: <strong>${qData.options[qData.ans]}</strong></p>
+                <p style="background: #fcf3cf; padding: 8px; border-radius: 4px;"><strong>मार्गदर्शन / स्पष्टीकरण:</strong> ${qData.exp}</p>
+            </div>`;
+        }
+    });
+
+    if(reviewHtml === "") {
+        reviewHtml = "<p style='text-align:center; color: #27ae60; font-size: 1.2em;'>अभिनंदन! तुमचे सर्व प्रश्न बरोबर आले आहेत, त्यामुळे कोणतेही चुकलेले प्रश्न नाहीत!</p>";
+    }
+
+    document.getElementById("review-container").innerHTML = reviewHtml;
 }
 </script>
-</div>
-</body>
-    </html>
 
-            
+</body>
+</html>
