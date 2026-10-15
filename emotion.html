@@ -1,0 +1,574 @@
+<!DOCTYPE html>
+<html lang="mr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Emotion Quiz - जिल्हा परिषद प्राथमिक शाळा नरसोबावाडी</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #f5f7fa, #c3cfe2);
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+        .container {
+            background: #ffffff;
+            width: 100%;
+            max-width: 650px;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+            position: relative;
+        }
+        .header-top {
+            font-size: 16px;
+            font-weight: bold;
+            color: #2c3e50;
+            text-align: center;
+            margin-bottom: 10px;
+        }
+        .creator-top-right {
+            text-align: right;
+            font-size: 12px;
+            color: #555;
+            margin-bottom: 20px;
+            line-height: 1.4;
+        }
+        .creator-top-right img {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            object-fit: cover;
+            vertical-align: middle;
+            margin-left: 5px;
+        }
+        h1 {
+            text-align: center;
+            color: #2980b9;
+            font-size: 24px;
+            margin-bottom: 25px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #34495e;
+        }
+        .form-group input {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #bdc3c7;
+            border-radius: 8px;
+            font-size: 16px;
+            box-sizing: border-box;
+            transition: border-color 0.3s;
+        }
+        .form-group input:focus {
+            border-color: #2980b9;
+            outline: none;
+        }
+        .btn {
+            background: #27ae60;
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            font-size: 18px;
+            font-weight: bold;
+            border-radius: 8px;
+            cursor: pointer;
+            width: 100%;
+            transition: background 0.3s, transform 0.1s;
+            margin-top: 15px;
+        }
+        .btn:hover {
+            background: #219653;
+        }
+        .btn:active {
+            transform: scale(0.98);
+        }
+        .btn:disabled {
+            background: #bdc3c7;
+            cursor: not-allowed;
+        }
+        .footer-note {
+            text-align: center;
+            font-size: 13px;
+            color: #666;
+            margin-top: 30px;
+            border-top: 1px solid #eee;
+            padding-top: 15px;
+        }
+        .quiz-box {
+            display: none;
+        }
+        .question-title {
+            font-size: 18px;
+            font-weight: bold;
+            color: #2c3e50;
+            margin-bottom: 20px;
+        }
+        .options-list {
+            list-style: none;
+            padding: 0;
+            margin: 0 0 20px 0;
+        }
+        .options-list li {
+            background: #f8f9fa;
+            border: 2px solid #e2e8f0;
+            padding: 12px 15px;
+            margin-bottom: 10px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: all 0.2s;
+        }
+        .options-list li:hover {
+            background: #ebf8ff;
+            border-color: #3182ce;
+        }
+        .options-list li.selected-correct {
+            background: #c6f6d5 !important;
+            border-color: #38a169 !important;
+            color: #22543d;
+            font-weight: bold;
+        }
+        .options-list li.selected-wrong {
+            background: #fed7d7 !important;
+            border-color: #e53e3e !important;
+            color: #742a2a;
+            font-weight: bold;
+        }
+        .explanation {
+            background: #fffaf0;
+            border-left: 4px solid #dd6b20;
+            padding: 12px;
+            margin-bottom: 20px;
+            font-size: 14px;
+            color: #7b341e;
+            border-radius: 0 8px 8px 0;
+            display: none;
+        }
+        .certificate-box {
+            display: none;
+            border: 5px solid #d4af37;
+            padding: 25px;
+            border-radius: 15px;
+            background: #fffdf0;
+            text-align: center;
+            position: relative;
+        }
+        .cert-header {
+            font-size: 15px;
+            font-weight: bold;
+            color: #b7791f;
+            margin-bottom: 10px;
+        }
+        .cert-score {
+            font-size: 36px;
+            font-weight: bold;
+            color: #2c3e50;
+            margin: 15px 0;
+        }
+        .cert-performance {
+            font-size: 18px;
+            font-weight: bold;
+            color: #27ae60;
+            margin-bottom: 20px;
+        }
+        .review-section {
+            text-align: left;
+            margin-top: 20px;
+            max-height: 250px;
+            overflow-y: auto;
+            border-top: 1px dashed #ccc;
+            padding-top: 15px;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <!-- Start Screen -->
+    <div id="start-screen">
+        <div class="header-top">जिल्हा परिषद प्राथमिक शाळा नरसोबावाडी संचलित</div>
+        <div class="creator-top-right">
+            संकल्पना व निर्मिती:<br>
+            <strong>श्री सचिन शिंदे सर</strong><br>
+            जि प प्रा शाळा नरसोबावाडी<br>
+            मोबाईल: 8329684470<br>
+            <img src="https://drive.google.com/uc?export=view&id=1pkldnaLRyqBtfgiQKwtbeSSfXhENzbOm" alt="Teacher Photo">
+        </div>
+        
+        <h1>ONLINE EXAM: EMOTION</h1>
+
+        <div class="form-group">
+            <label for="student-name">विद्यार्थ्याचे नाव:</label>
+            <input type="text" id="student-name" placeholder="पूर्ण नाव प्रविष्ट करा">
+        </div>
+        <div class="form-group">
+            <label for="student-mobile">मोबाईल नंबर:</label>
+            <input type="tel" id="student-mobile" placeholder="१० अंकी मोबाईल नंबर प्रविष्ट करा" maxlength="10">
+        </div>
+
+        <button class="btn" id="start-btn" onclick="startExam()">EXAM START</button>
+
+        <div class="footer-note">
+            टेस्ट निर्मिती व संकल्पना श्री सचिन शिंदे मोबाईल नंबर 8329684470
+        </div>
+    </div>
+
+    <!-- Quiz Screen -->
+    <div id="quiz-screen" class="quiz-box">
+        <div class="header-top" id="progress-indicator">प्रश्न १ / २५</div>
+        <div class="question-title" id="question-text">प्रश्न येथे येईल</div>
+        
+        <ul class="options-list" id="options-container">
+            <!-- पर्याय येथे लोड होतील -->
+        </ul>
+
+        <div class="explanation" id="explanation-box">
+            <!-- स्पष्टीकरण येथे येईल -->
+        </div>
+
+        <button class="btn" id="next-btn" onclick="nextQuestion()" disabled>पुढील प्रश्न (Next)</button>
+
+        <div class="footer-note">
+            टेस्ट निर्मिती व संकल्पना श्री सचिन शिंदे मोबाईल नंबर 8329684470
+        </div>
+    </div>
+
+    <!-- Certificate Screen -->
+    <div id="certificate-screen" class="certificate-box">
+        <div class="cert-header">🏆 जिल्हा परिषद प्राथमिक शाळा नरसोबावाडी संचलित</div>
+        <h2>गुणपत्रिका व प्रमाणपत्र</h2>
+        <p><strong>परीक्षेचे नाव:</strong> Emotion</p>
+        <p><strong>विद्यार्थ्याचे नाव:</strong> <span id="cert-name"></span></p>
+        
+        <div class="cert-score" id="cert-score-display">0 / 50</div>
+        <div class="cert-performance" id="cert-perf-display">अभिनंदन!</div>
+
+        <button class="btn" style="background: #e67e22; margin-bottom: 10px;" onclick="toggleReview()">चुकीचे प्रश्न तपासा (Review Wrong Answers)</button>
+        
+        <div class="review-section" id="review-section">
+            <!-- चुकीचे प्रश्न येथे दाखवले जातील -->
+        </div>
+
+        <div class="creator-top-right" style="margin-top: 25px; text-align: right;">
+            संकल्पना व निर्मिती:<br>
+            <strong>श्री सचिन शिंदे सर</strong><br>
+            जि प प्रा शाळा नरसोबावाडी<br>
+            मोबाईल: 8329684470<br>
+            <img src="https://drive.google.com/uc?export=view&id=1pkldnaLRyqBtfgiQKwtbeSSfXhENzbOm" alt="Teacher Photo">
+        </div>
+
+        <div class="footer-note">
+            टेस्ट निर्मिती व संकल्पना श्री सचिन शिंदे मोबाईल नंबर 8329684470
+        </div>
+    </div>
+</div>
+<script>
+    const questions = [
+        {
+            question: "Riya gets a birthday gift. How does she feel?",
+            options: ["Sad", "Happy", "Angry", "Afraid"],
+            answer: 1,
+            explanation: "वाढदिवसाची भेटवस्तू मिळाल्यानंतर रियाला आनंद होतो, म्हणून उत्तर 'Happy' (आनंदी) आहे."
+        },
+        {
+            question: "Rohit saw a big snake in the dark. How did he feel?",
+            options: ["Excited", "Proud", "Afraid", "Happy"],
+            answer: 2,
+            explanation: "अंधारात मोठा साप पाहिल्यानंतर भीती वाटते, म्हणून उत्तर 'Afraid' (घाबरलेला) आहे."
+        },
+        {
+            question: "Sneha lost her favourite new toy. How does she feel?",
+            options: ["Surprised", "Sad", "Excited", "Proud"],
+            answer: 1,
+            explanation: "आवडते नवीन खेळणे हरवल्यामुळे दुःख होते, म्हणून उत्तर 'Sad' (दुःखी) आहे."
+        },
+        {
+            question: "Aman solved a very difficult math puzzle correctly and won a prize. How does he feel?",
+            options: ["Tired", "Proud", "Bored", "Worried"],
+            answer: 1,
+            explanation: "कठीण गणित सोडवून बक्षीस मिळवल्यामुळे स्वतःचा अभिमान वाटतो, म्हणून उत्तर 'Proud' (अभिमान वाटणारा) आहे."
+        },
+        {
+            question: "Amit has an English exam tomorrow and he has not studied well. How is he feeling?",
+            options: ["Happy", "Excited", "Nervous", "Bored"],
+            answer: 2,
+            explanation: "उद्या परीक्षा आहे आणि अभ्यास झाला नसल्यास चिंता किंवा ताण जाणवतो, म्हणून उत्तर 'Nervous' (चिंताग्रस्त) आहे."
+        },
+        {
+            question: "Rahul ran continuously for two hours on the playground. How does he feel now?",
+            options: ["Excited", "Tired", "Happy", "Surprised"],
+            answer: 1,
+            explanation: "दोन तास सतत पळाल्यामुळे थकवा जाणवतो, म्हणून उत्तर 'Tired' (थकलेला) आहे."
+        },
+        {
+            question: "Pooja doesn't have anything to do during the holidays and has nothing interesting to play. How does she feel?",
+            options: ["Bored", "Proud", "Surprised", "Angry"],
+            answer: 0,
+            explanation: "करण्यासाठी काहीच काम नसताना कंटाळा येतो, म्हणून उत्तर 'Bored' (कंटाळलेला) आहे."
+        },
+        {
+            question: "Someone broke Karan's new pen without asking him. How does Karan feel?",
+            options: ["Happy", "Angry", "Excited", "Afraid"],
+            answer: 1,
+            explanation: "विचार न करता नवीन पेन मोडल्यामुळे राग येतो, म्हणून उत्तर 'Angry' (रागावलेला) आहे."
+        },
+        {
+            question: "Kiran is standing at a crossroad and doesn't know which way leads to the school. How is he feeling?",
+            options: ["Confused", "Proud", "Happy", "Tired"],
+            answer: 0,
+            explanation: "रस्त्यावर नेमकी कोणती दिशा निवडावी हे समजले नाही तर माणूस गोंधळात पडतो, म्हणून उत्तर 'Confused' (गोंधळलेला) आहे."
+        },
+        {
+            question: "Meera's father gave her a sudden surprise gift box on an ordinary day. How did Meera feel?",
+            options: ["Sad", "Tired", "Angry", "Surprised"],
+            answer: 3,
+            explanation: "अपेक्षित नसताना अचानक भेटवस्तू मिळाल्याने आश्चर्य वाटते, म्हणून उत्तर 'Surprised' (आश्चर्यचकित) आहे."
+        },
+        {
+            question: "Priya's mother is late coming home from the office in heavy rain. How does Priya feel?",
+            options: ["Worried", "Happy", "Proud", "Bored"],
+            answer: 0,
+            explanation: "खराब पावसात आई घरी उशिरा आल्यामुळे काळजी वाटते, म्हणून उत्तर 'Worried' (काळजीत) आहे."
+        },
+        {
+            question: "Ajay is going on his first airplane ride tomorrow morning. How is he feeling?",
+            options: ["Bored", "Sad", "Tired", "Excited"],
+            answer: 3,
+            explanation: "विमानाचा पहिला प्रवास उद्या असल्याने प्रचंड उत्साह असतो, म्हणून उत्तर 'Excited' (उत्साहित) आहे."
+        },
+        {
+            question: "The teacher scolded Rohan in front of the whole class for no reason. How does Rohan feel?",
+            options: ["Happy", "Proud", "Angry", "Excited"],
+            answer: 2,
+            explanation: कारण नसताना वर्गात ओरडल्यामुळे राग येतो, म्हणून उत्तर 'Angry' (रागावलेला) आहे.
+        },
+        {
+            question: "Neha heard a strange noise outside her window in the middle of the night. How did she feel?",
+            options: ["Afraid", "Happy", "Proud", "Excited"],
+            answer: 0,
+            explanation: "मध्यरात्री खिडकीबाहेर विचित्र आवाज ऐकून भीती वाटते, म्हणून उत्तर 'Afraid' (घाबरलेला) आहे."
+        },
+        {
+            question: "Vicky stood first in the state-level drawing competition. How do his parents feel?",
+            options: ["Sad", "Proud", "Bored", "Tired"],
+            answer: 1,
+            explanation: "राज्यस्तरीय स्पर्धेत पहिला आल्यामुळे पालकांना अभिमान वाटतो, म्हणून उत्तर 'Proud' (अभिमान वाटणारा) आहे."
+        },
+        {
+            question: "Seema is reading the same old storybook for the fifth time and has nothing else to do. How does she feel?",
+            options: ["Excited", "Surprised", "Happy", "Bored"],
+            answer: 3,
+            explanation: "तीच तीच गोष्ट वारंवार वाचल्यामुळे कंटाळा येतो, म्हणून उत्तर 'Bored' (कंटाळलेला) आहे."
+        },
+        {
+            question: "Sonu worked hard all day to clean the entire house and now his legs are paining. How does he feel?",
+            options: ["Tired", "Excited", "Happy", "Proud"],
+            answer: 0,
+            explanation: "दिवसभर काम केल्यामुळे शरीराला थकवा जाणवतो, म्हणून उत्तर 'Tired' (थकलेला) आहे."
+        },
+        {
+            question: "Manoj has to give a speech on stage in front of thousands of people for the first time. How is he feeling?",
+            options: ["Nervous", "Happy", "Excited", "Bored"],
+            answer: 0,
+            explanation: "पहिल्यांदाच हजारो लोकांसमोर भाषण करताना धाकधूक किंवा ताण जाणवतो, म्हणून उत्तर 'Nervous' (चिंताग्रस्त) आहे."
+        },
+        {
+            question: "Tina found two different answers for the same science question and doesn't know which one is correct. How does she feel?",
+            options: ["Proud", "Happy", "Angry", "Confused"],
+            answer: 3,
+            explanation: "दोन वेगवेगळी उत्तरे मिळाल्यामुळे नेमके काय बरोबर आहे यात संभ्रम किंवा गोंधळ उडतो, म्हणून उत्तर 'Confused' (गोंधळलेला) आहे."
+        },
+        {
+            question: "The lights went out suddenly during a horror movie scene. How did the children feel?",
+            options: ["Happy", "Proud", "Surprised", "Excited"],
+            answer: 2,
+            explanation: "चित्रपट पाहताना अचानक वीज गेल्यामुळे आश्चर्य किंवा धक्का बसतो, म्हणून उत्तर 'Surprised' (आश्चर्यचकित) आहे."
+        },
+        {
+            question: "Kunal's pet dog is missing since morning. How does Kunal feel?",
+            options: ["Sad", "Proud", "Excited", "Happy"],
+            answer: 0,
+            explanation: "पाळीव कुत्र हरवल्यामुळे दुःख होते, म्हणून उत्तर 'Sad' (दुःखी) आहे."
+        },
+        {
+            question: "Deepak is waiting for his medical test reports from the doctor. How is he feeling?",
+            options: ["Happy", "Proud", "Worried", "Bored"],
+            answer: 2,
+            explanation: "वैद्यकीय अहवालाची वाट पाहताना मनात काळजी असते, म्हणून उत्तर 'Worried' (काळजीत) आहे."
+        },
+        {
+            question: "The kids are going to Disneyland tomorrow, and they cannot sleep because of the thrill. How are they feeling?",
+            options: ["Excited", "Sad", "Tired", "Bored"],
+            answer: 0,
+            explanation: "उद्या डिस्नेलँडला जाणार असल्याच्या आनंदाने व उत्सुकतेने झोप लागत नाही, म्हणून उत्तर 'Excited' (उत्साहित) आहे."
+        },
+        {
+            question: "A stray dog suddenly started barking loudly while walking on the street. How did little Akash feel?",
+            options: ["Happy", "Proud", "Surprised", "Afraid"],
+            answer: 3,
+            explanation: "रस्त्यावर अचानक कुत्रा भुंकू लागल्यास लहान मुले घाबरतात, म्हणून उत्तर 'Afraid' (घाबरलेला) आहे."
+        },
+        {
+            question: "Swati completed her graduation with a gold medal and her family cheered for her. How did she feel?",
+            options: ["Proud", "Sad", "Tired", "Bored"],
+            answer: 0,
+            explanation:सुवर्णपदक मिळाल्यावर कुटुंबाला व स्वतःला अभिमान वाटतो, म्हणून उत्तर 'Proud' (अभिमान वाटणारा) आहे.
+        }
+    ];
+
+    let currentQuestionIndex = 0;
+    let score = 0;
+    let studentName = "";
+    let studentMobile = "";
+    let userAnswers = [];
+
+    function startExam() {
+        const nameInput = document.getElementById('student-name').value.trim();
+        const mobileInput = document.getElementById('student-mobile').value.trim();
+
+        if (name === "" || mobileInput === "") {
+            alert("कृपया विद्यार्थ्याचे नाव आणि मोबाईल नंबर प्रविष्ट करा!");
+            return;
+        }
+
+        studentName = nameInput;
+        studentMobile = mobileInput;
+
+        document.getElementById('start-screen').style.display = 'none';
+        document.getElementById('quiz-screen').style.display = 'block';
+        loadQuestion();
+    }
+
+    function loadQuestion() {
+        const q = questions[currentQuestionIndex];
+        document.getElementById('progress-indicator').innerText = `प्रश्न ${currentQuestionIndex + 1} / ${questions.length}`;
+        document.getElementById('question-text').innerText = `प्रश्‍न ${currentQuestionIndex + 1}: ${q.question}`;
+        
+        const optionsContainer = document.getElementById('options-container');
+        optionsContainer.innerHTML = '';
+        
+        document.getElementById('explanation-box').style.display = 'none';
+        document.getElementById('next-btn').disabled = true;
+
+        q.options.forEach((opt, index) => {
+            const li = document.createElement('li');
+            li.innerText = `${String.fromCharCode(65 +యన్ = index)}) ${opt}`;
+            li.onclick = () => selectOption(index, li);
+            optionsContainer.appendChild(li);
+        });
+    }
+
+    function selectOption(selectedIndex, liElement) {
+        const q = questions[currentQuestionIndex];
+        const optionsList = document.getElementById('options-container').children;
+
+        // सर्व ऑप्शन्सचे क्लिक थांबवणे
+        for (let li of optionsList) {
+            li.onclick = null;
+            li.style.cursor = 'default';
+        }
+
+        userAnswers[currentQuestionIndex] = {
+            question: q.question,
+            selected: selectedIndex,
+            correct: q.answer,
+            options: q.options,
+            explanation: q.explanation
+        };
+
+        if (selectedIndex === q.answer) {
+            liElement.classList.add('selected-correct');
+            score += 2; // प्रत्येक प्रश्नाला 2 गुण
+        } else {
+            liElement.classList.add('selected-wrong');
+            optionsList[q.answer].classList.add('selected-correct');
+            
+            // स्पष्टीकरण दाखवणे
+            const expBox = document.getElementById('explanation-box');
+            expBox.innerHTML = `<strong>स्पष्टीकरण:</strong> ${q.explanation}`;
+            expBox.style.display = 'block';
+        }
+
+        document.getElementById('next-btn').disabled = false;
+    }
+
+    function nextQuestion() {
+        currentQuestionIndex++;
+        if (currentQuestionIndex < questions.length) {
+            loadQuestion();
+        } else {
+            showCertificate();
+        }
+    }
+
+    function showCertificate() {
+        document.getElementById('quiz-screen').style.display = 'none';
+        document.getElementById('certificate-screen').style.display = 'block';
+
+        document.getElementById('cert-name').innerText = studentName;
+        const maxScore = questions.length * 2; // एकूण गुण ५०
+        const percentage = (score / maxScore) * 100;
+
+        document.getElementById('cert-score-display').innerText = `${score} / ${maxScore} (${percentage.toFixed(0)}%)`;
+
+        let performanceText = "";
+        if (percentage >= 90) {
+            performanceText = "🥇 Gold Medal + Trophy (उत्कृष्ट कामगिरी!)";
+        } else if (percentage >= 80) {
+            performanceText = "🥈 Silver Medal + Trophy (छान कामगिरी!)";
+        } else if (percentage >= 70) {
+            performanceText = "🥉 Bronze Medal + Trophy (अशीच प्रगती करत राहा!)";
+        } else {
+            performanceText = '💐 अभिनंदन! फुलांचा गुच्छ व "पुढील परीक्षेसाठी शुभेच्छा"';
+        }
+
+        document.getElementById('cert-perf-display').innerText = performanceText;
+    }
+
+    function toggleReview() {
+        const reviewSection = document.getElementById('review-section');
+        if (reviewSection.style.display === 'block') {
+            reviewSection.style.display = 'none';
+            return;
+        }
+
+        reviewSection.style.display = 'block';
+        reviewSection.innerHTML = '<h3>चुकीच्या प्रश्नांचे विश्लेषण व मार्गदर्शन:</h3>';
+
+        let wrongCount = 0;
+        userAnswers.forEach((item, index) => {
+            if (item && item.selected !== item.correct) {
+                wrongCount++;
+                let div = document.createElement('div');
+                div.style.marginBottom = '15px';
+                div.style.padding = '10px';
+                div.style.background = '#fff5f5';
+                div.style.borderLeft = '4px solid #e53e3e';
+                div.innerHTML = `<strong>प्रश्न ${index + 1}:</strong> ${item.question}<br>
+                                 ❌ तुमचे उत्तर: <b>${item.options[item.selected]}</b><br>
+                                 ✅ योग्य उत्तर: <b>${item.options[item.correct]}</b><br>
+                                 💡 <em>स्पष्टीकरण:</em> ${item.explanation}`;
+                reviewSection.appendChild(div);
+            }
+        });
+
+        if (wrongCount === 0) {
+            reviewSection.innerHTML += '<p style="color: green; font-weight: bold;">अभिनंदन! तुमचे सर्व प्रश्न बरोबर आले आहेत, कोणतीही चूक नाही!</p>';
+        }
+    }
+</script>
+</body>
+</html>
