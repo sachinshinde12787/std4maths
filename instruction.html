@@ -1,0 +1,573 @@
+<!DOCTYPE html>
+<html lang="mr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Instruction Quiz - जिल्हा परिषद प्राथमिक शाळा नरसोबावाडी</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #f5f7fa, #c3cfe2);
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+        .container {
+            background: #ffffff;
+            width: 100%;
+            max-width: 650px;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+            position: relative;
+        }
+        .header-top {
+            font-size: 16px;
+            font-weight: bold;
+            color: #2c3e50;
+            text-align: center;
+            margin-bottom: 10px;
+        }
+        .creator-top-right {
+            text-align: right;
+            font-size: 12px;
+            color: #555;
+            margin-bottom: 20px;
+            line-height: 1.4;
+        }
+        .creator-top-right img {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            object-fit: cover;
+            vertical-align: middle;
+            margin-left: 5px;
+            border: 2px solid #2980b9;
+        }
+        h1 {
+            text-align: center;
+            color: #2980b9;
+            font-size: 24px;
+            margin-bottom: 25px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #34495e;
+        }
+        .form-group input {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #bdc3c7;
+            border-radius: 8px;
+            font-size: 16px;
+            box-sizing: border-box;
+            transition: border-color 0.3s;
+        }
+        .form-group input:focus {
+            border-color: #2980b9;
+            outline: none;
+        }
+        .btn {
+            background: #27ae60;
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            font-size: 18px;
+            font-weight: bold;
+            border-radius: 8px;
+            cursor: pointer;
+            width: 100%;
+            transition: background 0.3s, transform 0.1s;
+            margin-top: 15px;
+        }
+        .btn:hover {
+            background: #219653;
+        }
+        .btn:active {
+            transform: scale(0.98);
+        }
+        .btn:disabled {
+            background: #bdc3c7;
+            cursor: not-allowed;
+        }
+        .footer-note {
+            text-align: center;
+            font-size: 14px;
+            color: #555;
+            margin-top: 20px;
+            margin-bottom: 10px;
+            font-weight: 500;
+        }
+        .quiz-box {
+            display: none;
+        }
+        .question-title {
+            font-size: 18px;
+            font-weight: bold;
+            color: #2c3e50;
+            margin-bottom: 20px;
+        }
+        .options-list {
+            list-style: none;
+            padding: 0;
+            margin: 0 0 20px 0;
+        }
+        .options-list li {
+            background: #f8f9fa;
+            border: 2px solid #e2e8f0;
+            padding: 12px 15px;
+            margin-bottom: 10px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: all 0.2s;
+        }
+        .options-list li:hover {
+            background: #ebf8ff;
+            border-color: #3182ce;
+        }
+        .options-list li.selected-correct {
+            background: #c6f6d5 !important;
+            border-color: #38a169 !important;
+            color: #22543d;
+            font-weight: bold;
+        }
+        .options-list li.selected-wrong {
+            background: #fed7d7 !important;
+            border-color: #e53e3e !important;
+            color: #742a2a;
+            font-weight: bold;
+        }
+        .explanation {
+            background: #fffaf0;
+            border-left: 4px solid #dd6b20;
+            padding: 12px;
+            margin-bottom: 20px;
+            font-size: 14px;
+            color: #7b341e;
+            border-radius: 0 8px 8px 0;
+            display: none;
+        }
+        .certificate-box {
+            display: none;
+            border: 5px solid #d4af37;
+            padding: 25px;
+            border-radius: 15px;
+            background: #fffdf0;
+            text-align: center;
+            position: relative;
+        }
+        .cert-header {
+            font-size: 15px;
+            font-weight: bold;
+            color: #b7791f;
+            margin-bottom: 10px;
+        }
+        .cert-score {
+            font-size: 36px;
+            font-weight: bold;
+            color: #2c3e50;
+            margin: 15px 0;
+        }
+        .cert-performance {
+            font-size: 18px;
+            font-weight: bold;
+            color: #27ae60;
+            margin-bottom: 20px;
+        }
+        .review-section {
+            text-align: left;
+            margin-top: 20px;
+            max-height: 250px;
+            overflow-y: auto;
+            border-top: 1px dashed #ccc;
+            padding-top: 15px;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <!-- Start Screen -->
+    <div id="start-screen">
+        <div class="header-top">जिल्हा परिषद प्राथमिक शाळा नरसोबावाडी संचलित</div>
+        <div class="creator-top-right">
+            संकल्पना व निर्मिती:<br>
+            <strong>श्री सचिन शिंदे सर</strong><br>
+            जि प प्रा शाळा नरसोबावाडी<br>
+            मोबाईल: 8329684470<br>
+            <img src="https://lh3.googleusercontent.com/d/1pkldnaLRyqBtfgiQKwtbeSSfXhENzbOm" alt="Teacher Photo" onerror="this.src='https://via.placeholder.com/50'">
+        </div>
+        
+        <h1>ONLINE EXAM: INSTRUCTION</h1>
+
+        <div class="form-group">
+            <label for="student-name">विद्यार्थ्याचे नाव:</label>
+            <input type="text" id="student-name" placeholder="पूर्ण नाव प्रविष्ट करा">
+        </div>
+        <div class="form-group">
+            <label for="student-mobile">मोबाईल नंबर:</label>
+            <input type="tel" id="student-mobile" placeholder="१० अंकी मोबाईल नंबर प्रविष्ट करा" maxlength="10">
+        </div>
+
+        <div class="footer-note">
+            टेस्ट निर्मिती व संकल्पना श्री सचिन शिंदे मोबाईल नंबर 8329684470
+        </div>
+
+        <button class="btn" id="start-btn" onclick="startExam()">EXAM START</button>
+    </div>
+
+    <!-- Quiz Screen -->
+    <div id="quiz-screen" class="quiz-box">
+        <div class="header-top" id="progress-indicator">प्रश्न १ / २५</div>
+        <div class="question-title" id="question-text">प्रश्न येथे येईल</div>
+        
+        <ul class="options-list" id="options-container">
+            <!-- पर्याय येथे लोड होतील -->
+        </ul>
+
+        <div class="explanation" id="explanation-box">
+            <!-- स्पष्टीकरण येथे येईल -->
+        </div>
+
+        <div class="footer-note">
+            टेस्ट निर्मिती व संकल्पना श्री सचिन शिंदे मोबाईल नंबर 8329684470
+        </div>
+
+        <button class="btn" id="next-btn" onclick="nextQuestion()" disabled>पुढील प्रश्न (Next)</button>
+    </div>
+
+    <!-- Certificate Screen -->
+    <div id="certificate-screen" class="certificate-box">
+        <div class="cert-header">🏆 जिल्हा परिषद प्राथमिक शाळा नरसोबावाडी संचालित</div>
+        <h2>गुणपत्रिका व प्रमाणपत्र</h2>
+        <p><strong>परीक्षेचे नाव:</strong> Instruction</p>
+        <p><strong>विद्यार्थ्याचे नाव:</strong> <span id="cert-name"></span></p>
+        
+        <div class="cert-score" id="cert-score-display">0 / 50</div>
+        <div class="cert-performance" id="cert-perf-display">अभिनंदन!</div>
+
+        <button class="btn" style="background: #e67e22; margin-bottom: 10px;" onclick="toggleReview()">चुकीचे प्रश्न तपासा (Review Wrong Answers)</button>
+        
+        <div class="review-section" id="review-section">
+            <!-- चुकीचे प्रश्न येथे दाखवले जातील -->
+        </div>
+
+        <div class="creator-top-right" style="margin-top: 25px; text-align: right;">
+            संकल्पना व निर्मिती:<br>
+            <strong>श्री सचिन शिंदे सर</strong><br>
+            जि प प्रा शाळा नरसोबावाडी<br>
+            मोबाईल: 8329684470<br>
+            <img src="https://lh3.googleusercontent.com/d/1pkldnaLRyqBtfgiQKwtbeSSfXhENzbOm" alt="Teacher Photo" onerror="this.src='https://via.placeholder.com/50'">
+        </div>
+
+        <div class="footer-note">
+            टेस्ट निर्मिती व संकल्पना श्री सचिन शिंदे मोबाईल नंबर 8329684470
+        </div>
+    </div>
+</div>
+<script>
+    const questions = [
+        {
+            question: "During the morning assembly, the principal wants everyone to be quiet and listen carefully. What instruction will she give?",
+            options: ["Run fast in the corridor", "Keep quiet and maintain silence", "Shout loudly in the ground", "Leave the assembly hall"],
+            answer: 1,
+            explanation: "प्रार्थना सभेदरम्यान सर्वांनी शांतता राखावी यासाठी 'Keep quiet and maintain silence' ही सूचना दिली जाते."
+        },
+        {
+            question: "When students are walking in the school corridor, they might run and hurt someone. What safety instruction is given?",
+            options: ["Do not run in the corridor", "Play cricket inside the classroom", "Push your friends", "Shout while walking"],
+            answer: 0,
+            explanation: "कोरिडॉरमध्ये किंवा व्हेरंड्यात पळू नये, यामुळे दुखापत होऊ शकते, म्हणून 'Do not run in the corridor' ही सूचना दिली जाते."
+        },
+        {
+            question: "Before the written examination begins, what instruction does the teacher give regarding books and notebooks?",
+            options: ["Keep your books open on the desk", "Exchange your papers with friends", "Close your books and put them in your bags", "Write answers on the wall"],
+            answer: 2,
+            explanation: "परीक्षा सुरू होण्यापूर्वी पुस्तके बंद करून दप्तरात ठेवायची सूचना दिली जाते."
+        },
+        {
+            question: "During the physical education (PT) period on the playground, what instruction is given to line up properly?",
+            options: ["Sit down and sleep", "Stand in a straight queue/line", "Run away from the ground", "Fight with each other"],
+            answer: 1,
+            explanation: "मैदानावर शिस्त राखण्यासाठी रांगेत उभे राहण्याची ('Stand in a straight queue/line') सूचना दिली जाते."
+        },
+        {
+            question: "When the school library period starts, what is the most important instruction given to students?",
+            options: ["Play outdoor games", "Tear the pages of storybooks", "Talk loudly with friends", "Maintain silence and handle books with care"],
+            answer: 3,
+            explanation: "वाचनालयात शांतता राखणे आणि पुस्तकांची काळजीपूर्वक हाताळणी करणे ही मुख्य सूचना असते."
+        },
+        {
+            question: "During a fire drill or emergency evacuation, what instruction is given to exit the classroom?",
+            options: ["Push everyone and run fast", "Hide under the desk and stay there forever", "Leave the classroom in an orderly line quickly", "Collect your friends' bags first"],
+            answer: 2,
+            explanation: "आगीच्या किंवा आपत्कालीन प्रसंगी एकामागून एक रांगेत बाहेर पडण्याची सूचना दिली जाते."
+        },
+        {
+            question: "When a teacher enters the classroom at the beginning of a lecture, what polite instruction or routine is followed?",
+            options: ["Stand up and greet the teacher", "Sit down and ignore the teacher", "Start eating tiffin boxes", "Throw chalks at the board"],
+            answer: 0,
+            explanation: "शिक्षक वर्गात आल्यावर उभे राहून अभिवादन करण्याची सूचना किंवा शिष्टाचार पाळला जातो."
+        },
+        {
+            question: "During the mid-day meal or lunch break, what instruction is given regarding cleanliness?",
+            options: ["Throw garbage on the dining table", "Do not wash your hands", "Spill food on the floor", "Wash your hands before eating"],
+            answer: 3,
+            explanation: "जेवणापूर्वी हात स्वच्छ धुण्याची आरोग्याची सूचना दिली जाते."
+        },
+        {
+            question: "When a student wants to ask a question or answer during the class, what rule or instruction must they follow?",
+            options: ["Shout the answer without permission", "Raise your hand before speaking", "Leave the classroom immediately", "Stand outside the door"],
+            answer: 1,
+            explanation: "वर्गात शिस्त राखण्यासाठी बोलण्यापूर्वी हात वर करून परवानगी मागण्याची सूचना असते."
+        },
+        {
+            question: "When leaving the computer lab or science laboratory after practicals, what instruction is given to save electricity?",
+            options: ["Keep all fans and lights ON", "Switch off the lights and fans", "Break the computers", "Switch off all lights, fans, and lab equipment properly"],
+            answer: 3,
+            explanation: "प्रयोगशाळेतून बाहेर पडताना सर्व लाईट्स, पंखे आणि उपकरणे बंद करण्याची सूचना दिली जाते."
+        },
+        {
+            question: "If someone drops waste paper on the classroom floor, what instruction does the teacher give?",
+            options: ["Pick up the paper and put it in the dustbin", "Kick it under the bench", "Tear it into smaller pieces", "Hide it behind the door"],
+            answer: 0,
+            explanation: "वर्गाचा परिसर स्वच्छ ठेवण्यासाठी कचरा कुंडीत टाकण्याची सूचना दिली जाते."
+        },
+        {
+            question: "When the school assembly bell rings after recess, what instruction are students expected to follow?",
+            options: ["Go home immediately", "Continue playing in the ground", "Line up and return to your respective classrooms", "Sleep on the benches"],
+            answer: 2,
+            explanation: "विश्रांतीनंतर (Recess) रांगेत उभे राहून आपापल्या वर्गात परत जाण्याची सूचना दिली जाते."
+        },
+        {
+            question: "During an art and craft class, the teacher distributes paints and water bowls. What instruction is given to avoid a mess?",
+            options: ["Splash water on your classmates", "Pour water on the floor", "Paint on your uniform", "Handle water bowls carefully and keep your desk clean"],
+            answer: 3,
+            explanation: "रंगकाम करताना पाणी सांडू नये आणि बाक साफ ठेवावा अशी सूचना दिली जाते."
+        },
+        {
+            question: "When boarding the school bus for a field trip, what safety instruction does the teacher give?",
+            options: ["Put your head and hands out of the window", "Stand on the seat while the bus is moving", "Sit properly and do not put your hands out of the window", "Jump from the running bus"],
+            answer: 2,
+            explanation: "बस प्रवासात सुरक्षित राहण्यासाठी खाली बसून खिडकीतून हात बाहेर न काढण्याची सूचना दिली जाते."
+        },
+        {
+            question: "During the school sports race event, what instruction is given to participants at the starting line?",
+            options: ["Run before the whistle blows", "Listen for the whistle and start running on 'Go'", "Sit down on the track", "Walk backwards"],
+            answer: 1,
+            explanation: "धावण्याच्या स्पर्धेत शिटीचा आवाज ऐकून किंवा 'गो' वर पळण्यास सुरुवात करण्याची सूचना असते."
+        },
+        {
+            question: "When borrowing a book from the school library, what instruction is given regarding its return date?",
+            options: ["Burn the book after reading", "Keep it with you forever", "Sell it to someone else", "Return the book to the library on or before the due date"],
+            answer: 3,
+            explanation: "पुस्तके ठराविक मुदतीत परत करण्याची लायब्ररीची सूचना असते."
+        },
+        {
+            question: "If a student feels sick or gets injured during school hours, where is he instructed to go?",
+            options: ["To the playground to play football", "To the school sick room or medical room", "Outside the school gate alone", "To the rooftop"],
+            answer: 1,
+            explanation: "प्रकृती अस्वस्थ असल्यास किंवा दुखापत झाल्यास वैद्यकीय खोलीत (Sick room) जाण्याची सूचना दिली जाते."
+        },
+        {
+            question: "When writing answers in the notebook or exam paper, what instruction is given regarding handwriting?",
+            options: ["Write in very messy and untidy handwriting", "Write neatly and legibly", "Use red ink for everything", "Do not write anything at all"],
+            answer: 1,
+            explanation: "सुंदर आणि वाचनीय अक्षरात लिहिण्याची सूचना शिक्षकांकडून दिली जाते."
+        },
+        {
+            question: "During the computer lab session, what strict instruction is given regarding food and drinks?",
+            options: ["Eat snacks and drink juice on the keyboard", "Share your lunch with the computer", "Do not bring food or drinks near the computers", "Pour water on the screen"],
+            answer: 2,
+            explanation: "संगणक सुरक्षित ठेवण्यासाठी त्याच्याजवळ खाण्यापिण्याचे पदार्थ नेण्यास सक्त मनाई असते."
+        },
+        {
+            question: "When the final school bell rings for dispersal (leaving school), what instruction is given for going home?",
+            options: ["Pack your bags, form a line, and leave orderly", "Lock yourself inside the classroom", "Hide in the school garden", "Run wildly in all directions"],
+            answer: 0,
+            explanation: "शाळा सुटल्यानंतर दप्तर आवरून रांगेत शिस्तीने बाहेर पडण्याची सूचना दिली जाते."
+        },
+        {
+            question: "When a guest or visitor enters the classroom, what immediate instruction or action is expected from students?",
+            options: ["Turn your backs towards them", "Stand up to show respect and greet them", "Start shouting slogans", "Run out of the class"],
+            answer: 1,
+            explanation: "पाहुणे वर्गात आल्यास आदराखातर उभे राहून स्वागत करण्याची सूचना दिली जाते."
+        },
+        {
+            question: "During a group project activity, what instruction is given regarding teamwork?",
+            options: ["Fight with your group members", "Do not let others share their ideas", "Cooperate with each other and share the work equally", "Let only one person do all the work"],
+            answer: 2,
+            explanation: "सामूहिक प्रकल्पात सर्वानी मिळून काम करण्याची आणि सहकार्य करण्याची सूचना दिली जाते."
+        },
+        {
+            question: "When the national anthem (Jana Gana Mana) is being played or sung, what instruction must everyone follow?",
+            options: ["Keep walking around the ground", "Talk loudly with friends", "Sit down and eat", "Stand in attention position respectfully and remain silent"],
+            answer: 3,
+            explanation: "राष्ट्रगीताच्या वेळी ताठ उभे राहून आदर राखण्याची अत्यंत महत्त्वाची सूचना असते."
+        },
+        {
+            question: "If you find a lost pencil box or notebook in the school premises, what instruction should you follow?",
+            options: ["Keep it in your own bag secretly", "Throw it into the dustbin", "Break it into pieces", "Submit it to the teacher or school lost-and-found desk"],
+            answer: 3,
+            explanation: "सापडलेली हरवलेली वस्तू शिक्षकांकडे किंवा स्कूल ऑफिसमध्ये जमा करण्याची सूचना दिली जाते."
+        },
+        {
+            question: "During the rainy season, when school pathways are wet and slippery, what instruction is given to students?",
+            options: ["Run as fast as you can", "Walk carefully and do not run to avoid slipping", "Push each other into puddles", "Jump in the muddy water"],
+            answer: 1,
+            explanation: "पावसात रस्ते घसरडे झाल्यावर सावध चालण्याची आणि न पळण्याची सूचना दिली जाते."
+        }
+    ];
+
+    let currentQuestionIndex = 0;
+    let score = 0;
+    let studentName = "";
+    let studentMobile = "";
+    let userAnswers = [];
+
+    function startExam() {
+        const nameInput = document.getElementById('student-name').value.trim();
+        const mobileInput = document.getElementById('student-mobile').value.trim();
+
+        if (nameInput === "" || mobileInput === "") {
+            alert("कृपया विद्यार्थ्याचे नाव आणि मोबाईल नंबर प्रविष्ट करा!");
+            return;
+        }
+
+        studentName = nameInput;
+        studentMobile = mobileInput;
+
+        document.getElementById('start-screen').style.display = 'none';
+        document.getElementById('quiz-screen').style.display = 'block';
+        loadQuestion();
+    }
+
+    function loadQuestion() {
+        const q = questions[currentQuestionIndex];
+        document.getElementById('progress-indicator').innerText = `प्रश्न ${currentQuestionIndex + 1} / ${questions.length}`;
+        document.getElementById('question-text').innerText = `प्रश्‍न ${currentQuestionIndex + 1}: ${q.question}`;
+        
+        const optionsContainer = document.getElementById('options-container');
+        optionsContainer.innerHTML = '';
+        
+        document.getElementById('explanation-box').style.display = 'none';
+        document.getElementById('next-btn').disabled = true;
+
+        q.options.forEach((opt, index) => {
+            const li = document.createElement('li');
+            li.innerText = `${String.fromCharCode(65 + index)}) ${opt}`;
+            li.onclick = () => selectOption(index, li);
+            optionsContainer.appendChild(li);
+        });
+    }
+
+    function selectOption(selectedIndex, liElement) {
+        const q = questions[currentQuestionIndex];
+        const optionsList = document.getElementById('options-container').children;
+
+        for (let li of optionsList) {
+            li.onclick = null;
+            li.style.cursor = 'default';
+        }
+
+        userAnswers[currentQuestionIndex] = {
+            question: q.question,
+            selected: selectedIndex,
+            correct: q.answer,
+            options: q.options,
+            explanation: q.explanation
+        };
+
+        if (selectedIndex === q.answer) {
+            liElement.classList.add('selected-correct');
+            score += 2; 
+        } else {
+            liElement.classList.add('selected-wrong');
+            optionsList[q.answer].classList.add('selected-correct');
+            
+            const expBox = document.getElementById('explanation-box');
+            expBox.innerHTML = `<strong>स्पष्टीकरण:</strong> ${q.explanation}`;
+            expBox.style.display = 'block';
+        }
+
+        document.getElementById('next-btn').disabled = false;
+    }
+
+    function nextQuestion() {
+        currentQuestionIndex++;
+        if (currentQuestionIndex < questions.length) {
+            loadQuestion();
+        } else {
+            showCertificate();
+        }
+    }
+
+    function showCertificate() {
+        document.getElementById('quiz-screen').style.display = 'none';
+        document.getElementById('certificate-screen').style.display = 'block';
+
+        document.getElementById('cert-name').innerText = studentName;
+        const maxScore = questions.length * 2; 
+        const percentage = (score / maxScore) * 100;
+
+        document.getElementById('cert-score-display').innerText = `${score} / ${maxScore} (${percentage.toFixed(0)}%)`;
+
+        let performanceText = "";
+        if (percentage >= 90) {
+            performanceText = "🥇 Gold Medal + Trophy (उत्कृष्ट कामगिरी!)";
+        } else if (percentage >= 80) {
+            performanceText = "🥈 Silver Medal + Trophy (छान कामगिरी!)";
+        } else if (percentage >= 70) {
+            performanceText = "🥉 Bronze Medal + Trophy (अशीच प्रगती करत राहा!)";
+        } else {
+            performanceText = '💐 अभिनंदन! फुलांचा गुच्छ व "पुढील परीक्षेसाठी शुभेच्छा"';
+        }
+
+        document.getElementById('cert-perf-display').innerText = performanceText;
+    }
+
+    function toggleReview() {
+        const reviewSection = document.getElementById('review-section');
+        if (reviewSection.style.display === 'block') {
+            reviewSection.style.display = 'none';
+            return;
+        }
+
+        reviewSection.style.display = 'block';
+        reviewSection.innerHTML = '<h3>चुकीच्या प्रश्नांचे विश्लेषण व मार्गदर्शन:</h3>';
+
+        let wrongCount = 0;
+        userAnswers.forEach((item, index) => {
+            if (item && item.selected !== item.correct) {
+                wrongCount++;
+                let div = document.createElement('div');
+                div.style.marginBottom = '15px';
+                div.style.padding = '10px';
+                div.style.background = '#fff5f5';
+                div.style.borderLeft = '4px solid #e53e3e';
+                div.innerHTML = `<strong>प्रश्न ${index + 1}:</strong> ${item.question}<br>
+                                 ❌ तुमचे उत्तर: <b>${item.options[item.selected]}</b><br>
+                                 ✅ योग्य उत्तर: <b>${item.options[item.correct]}</b><br>
+                                 💡 <em>स्पष्टीकरण:</em> ${item.explanation}`;
+                reviewSection.appendChild(div);
+            }
+        });
+
+        if (wrongCount === 0) {
+            reviewSection.innerHTML += '<p style="color: green; font-weight: bold;">अभिनंदन! तुमचे सर्व प्रश्न बरोबर आले आहेत, कोणतीही चूक नाही!</p>';
+        }
+    }
+</script>
+</body>
+</html>
