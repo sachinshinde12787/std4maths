@@ -1,0 +1,724 @@
+<!DOCTYPE html>
+<html lang="mr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Greetings Quiz - जिल्हा परिषद प्राथमिक शाळा नरसोबावाडी</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #f5f7fa, #c3cfe2);
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+        .container {
+            background: #ffffff;
+            width: 100%;
+            max-width: 650px;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+            position: relative;
+        }
+        .header-top {
+            font-size: 16px;
+            font-weight: bold;
+            color: #2c3e50;
+            text-align: center;
+            margin-bottom: 10px;
+        }
+        .creator-top-right {
+            text-align: right;
+            font-size: 12px;
+            color: #555;
+            margin-bottom: 20px;
+            line-height: 1.4;
+        }
+        .creator-top-right img {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            object-fit: cover;
+            vertical-align: middle;
+            margin-left: 5px;
+            border: 2px solid #2980b9;
+        }
+        h1 {
+            text-align: center;
+            color: #2980b9;
+            font-size: 24px;
+            margin-bottom: 25px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #34495e;
+        }
+        .form-group input {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #bdc3c7;
+            border-radius: 8px;
+            font-size: 16px;
+            box-sizing: border-box;
+            transition: border-color 0.3s;
+        }
+        .form-group input:focus {
+            border-color: #2980b9;
+            outline: none;
+        }
+        .btn {
+            background: #27ae60;
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            font-size: 18px;
+            font-weight: bold;
+            border-radius: 8px;
+            cursor: pointer;
+            width: 100%;
+            transition: background 0.3s, transform 0.1s;
+            margin-top: 15px;
+        }
+        .btn:hover {
+            background: #219653;
+        }
+        .btn:active {
+            transform: scale(0.98);
+        }
+        .btn:disabled {
+            background: #bdc3c7;
+            cursor: not-allowed;
+        }
+        .footer-note {
+            text-align: center;
+            font-size: 14px;
+            color: #555;
+            margin-top: 20px;
+            margin-bottom: 10px;
+            font-weight: 500;
+        }
+        .quiz-box {
+            display: none;
+        }
+        .question-title {
+            font-size: 18px;
+            font-weight: bold;
+            color: #2c3e50;
+            margin-bottom: 20px;
+        }
+        .options-list {
+            list-style: none;
+            padding: 0;
+            margin: 0 0 20px 0;
+        }
+        .options-list li {
+            background: #f8f9fa;
+            border: 2px solid #e2e8f0;
+            padding: 12px 15px;
+            margin-bottom: 10px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: all 0.2s;
+        }
+        .options-list li:hover {
+            background: #ebf8ff;
+            border-color: #3182ce;
+        }
+        .options-list li.selected-correct {
+            background: #c6f6d5 !important;
+            border-color: #38a169 !important;
+            color: #22543d;
+            font-weight: bold;
+        }
+        .options-list li.selected-wrong {
+            background: #fed7d7 !important;
+            border-color: #e53e3e !important;
+            color: #742a2a;
+            font-weight: bold;
+        }
+        .explanation {
+            background: #fffaf0;
+            border-left: 4px solid #dd6b20;
+            padding: 12px;
+            margin-bottom: 20px;
+            font-size: 14px;
+            color: #7b341e;
+            border-radius: 0 8px 8px 0;
+            display: none;
+        }
+        .certificate-box {
+            display: none;
+            border: 5px solid #d4af37;
+            padding: 25px;
+            border-radius: 15px;
+            background: #fffdf0;
+            text-align: center;
+            position: relative;
+        }
+        .cert-header {
+            font-size: 15px;
+            font-weight: bold;
+            color: #b7791f;
+            margin-bottom: 10px;
+        }
+        .cert-score {
+            font-size: 36px;
+            font-weight: bold;
+            color: #2c3e50;
+            margin: 15px 0;
+        }
+        .cert-performance {
+            font-size: 18px;
+            font-weight: bold;
+            color: #27ae60;
+            margin-bottom: 20px;
+        }
+        .review-section {
+            text-align: left;
+            margin-top: 20px;
+            max-height: 250px;
+            overflow-y: auto;
+            border-top: 1px dashed #ccc;
+            padding-top: 15px;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <!-- Start Screen -->
+    <div id="start-screen">
+        <div class="header-top">जिल्हा परिषद प्राथमिक शाळा नरसोबावाडी संचलित</div>
+        <div class="creator-top-right">
+            संकल्पना व निर्मिती:<br>
+            <strong>श्री सचिन शिंदे सर</strong><br>
+            जि प प्रा शाळा नरसोबावाडी<br>
+            मोबाईल: 8329684470<br>
+            <img src="https://lh3.googleusercontent.com/d/1pkldnaLRyqBtfgiQKwtbeSSfXhENzbOm" alt="Teacher Photo" onerror="this.src='https://via.placeholder.com/50'">
+        </div>
+        
+        <h1>ONLINE EXAM: GREETINGS</h1>
+
+        <div class="form-group">
+            <label for="student-name">विद्यार्थ्याचे नाव:</label>
+            <input type="text" id="student-name" placeholder="पूर्ण नाव प्रविष्ट करा">
+        </div>
+        <div class="form-group">
+            <label for="student-mobile">मोबाईल नंबर:</label>
+            <input type="tel" id="student-mobile" placeholder="१० अंकी मोबाईल नंबर प्रविष्ट करा" maxlength="10">
+        </div>
+
+        <div class="footer-note">
+            टेस्ट निर्मिती व संकल्पना श्री सचिन शिंदे मोबाईल नंबर 8329684470
+        </div>
+
+        <button class="btn" id="start-btn" onclick="startExam()">EXAM START</button>
+    </div>
+
+    <!-- Quiz Screen -->
+    <div id="quiz-screen" class="quiz-box">
+        <div class="header-top" id="progress-indicator">प्रश्न १ / ५०</div>
+        <div class="question-title" id="question-text">प्रश्न येथे येईल</div>
+        
+        <ul class="options-list" id="options-container">
+            <!-- पर्याय येथे लोड होतील -->
+        </ul>
+
+        <div class="explanation" id="explanation-box">
+            <!-- स्पष्टीकरण येथे येईल -->
+        </div>
+
+        <div class="footer-note">
+            टेस्ट निर्मिती व संकल्पना श्री सचिन शिंदे मोबाईल नंबर 8329684470
+        </div>
+
+        <button class="btn" id="next-btn" onclick="nextQuestion()" disabled>पुढील प्रश्न (Next)</button>
+    </div>
+
+    <!-- Certificate Screen -->
+    <div id="certificate-screen" class="certificate-box">
+        <div class="cert-header">🏆 जिल्हा परिषद प्राथमिक शाळा नरसोबावाडी संचालित</div>
+        <h2>गुणपत्रिका व प्रमाणपत्र</h2>
+        <p><strong>परीक्षेचे नाव:</strong> Greetings</p>
+        <p><strong>विद्यार्थ्याचे नाव:</strong> <span id="cert-name"></span></p>
+        
+        <div class="cert-score" id="cert-score-display">0 / 100</div>
+        <div class="cert-performance" id="cert-perf-display">अभिनंदन!</div>
+
+        <button class="btn" style="background: #e67e22; margin-bottom: 10px;" onclick="toggleReview()">चुकीचे प्रश्न तपासा (Review Wrong Answers)</button>
+        
+        <div class="review-section" id="review-section">
+            <!-- चुकीचे प्रश्न येथे दाखवले जातील -->
+        </div>
+
+        <div class="creator-top-right" style="margin-top: 25px; text-align: right;">
+            संकल्पना व निर्मिती:<br>
+            <strong>श्री सचिन शिंदे सर</strong><br>
+            जि प प्रा शाळा नरसोबावाडी<br>
+            मोबाईल: 8329684470<br>
+            <img src="https://lh3.googleusercontent.com/d/1pkldnaLRyqBtfgiQKwtbeSSfXhENzbOm" alt="Teacher Photo" onerror="this.src='https://via.placeholder.com/50'">
+        </div>
+
+        <div class="footer-note">
+            टेस्ट निर्मिती व संकल्पना श्री सचिन शिंदे मोबाईल नंबर 8329684470
+        </div>
+    </div>
+</div>
+<script>
+    const questions = [
+        {
+            question: "When will you say 'Good afternoon'?",
+            options: ["When you go to bed.", "When you meet someone in the noon.", "When you wake up in the morning.", "When you meet your friend in the evening."],
+            answer: 1,
+            explanation: "दुपारी १२ नंतर भेटल्यावर 'Good afternoon' म्हटले जाते."
+        },
+        {
+            question: "What would you say when you meet your sick friend?",
+            options: ["Thank you", "Hurry", "Best of luck", "Get well soon"],
+            answer: 3,
+            explanation: "आजारी मित्राला किंवा मैत्रिणीला लवकर बरे वाटावे म्हणून 'Get well soon' म्हणतात."
+        },
+        {
+            question: "Rohit won the first prize in chess competition.",
+            options: ["Welcome!", "Happy Birthday!", "Get well soon!", "Congratulations!"],
+            answer: 3,
+            explanation: "बुद्धिबळ स्पर्धेत पहिले पारितोषिक मिळाल्याबद्दल 'Congratulations!' (अभिनंदन) म्हणतात."
+        },
+        {
+            question: "How would students greet their teacher on Teacher's Day?",
+            options: ["Happy Birthday", "Happy Teacher's Day", "Happy Diwali", "Best of luck"],
+            answer: 1,
+            explanation: "शिक्षकदिनी शिक्षकांना 'Happy Teacher's Day' म्हणून अभिवादन करतात."
+        },
+        {
+            question: "Choose the correct option : 'Happy New Year!' This greeting is about ..........",
+            options: ["wedding", "birthday", "new year", "exam"],
+            answer: 2,
+            explanation: "'Happy New Year!' हे नवीन वर्षाच्या स्वागतासाठी असते."
+        },
+        {
+            question: "Select the incorrect pair.",
+            options: ["Morning - Good morning", "Evening - Good evening", "Lunch - Good afternoon", "Night - Good morning"],
+            answer: 3,
+            explanation: "रात्रीच्या वेळी 'Good morning' म्हटले जात नाही, म्हणून ही जोडी चुकीची आहे."
+        },
+        {
+            question: "Odd one out.",
+            options: ["Please come here", "Happy birthday", "Happy Republic Day", "Good morning"],
+            answer: 0,
+            explanation: "इतर सर्व वाक्ये किंवा सण-उत्सव अभिवादने आहेत, तर 'Please come here' ही आज्ञार्थी सूचना आहे."
+        },
+        {
+            question: "At the time of examination, what will you say to your friend?",
+            options: ["Happy exam!", "Thank you!", "All done!", "All the best!"],
+            answer: 3,
+            explanation: "परीक्षेच्या वेळी मित्राला शुभेच्छा देण्यासाठी 'All the best!' म्हणतात."
+        },
+        {
+            question: "When someone helps you, what should you say?",
+            options: ["Sorry", "Thank you", "Welcome", "Goodbye"],
+            answer: 1,
+            explanation: "कोणी मदत केल्यावर कृतज्ञता व्यक्त करण्यासाठी 'Thank you' म्हणतात."
+        },
+        {
+            question: "When you step on someone's foot by mistake, what do you say?",
+            options: ["Thank you", "Please", "Sorry", "Hello"],
+            answer: 2,
+            explanation: "चुकून पाय लागल्यास किंवा चूक झाल्यास 'Sorry' म्हणतात."
+        },
+        {
+            question: "What will you say when you enter a room at 9:00 AM?",
+            options: ["Good evening", "Good afternoon", "Good morning", "Good night"],
+            answer: 2,
+            explanation: "सकाळी ९ वाजता भेटल्यास 'Good morning' म्हणतात."
+        },
+        {
+            question: "Select the correct greeting for a birthday party.",
+            options: ["Happy New Year", "Happy Birthday", "Happy Journey", "Happy Teachers Day"],
+            answer: 1,
+            explanation: "वाढदिवसाच्या दिवशी 'Happy Birthday' म्हटले जाते."
+        },
+        {
+            question: "Choose the correct option for leaving your friends at night before sleeping.",
+            options: ["Good morning", "Good afternoon", "Good night", "Good day"],
+            answer: 2,
+            explanation: "झोपायला जाताना किंवा रात्री निरोप घेताना 'Good night' म्हणतात."
+        },
+        {
+            question: "Your friend is going on a long vacation train journey. What will you say?",
+            options: ["Happy Journey!", "Get well soon!", "Happy Birthday!", "Happy Diwali!"],
+            answer: 0,
+            explanation: "प्रवासाला निघणाऱ्या व्यक्तीला 'Happy Journey!' म्हणतात."
+        },
+        {
+            question: "Select the correct pair of greeting and occasion.",
+            options: ["Happy Diwali - Sports Day", "Happy Birthday - Independence Day", "All the best - Sleeping time", "Happy New Year - 1st January"],
+            answer: 3,
+            explanation: "१ जानेवारी रोजी 'Happy New Year' असते, ही योग्य जोडी आहे."
+        },
+        {
+            question: "What do you say when someone says 'Thank you'?",
+            options: ["Sorry", "You're welcome", "Goodbye", "Hello"],
+            answer: 1,
+            explanation: "'Thank you' च्या उत्तरात सहसा 'You're welcome' म्हटले जाते."
+        },
+        {
+            question: "Which greeting is used when you meet someone for the first time at 4:00 PM?",
+            options: ["Good morning", "Good afternoon", "Good night", "Good evening"],
+            answer: 3,
+            explanation: "दुपारी ४ वाजता किंवा संध्याकाळी भेटल्यास 'Good evening' किंवा 'Good afternoon' वापरले जाते."
+        },
+        {
+            question: "Find the odd one out related to festival greetings.",
+            options: ["Happy Christmas", "Happy Eid", "Happy Monday", "Happy Diwali"],
+            answer: 2,
+            explanation: "'Happy Monday' हा कोणताही सण किंवा विशेष दिवस नाही, म्हणून तो वेगळा घटक आहे."
+        },
+        {
+            question: "What will you say to your parents before going to sleep at night?",
+            options: ["Good morning", "Good afternoon", "Good night", "Good evening"],
+            answer: 2,
+            explanation: "रात्री झोपण्यापूर्वी आई-वडिलांना 'Good night' म्हणतात."
+        },
+        {
+            question: "If you want someone to pass a pencil to you politely, what word do you use?",
+            options: ["Stop", "Please", "Go", "Run"],
+            answer: 1,
+            explanation: "नम्रपणे कोणतीही वस्तू मागताना 'Please' हा शब्द वापरतात."
+        },
+        {
+            question: "Your school team won the cricket match trophy. What will you say to the captain?",
+            options: ["Congratulations!", "Sorry!", "Get well soon!", "Goodbye!"],
+            answer: 0,
+            explanation: "सामना किंवा ट्रॉफी जिंकल्याबद्दल 'Congratulations!' म्हणतात."
+        },
+        {
+            question: "Which greeting is suitable for 26th January (Republic Day)?",
+            options: ["Happy New Year", "Happy Birthday", "Happy Children's Day", "Happy Republic Day"],
+            answer: 3,
+            explanation: "प्रजासत्ताक दिनी 'Happy Republic Day' म्हणतात."
+        },
+        {
+            question: "What will you say when you accidentally break a glass?",
+            options: ["Thank you", "Sorry", "Welcome", "Hurrah"],
+            answer: 1,
+            explanation: "चुकून काच फुटल्यास दिलगिरी व्यक्त करण्यासाठी 'Sorry' म्हणतात."
+        },
+        {
+            question: "Select the correct greeting for 14th November (Children's Day).",
+            options: ["Happy Children's Day", "Happy Teachers Day", "Happy Sports Day", "Happy New Year"],
+            answer: 0,
+            explanation: "१४ नोव्हेंबर रोजी 'Happy Children's Day' म्हणतात."
+        },
+        {
+            question: "When someone sneezes, what polite expression is usually said in English?",
+            options: ["Good morning", "Happy birthday", "Good night", "Bless you"],
+            answer: 3,
+            explanation: "शिंक आल्यावर इंग्रजी शिष्टाचारानुसार 'Bless you' म्हणतात."
+        },
+        {
+            question: "What do you say when you meet a friend after a long time?",
+            options: ["Goodbye", "Nice to meet you", "Good night", "Sleep well"],
+            answer: 1,
+            explanation: "खूप दिवसांनी मित्राला भेटल्यावर 'Nice to meet you' म्हणतात."
+        },
+        {
+            question: "Choose the correct greeting for winning a race.",
+            options: ["Well done!", "Oh no!", "Too bad!", "Excuse me!"],
+            answer: 0,
+            explanation: "धावण्याची स्पर्धा जिंकल्याबद्दल 'Well done!' (शाब्बास) म्हणतात."
+        },
+        {
+            question: "What do you say when you want to get past someone in a crowded place?",
+            options: ["Thank you", "Goodbye", "Excuse me", "Happy birthday"],
+            answer: 2,
+            explanation: "गर्दीतून वाट काढताना 'Excuse me' म्हटले जाते."
+        },
+        {
+            question: "Select the correct response to 'How are you?'",
+            options: ["I am fine, thank you.", "My name is Amit.", "It is a red pen.", "I live in Pune."],
+            answer: 0,
+            explanation: "'How are you?' च्या उत्तरात 'I am fine, thank you.' म्हणतात."
+        },
+        {
+            question: "What will you say on 15th August?",
+            options: ["Happy New Year", "Happy Christmas", "Happy Independence Day", "Happy Birthday"],
+            answer: 2,
+            explanation: "१५ ऑगस्ट रोजी 'Happy Independence Day' म्हणतात."
+        },
+        {
+            question: "What do you say when parting ways with someone in the evening?",
+            options: ["Good morning", "Good evening", "Good night", "Welcome"],
+            answer: 1,
+            explanation: "संध्याकाळी भेटताना किंवा निरोप घेताना 'Good evening' वापरतात."
+        },
+        {
+            question: "Which of the following is a greeting used during the Christmas festival?",
+            options: ["Merry Christmas", "Happy Holi", "Happy Diwali", "Happy Dussehra"],
+            answer: 0,
+            explanation: "ख्रिसमस सणासाठी 'Merry Christmas' म्हणतात."
+        },
+        {
+            question: "What will you say when your friend gives you a gift on your birthday?",
+            options: ["Go away", "I don't want it", "Stop it", "Thank you very much"],
+            answer: 3,
+            explanation: "भेटवस्तू मिळाल्यावर आभार मानण्यासाठी 'Thank you very much' म्हणतात."
+        },
+        {
+            question: "Select the incorrect greeting combination.",
+            options: ["Morning - Good morning", "Noon - Good afternoon", "Night - Good night", "Sleeping - Good morning"],
+            answer: 3,
+            explanation: "झोपताना 'Good morning' म्हणणे चुकीचे आहे."
+        },
+        {
+            question: "What do you say to wish success to someone starting a new job or task?",
+            options: ["Best of luck!", "Happy birthday!", "Get well soon!", "Happy journey!"],
+            answer: 0,
+            explanation: "नवीन कामासाठी शुभेच्छा देताना 'Best of luck!' म्हणतात."
+        },
+        {
+            question: "What is the appropriate greeting when answering a telephone call?",
+            options: ["Goodbye", "Good night", "Sorry", "Hello"],
+            answer: 3,
+            explanation: "फोन उचलताना सर्वप्रथम 'Hello' म्हटले जाते."
+        },
+        {
+            question: "Which greeting is used on 5th September in India?",
+            options: ["Happy Children's Day", "Happy Republic Day", "Happy Teachers' Day", "Happy Sports Day"],
+            answer: 2,
+            explanation: "५ सप्टेंबरला 'Happy Teachers' Day' असतो."
+        },
+        {
+            question: "What do you say when you make a mistake and hurt someone's feelings?",
+            options: ["Thank you", "I am sorry", "Welcome", "Cheers"],
+            answer: 1,
+            explanation: "चूक झाल्यावर दिलगिरी व्यक्त करण्यासाठी 'I am sorry' म्हणतात."
+        },
+        {
+            question: "Select the correct greeting for the festival of colors (Holi).",
+            options: ["Happy Holi", "Happy Diwali", "Happy Christmas", "Happy Eid"],
+            answer: 0,
+            explanation: "होळीच्या सणाला 'Happy Holi' म्हणतात."
+        },
+        {
+            question: "What do you say when visiting someone's house for dinner in the evening?",
+            options: ["Good morning", "Good afternoon", "Good night", "Good evening"],
+            answer: 3,
+            explanation: "संध्याकाळी कोणाचेही घर किंवा कार्यक्रम अटेंड करताना 'Good evening' म्हणतात."
+        },
+        {
+            question: "What will you say when your friend achieves high marks in the exam?",
+            options: ["Sorry!", "Get well soon!", "Congratulations!", "Hurry up!"],
+            answer: 2,
+            explanation: "परीक्षेत यश मिळाल्यास 'Congratulations!' म्हणतात."
+        },
+        {
+            question: "Which expression is used to welcome a guest to your home?",
+            options: ["Welcome! Please come in.", "Go out immediately.", "Do not touch anything.", "Goodbye!"],
+            answer: 0,
+            explanation: "पाहुण्यांचे स्वागत करताना 'Welcome! Please come in.' म्हणतात."
+        },
+        {
+            question: "What do you say when someone says 'Goodbye'?",
+            options: ["Thank you!", "Good morning!", "Goodbye! / See you later!", "Happy birthday!"],
+            answer: 2,
+            explanation: "समोरच्याने 'Goodbye' म्हटल्यास प्रतिसादात 'Goodbye!' म्हणतात."
+        },
+        {
+            question: "What expression do you use to ask for something politely at the dining table?",
+            options: ["Pass the salt, please.", "Give me fast!", "I want this now!", "Stop eating!"],
+            answer: 0,
+            explanation: "जेवताना मीठ किंवा इतर पदार्थ नम्रपणे मागण्यासाठी 'Please' चा वापर करतात."
+        },
+        {
+            question: "Select the correct greeting when meeting a teacher at 11:00 AM.",
+            options: ["Good morning, teacher.", "Good afternoon, teacher.", "Good evening, teacher.", "Good night, teacher."],
+            answer: 0,
+            explanation: "सकाळी ११ वाजता शिक्षकांना भेटल्यास 'Good morning, teacher.' म्हणतात."
+        },
+        {
+            question: "What do you say when you want someone to repeat what they said?",
+            options: ["Stop talking!", "Go away!", "Thank you!", "Pardon me? / Excuse me?"],
+            answer: 3,
+            explanation: "समोरच्याचे म्हणणे ऐकू न आल्यास पुन्हा सांगण्याची विनंती करण्यासाठी 'Pardon me?' म्हणतात."
+        },
+        {
+            question: "What will you say if someone congratulates you on your success?",
+            options: ["Sorry!", "Goodbye!", "Hello!", "Thank you!"],
+            answer: 3,
+            explanation: "कोणी अभिनंदन केल्यावर 'Thank you!' म्हणतात."
+        },
+        {
+            question: "Which greeting is appropriate when someone enters a new house (Housewarming)?",
+            options: ["Congratulations on your new home!", "Get well soon!", "Happy birthday!", "Happy journey!"],
+            answer: 0,
+            explanation: "नवीन घरात प्रवेश करताना 'Congratulations on your new home!' म्हणतात."
+        },
+        {
+            question: "What do you say when you part ways with friends at school time?",
+            options: ["Good morning!", "Happy new year!", "See you tomorrow / Bye!", "Get well soon!"],
+            answer: 2,
+            explanation: "शाळा सुटल्यावर मित्रांना 'See you tomorrow / Bye!' म्हणतात."
+        },
+        {
+            question: "Select the correct polite expression to get attention of a stranger.",
+            options: ["Excuse me, please.", "Listen to me fast!", "Hey you!", "Stop there!"],
+            answer: 0,
+            explanation: "एखाद्या व्यक्तीचे लक्ष वेधण्यासाठी 'Excuse me, please.' म्हणतात."
+        }
+    ];
+let currentQuestionIndex = 0;
+    let score = 0;
+    let studentName = "";
+    let studentMobile = "";
+    let userAnswers = [];
+
+    function startExam() {
+        const nameInput = document.getElementById('student-name').value.trim();
+        const mobileInput = document.getElementById('student-mobile').value.trim();
+
+        if (nameInput === "" || mobileInput === "") {
+            alert("कृपया विद्यार्थ्याचे नाव आणि मोबाईल नंबर प्रविष्ट करा!");
+            return;
+        }
+
+        studentName = nameInput;
+        studentMobile = mobileInput;
+
+        document.getElementById('start-screen').style.display = 'none';
+        document.getElementById('quiz-screen').style.display = 'block';
+        loadQuestion();
+    }
+
+    function loadQuestion() {
+        const q = questions[currentQuestionIndex];
+        document.getElementById('progress-indicator').innerText = `प्रश्न ${currentQuestionIndex + 1} / ${questions.length}`;
+        document.getElementById('question-text').innerText = `प्रश्‍न ${currentQuestionIndex + 1}: ${q.question}`;
+        
+        const optionsContainer = document.getElementById('options-container');
+        optionsContainer.innerHTML = '';
+        
+        document.getElementById('explanation-box').style.display = 'none';
+        document.getElementById('next-btn').disabled = true;
+
+        q.options.forEach((opt, index) => {
+            const li = document.createElement('li');
+            li.innerText = `(${index + 1}) ${opt}`;
+            li.onclick = () => selectOption(index, li);
+            optionsContainer.appendChild(li);
+        });
+    }
+
+    function selectOption(selectedIndex, liElement) {
+        const q = questions[currentQuestionIndex];
+        const optionsList = document.getElementById('options-container').children;
+
+        for (let li of optionsList) {
+            li.onclick = null;
+            li.style.cursor = 'default';
+        }
+
+        userAnswers[currentQuestionIndex] = {
+            question: q.question,
+            selected: selectedIndex,
+            correct: q.answer,
+            options: q.options,
+            explanation: q.explanation
+        };
+
+        if (selectedIndex === q.answer) {
+            liElement.classList.add('selected-correct');
+            score += 2; // प्रत्येक प्रश्नाला 2 गुण
+        } else {
+            liElement.classList.add('selected-wrong');
+            optionsList[q.answer].classList.add('selected-correct');
+            
+            const expBox = document.getElementById('explanation-box');
+            expBox.innerHTML = `<strong>स्पष्टीकरण:</strong> ${q.explanation}`;
+            expBox.style.display = 'block';
+        }
+
+        document.getElementById('next-btn').disabled = false;
+    }
+
+    function nextQuestion() {
+        currentQuestionIndex++;
+        if (currentQuestionIndex < questions.length) {
+            loadQuestion();
+        } else {
+            showCertificate();
+        }
+    }
+
+    function showCertificate() {
+        document.getElementById('quiz-screen').style.display = 'none';
+        document.getElementById('certificate-screen').style.display = 'block';
+
+        document.getElementById('cert-name').innerText = studentName;
+        const maxScore = questions.length * 2; // एकूण गुण १००
+        const percentage = (score / maxScore) * 100;
+
+        document.getElementById('cert-score-display').innerText = `${score} / ${maxScore} (${percentage.toFixed(0)}%)`;
+
+        let performanceText = "";
+        if (percentage >= 90) {
+            performanceText = "🥇 Gold Medal + Trophy (उत्कृष्ट कामगिरी!)";
+        } else if (percentage >= 80) {
+            performanceText = "🥈 Silver Medal + Trophy (छान कामगिरी!)";
+        } else if (percentage >= 70) {
+            performanceText = "🥉 Bronze Medal + Trophy (अशीच प्रगती करत राहा!)";
+        } else {
+            performanceText = '💐 अभिनंदन! फुलांचा गुच्छ व "पुढील परीक्षेसाठी शुभेच्छा"';
+        }
+
+        document.getElementById('cert-perf-display').innerText = performanceText;
+    }
+
+    function toggleReview() {
+        const reviewSection = document.getElementById('review-section');
+        if (reviewSection.style.display === 'block') {
+            reviewSection.style.display = 'none';
+            return;
+        }
+
+        reviewSection.style.display = 'block';
+        reviewSection.innerHTML = '<h3>चुकीच्या प्रश्नांचे विश्लेषण व मार्गदर्शन:</h3>';
+
+        let wrongCount = 0;
+        userAnswers.forEach((item, index) => {
+            if (item && item.selected !== item.correct) {
+                wrongCount++;
+                let div = document.createElement('div');
+                div.style.marginBottom = '15px';
+                div.style.padding = '10px';
+                div.style.background = '#fff5f5';
+                div.style.borderLeft = '4px solid #e53e3e';
+                div.innerHTML = `<strong>प्रश्न ${index + 1}:</strong> ${item.question}<br>
+                                 ❌ तुमचे उत्तर: <b>(${item.selected + 1}) ${item.options[item.selected]}</b><br>
+                                 ✅ योग्य उत्तर: <b>(${item.correct + 1}) ${item.options[item.correct]}</b><br>
+                                 💡 <em>स्पष्टीकरण:</em> ${item.explanation}`;
+                reviewSection.appendChild(div);
+            }
+        });
+
+        if (wrongCount === 0) {
+            reviewSection.innerHTML += '<p style="color: green; font-weight: bold;">अभिनंदन! तुमचे सर्व प्रश्न बरोबर आले आहेत, कोणतीही चूक नाही!</p>';
+        }
+    }
+</script>
+</body>
+</html>
+
+                
