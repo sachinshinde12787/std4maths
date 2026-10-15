@@ -196,7 +196,7 @@
     </style>
 </head>
 <body>
-<div class="container">
+    <div class="container">
     <!-- Start Screen -->
     <div id="start-screen">
         <div class="header-top">जिल्हा परिषद प्राथमिक शाळा नरसोबावाडी संचलित</div>
@@ -205,7 +205,7 @@
             <strong>श्री सचिन शिंदे सर</strong><br>
             जि प प्रा शाळा नरसोबावाडी<br>
             मोबाईल: 8329684470<br>
-            <img src="https://drive.google.com/uc?export=view&id=1pkldnaLRyqBtfgiQKwtbeSSfXhENzbOm" alt="Teacher Photo">
+            <img src="https://lh3.googleusercontent.com/d/1pkldnaLRyqBtfgiQKwtbeSSfXhENzbOm=s220" alt="Teacher Photo">
         </div>
         
         <h1>ONLINE EXAM: EMOTION</h1>
@@ -267,15 +267,15 @@
             <strong>श्री सचिन शिंदे सर</strong><br>
             जि प प्रा शाळा नरसोबावाडी<br>
             मोबाईल: 8329684470<br>
-            <img src="https://drive.google.com/uc?export=view&id=1pkldnaLRyqBtfgiQKwtbeSSfXhENzbOm" alt="Teacher Photo">
+            <img src="https://lh3.googleusercontent.com/d/1pkldnaLRyqBtfgiQKwtbeSSfXhENzbOm=s220" alt="Teacher Photo">
         </div>
 
         <div class="footer-note">
             टेस्ट निर्मिती व संकल्पना श्री सचिन शिंदे मोबाईल नंबर 8329684470
         </div>
     </div>
-</div>
-<script>
+    </div>
+    <script>
     const questions = [
         {
             question: "Riya gets a birthday gift. How does she feel?",
@@ -353,7 +353,7 @@
             question: "The teacher scolded Rohan in front of the whole class for no reason. How does Rohan feel?",
             options: ["Happy", "Proud", "Angry", "Excited"],
             answer: 2,
-            explanation: कारण नसताना वर्गात ओरडल्यामुळे राग येतो, म्हणून उत्तर 'Angry' (रागावलेला) आहे.
+            explanation: "कारण नसताना वर्गात ओरडल्यामुळे राग येतो, म्हणून उत्तर 'Angry' (रागावलेला) आहे."
         },
         {
             question: "Neha heard a strange noise outside her window in the middle of the night. How did she feel?",
@@ -401,7 +401,7 @@
             question: "Kunal's pet dog is missing since morning. How does Kunal feel?",
             options: ["Sad", "Proud", "Excited", "Happy"],
             answer: 0,
-            explanation: "पाळीव कुत्र हरवल्यामुळे दुःख होते, म्हणून उत्तर 'Sad' (दुःखी) आहे."
+            explanation: "पाळीव कुत्रा हरवल्यामुळे दुःख होते, म्हणून उत्तर 'Sad' (दुःखी) आहे."
         },
         {
             question: "Deepak is waiting for his medical test reports from the doctor. How is he feeling?",
@@ -425,7 +425,7 @@
             question: "Swati completed her graduation with a gold medal and her family cheered for her. How did she feel?",
             options: ["Proud", "Sad", "Tired", "Bored"],
             answer: 0,
-            explanation:सुवर्णपदक मिळाल्यावर कुटुंबाला व स्वतःला अभिमान वाटतो, म्हणून उत्तर 'Proud' (अभिमान वाटणारा) आहे.
+            explanation: "सुवर्णपदक मिळाल्यावर कुटुंबाला व स्वतःला अभिमान वाटतो, म्हणून उत्तर 'Proud' (अभिमान वाटणारा) आहे."
         }
     ];
 
@@ -439,7 +439,7 @@
         const nameInput = document.getElementById('student-name').value.trim();
         const mobileInput = document.getElementById('student-mobile').value.trim();
 
-        if (name === "" || mobileInput === "") {
+        if (nameInput === "" || mobileInput === "") {
             alert("कृपया विद्यार्थ्याचे नाव आणि मोबाईल नंबर प्रविष्ट करा!");
             return;
         }
@@ -465,7 +465,7 @@
 
         q.options.forEach((opt, index) => {
             const li = document.createElement('li');
-            li.innerText = `${String.fromCharCode(65 +యన్ = index)}) ${opt}`;
+            li.innerText = `${String.fromCharCode(65 + index)}) ${opt}`;
             li.onclick = () => selectOption(index, li);
             optionsContainer.appendChild(li);
         });
@@ -475,7 +475,6 @@
         const q = questions[currentQuestionIndex];
         const optionsList = document.getElementById('options-container').children;
 
-        // सर्व ऑप्शन्सचे क्लिक थांबवणे
         for (let li of optionsList) {
             li.onclick = null;
             li.style.cursor = 'default';
@@ -491,12 +490,11 @@
 
         if (selectedIndex === q.answer) {
             liElement.classList.add('selected-correct');
-            score += 2; // प्रत्येक प्रश्नाला 2 गुण
+            score += 2; 
         } else {
             liElement.classList.add('selected-wrong');
             optionsList[q.answer].classList.add('selected-correct');
             
-            // स्पष्टीकरण दाखवणे
             const expBox = document.getElementById('explanation-box');
             expBox.innerHTML = `<strong>स्पष्टीकरण:</strong> ${q.explanation}`;
             expBox.style.display = 'block';
@@ -519,7 +517,7 @@
         document.getElementById('certificate-screen').style.display = 'block';
 
         document.getElementById('cert-name').innerText = studentName;
-        const maxScore = questions.length * 2; // एकूण गुण ५०
+        const maxScore = questions.length * 2; 
         const percentage = (score / maxScore) * 100;
 
         document.getElementById('cert-score-display').innerText = `${score} / ${maxScore} (${percentage.toFixed(0)}%)`;
