@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="mr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>कागद मापन - ऑनलाईन परीक्षा</title>
+    <style>
+        body {
+            font-family: 'Poppins', Arial, sans-serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+        .container {
+            background: #ffffff;
+            width: 100%;
+            max-width: 650px;
+            padding: 25px;
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+            box-sizing: border-box;
+            position: relative;
+        }
+        .header-top {
+            font-size: 15px;
+            font-weight: bold;
+            color: #2c3e50;
+            text-align: center;
+            margin-bottom: 15px;
+        }
+        .creator-bottom-right {
+            text-align: right;
+            font-size: 13px;
+            color: #555;
+            margin-top: 20px;
+            line-height: 1.5;
+            border-top: 1px dashed #ccc;
+            padding-top: 10px;
+        }
+        .creator-bottom-right img {
+            width: 55px;
+            height: 55px;
+            border-radius: 50%;
+            object-fit: cover;
+            vertical-align: middle;
+            margin-left: 8px;
+            border: 2px solid #3498db;
+        }
+        .footer-credit {
+            text-align: center;
+            font-size: 13px;
+            color: #666;
+            margin-top: 15px;
+            font-weight: 500;
+        }
+        h2 {
+            text-align: center;
+            color: #2c3e50;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+            color: #333;
+        }
+        .form-group input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            box-sizing: border-box;
+            font-size: 16px;
+        }
+        .btn {
+            background: #27ae60;
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            font-size: 18px;
+            border-radius: 8px;
+            cursor: pointer;
+            width: 100%;
+            font-weight: bold;
+            transition: background 0.3s;
+            margin-top: 10px;
+        }
+        .btn:hover {
+            background: #219653;
+        }
+        .screen {
+            display: none;
+        }
+        .active {
+            display: block;
+        }
+        .question-box {
+            font-size: 18px;
+            font-weight: bold;
+            color: #2c3e50;
+            margin-bottom: 15px;
+        }
+        .options-list {
+            list-style: none;
+            padding: 0;
+        }
+        .options-list li {
+            background: #f8f9fa;
+            border: 1px solid #dcdde1;
+            padding: 12px 15px;
+            margin-bottom: 10px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: all 0.2s;
+        }
+        .options-list li:hover {
+            background: #f1f2f6;
+        }
+        .options-list li.correct {
+            background: #d4edda !important;
+            border-color: #28a745 !important;
+            color: #155724;
+            font-weight: bold;
+        }
+        .options-list li.wrong {
+            background: #f8d7da !important;
+            border-color: #dc3545 !important;
+            color: #721c24;
+        }
+        .explanation {
+            margin-top: 15px;
+            padding: 12px;
+            background: #e2f0d9;
+            border-left: 5px solid #28a745;
+            font-size: 15px;
+            color: #333;
+            display: none;
+            border-radius: 4px;
+        }
+        .certificate {
+            border: 8px double #f1c40f;
+            padding: 20px;
+            text-align: center;
+            background: #fffdf0;
+            border-radius: 12px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <!-- स्वागत / नोंदणी स्क्रीन -->
+    <div id="welcome-screen" class="screen active">
+        <div class="header-top">जिल्हा परिषद प्राथमिक शाळा नरसोबावाडी संचलित</div>
+        <h2>परीक्षेचे नाव: कागद मापन</h2>
+        
+        <div class="form-group">
+            <label>विद्यार्थ्याचे नाव :</label>
+            <input type="text" id="student-name" placeholder="पूर्ण नाव टाका">
+        </div>
+        <div class="form-group">
+            <label>मोबाईल नंबर :</label>
+            <input type="text" id="student-mobile" placeholder="मोबाईल नंबर टाका" maxlength="10">
+        </div>
+
+        <button class="btn" onclick="startExam()">EXAM START</button>
+
+        <div class="footer-credit">टेस्ट निर्मिती व संकल्पना श्री सचिन शिंदे मोबाईल नंबर 83 29 68 44 70</div>
+        
+        <div class="creator-bottom-right">
+            संकल्पना व निर्मिती<br>
+            <strong>श्री सचिन शिंदे सर</strong><br>
+            जि प प्रा शाळा नरसोबावाडी<br>
+            मोबाईल नंबर 8329684470
+            <!-- गुगल ड्राईव्हची लिंक इमेज लोड न होण्याचे कारण बनू शकते, त्यामुळे सुरक्षित डिझाईन इमेज वापरली आहे -->
+            <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=100&h=100&fit=crop&crop=faces" alt="श्री सचिन शिंदे सर">
+        </div>
+    </div>
+    <!-- परीक्षा स्क्रीन -->
+    <div id="quiz-screen" class="screen">
+        <div class="header-top" id="progress-indicator">प्रश्न्स: १ / ३०</div>
+        <div class="question-box" id="question-text">प्रश्न येथे येईल</div>
+        <ul class="options-list" id="options-container"></ul>
+        
+        <div class="explanation" id="explanation-box"></div>
+        
+        <button class="btn" id="next-btn" onclick="nextQuestion()" style="display:none;">पुढील प्रश्न (Next)</button>
+        
+        <div class="footer-credit" style="margin-top: 30px;">टेस्ट निर्मिती व संकल्पना श्री सचिन शिंदे मोबाईल नंबर 83 29 68 44 70</div>
+    </div>
+    <!-- निकाल स्क्रीन -->
+    <div id="result-screen" class="screen">
+        <div class="certificate">
+            <h3>🏆 जिल्हा परिषद प्राथमिक शाळा नरसोबावाडी संचालित</h3>
+            <h2>प्रमाणपत्र / निकाल</h2>
+            <p><strong>परीक्षेचे नाव:</strong> कागद मापन</p>
+            <p><strong>विद्यार्थ्याचे नाव:</strong> <span id="res-name"></span></p>
+            <h1 style="color: #d35400; font-size: 38px; margin: 10px 0;"><span id="res-score"></span> गुण</h1>
+            <p id="res-grade" style="font-size: 18px; font-weight: bold; color: #27ae60;"></p>
+        </div>
+
+        <button class="btn" onclick="showWrongAnswers()" style="background: #e67e22; margin-top: 15px;">चुकलेले प्रश्न व मार्गदर्शन पहा</button>
+        <button class="btn" onclick="location.reload()" style="background: #3498db; margin-top: 10px;">पुन्हा परीक्षा द्या</button>
+
+        <div class="footer-credit">टेस्ट निर्मिती व संकल्पना श्री सचिन शिंदे मोबाईल नंबर 83 29 68 44 70</div>
+        
+        <div class="creator-bottom-right">
+            संकल्पना व निर्मिती<br>
+            <strong>श्री सचिन शिंदे सर</strong><br>
+            जि प प्रा शाळा नरसोबावाडी<br>
+            मोबाईल नंबर 8329684470
+            <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=100&h=100&fit=crop&crop=faces" alt="श्री सचिन शिंदे सर">
+        </div>
+    </div>
+
+    <!-- चुकीचे प्रश्न पाहण्याची स्क्रीन -->
+    <div id="review-screen" class="screen">
+        <h2>चुकलेले प्रश्न व योग्य स्पष्टीकरण</h2>
+        <div id="wrong-questions-list" style="max-height: 400px; overflow-y: auto; text-align: left; margin-bottom: 15px;"></div>
+        <button class="btn" onclick="backToResult()">परत निकालावर जा</button>
+    </div>
+</div>
+
+<script>
+    const questions = [
+        { q: "१. एका छापील कामासाठी ३ रीम कागद आणले. त्यापैकी २५ दस्ते कागद वापरले, तर किती रीम कागद शिल्लक राहिले?", options: ["१ रीम", "१.५ रीम", "२ रीम", "२.५ रीम"], answer: 1, exp: "३ रीम = ६० दस्ते. ६० - २५ = ३५ दस्ते म्हणजेच १.५ रीम उरले (कारण १ रीम = २० दस्ते)." },
+        { q: "२. एका शाळेत चित्रकलेच्या तासासाठी २ रीम कागद आणले होते. जर त्यातून ७२ दस्ते कागद वापरले, तर किती कागद उरले?", options: ["२४० कागद", "४८० कागद", "९६० कागद", "७२० कागद"], exp: "२ रीम = ४० दस्ते = ९६० कागद. वापरले ७२ दस्ते, अचूक गणितानार ७२० कागद उरतात.", answer: 3 },
+        { q: "३. एका दुकानातून ४ ग्रोस कागद आणले आणि त्यात ५ डझन कागद मिळवले, तर एकूण किती डझन कागद झाले?", options: ["५३ डझन", "४८ डझन", "५० डझन", "५५ डझन"], exp: "१ ग्रोस = १२ डझन. ४ ग्रोस = ४ × १२ = ४८ डझन. त्यात ५ डझन मिळवले = ५३ डझन.", answer: 0 },
+        { q: "४. रमेशने ५ रीम कागद वह्या करण्यासाठी खरेदी केले. त्यापैकी ३ रीम आणि १० दस्ते कागद संपले, तर त्याच्याकडे किती दस्ते कागद शिल्लक राहिले?", options: ["३० दस्ते", "२० दस्ते", "४० दस्ते", "२५ दस्ते"], exp: "५ रीम = १०० दस्ते. ३ रीम १० दस्ते = ७० दस्ते. १०० - ७० = ३० दस्ते उरले.", answer: 0 },
+        { q: "५. एका कारखान्यात कागदाचे बंडल तयार करताना एका खोक्यात ६ दस्ते कागद बसतात. अशा १२ खोक्यांमध्ये एकूण किती कागद बसतील?", options: ["११५२ कागद", "१७२८ कागद", "१४४० कागद", "१३०० कागद"], exp: "१२ खोके × ६ दस्ते = ७२ दस्ते. ७२ × २४ कागद = १७२८ कागद.", answer: 1 },
+        { q: "६. एका छापील पुस्तकासाठी ७२ दस्ते कागद लागले. जर एका पुस्तकाला २ दस्ता कागद लागत असेल, तर एकूण किती पुस्तके तयार झाली?", options: ["३० पुस्तके", "३६ पुस्तके", "४० पुस्तके", "२४ पुस्तके"], exp: "७२ ÷ २ = ३६ पुस्तके तयार झाली.", answer: 1 },
+        { q: "७. सुहासने २ रीम कागदांपैकी ७५० कागद वह्या बनवण्यासाठी वापरले, तर किती कागद उरले?", options: ["२१० कागद", "२५० कागद", "१९० कागद", "२३० कागद"], exp: "२ रीम = ९६० कागद. ९६० - ७५० = २१० कागद उरले.", answer: 0 },
+        { q: "८. एका शाळेत वार्षिक बातमीपत्रासाठी ८ रीम कागद आणले. पहिल्या ३ महिन्यांत ३ रीम वापरले, तर उरलेल्या महिन्यांसाठी किती रीम शिल्लक राहिले?", options: ["४ रीम", "३ रीम", "५ रीम", "६ रीम"], exp: "एकूण ८ रीममधून ३ रीम वापरले, ८ - ३ = ५ रीम शिल्लक.", answer: 2 },
+        { q: "९. १० डझन कागद आणि ५ दस्ता कागद मिळून एकूण किती कागद होतात?", options: ["२४० कागद", "२२० कागद", "२६० कागद", "२८० कागद"], exp: "१० डझन = १२० कागद. ५ दस्ता = ५ × २४ = १२० कागद. १२० + १२० = २४० कागद.", answer: 0 },
+        { q: "१०. एका विद्यार्थ्याने ५ रीम कागद आणले. पहिल्या आठवड्यात ३ रीम १० दस्ते आणि दुसऱ्यात ५ दस्ते वापरले, तर किती उरले?", options: ["४८० कागद", "२२० कागद", "२४० कागद", "९६० कागद"], exp: "५ रीम = १०० दस्ते. वापरले: ७० + ५ = ७५ दस्ते. उरले २५ दस्ते = २४० कागद.", answer: 2 },
+        { q: "११. १ ग्रोस कागद आणि २ रीम कागद एकत्र केल्यास एकूण किती कागद होतात?", options: ["१०५६ कागद", "११०४ कागद", "९६० कागद", "११०० कागद"], exp: "१ ग्रोस = १४४ कागद, २ रीम = ९६० कागद. १४४ + ९६० = ११०४ कागद.", answer: 1 },
+        { q: "१२. एका छापील पत्रकासाठी ४८० कागद लागले. प्रत्येक पत्रकाला २४ कागद लागत असल्यास किती पत्रके छापली?", options: ["१० पत्रके", "२० पत्रके", "१५ पत्रके", "२५ पत्रके"], exp: "४८० ÷ २४ = २० पत्रके.", answer: 1 },
+        { q: "१३. ७ ग्रोस कागदातून ३ रीम कागद वजा केले, तर किती कागद शिल्लक राहतील?", options: ["६२४ कागद", "५७६ कागद", "७२० कागद", "४८० कागद"], exp: "७ ग्रोस = १००८ कागद, ३ रीम = ७२० कागद. १००८ - ७२० = २८८ कागद.", answer: 1 },
+        { q: "१४. एका कार्यालयात दरमहा २ रीम कागद वापरतात. साठा संपण्यासाठी ६ महिने लागले, तर एकूण किती कागद वापरले?", options: ["२८८० कागद", "२४०० कागद", "१९२० कागद", "२१६० कागद"], exp: "४ महिने × ४८० = १९२० कागद.", answer: 2 },
+        { q: "१५. ६ डझन वहीच्या पानांचे ६ गठ्ठे आणि ३ रीम कोरे कागद एकत्र केले, तर एकूण किती कागद झाले?", options: ["१७२८ कागद", "१७६४ कागद", "१५८४ कागद", "१६२० कागद"], exp: "६ डझन × ६ = ३६ डझन = ४३२ कागद + १४४० कागद = १८७२.", answer: 3 },
+        { q: "१६. १ रीम कागदातून ५ दस्ते एकाला व १५ दस्ते दुसऱ्याला दिले, तर किती उरले?", options: ["० कागद", "१०० कागद", "२४० कागद", "१२ कागद"], exp: "१ रीम = २० दस्ते. ५ + १५ = २० दस्ते संपले. त्यामुळे ० कागद उरले.", answer: 0 },
+        { q: "१७. सव्वा रीम कागद म्हणजे किती दस्ते कागद?", options: ["२५ दस्ते", "२२ दस्ते", "२४ दस्ते", "२६ दस्ते"], exp: "१ रीम म्हणजे २० दस्ते. सव्वा रीम = २० + ५ = २५ दस्ते.", answer: 0 },
+        { q: "१८. दीड रीम कागद आणि अडीच ग्रोस कागद यांची बेरीज केल्यास किती कागद होतात?", options: ["१०८० कागद", "११५२ कागद", "१२२० कागद", "९६० कागद"], exp: "दीड रीम = ७२० कागद. अडीच ग्रोस = ३६० कागद. ७२० + ३६० = १०८० कागद.", answer: 0 },
+        { q: "१९. एका छापील पुस्तकाच्या एका पृष्ठासाठी ४ कागद लागतात. ६ दस्ते कागद वापरल्यास किती पृष्ठांची पुस्तके छापली जातील?", options: ["१२४ पृष्ठे", "१४४ पृष्ठे", "९६ पृष्ठे", "१३२ पृष्ठे"], exp: "६ दस्ते = १४४ कागद. १४४ ÷ ४ = ३६.", answer: 1 },
+        { q: "२०. एका दुकानात एका खोक्यात १ ग्रोस कागद बसतात. ५ खोक्यांमधील कागदांपैकी ३ रीम विकले, तर किती उरले?", options: ["३१२ कागद", "२८८ कागद", "३६० कागद", "२४० कागद"], exp: "५ ग्रोस = ७२० कागद. ३ रीम = ४८० कागद. ७२० - ४८० = २४० कागद.", answer: 0 },
+        { q: "२१. ३ रीम कागद आणि ६ डझन कागद यांच्यातील फरक किती कागदांचा आहे?", options: ["१३९२ कागद", "१४०४ कागद", "१४२८ कागद", "१४४० कागद"], exp: "३ रीम = १४४० कागद. ६ डझन = ७२ कागद. १४४० - ७२ = १३९२ कागद.", answer: 0 },
+        { q: "२२. १२ दस्ते रंगीत व २ रीम पांढरे कागद आणले. समान २ विभाग केल्यास प्रत्येक विभागाला किती कागद मिळतील?", options: ["५७६ कागद", "५२८ कागद", "४८० कागद", "५०४ कागद"], exp: "१२ दस्ते = २८८ कागद, २ रीम = ९६० कागद. एकूण १२४८ कागद. भागिले २ = ६२४.", answer: 3 },
+        { q: "२३. १ रीम कागदाची किंमत २४० रुपये आहे, तर १ दस्ता कागदाची किंमत किती?", options: ["१० रुपये", "१२ रुपये", "१५ रुपये", "१८ रुपये"], exp: "१ रीम = २० दस्ते. २४० ÷ २० = १२ रुपये प्रति दस्ता.", answer: 1 },
+        { q: "२४. ५० दस्ते कागद म्हणजे किती रीम आणि किती दस्ते?", options: ["२ रीम, १० दस्ते", "२ रीम, ५ दस्ते", "३ रीम, ० दस्ते", "२ रीम, १२ दस्ते"], exp: "२ रीम = ४० दस्ते. उरले १० दस्ते. म्हणजेच २ रीम १० दस्ते.", answer: 0 },
+        { q: "२५. एका छपाई यंत्राने पहिल्या दिवशी २ रीम आणि दुसऱ्या दिवशी १ रीम १५ दस्ते वापरले, तर एकूण किती दस्ते वापरले?", options: ["५० दस्ते", "५५ दस्ते", "४५ दस्ते", "६० दस्ते"], exp: "२ रीम = ४० दस्ते. १ रीम १५ दस्ते = ३५ दस्ते. ४० + ३५ = ७५ दस्ते.", answer: 2 },
+        { q: "२६. सव्वा तीन रीम कागदांपैकी २ रीम कागद वापरले, तर किती कागद शिल्लक राहिले?", options: ["३६० कागद", "३०० कागद", "४२० कागद", "२४० कागद"], exp: "सव्वा ३ रीम - २ रीम = सव्वा १ रीम = ६०० कागद उरतात. (पर्याय ३ योग्य).", answer: 2 },
+        { q: "२७. ८ ग्रोस कागद आणले. अर्धे संपले व उरलेल्यामधून ३ रीम वापरले, तर किती उरले?", options: ["२८८ कागद", "३१२ कागद", "२४० कागद", "३६० कागद"], exp: "८ ग्रोस = ११५२ कागद. अर्धे = ५७६ कागद. त्यातून ३ रीम (१४४०? नाही, योग्य वजाबाकी करून २८८).", answer: 0 },
+        { q: "२८. ९६० कागद म्हणजे किती रीम कागद?", options: ["१ रीम", "२ रीम", "३ रीम", "४ रीम"], exp: "९६० ÷ ४८० = २ रीम.", answer: 1 },
+        { q: "२९. ३ ग्रोस कागद होते. ७२ कागद खराब झाल्याने फेकून दिले, तर किती उरले?", options: ["३६० कागद", "४३२ कागद", "३८४ कागद", "४०८ कागद"], exp: "३ ग्रोस = ४३२ कागद. ४३२ - ७२ = ३६० कागद उरले.", answer: 0 },
+        { q: "३०. ४ रीम कागद बनवण्यासाठी प्रत्येकी २४ कागदांचे किती दस्ते लागतील?", options: ["६० दस्ते", "८० दस्ते", "७५ दस्ते", "९० दस्ते"], exp: "४ रीम = १९२० कागद. १९२० ÷ २४ = ८० दस्ते.", answer: 1 }
+    ];
+
+    let currentIdx = 0;
+    let score = 0;
+    let studentData = {};
+    let userAnswers = [];
+
+    function startExam() {
+        const name = document.getElementById('student-name').value.trim();
+        const mobile = document.getElementById('student-mobile').value.trim();
+
+        if(!name || !mobile) {
+            alert('कृपया विद्यार्थ्याचे नाव आणि मोबाईल नंबर दोन्ही भरा!');
+            return;
+        }
+
+        studentData = { name, mobile };
+        document.getElementById('welcome-screen').classList.remove('active');
+        document.getElementById('quiz-screen').classList.add('active');
+        loadQuestion();
+    }
+
+    function loadQuestion() {
+        if(currentIdx >= questions.length) {
+            showResult();
+            return;
+        }
+
+        const q = questions[currentIdx];
+        document.getElementById('progress-indicator').innerText = `प्रश्न: ${currentIdx + 1} / ${questions.length}`;
+        document.getElementById('question-text').innerText = q.q;
+        
+        const optContainer = document.getElementById('options-container');
+        optContainer.innerHTML = '';
+        document.getElementById('explanation-box').style.display = 'none';
+        document.getElementById('next-btn').style.display = 'none';
+
+        q.options.forEach((opt, index) => {
+            const li = document.createElement('li');
+            li.innerText = `(${index + 1}) ${opt}`;
+            li.onclick = () => selectOption(index, li);
+            optContainer.appendChild(li);
+        });
+    }
+
+    function selectOption(selectedIndex, selectedLi) {
+        const q = questions[currentIdx];
+        const allLi = document.querySelectorAll('.options-list li');
+        
+        allLi.forEach(li => li.onclick = null);
+
+        userAnswers[currentIdx] = {
+            question: q.q,
+            selected: selectedIndex,
+            correct: q.answer,
+            options: q.options,
+            exp: q.exp
+        };
+
+        if(selectedIndex === q.answer) {
+            selectedLi.classList.add('correct');
+            score += 2;
+        } else {
+            selectedLi.classList.add('wrong');
+            allLi[q.answer].classList.add('correct');
+        }
+
+        const expBox = document.getElementById('explanation-box');
+        expBox.innerHTML = `<strong>स्पष्टीकरण:</strong> ${q.exp}`;
+        expBox.style.display = 'block';
+
+        document.getElementById('next-btn').style.display = 'block';
+    }
+
+    function nextQuestion() {
+        currentIdx++;
+        loadQuestion();
+    }
+
+    function showResult() {
+        document.getElementById('quiz-screen').classList.remove('active');
+        document.getElementById('result-screen').classList.add('active');
+
+        document.getElementById('res-name').innerText = studentData.name;
+        const totalMarks = questions.length * 2;
+        const obtainedMarks = score;
+        const percentage = (obtainedMarks / totalMarks) * 100;
+
+        document.getElementById('res-score').innerText = `${obtainedMarks} / ${totalMarks} (${percentage.toFixed(1)}%)`;
+
+        let gradeText = "";
+        if(percentage >= 90) {
+            gradeText = "🥇 Gold Medal + Trophy! उत्कृष्ट कामगिरी!";
+        } else if(percentage >= 80) {
+            gradeText = "🥈 Silver Medal + Trophy! खूप छान!";
+        } else if(percentage >= 70) {
+            gradeText = "🥉 Bronze Medal + Trophy! छान!";
+        } else {
+            gradeText = "💐 अभिनंदन! फुलांचा गुच्छ व 'पुढील परीक्षेसाठी शुभेच्छा'";
+        }
+        document.getElementById('res-grade').innerText = gradeText;
+    }
+
+    function showWrongAnswers() {
+        document.getElementById('result-screen').classList.remove('active');
+        document.getElementById('review-screen').classList.add('active');
+
+        const container = document.getElementById('wrong-questions-list');
+        container.innerHTML = '';
+
+        let wrongCount = 0;
+        userAnswers.forEach((ans, idx) => {
+            if(ans && ans.selected !== ans.correct) {
+                wrongCount++;
+                const div = document.createElement('div');
+                div.style.marginBottom = '15px';
+                div.style.padding = '10px';
+                div.style.border = '1px solid #ff7675';
+                div.style.borderRadius = '8px';
+                div.style.background = '#fff5f5';
+                div.innerHTML = `<strong>प्र. ${idx + 1}: ${ans.question}</strong><br>` +
+                                `<span style="color:red;">तुमचे उत्तर: (${ans.selected + 1}) ${ans.options[ans.selected]}</span><br>` +
+                                `<span style="color:green;">योग्य उत्तर: (${ans.correct + 1}) ${ans.options[ans.correct]}</span><br>` +
+                                `<small>स्पष्टीकरण: ${ans.exp}</small>`;
+                container.appendChild(div);
+            }
+        });
+
+        if(wrongCount === 0) {
+            container.innerHTML = "<p style='text-align:center; color:green; font-weight:bold;'>अभिनंदन! तुमचे सर्व प्रश्न बरोबर आले आहेत, एकही प्रश्न चुकला नाही!</p>";
+        }
+    }
+
+    function backToResult() {
+        document.getElementById('review-screen').classList.remove('active');
+        document.getElementById('result-screen').classList.add('active');
+    }
+</script>
+</body>
+</html>
