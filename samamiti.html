@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="mr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>सममिती - ऑनलाईन परीक्षा</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #f5f7fa, #c3cfe2);
+            margin: 0;
+            padding: 20px;
+            color: #333;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: #ffffff;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        }
+        .header-top {
+            font-size: 1.1em;
+            font-weight: bold;
+            color: #2c3e50;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        .footer-right {
+            text-align: right;
+            font-size: 0.9em;
+            color: #555;
+            margin-top: 30px;
+            line-height: 1.5;
+        }
+        .footer-right img {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            object-fit: cover;
+            vertical-align: middle;
+            margin-left: 10px;
+            border: 2px solid #3498db;
+        }
+        h1 {
+            text-align: center;
+            color: #2980b9;
+            margin-bottom: 25px;
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+            color: #34495e;
+        }
+        input[type="text"], input[type="tel"] {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #cbd5e1;
+            border-radius: 8px;
+            font-size: 1em;
+            box-sizing: border-box;
+        }
+        .btn {
+            background-color: #27ae60;
+            color: white;
+            padding: 12px 25px;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.1em;
+            cursor: pointer;
+            display: block;
+            width: 100%;
+            transition: background 0.3s;
+            font-weight: bold;
+        }
+        .btn:hover {
+            background-color: #219653;
+        }
+        .creator-footer {
+            text-align: center;
+            font-size: 0.95em;
+            color: #666;
+            margin-top: 25px;
+            font-weight: 500;
+        }
+        .screen {
+            display: none;
+        }
+        .active {
+            display: block;
+        }
+        .question-box {
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+        .options label {
+            display: block;
+            background: #ffffff;
+            padding: 12px 15px;
+            margin: 8px 0;
+            border: 2px solid #e2e8f0;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: normal;
+            transition: all 0.2s;
+        }
+        .options label:hover {
+            background: #f1f5f9;
+        }
+        .explanation {
+            margin-top: 15px;
+            padding: 12px;
+            background: #e0f2fe;
+            border-left: 5px solid #0284c7;
+            border-radius: 4px;
+            display: none;
+            font-size: 0.95em;
+        }
+        .certificate {
+            border: 6px double #d4af37;
+            padding: 30px;
+            text-align: center;
+            background: #fffdf9;
+            border-radius: 15px;
+        }
+        .correct { background-color: #d1fae5 !important; border-color: #10b981 !important; }
+        .incorrect { background-color: #fee2e2 !important; border-color: #ef4444 !important; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <!-- नोंदणी स्क्रीन -->
+    <div id="login-screen" class="screen active">
+        <div class="header-top">जिल्हा परिषद प्राथमिक शाळा नरसोबावाडी संचलित</div>
+        <h1>ऑनलाईन परीक्षा: सममिती</h1>
+        
+        <div class="form-group">
+            <label for="student-name">विद्यार्थ्याचे नाव:</label>
+            <input type="text" id="student-name" placeholder="पूर्ण नाव प्रविष्ट करा">
+        </div>
+        <div class="form-group">
+            <label for="student-mobile">मोबाईल नंबर:</label>
+            <input type="tel" id="student-mobile" placeholder="मोबाईल नंबर प्रविष्ट करा" maxlength="10">
+        </div>
+        
+        <button class="btn" onclick="startExam()">EXAM START</button>
+
+        <div class="creator-footer">
+            टेस्ट निर्मिती व संकल्पना श्री सचिन शिंदे मोबाईल नंबर 83 29 68 44 70
+        </div>
+
+        <div class="footer-right">
+            संकल्पना व निर्मिती<br>
+            श्री सचिन शिंदे सर<br>
+            जि प प्रा शाळा नरसोबावाडी<br>
+            मोबाईल नंबर 83 29 68 44 70<br>
+            <a href="https://drive.google.com/file/d/1pkldnaLRyqBtfgiQKwtbeSSfXhENzbOm/view?usp=drivesdk" target="_blank">
+                <img src="https://lh3.googleusercontent.com/d/1pkldnaLRyqBtfgiQKwtbeSSfXhENzbOm=s220" alt="फोटो" onerror="this.src='https://via.placeholder.com/60'">
+            </a>
+        </div>
+    </div>
+
+    <!-- परीक्षा स्क्रीन -->
+    <div id="quiz-screen" class="screen">
+        <div class="header-top">जिल्हा परिषद प्राथमिक शाळा नरसोबावाडी संचलित | सममिती परीक्षा</div>
+        <div style="display: flex; justify-content: space-between; margin-bottom: 15px; font-weight: bold;">
+            <span id="q-count">प्रश्न: १ / ५०</span>
+            <span id="score-display">गुण: ०</span>
+        </div>
+        
+        <div class="question-box">
+            <h3 id="question-text">प्रश्न येथे दिसेल</h3>
+            <div class="options" id="options-container"></div>
+            <div class="explanation" id="explanation-box"></div>
+        </div>
+
+        <button class="btn" id="next-btn" onclick="nextQuestion()" style="display: none;">पुढील प्रश्न (Next)</button>
+
+        <div class="creator-footer" style="margin-top: 40px;">
+            टेस्ट निर्मिती व संकल्पना श्री सचिन शिंदे मोबाईल नंबर 83 29 68 44 70
+        </div>
+    </div>
+
+    <!-- निकाल व प्रमाणपत्र स्क्रीन -->
+    <div id="result-screen" class="screen">
+        <div class="certificate">
+            <div style="font-size: 1.2em; font-weight: bold; color: #b45309;">🏆 जिल्हा परिषद प्राथमिक शाळा नरसोबावाडी संचालित</div>
+            <h2>सममिती परीक्षा - निकाल पत्रक</h2>
+            <p><strong>विद्यार्थ्याचे नाव:</strong> <span id="res-name"></span></p>
+            <p><strong>मोबाईल नंबर:</strong> <span id="res-mobile"></span></p>
+            
+            <div style="font-size: 2.2em; color: #1e3a8a; margin: 20px 0; font-weight: bold;">
+                प्राप्त गुण: <span id="res-score">०</span> / १०० <span style="font-size: 0.6em;">(टक्केवारी: <span id="res-percentage">०</span>%)</span>
+            </div>
+            
+            <div id="performance-msg" style="font-size: 1.3em; margin: 20px 0; font-weight: bold; color: #047857;"></div>
+            
+            <button class="btn" id="review-btn" onclick="showIncorrectModal()" style="background-color: #d97706; margin-bottom: 15px; display: none;">चुकलेले प्रश्न व मार्गदर्शन पहा</button>
+            
+            <button class="btn" onclick="location.reload()" style="background-color: #4f46e5;">पुन्हा परीक्षा द्या</button>
+        </div>
+
+        <div class="footer-right" style="margin-top: 30px;">
+            संकल्पना व निर्मिती<br>
+            श्री सचिन शिंदे सर<br>
+            जि प प्रा शाळा नरसोबावाडी<br>
+            मोबाईल नंबर 83 29 68 44 70<br>
+            <a href="https://drive.google.com/file/d/1pkldnaLRyqBtfgiQKwtbeSSfXhENzbOm/view?usp=drivesdk" target="_blank">
+                <img src="https://lh3.googleusercontent.com/d/1pkldnaLRyqBtfgiQKwtbeSSfXhENzbOm=s220" alt="फोटो" onerror="this.src='https://via.placeholder.com/60'">
+            </a>
+        </div>
+    </div>
+
+    <!-- चुकलेल्या प्रश्नांची यादी दाखवणारा विभाग -->
+    <div id="review-screen" class="screen">
+        <h2>चुकलेले प्रश्न व मार्गदर्शन</h2>
+        <div id="incorrect-list"></div>
+        <button class="btn" onclick="backToCertificate()" style="margin-top: 20px;">प्रमाणपत्रकडे परत जा</button>
+    </div>
+</div>
+
+<script>
+const questions = [
+    { q: "१) पुढीलपैकी कोणते इंग्रजी मूळाक्षर उभी रेषा संदर्भात सममित आहे?", options: ["G", "J", "A", "P"], ans: 2, exp: "स्पष्टीकरण: 'A' या मूळाक्षराला उभ्या रेषेच्या संदर्भात सममिती असते." },
+    { q: "२) पुढीलपैकी कोणत्या इंग्रजी मूळाक्षराला सममितीचा एकही अक्ष नाही?", options: ["H", "O", "F", "X"], ans: 2, exp: "स्पष्टीकरण: 'F' या मूळाक्षराला सममितीचा एकही अक्ष नसतो." },
+    { q: "३) इंग्रजी 'B' या मूळाक्षराला सममितीचे किती अक्ष असतात?", options: ["शून्य", "एक", "दोन", "तीन"], ans: 1, exp: "स्पष्टीकरण: 'B' या मूळाक्षराला आडवी सममिती रेषा असते, म्हणजेच १ अक्ष असतो." },
+    { q: "४) इंग्रजी 'H' या मूळाक्षराला सममितीचे किती अक्ष असतात?", options: ["शून्य", "एक", "दोन", "चार"], ans: 2, exp: "स्पष्टीकरण: 'H' ला उभी आणि आडवी अशा दोन सममिती रेषा असतात." },
+    { q: "५) इंग्रजी 'X' या मूळाक्षराला सममितीचे किती अक्ष असतात?", options: ["एक", "दोन", "तीन", "चार"], ans: 1, exp: "स्पष्टीकरण: 'X' ला उभी व आडवी अशी दोन सममिती अक्ष असतात." },
+    { q: "६) इंग्रजी 'O' या मूळाक्षराला सममितीचे किती अक्ष असतात?", options: ["दोन", "चार", "एकही नाही", "असंख्य"], ans: 3, exp: "स्पष्टीकरण: वर्तुळाकार आकारामुळे 'O' ला असंख्य सममिती अक्ष असतात." },
+    { q: "७) पुढीलपैकी कोणते इंग्रजी मूळाक्षर असममित आहे?", options: ["A", "M", "F", "T"], ans: 2, exp: "स्पष्टीकरण: 'F' च्या दोन्ही बाजू सारख्या होत नाहीत, म्हणून हे असममित आहे." },
+    { q: "८) चौरस या भूमितीय आकृतीला सममितीचे किती अक्ष असतात?", options: ["दोन", "तीन", "चार", "सहा"], ans: 2, exp: "स्पष्टीकरण: चौरसाला शिरोबिंदू आणि बाजूंच्या मध्याधून जाणारे ४ सममिती अक्ष असतात." },
+    { q: "९) आयत या आकृतीला सममितीचे किती अक्ष असतात?", options: ["एक", "दोन", "तीन", "चार"], ans: 1, exp: "स्पष्टीकरण: आयताला उभी आणि आडवी अशा दोन सममिती रेषा असतात." },
+    { q: "१०) समभुज त्रिकोणाला सममितीचे किती अक्ष असतात?", options: ["एक", "दोन", "तीन", "चार"], ans: 2, exp: "स्पष्टीकरण: समभुज त्रिकोणाच्या तिन्ही शिरोबिंदूंपासून समोरच्या बाजूवर काढलेले ३ अक्ष असतात." },
+    { q: "११) समद्विभुज त्रिकोणाला सममितीचा किती अक्ष असतो?", options: ["शून्य", "एक", "दोन", "तीन"], ans: 1, exp: "स्पष्टीकरण: समान बाजूंच्या कोनातून जाणारा १ सममिती अक्ष असतो." },
+    { q: "१२) विषमभुज त्रिकोणाला सममितीचे किती अक्ष असतात?", options: ["शून्य", "एक", "दोन", "तीन"], ans: 0, exp: "स्पष्टीकरण: विषमभुज त्रिकोणाच्या तिन्ही बाजू वेगवेगळ्या असतात, म्हणून अक्ष शून्य असतात." },
+    { q: "१३) वर्तुळाला सममितीचे किती अक्ष असतात?", options: ["शून्य", "दोन", "चार", "असंख्य"], ans: 3, exp: "स्पष्टीकरण: वर्तुळाच्या केंद्रातून जाणारी कोणतीही रेषा तिचे दोन समान भाग करते, म्हणून ती असंख्य असतात." },
+    { q: "१४) समभुज चौकोनाला सममितीचे किती अक्ष असतात?", options: ["एक", "दोन", "तीन", "चार"], ans: 1, exp: "स्पष्टीकरण: समभुज चौकोनाला त्याचे दोन्ही कर्ण हे सममितीचे दोन अक्ष असतात." },
+    { q: "१५) पतंग या आकृतीला सममितीचा किती अक्ष असतो?", options: ["शून्य", "एक", "दोन", "चार"], ans: 1, exp: "स्पष्टीकरण: पतंग आकृतीला मुख्य लांब कर्ण हा १ सममिती अक्ष असतो." },
+    { q: "१६) समांतरभुज चौकोनाला सममितीचे किती अक्ष असतात?", options: ["शून्य", "एक", "दोन", "चार"], ans: 0, exp: "स्पष्टीकरण: समांतरभुज चौकोनाला सममितीचा एकही अक्ष नसतो." },
+    { q: "१७) इंग्रजी 'C' या मूळाक्षराची सममितीची रेषा कोणती असते?", options: ["उभी रेषा", "आडवी रेषा", "तिरकस् रेषा", "सममिती नाही"], ans: 1, exp: "स्पष्टीकरण: 'C' ला बरोबर मधोमध जाणारी आडवी रेषा सममिती अक्ष ठरते." },
+    { q: "१८) इंग्रजी 'D' या मूळाक्षराची सममितीची रेषा कोणती असते?", options: ["उभी रेषा", "आडवी रेषा", "दोन रेषा", "सममिती नाही"], ans: 1, exp: "स्पष्टीकरण: 'D' ला आडवी सममिती रेषा असते." },
+    { q: "१९) इंग्रजी 'M' या मूळाक्षराची सममितीची रेषा कोणती असते?", options: ["आडवी रेषा", "उभी रेषा", "तिरकस् रेषा", "कोणतीही नाही"], ans: 1, exp: "स्पष्टीकरण: 'M' ला उभी रेषा सममिती अक्ष असते." },
+    { q: "२०) इंग्रजी 'E' या मूळाक्षराची सममितीची रेषा कोणती असते?", options: ["उभी रेषा", "आडवी रेषा", "दोनही रेषा", "सममिती नाही"], ans: 1, exp: "स्पष्टीकरण: 'E' ला मध्यभागी जाणारी आडवी रेषा सममिती अक्ष असते." },
+    { q: "२१) खालीलपैकी कोणत्या इंग्रजी मूळाक्षराला उभी आणि आडवी अशा दोन्ही रेषांच्या संदर्भात सममिती आहे?", options: ["A", "B", "H", "F"], ans: 2, exp: "स्पष्टीकरण: 'H' मूळाक्षर उभे व आडवे दोन्ही प्रकारे सममित असते." },
+    { q: "२२) खालीलपैकी कोणत्या आकृतीला एकही सममितीचा अक्ष नसतो?", options: ["वर्तुळ", "समभुज त्रिकोण", "समांतरभुज चौकोन", "चौरस"], ans: 2, exp: "स्पष्टीकरण: समांतरभुज चौकोनाला सममितीचा एकही अक्ष नसतो." },
+    { q: "२३) इंग्रजी 'P' या मूळाक्षराला सममितीचे किती अक्ष असतात?", options: ["शून्य", "एक", "दोन", "चार"], ans: 0, exp: "स्पष्टीकरण: 'P' ला सममितीचा एकही अक्ष नसतो." },
+    { q: "२४) इंग्रजी 'N' या मूळाक्षराला सममितीचे किती अक्ष असतात?", options: ["शून्य", "एक", "दोन", "चार"], ans: 0, exp: "स्पष्टीकरण: 'N' मध्ये दोन्ही भाग तंतोतंत जुळत नाहीत, म्हणून शून्य अक्ष." },
+    { q: "२५) इंग्रजी 'S' या मूळाक्षराला सममितीचे किती अक्ष असतात?", options: ["शून्य", "एक", "दोन", "चार"], ans: 0, exp: "स्पष्टीकरण: 'S' ला सममिती अक्ष नसतो." },
+    { q: "२६) इंग्रजी 'T' या मूळाक्षराला सममितीचे किती अक्ष असतात?", options: ["शून्य", "एक", "दोन", "तीन"], ans: 1, exp: "स्पष्टीकरण: 'T' ला बरोबर मधोमध जाणारी १ उभी रेषा सममिती अक्ष असते." },
+    { q: "२७) इंग्रजी 'V' या मूळाक्षराला सममितीचे किती अक्ष असतात?", options: ["शून्य", "एक", "दोन", "तीन"], ans: 1, exp: "स्पष्टीकरण: 'V' ला मध्यभागी जाणारी १ उभी रेषा सममिती अक्ष असते." },
+    { q: "२८) इंग्रजी 'W' या मूळाक्षराला सममितीचे किती अक्ष असतात?", options: ["शून्य", "एक", "दोन", "तीन"], ans: 1, exp: "स्पष्टीकरण: 'W' ला १ उभी सममिती रेषा असते." },
+    { q: "२९) इंग्रजी 'Y' या मूळाक्षराला सममितीचे किती अक्ष असतात?", options: ["शून्य", "एक", "दोन", "तीन"], ans: 1, exp: "स्पष्टीकरण: 'Y' ला १ उभी सममिती रेषा असते." },
+    { q: "३०) इंग्रजी 'A' या मूळाक्षराला सममितीचे किती अक्ष असतात?", options: ["शून्य", "एक", "दोन", "तीन"], ans: 1, exp: "स्पष्टीकरण: 'A' ला मध्यभागी जाणारा १ उभी सममिती अक्ष असतो." },
+    { q: "३१) इंग्रजी 'I' या मूळाक्षराला सममितीचे किती अक्ष असतात?", options: ["एक", "दोन", "तीन", "चार"], ans: 1, exp: "स्पष्टीकरण: 'I' ला उभी आणि आडवी असे दोन सममिती अक्ष असतात." },
+    { q: "३२) इंग्रजी 'K' या मूळाक्षराला सममितीचे किती अक्ष असतात?", options: ["शून्य", "एक", "दोन", "तीन"], ans: 1, exp: "स्पष्टीकरण: 'K' ला १ आडवी सममिती रेषा असते." },
+    { q: "३३) इंग्रजी 'U' या मूळाक्षराला सममितीचे किती अक्ष असतात?", options: ["शून्य", "एक", "दोन", "तीन"], ans: 1, exp: "स्पष्टीकरण: 'U' ला १ उभी सममिती रेषा असते." },
+    { q: "३४) खालीलपैकी कोणती आकृती निश्चितपणे सममित असते?", options: ["अनियमित वक्र रेषा", "वर्तुळ", "विषमभुज चौकोन", "असममित बहुभुज"], ans: 1, exp: "स्पष्टीकरण: वर्तुळ हे नेहमी सममित असते." },
+    { q: "३५) जर एखाद्या आकृतीचे दोन भाग एकमेकांशी तंतोतंत जुळत असतील, तर ती आकृती कशी असते?", options: ["असममित आकृती", "सममित आकृती", "वर्तुळाकार आकृती", "त्रिकोणी आकृती"], ans: 1, exp: "स्पष्टीकरण सममित आकृतीची ही मुख्य व्याख्या आहे." },
+    { q: "३६) जर आकृतीच्या कोणत्याही एका रेषांमुळे होणारे दोन भाग परस्परांशी तंतोतंत जुळत नसतील, तर ती आकृती कोणती असते?", options: ["सममित", "असममित", "समभुज", "एकरूप"], ans: 1, exp: "स्पष्टीकरण: भाग जुळत नसतील तर ती असममित आकृती असते." },
+    { q: "३७) खालीलपैकी कोणत्या इंग्रजी मूळाक्षराला उभ्या रेषांच्या संदर्भात सममिती नाही?", options: ["A", "M", "B", "T"], ans: 2, exp: "स्पष्टीकरण: 'B' ला उभ्या रेषेच्या संदर्भात सममिती नसते (ती आडवी असते)." },
+    { q: "३८) खालीलपैकी कोणत्या आकृतीला फक्त एकच सममितीचा अक्ष असतो?", options: ["चौरस", "आयत", "समद्विभुज त्रिकोण", "वर्तुळ"], ans: 2, exp: "स्पष्टीकरण: समद्विभुज त्रिकोणाला फक्त १ सममिती अक्ष असतो." },
+    { q: "३९) अर्धवर्तुळाला सममितीचे किती अक्ष असतात?", options: ["शून्य", "एक", "दोन", "असंख्य"], ans: 1, exp: "स्पष्टीकरण: अर्धवर्तुळाला मध्यभागातून जाणारा १ उभी सममिती अक्ष असतो." },
+    { q: "४०) कोनदुभाजक असलेल्या कोणाला सममितीचा किती अक्ष असतो?", options: ["शून्य", "एक", "दोन", "चार"], ans: 1, exp: "स्पष्टीकरण: कोनाच्या कोनादुभाजकावर १ सममिती अक्ष असतो." },
+    { q: "४१) समभुज त्रिकोणाच्या प्रत्येक कोनाचे माप किती असते?", options: ["६० अंश", "९० अंश", "४५ अंश", "३० अंश"], ans: 0, exp: "स्पष्टीकरण: समभुज त्रिकोणाचे सर्व कोन समान म्हणजे ६० अंशाचे असतात." },
+    { q: "४२) कोणत्या इंग्रजी मूळाक्षराला फक्त आडव्या रेषांच्या संदर्भात सममिती असते?", options: ["A", "C", "M", "T"], ans: 1, exp: "स्पष्टीकरण: 'C' ला फक्त आडवी सममिती रेषा असते." },
+    { q: "४३) इंग्रजी 'D' या मूळाक्षराची सममिती रेषा कशी असते?", options: ["उभी", "आडवी", "तिरकस्", "वर्तुळाकार"], ans: 1, exp: "स्पष्टीकरण: 'D' ची सममिती रेषा आडवी असते." },
+    { q: "४४) इंग्रजी 'K' या मूळाक्षराची सममिती रेषा कशी असते?", options: ["उभी", "आडवी", "वर्तुळाकार", "कोणतीही नाही"], ans: 1, exp: "स्पष्टीकरण: 'K' ची सममिती रेषा आडवी असते." },
+    { q: "४५) चौरसाची प्रत्येक बाजू समान असते, म्हणून त्याला किती सममिती अक्ष असतात?", options: ["दोन", "तीन", "चार", "सहा"], ans: 2, exp: "स्पष्टीकरण: चौरसाला ४ सममिती अक्ष असतात." },
+    { q: "४६) आयताला सममितीचे किती अक्ष असतात?", options: ["एक", "दोन", "तीन", "चार"], ans: 1, exp: "स्पष्टीकरण: आयताला २ सममिती अक्ष असतात." },
+    { q: "४७) इंग्रजी 'X' या मूळाक्षराला सममितीचे किती अक्ष असतात?", options: ["एक", "दोन", "तीन", "चार"], ans: 1, exp: "स्पष्टीकरण: 'X' ला २ सममिती अक्ष असतात." },
+    { q: "४८) इंग्रजी 'O' या मूळाक्षराला सममितीचे किती अक्ष असतात?", options: ["एक", "दोन", "तीन", "असंख्य"], ans: 3, exp: "स्पष्टीकरण: 'O' वर्तुळासारखे असल्याने असंख्य अक्ष असतात." },
+    { q: "४९) इंग्रजी 'H' या मूळाक्षराला सममितीचे किती अक्ष असतात?", options: ["एक", "दोन", "तीन", "चार"], ans: 1, exp: "स्पष्टीकरण: 'H' ला २ सममिती अक्ष असतात." },
+    { q: "५०) खालीलपैकी कोणती आकृती सममित नाही?", options: ["चौरस", "वर्तुळ", "विषमभुज चौकोन", "आयत"], ans: 2, exp: "स्पष्टीकरण: विषमभुज चौकोन हा सममित नसतो." }
+];
+let currentQuestionIndex = 0;
+let score = 0;
+let studentName = "";
+let studentMobile = "";
+let userAnswers = [];
+
+function startExam() {
+    studentName = document.getElementById('student-name').value.trim();
+    studentMobile = document.getElementById('student-mobile').value.trim();
+    
+    if(studentName === "" || studentMobile === "") {
+        alert("कृपया तुमचे नाव आणि मोबाईल नंबर प्रविष्ट करा!");
+        return;
+    }
+    
+    document.getElementById('login-screen').classList.remove('active');
+    document.getElementById('quiz-screen').classList.add('active');
+    loadQuestion();
+}
+
+function loadQuestion() {
+    let q = questions[currentQuestionIndex];
+    document.getElementById('q-count').innerText = `प्रश्न: ${currentQuestionIndex + 1} / ५०`;
+    document.getElementById('score-display').innerText = `गुण: ${score}`;
+    document.getElementById('question-text').innerText = q.q;
+    
+    let optionsHtml = '';
+    q.options.forEach((opt, index) => {
+        optionsHtml += `<label onclick="selectAnswer(${index})"><input type="radio" name="opt" value="${index}" style="margin-right: 10px;"> ${opt}</label>`;
+    });
+    
+    document.getElementById('options-container').innerHTML = optionsHtml;
+    document.getElementById('explanation-box').style.display = 'none';
+    document.getElementById('next-btn').style.display = 'none';
+}
+
+function selectAnswer(selectedIndex) {
+    let q = questions[currentQuestionIndex];
+    let optionLabels = document.querySelectorAll('.options label');
+    
+    optionLabels.forEach((lbl, idx) => {
+        lbl.onclick = null; 
+        if(idx === q.ans) {
+            lbl.classList.add('correct');
+        } else if(idx === selectedIndex) {
+            lbl.classList.add('incorrect');
+        }
+    });
+
+    let isCorrect = (selectedIndex === q.ans);
+    if(isCorrect) {
+        score += 2; 
+    }
+
+    userAnswers.push({
+        question: q.q,
+        options: q.options,
+        userAns: selectedIndex,
+        correctAns: q.ans,
+        explanation: q.exp,
+        isCorrect: isCorrect
+    });
+
+    let expBox = document.getElementById('explanation-box');
+    expBox.innerHTML = q.exp;
+    expBox.style.display = 'block';
+
+    document.getElementById('next-btn').style.display = 'block';
+}
+
+function nextQuestion() {
+    currentQuestionIndex++;
+    if(currentQuestionIndex < questions.length) {
+        loadQuestion();
+    } else {
+        showResult();
+    }
+}
+
+function showResult() {
+    document.getElementById('quiz-screen').classList.remove('active');
+    document.getElementById('result-screen').classList.add('active');
+    
+    document.getElementById('res-name').innerText = studentName;
+    document.getElementById('res-mobile').innerText = studentMobile;
+    document.getElementById('res-score').innerText = score;
+    
+    let percentage = (score / 100) * 100;
+    document.getElementById('res-percentage').innerText = percentage.toFixed(0);
+    
+    let msg = "";
+    if(percentage >= 90) {
+        msg = "🥇 Gold Medal + Trophy! उत्कृष्ट कामगिरी!";
+    } else if(percentage >= 80) {
+        msg = "🥈 Silver Medal + Trophy! खूप छान कामगिरी!";
+    } else if(percentage >= 70) {
+        msg = "🥉 Bronze Medal + Trophy! चांगली कामगिरी!";
+    } else {
+        msg = "💐 अभिनंदन! फुलांचा गुच्छ व 'पुढील परीक्षेसाठी शुभेच्छा'";
+    }
+    
+    document.getElementById('performance-msg').innerText = msg;
+
+    let incorrectCount = userAnswers.filter(item => !item.isCorrect).length;
+    if(incorrectCount > 0) {
+        document.getElementById('review-btn').style.display = 'block';
+    }
+}
+
+function showIncorrectModal() {
+    document.getElementById('result-screen').classList.remove('active');
+    document.getElementById('review-screen').classList.add('active');
+    
+    let incorrectListHtml = '';
+    userAnswers.forEach((item) => {
+        if(!item.isCorrect) {
+            incorrectListHtml += `
+                <div class="question-box" style="border-left: 5px solid #ef4444;">
+                    <p><strong>प्रश्न: ${item.question}</strong></p>
+                    <p style="color: #dc2626;">तुमचे उत्तर: ${item.userAns !== undefined ? item.options[item.userAns] : 'उत्तर दिले नाही'}</p>
+                    <p style="color: #16a34a;">अचूक उत्तर: ${item.options[item.correctAns]}</p>
+                    <div style="background: #e0f2fe; padding: 10px; margin-top: 5px; border-radius: 5px;">${item.explanation}</div>
+                </div>
+            `;
+        }
+    });
+    
+    document.getElementById('incorrect-list').innerHTML = incorrectListHtml;
+}
+
+function backToCertificate() {
+    document.getElementById('review-screen').classList.remove('active');
+    document.getElementById('result-screen').classList.add('active');
+}
+</script>
+
+</body>
+</html>
