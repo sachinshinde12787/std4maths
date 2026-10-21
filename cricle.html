@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html lang="mr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>वर्तुळ - स्कॉलरशिप परीक्षा</title>
+    <style>
+        :root {
+            --primary: #4f46e5;
+            --primary-dark: #4338ca;
+            --success: #10b981;
+            --error: #ef4444;
+            --bg-gradient: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: var(--bg-gradient);
+            margin: 0;
+            padding: 10px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+        .container {
+            width: 100%;
+            max-width: 650px;
+            background: #ffffff;
+            border-radius: 16px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            overflow: hidden;
+            padding: 25px;
+            box-sizing: border-box;
+            position: relative;
+        }
+        .header-top {
+            font-size: 14px;
+            font-weight: bold;
+            color: #4b5563;
+            text-align: center;
+            margin-bottom: 15px;
+        }
+        .exam-title {
+            text-align: center;
+            color: var(--primary);
+            font-size: 24px;
+            margin-bottom: 20px;
+            font-weight: bold;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 600;
+            color: #374151;
+        }
+        .form-group input {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #d1d5db;
+            border-radius: 8px;
+            font-size: 16px;
+            box-sizing: border-box;
+        }
+        .creator-bottom-right {
+            text-align: right;
+            font-size: 13px;
+            color: #4b5563;
+            margin-top: 30px;
+            line-height: 1.4;
+        }
+        .creator-bottom-right img {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            object-fit: cover;
+            vertical-align: middle;
+            margin-top: 5px;
+        }
+        .footer-note {
+            text-align: center;
+            font-size: 13px;
+            color: #6b7280;
+            margin-top: 20px;
+        }
+        .btn {
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            font-size: 16px;
+            font-weight: bold;
+            border-radius: 8px;
+            cursor: pointer;
+            width: 100%;
+            transition: background 0.3s;
+            margin-top: 10px;
+        }
+        .btn:hover {
+            background-color: var(--primary-dark);
+        }
+        .hidden {
+            display: none !important;
+        }
+        .question-box {
+            font-size: 18px;
+            font-weight: 600;
+            color: #1f2937;
+            margin-bottom: 15px;
+        }
+        .options-list {
+            list-style: none;
+            padding: 0;
+            margin: 0 0 20px 0;
+        }
+        .option-item {
+            background: #f9fafb;
+            border: 1px solid #e5e7eb;
+            padding: 12px 15px;
+            margin-bottom: 10px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-size: 16px;
+        }
+        .option-item:hover {
+            background: #f3f4f6;
+        }
+        .option-item.correct {
+            background-color: #d1fae5 !important;
+            border-color: var(--success) !important;
+            color: #065f46;
+            font-weight: bold;
+        }
+        .option-item.wrong {
+            background-color: #fee2e2 !important;
+            border-color: var(--error) !important;
+            color: #991b1b;
+        }
+        .explanation {
+            background: #eff6ff;
+            border-left: 4px solid var(--primary);
+            padding: 10px 15px;
+            margin-bottom: 20px;
+            font-size: 14px;
+            color: #1e40af;
+            border-radius: 0 8px 8px 0;
+        }
+        .quiz-footer {
+            text-align: center;
+            font-size: 12px;
+            color: #9ca3af;
+            margin-top: 15px;
+        }
+        .certificate {
+            border: 8px double var(--primary);
+            padding: 20px;
+            border-radius: 12px;
+            background: #fffdf9;
+            text-align: center;
+            position: relative;
+        }
+        .cert-header {
+            font-size: 15px;
+            font-weight: bold;
+            color: #374151;
+            margin-bottom: 10px;
+        }
+        .cert-title {
+            font-size: 26px;
+            color: var(--primary);
+            font-weight: bold;
+            margin: 10px 0;
+            text-transform: uppercase;
+        }
+        .score-display {
+            font-size: 38px;
+            font-weight: bold;
+            color: #111827;
+            margin: 15px 0;
+        }
+        .honor-badge {
+            font-size: 18px;
+            font-weight: bold;
+            padding: 10px;
+            border-radius: 8px;
+            margin: 15px 0;
+            display: inline-block;
+        }
+        .review-section {
+            margin-top: 20px;
+            text-align: left;
+            max-height: 200px;
+            overflow-y: auto;
+            border: 1px solid #e5e7eb;
+            padding: 10px;
+            border-radius: 8px;
+            background: #f9fafb;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <!-- PAGE 1: REGISTRATION -->
+    <div id="reg-page">
+        <div class="header-top">जिल्हा परिषद प्राथमिक शाळा नरसोबावाडी संचलित</div>
+        <div class="exam-title">वर्तुळ - स्कॉलरशिप परीक्षा</div>
+        
+        <div class="form-group">
+            <label for="student-name">विद्यार्थ्याचे नाव:</label>
+            <input type="text" id="student-name" placeholder="पूर्ण नाव प्रविष्ट करा" required>
+        </div>
+        <div class="form-group">
+            <label for="student-mobile">मोबाईल नंबर:</label>
+            <input type="tel" id="student-mobile" placeholder="१० अंकी मोबाईल नंबर" required>
+        </div>
+
+        <button class="btn" onclick="startExam()">EXAM START</button>
+
+        <div class="footer-note">टेस्ट निर्मिती व संकल्पना श्री सचिन शिंदे मोबाईल नंबर 83 29 68 44 70</div>
+
+        <div class="creator-bottom-right">
+            संकल्पना व निर्मिती<br>
+            <strong>श्री सचिन शिंदे सर</strong><br>
+            जि प प्रा शाळा नरसोबावाडी<br>
+            मोबाईल नंबर: 83 29 68 44 70<br>
+            <img src="https://lh3.googleusercontent.com/d/1pkldnaLRyqBtfgiQKwtbeSSfXhENzbOm=s220" alt="Teacher Photo" onerror="this.style.display='none'">
+        </div>
+    </div>
+
+    <!-- PAGE 2: QUIZ SCREEN -->
+    <div id="quiz-page" class="hidden">
+        <div style="display: flex; justify-content: space-between; margin-bottom: 15px; font-weight: bold; color: #4b5563;">
+            <span id="q-counter">प्रश्न: १/४०</span>
+            <span id="timer">गुण: ८०</span>
+        </div>
+        
+        <div class="question-box" id="question-text">प्रश्न येथे येईल</div>
+        <ul class="options-list" id="options-container"></ul>
+        
+        <div id="explanation-box" class="explanation hidden">स्पष्टीकरण येथे दिसेल</div>
+
+        <button id="next-btn" class="btn hidden" onclick="nextQuestion()">पुढील प्रश्न</button>
+
+        <div class="quiz-footer">टेस्ट निर्मिती व संकल्पना श्री सचिन शिंदे मोबाईल नंबर 83 29 68 44 70</div>
+    </div>
+
+    <!-- PAGE 3: CERTIFICATE & REVIEW -->
+    <div id="cert-page" class="hidden">
+        <div class="certificate">
+            <div class="cert-header">🏆 जिल्हा परिषद प्राथमिक शाळा नरसोबावाडी संचलित</div>
+            <div class="cert-title">गुणवत्ता प्रमाणपत्र</div>
+            <p>परीक्षेचे नाव: <strong>वर्तुळ</strong></p>
+            <p>विद्यार्थ्याचे नाव: <span id="cert-name" style="font-weight:bold; color:var(--primary);"></span></p>
+            
+            <div class="score-display" id="cert-score">पात्रता गुण</div>
+            <div id="cert-honor" class="honor-badge"></div>
+
+            <div style="margin-top: 15px;">
+                <button class="btn" style="background-color: #ef4444;" onclick="toggleReview()">चुकीचे प्रश्न तपासा व मार्गदर्शन घ्या</button>
+            </div>
+
+            <div id="review-container" class="review-section hidden"></div>
+
+            <div class="creator-bottom-right" style="margin-top: 15px;">
+                संकल्पना व निर्मिती: <strong>श्री सचिन शिंदे सर</strong> | जि प प्रा शाळा नरसोबावाडी | मो. 83 29 68 44 70
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    const questions = [
+        { q: "वर्तुळाच्या केंद्रबिंदू व वर्तुळावरील कोणताही एक बिंदू जोडणाऱ्या रेषेला काय म्हणतात?", options: ["जिवा", "व्यास", "त्रिज्या", "परिघ"], ans: 2, exp: "वर्तुळाचा केंद्रबिंदू आणि वर्तुळावरील कोणताही बिंदू जोडणाऱ्या रेषाखंडाला त्रिज्या म्हणतात." },
+        { q: "वर्तुळावरील कोणतेही दोन बिंदू जोडणाऱ्या रेषाखंडाला काय म्हणतात?", options: ["त्रिज्या", "व्यास", "जिवा", "केंद्र"], ans: 2, exp: "वर्तुळावरील कोणतेही दोन बिंदू जोडणाऱ्या रेषेला किंवा रेषाखंडाला जिवा म्हणतात." },
+        { q: "वर्तुळाच्या केंद्रबिंदूतून जाणाऱ्या जिवेला वर्तुळाचा काय म्हणतात?", options: ["परिघ", "व्यास", "त्रिज्या", "कडा"], ans: 1, exp: "केंद्रबिंदूतून जाणाऱ्या जिवेला व्यास म्हणतात, जी वर्तुळाची सर्वात मोठी जिवा असते." },
+        { q: "एका वर्तुळाला किती त्रिज्या असतात?", options: ["एक", "दोन", "चार", "असंख्य"], ans: 3, exp: "एका वर्तुळातून अनंत त्रिज्या काढता येतात, म्हणून वर्तुळाला असंख्य त्रिज्या असतात." },
+        { q: "एकाच वर्तुळाच्या सर्व त्रिज्यांच्या लांबीमध्ये काय संबंध असतो?", options: ["सर्व त्रिज्या समान लांबीच्या असतात", "सर्व त्रिज्या असमान असतात", "त्रिज्या व्यासापेक्षा मोठी असते", "सांगता येत नाही"], ans: 0, exp: "एकाच वर्तुळाच्या सर्व त्रिज्यांची लांबी समान असते." },
+        { q: "वर्तुळाची सर्वात मोठी जिवा म्हणजे काय?", options: ["त्रिज्या", "व्यास", "परिघ", "केंद्र"], ans: 1, exp: "व्यास हा वर्तुळाच्या केंद्रधून जातो आणि तो सर्वात मोठी जिवा असतो." },
+        { q: "वर्तुळाच्या व्यासाची लांबी ही त्याच्या त्रिज्येच्या किती पट असते?", options: ["तिप्पट", "अर्धी", "दुप्पट", "चार पट"], ans: 2, exp: "व्यास हा त्रिज्येच्या दुप्पट लांबीचा असतो (व्यास = २ × त्रिज्या)." },
+        { q: "वर्तुळाची त्रिज्या ५ सेमी असल्यास, त्या वर्तुळाच्या व्यासाची लांबी किती असेल?", options: ["५ सेमी", "१० सेमी", "२.५ सेमी", "२० सेमी"], ans: 1, exp: "व्यास = ५ सेमी × २ = १० सेमी." },
+        { q: "एका वर्तुळाचा व्यास १६ सेमी आहे, तर त्या वर्तुळाची त्रिज्या किती असेल?", options: ["३२ सेमी", "१६ सेमी", "८ सेमी", "४ सेमी"], ans: 2, exp: "त्रिज्या ही व्यासाच्या निम्मी असते (१६ ÷ २ = ८ सेमी)." },
+        { q: "वर्तुळाच्या कडेची लांबी म्हणजेच काय होय?", options: ["क्षेत्रफळ", "व्यास", "त्रिज्या", "परिघ"], ans: 1, exp: "वर्तुळाच्या कडेच्या लांबीला परिघ असे म्हणतात." },
+        { q: "वर्तुळाकार मैदानाच्या कडेच्या आतील भागाला काय म्हणतात?", options: ["वर्तुळाचा बहिर्भाग", "वर्तुळाचा अंतरभाग", "वर्तुळाचे केंद्र", "वर्तुळाचा परिघ"], ans: 1, exp: "वर्तुळाच्या आतील भागाला अंतरभाग म्हणतात." },
+        { q: "वर्तुळाच्या त्रिज्येपेक्षा कमी अंतरावर असलेला बिंदू वर्तुळाच्या कुठे असतो?", options: ["वर्तुळावर", "वर्तुळाच्या बहिर्भागात", "वर्तुळाच्या अंतरभागात", "केंद्रबिंदूवर"], ans: 2, exp: "त्रिज्येपेक्षा कमी अंतर असल्यास बिंदू अंतरभागात असतो." },
+        { q: "वर्तुळाच्या त्रिज्येपेक्षा जास्त अंतरावर असलेला बिंदू वर्तुळाच्या कुठे असतो?", options: ["वर्तुळाच्या अंतरभागात", "वर्तुळावर", "वर्तुळाच्या बहिर्भागात", "वर्तुळाच्या केंद्रामध्ये"], ans: 2, exp: "त्रिज्येपेक्षा जास्त अंतर असल्यास बिंदू बहिर्भागात असतो." },
+        { q: "जर एखाद्या बिंदूचे वर्तुळाच्या केंद्रबिंदूपासून अंतर त्रिज्येएवढे असेल, तर तो बिंदू कुठे असतो?", options: ["वर्तुळाच्या अंतरभागात", "वर्तुळाच्या बहिर्भागात", "अचूक वर्तुळावर", "सांगता येत नाही"], ans: 2, exp: "त्रिज्येएवढे अंतर असणारा बिंदू अचूक वर्तुळाच्या कडेवर (वर्तुळावर) असतो." },
+        { q: "८ मीटर त्रिज्या असलेल्या वर्तुळाकार मैदानाचा व्यास किती असेल?", options: ["४ मीटर", "८ मीटर", "१२ मीटर", "१६ मीटर"], ans: 3, exp: "व्यास = ८ × २ = १६ मीटर." },
+        { q: "६ सेमी त्रिज्या असलेल्या एका वर्तुळाचा व्यास किती असेल?", options: ["३ सेमी", "६ सेमी", "१२ सेमी", "१८ सेमी"], ans: 2, exp: "व्यास = ६ × २ = १२ सेमी." },
+        { q: "एका वर्तुळात जास्तीत जास्त किती व्यास काढता येतात?", options: ["एक", "दोन", "चार", "असंख्य"], ans: 3, exp: "एका वर्तुळातून जाणारे असंख्य व्यास काढता येतात." },
+        { q: "म केंद्र असलेल्या वर्तुळाची त्रिज्या ३ सेमी आहे. बिंदू 'अ' चे वर्तुळाच्या केंद्रापासून अंतर २ सेमी आहे, तर बिंदू 'अ' चे स्थान ओळखा.", options: ["वर्तुळावर", "वर्तुळाच्या अंतरभागात", "वर्तुळाच्या बहिर्भागात", "सांगता येत नाही"], ans: 1, exp: "अंतर (२ सेमी) हे त्रिज्येपेक्षा (३ सेमी) कमी असल्यामुळे तो अंतरभागात आहे." },
+        { q: "प केंद्र असलेल्या एका वर्तुळाची त्रिज्या ६ सेमी आहे. बिंदू 'अ' चा वर्तुळाच्या बहिर्भागात समावेश आहे, तर त्याचे केंद्रापासूनचे अंतर किती असू शकेल?", options: ["५ सेमी", "३ सेमी", "६ सेमी", "७ सेमी"], ans: 3, exp: "बहिर्भागात असलेल्या बिंदूचे अंतर त्रिज्येपेक्षा (६ सेमी) जास्त असते, म्हणजेच ७ सेमी." },
+        { q: "एका वर्तुळातील सर्वात मोठ्या जीवेची लांबी १४ सेमी आहे, तर त्या वर्तुळाच्या त्रिज्येची लांबी किती असेल?", options: ["१४ सेमी", "७ सेमी", "२८ सेमी", "४ सेमी"], ans: 1, exp: "सर्वात मोठी जिवा म्हणजे व्यास (१४ सेमी), म्हणून त्रिज्या = १४ ÷ २ = ७ सेमी." },
+        { q: "एका वर्तुळातील त्रिज्येची लांबी ९ सेमी आहे, तर त्या वर्तुळाच्या सर्वात मोठ्या जीवेची लांबी किती असेल?", options: ["९ सेमी", "४.५ सेमी", "१८ सेमी", "३६ सेमी"], ans: 2, exp: "सर्वात मोठी जिवा व्यास असतो, जो त्रिज्येच्या दुप्पट (९ × २ = १८ सेमी) असतो." },
+        { q: "खालीलपैकी कोणते विधान चुकीचे आहे?", options: ["वर्तुळाची त्रिज्या व्यासाच्या निम्मी असते.", "वर्तुळाचा व्यास त्रिज्येच्या दुप्पट असतो.", "वर्तुळाची सर्वात मोठी जीवा म्हणजे त्रिज्या होय.", "वर्तुळाला असंख्य त्रिज्या असतात."], ans: 2, exp: "सर्वात मोठी जिवा व्यास असतो, त्रिज्या नव्हे." },
+        { q: "खालीलपैकी कोणते विधान बरोबर आहे?", options: ["एकाच वर्तुळाच्या सर्व जीवांमध्ये समान लांबी असते.", "वर्तुळाचा व्यास हा वर्तुळाची सर्वात मोठी जीवा असतो.", "वर्तुळाची जीवा ही नेहमी केंद्रबिंदूतून जाते.", "वर्तुळाचे केंद्र वर्तुळाच्या बहिर्भागात असते."], ans: 1, exp: "व्यास ही वर्तुळाची सर्वात मोठी जिवा असते हे विधान बरोबर आहे." },
+        { q: "२२ सेमी लांबीची तार वाकवून तिच्यापासून एक वर्तुळ तयार केले, तर त्या वर्तुळाचा परिघ किती असेल?", options: ["११ सेमी", "२२ सेमी", "४४ सेमी", "८८ सेमी"], ans: 1, exp: "वाकवलेल्या तारेची लांबी म्हणजेच त्या वर्तुळाचा परिघ असतो, म्हणजेच २२ सेमी." },
+        { q: "एका वर्तुळाच्या केंद्राचे आणि वर्तुळावरील कोणत्याही बिंदूचे अंतर म्हणजेच त्या वर्तुळाची काय होय?", options: ["जिवा", "व्यास", "त्रिज्या", "परिघ"], ans: 2, exp: "केंद्र व वर्तुळावरील बिंदू यांच्यातील अंतर म्हणजेच त्रिज्या होय." },
+        { q: "वर्तुळाच्या अंतरभागात असणाऱ्या बिंदूंचे वर्तुळाच्या केंद्रापासूनचे अंतर नेहमी त्रिज्येपेक्षा कसे असते?", options: ["जास्त", "कमी", "समान", "दुप्पट"], ans: 1, exp: "अंतरभागातील बिंदूचे अंतर नेहमी त्रिज्येपेक्षा कमी असते." },
+        { q: "वर्तुळाच्या बहिर्भागात असणाऱ्या बिंदूंचे वर्तुळाच्या केंद्रापासूनचे अंतर नेहमी त्रिज्येपेक्षा कसे असते?", options: ["कमी", "जास्त", "समान", "आधीपेक्षा कमी"], ans: 1, exp: "बहिर्भागातील बिंदूचे अंतर नेहमी त्रिज्येपेक्षा जास्त असते." },
+        { q: "एका वर्तुळात किती केंद्रबिंदू असतात?", options: ["दोन", "चार", "एक", "असंख्य"], ans: 2, exp: "प्रत्येक वर्तुळाला अचूक एकच केंद्रबिंदू असतो." },
+        { q: "वर्तुळावरील कोणताही बिंदू व केंद्र जोडणाऱ्या रेषाखंडाची संख्या किती असू शकते?", options: ["१", "२", "४", "असंख्य"], ans: 3, exp: "अशी असंख्य जोडणी करता येते, म्हणून संख्या असंख्य असते." },
+        { q: "जर वर्तुळाची त्रिज्या 'r' असेल, तर त्याचा व्यास 'd' दर्शवण्याचे सूत्र कोणते?", options: ["d = r ÷ 2", "d = 2 × r", "d = r + 2", "d = r - 2"], ans: 1, exp: "व्यास हा त्रिज्येच्या दुप्पट असतो (d = 2 × r)." },
+        { q: "जर वर्तुळाचा व्यास 'd' असेल, तर त्याची त्रिज्या 'r' काढण्याचे सूत्र कोणते?", options: ["r = 2 × d", "r = d ÷ 2", "r = d - 2", "r = d + 2"], ans: 1, exp: "त्रिज्या ही व्यासाच्या निम्मी असते (r = d ÷ 2)." },
+        { q: "कंपासच्या सहाय्याने वर्तुळ काढताना लोखंडी टोक कुठे ठेवले जाते?", options: ["वर्तुळावर", "वर्तुळाच्या बाहेर", "वर्तुळाच्या केंद्रावर", "जिवेवर"], ans: 2, exp: "वर्तुळ काढताना लोखंडी टोक केंद्रावर ठेवले जाते." },
+        { q: "कंपासमधील पेन्सिलचे टोक आणि लोखंडी टोक यांच्यामधील अंतर म्हणजेच वर्तुळाची काय असते?", options: ["व्यास", "त्रिज्या", "परिघ", "जिवा"], ans: 1, exp: "त्या दोन्ही टोकांमधील अंतर म्हणजेच वर्तुळाची त्रिज्या असते." },
+        { q: "एका वर्तुळात जास्तीत जास्त किती जीवा काढता येतात?", options: ["४", "१०", "१००", "असंख्य"], ans: 3, exp: "एका वर्तुळात असंख्य जिवा काढता येतात." },
+        { q: "वर्तुळाच्या जीवेची लांबी वर्तुळाच्या केंद्रामध्ये गेल्यास तिला काय म्हणतात?", options: ["त्रिज्या", "व्यास", "परिघ", "अंतरभाग"], ans: 1, exp: "केंद्रामधून जाणाऱ्या जिवेला व्यास म्हणतात." },
+        { q: "५ सेमी त्रिज्या असलेल्या वर्तुळावर एक बिंदू 'ख' आहे. तर केंद्र आणि 'ख' मधील अंतर किती असेल?", options: ["१० सेमी", "२.५ सेमी", "५ सेमी", "७ सेमी"], ans: 2, exp: "बिंदू वर्तुळावर असल्यामुळे केंद्र व त्यातील अंतर त्रिज्येएवढेच म्हणजेच ५ सेमी असेल." },
+        { q: "वर्तुळाकृती बांगडीची कडा मोजणे म्हणजे काय काढणे होय?", options: ["क्षेत्रफळ", "परिघ", "व्यास", "त्रिज्या"], ans: 1, exp: "बांगडीची कडा म्हणजेच वर्तुळाचा परिघ होय." },
+        { q: "जर वर्तुळाची त्रिज्या ३.५ सेमी असेल, तर व्यासाची लांबी किती?", options: ["३.५ सेमी", "७ सेमी", "१४ सेमी", "१.७५ सेमी"], ans: 1, exp: "व्यास = ३.५ × २ = ७ सेमी." },
+        { q: "वर्तुळाच्या अंतरभागात असणारा बिंदू कोणता?", options: ["वर्तुळाच्या कडेवरील बिंदू", "केंद्राच्या आतील भागातील बिंदू", "वर्तुळाच्या बाहेरील बिंदू", "यापैकी नाही"], ans: 1, exp: "केंद्राच्या आतील भागातील बिंदूला अंतरभागातला बिंदू म्हणतात." },
+        { q: "एका वर्तुळाची त्रिज्या १० सेमी आहे आणि दुसऱ्या वर्तुळाची त्रिज्या ५ सेमी आहे. दोन्ही वर्तुळांच्या व्यासांमधील फरक किती?", options: ["५ सेमी", "१० सेमी", "१५ सेमी", "२.५ सेमी"], ans: 1, exp: "पहिला व्यास २० सेमी, दुसरा व्यास १० सेमी, फरक = २० - १० = १० सेमी." }
+    ];
+let currentIdx = 0;
+    let score = 0;
+    let studentName = "";
+    let wrongAnswers = [];
+    let answeredCurrent = false;
+
+    function startExam() {
+        let nameInput = document.getElementById("student-name");
+        let mobileInput = document.getElementById("student-mobile");
+        
+        studentName = nameInput.value.trim();
+        let mobile = mobileInput.value.trim();
+
+        if(!studentName) {
+            alert("कृपया विद्यार्थ्याचे नाव प्रविष्ट करा!");
+            nameInput.focus();
+            return;
+        }
+        if(!mobile || mobile.length < 10) {
+            alert("कृपया वैध १० अंकी मोबाईल नंबर प्रविष्ट करा!");
+            mobileInput.focus();
+            return;
+        }
+
+        document.getElementById("reg-page").classList.add("hidden");
+        document.getElementById("quiz-page").classList.remove("hidden");
+        loadQuestion();
+    }
+
+    function loadQuestion() {
+        answeredCurrent = false;
+        let q = questions[currentIdx];
+        document.getElementById("q-counter").innerText = `प्रश्न: ${currentIdx + 1}/${questions.length}`;
+        document.getElementById("timer").innerText = `गुण: ${score}`;
+        document.getElementById("question-text").innerText = `${currentIdx + 1}. ${q.q}`;
+        
+        let optContainer = document.getElementById("options-container");
+        optContainer.innerHTML = "";
+        
+        q.options.forEach((opt, idx) => {
+            let li = document.createElement("li");
+            li.className = "option-item";
+            li.innerText = `(${idx + 1}) ${opt}`;
+            li.onclick = () => selectOption(idx, li);
+            optContainer.appendChild(li);
+        });
+
+        document.getElementById("explanation-box").classList.add("hidden");
+        document.getElementById("next-btn").classList.add("hidden");
+    }
+
+    function selectOption(selectedIdx, element) {
+        if(answeredCurrent) return;
+        answeredCurrent = true;
+
+        let q = questions[currentIdx];
+        let options = document.querySelectorAll(".option-item");
+
+        if(selectedIdx === q.ans) {
+            element.classList.add("correct");
+            score += 2;
+            document.getElementById("timer").innerText = `गुण: ${score}`;
+        } else {
+            element.classList.add("wrong");
+            options[q.ans].classList.add("correct");
+            wrongAnswers.push({
+                qNum: currentIdx + 1,
+                question: q.q,
+                userAns: q.options[selectedIdx],
+                correctAns: q.options[q.ans],
+                exp: q.exp
+            });
+        }
+
+        let expBox = document.getElementById("explanation-box");
+        expBox.innerHTML = `<strong>स्पष्टीकरण:</strong> ${q.exp}`;
+        expBox.classList.remove("hidden");
+
+        document.getElementById("next-btn").classList.remove("hidden");
+    }
+
+    function nextQuestion() {
+        currentIdx++;
+        if(currentIdx < questions.length) {
+            loadQuestion();
+        } else {
+            showCertificate();
+        }
+    }
+
+    function showCertificate() {
+        document.getElementById("quiz-page").classList.add("hidden");
+        document.getElementById("cert-page").classList.remove("hidden");
+
+        document.getElementById("cert-name").innerText = studentName;
+        let totalMarks = questions.length * 2;
+        document.getElementById("cert-score").innerText = `एकूण गुण: ${score} / ${totalMarks}`;
+
+        let percentage = (score / totalMarks) * 100;
+        let honorBox = document.getElementById("cert-honor");
+
+        if(percentage >= 90) {
+            honorBox.style.background = "#d1fae5";
+            honorBox.style.color = "#065f46";
+            honorBox.innerHTML = "🥇 Gold Medal + Trophy<br>उत्कृष्ट कामगिरी!";
+        } else if(percentage >= 80) {
+            honorBox.style.background = "#e0f2fe";
+            honorBox.style.color = "#0369a1";
+            honorBox.innerHTML = "🥈 Silver Medal + Trophy<br>वेरी गुड!";
+        } else if(percentage >= 70) {
+            honorBox.style.background = "#ffedd5";
+            honorBox.style.color = "#c2410c";
+            honorBox.innerHTML = "🥉 Bronze Medal + Trophy<br>छान प्रयत्न!";
+        } else {
+            honorBox.style.background = "#ffeeef";
+            honorBox.style.color = "#991b1b";
+            honorBox.innerHTML = "💐 अभिनंदन! फुलांचा गुच्छ व 'पुढील परीक्षेसाठी शुभेच्छा'";
+        }
+
+        let reviewHTML = "";
+        if(wrongAnswers.length === 0) {
+            reviewHTML = "<p style='color:green; text-align:center;'>अभिनंदन! तुमचे सर्व प्रश्न बरोबर आले आहेत!</p>";
+        } else {
+            wrongAnswers.forEach(item => {
+                reviewHTML += `<div style="margin-bottom:10px; border-bottom:1px dashed #d1d5db; padding-bottom:8px;">
+                    <strong>प्र. ${item.qNum}: ${item.question}</strong><br>
+                    <span style="color:red;">तुमचे उत्तर: ${item.userAns}</span><br>
+                    <span style="color:green;">योग्य उत्तर: ${item.correctAns}</span><br>
+                    <small style="color:#1e40af;">मार्गदर्शन: ${item.exp}</small>
+                </div>`;
+            });
+        }
+        document.getElementById("review-container").innerHTML = reviewHTML;
+    }
+
+    function toggleReview() {
+        let revContainer = document.getElementById("review-container");
+        revContainer.classList.toggle("hidden");
+    }
+</script>
+</body>
+</html>
+
+    
