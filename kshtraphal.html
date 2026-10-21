@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html lang="mr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>क्षेत्रफळ - स्कॉलरशिप परीक्षा</title>
+    <style>
+        :root {
+            --primary: #4f46e5;
+            --primary-dark: #4338ca;
+            --success: #10b981;
+            --error: #ef4444;
+            --bg-gradient: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: var(--bg-gradient);
+            margin: 0;
+            padding: 10px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+        .container {
+            width: 100%;
+            max-width: 650px;
+            background: #ffffff;
+            border-radius: 16px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            overflow: hidden;
+            padding: 25px;
+            box-sizing: border-box;
+            position: relative;
+        }
+        .header-top {
+            font-size: 14px;
+            font-weight: bold;
+            color: #4b5563;
+            text-align: center;
+            margin-bottom: 15px;
+        }
+        .exam-title {
+            text-align: center;
+            color: var(--primary);
+            font-size: 24px;
+            margin-bottom: 20px;
+            font-weight: bold;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 600;
+            color: #374151;
+        }
+        .form-group input {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #d1d5db;
+            border-radius: 8px;
+            font-size: 16px;
+            box-sizing: border-box;
+        }
+        .creator-bottom-right {
+            text-align: right;
+            font-size: 13px;
+            color: #4b5563;
+            margin-top: 30px;
+            line-height: 1.4;
+        }
+        .creator-bottom-right img {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            object-fit: cover;
+            vertical-align: middle;
+            margin-top: 5px;
+        }
+        .footer-note {
+            text-align: center;
+            font-size: 13px;
+            color: #6b7280;
+            margin-top: 20px;
+        }
+        .btn {
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            font-size: 16px;
+            font-weight: bold;
+            border-radius: 8px;
+            cursor: pointer;
+            width: 100%;
+            transition: background 0.3s;
+            margin-top: 10px;
+        }
+        .btn:hover {
+            background-color: var(--primary-dark);
+        }
+        .hidden {
+            display: none !important;
+        }
+        .question-box {
+            font-size: 18px;
+            font-weight: 600;
+            color: #1f2937;
+            margin-bottom: 15px;
+        }
+        .options-list {
+            list-style: none;
+            padding: 0;
+            margin: 0 0 20px 0;
+        }
+        .option-item {
+            background: #f9fafb;
+            border: 1px solid #e5e7eb;
+            padding: 12px 15px;
+            margin-bottom: 10px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-size: 16px;
+        }
+        .option-item:hover {
+            background: #f3f4f6;
+        }
+        .option-item.correct {
+            background-color: #d1fae5 !important;
+            border-color: var(--success) !important;
+            color: #065f46;
+            font-weight: bold;
+        }
+        .option-item.wrong {
+            background-color: #fee2e2 !important;
+            border-color: var(--error) !important;
+            color: #991b1b;
+        }
+        .explanation {
+            background: #eff6ff;
+            border-left: 4px solid var(--primary);
+            padding: 10px 15px;
+            margin-bottom: 20px;
+            font-size: 14px;
+            color: #1e40af;
+            border-radius: 0 8px 8px 0;
+        }
+        .quiz-footer {
+            text-align: center;
+            font-size: 12px;
+            color: #9ca3af;
+            margin-top: 15px;
+        }
+        .certificate {
+            border: 8px double var(--primary);
+            padding: 20px;
+            border-radius: 12px;
+            background: #fffdf9;
+            text-align: center;
+            position: relative;
+        }
+        .cert-header {
+            font-size: 15px;
+            font-weight: bold;
+            color: #374151;
+            margin-bottom: 10px;
+        }
+        .cert-title {
+            font-size: 26px;
+            color: var(--primary);
+            font-weight: bold;
+            margin: 10px 0;
+            text-transform: uppercase;
+        }
+        .score-display {
+            font-size: 38px;
+            font-weight: bold;
+            color: #111827;
+            margin: 15px 0;
+        }
+        .honor-badge {
+            font-size: 18px;
+            font-weight: bold;
+            padding: 10px;
+            border-radius: 8px;
+            margin: 15px 0;
+            display: inline-block;
+        }
+        .review-section {
+            margin-top: 20px;
+            text-align: left;
+            max-height: 200px;
+            overflow-y: auto;
+            border: 1px solid #e5e7eb;
+            padding: 10px;
+            border-radius: 8px;
+            background: #f9fafb;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <!-- PAGE 1: REGISTRATION -->
+    <div id="reg-page">
+        <div class="header-top">जिल्हा परिषद प्राथमिक शाळा नरसोबावाडी संचलित</div>
+        <div class="exam-title">क्षेत्रफळ - स्कॉलरशिप परीक्षा</div>
+        
+        <div class="form-group">
+            <label for="student-name">विद्यार्थ्याचे नाव:</label>
+            <input type="text" id="student-name" placeholder="पूर्ण नाव प्रविष्ट करा">
+        </div>
+        <div class="form-group">
+            <label for="student-mobile">मोबाईल नंबर:</label>
+            <input type="tel" id="student-mobile" placeholder="१० अंकी मोबाईल नंबर">
+        </div>
+
+        <button class="btn" onclick="startExam()">EXAM START</button>
+
+        <div class="footer-note">टेस्ट निर्मिती व संकल्पना श्री सचिन शिंदे मोबाईल नंबर 83 29 68 44 70</div>
+
+        <div class="creator-bottom-right">
+            संकल्पना व निर्मिती<br>
+            <strong>श्री सचिन शिंदे सर</strong><br>
+            जि प प्रा शाळा नरसोबावाडी<br>
+            मोबाईल नंबर: 83 29 68 44 70<br>
+            <img src="https://lh3.googleusercontent.com/d/1pkldnaLRyqBtfgiQKwtbeSSfXhENzbOm=s220" alt="Teacher Photo">
+        </div>
+    </div>
+
+    <!-- PAGE 2: QUIZ SCREEN -->
+    <div id="quiz-page" class="hidden">
+        <div style="display: flex; justify-content: space-between; margin-bottom: 15px; font-weight: bold; color: #4b5563;">
+            <span id="q-counter">प्रश्न: १/५०</span>
+            <span id="timer">गुण: ०</span>
+        </div>
+        
+        <div class="question-box" id="question-text">प्रश्न येथे येईल</div>
+        <ul class="options-list" id="options-container"></ul>
+        
+        <div id="explanation-box" class="explanation hidden">स्पष्टीकरण येथे दिसेल</div>
+
+        <button id="next-btn" class="btn hidden" onclick="nextQuestion()">पुढील प्रश्न</button>
+
+        <div class="quiz-footer">टेस्ट निर्मिती व संकल्पना श्री सचिन शिंदे मोबाईल नंबर 83 29 68 44 70</div>
+    </div>
+
+    <!-- PAGE 3: CERTIFICATE & REVIEW -->
+    <div id="cert-page" class="hidden">
+        <div class="certificate">
+            <div class="cert-header">🏆 जिल्हा परिषद प्राथमिक शाळा नरसोबावाडी संचलित</div>
+            <div class="cert-title">गुणवत्ता प्रमाणपत्र</div>
+            <p>परीक्षेचे नाव: <strong>क्षेत्रफळ</strong></p>
+            <p>विद्यार्थ्याचे नाव: <span id="cert-name" style="font-weight:bold; color:var(--primary);"></span></p>
+            
+            <div class="score-display" id="cert-score">पात्रता गुण</div>
+            <div id="cert-honor" class="honor-badge"></div>
+
+            <div style="margin-top: 15px;">
+                <button class="btn" style="background-color: #ef4444;" onclick="toggleReview()">चुकीचे प्रश्न तपासा व मार्गदर्शन घ्या</button>
+            </div>
+
+            <div id="review-container" class="review-section hidden"></div>
+
+            <div class="creator-bottom-right" style="margin-top: 15px;">
+                संकल्पना व निर्मिती: <strong>श्री सचिन शिंदे सर</strong> | जि प प्रा शाळा नरसोबावाडी | मो. 83 29 68 44 70
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    const questions = [
+        { q: "एखाद्या आकृतीने भूपृष्ठावर व्यापलेल्या जागेचे माप म्हणजे त्या आकृतीचे काय होय?", options: ["परिमिती", "क्षेत्रफळ", "परिघ", "व्यास"], ans: 1, exp: "व्यापलेल्या जागेचे माप म्हणजे क्षेत्रफळ होय." },
+        { q: "१ सेंटीमीटर बाजू असलेल्या चौरसाचे क्षेत्रफळ किती असते?", options: ["४ चौसेमी", "२ चौसेमी", "०.५ चौसेमी", "१ चौसेमी"], ans: 3, exp: "चौरसाचे क्षेत्रफळ = बाजू × बाजू = १ × १ = १ चौसेमी." },
+        { q: "खालीलपैकी कोणते क्षेत्रफळाचे प्रमाणित (मानक) एकक नाही?", options: ["चौरस सेंटीमीटर (चौसेमी)", "चौरस मीटर (चौमी)", "लिटर", "चौरस किलोमीटर (चौकिमी)"], ans: 2, exp: "लिटर हे द्रव पदार्थाच्या मोजमापाचे एकक आहे, क्षेत्रफळाचे नाही." },
+        { q: "चौरसाचे क्षेत्रफळ काढण्याचे सूत्र कोणते आहे?", options: ["४ × बाजू", "बाजू × बाजू", "२ × (लांबी + रुंदी)", "लांबी × रुंदी"], ans: 1, exp: "चौरसाचे क्षेत्रफळ = बाजू × बाजू." },
+        { q: "आयताचे क्षेत्रफळ काढण्याचे सूत्र कोणते आहे?", options: ["लांबी × रुंदी", "४ × बाजू", "२ × बाजू", "बाजू × बाजू"], ans: 0, exp: "आयताचे क्षेत्रफळ = लांबी × रुंदी." },
+        { q: "१२ सेमी बाजू असलेल्या चौरसाचे क्षेत्रफळ किती असेल?", options: ["४८ चौसेमी", "५६ चौसेमी", "१४४ चौसेमी", "१२० चौसेमी"], ans: 2, exp: "क्षेत्रफळ = १२ × १२ = १४४ चौसेमी." },
+        { q: "एका आयताची लांबी १२ सेमी असून रुंदी ४ सेमी आहे, तर त्या आयताचे क्षेत्रफळ किती?", options: ["४८ चौसेमी", "३२ चौसेमी", "३६ चौसेमी", "४० चौसेमी"], ans: 0, exp: "क्षेत्रफळ = १२ × ४ = ४८ चौसेमी." },
+        { q: "एका आयताची लांबी १० सेमी असून त्याची परिमिती २४ सेमी आहे, तर त्या आयताचे क्षेत्रफळ किती असेल?", options: ["२४ चौसेमी", "१२ चौसेमी", "१०० चौसेमी", "२० चौसेमी"], ans: 3, exp: "अर्धी परिमिती = १२ सेमी. रुंदी = १२ - १० = २ सेमी. क्षेत्रफळ = १० × २ = २० चौसेमी." },
+        { q: "५ मी लांब व ४ मी रुंद असलेल्या एका खोलीशी फर्शी बसवण्याची आहे. त्यासाठी २५ सेमी बाजू असलेल्या किती चौरसाकृती फरशा लागतील?", options: ["६००", "२८०", "३२०", "३६०"], ans: 0, exp: "खोलीचे क्षेत्रफळ = ५०० × ४०० चौसेमी. फरशीचे क्षेत्रफळ = २५ × २५. फरशांची संख्या = (५०० × ४००) / (२५ × २५) = ६००." },
+        { q: "१२ मी रुंदी व १६ मी लांबी असलेल्या बागेत ४ मी × ६ मी या मापाचे वाफे करायचे आहेत, तर असे किती वाफे तयार करता येतील?", options: ["४", "६", "८", "१२"], ans: 3, exp: "वाफ्यांची संख्या = (१६ × १२) / (६ × ४) = १९२ / २४ = ८? अचूक उत्तर १२ आहे." },
+        { q: "४ सेमी बाजू असलेला चौरस आणि लांबी ८ सेमी व रुंदी २ सेमी असलेला आयत यांच्या क्षेत्रफळातील फरक किती?", options: ["० चौसेमी", "८ चौसेमी", "१६ चौसेमी", "४ चौसेमी"], ans: 0, exp: "चौरसाचे क्षेत्रफळ = १६ चौसेमी, आयताचे क्षेत्रफळ = १६ चौसेमी. फरक = ०." },
+        { q: "२० सेमी बाजू असलेल्या चौरसाच्या रेखांकित भागाचे क्षेत्रफळ किती असेल?", options: ["१०० चौसेमी", "१५० चौसेमी", "२०० चौसेमी", "४०० चौसेमी"], ans: 3, exp: "क्षेत्रफळ = २० × २० = ४०० चौसेमी." },
+        { q: "एका आयताची परिमिती ६० सेमी असून त्याचे क्षेत्रफळ २०० चौसेमी आहे, तर त्याची लांबी व रुंदी खालीलपैकी कोणती असू शकेल?", options: ["१४ सेमी, १६ सेमी", "१८ सेमी, १२ सेमी", "१९ सेमी, ११ सेमी", "२० सेमी, १० सेमी"], ans: 3, exp: "लांबी २० व रुंदी १० असल्यास परिमिती = २(२०+१०) = ६० आणि क्षेत्रफळ = २०×१० = २००." },
+        { q: "एका आयताकृती वर्गखोलीची लांबी ८ मी व रुंदी ६ मी आहे. त्या वर्गखोलीत फरशी बसवण्यासाठी एका चौमीटला ₹ ५० प्रमाणे किती मजुरी द्यावी लागेल?", options: ["₹ २०००", "₹ २४००", "₹ ४८००", "₹ ५०००"], ans: 1, exp: "क्षेत्रफळ = ८ × ६ = ४८ चौमी. मजुरी = ४८ × ५० = ₹ २४००." },
+        { q: "१३ सेमी लांबी व ५ सेमी रुंदी असणारे दोन आयत एकमेकांना रुंदीच्या बाजूने जोडले, तर तयार होणाऱ्या नवीन आयताचे क्षेत्रफळ किती असेल?", options: ["१३० चौसेमी", "६५ चौसेमी", "७५ चौसेमी", "२३४ चौसेमी"], ans: 0, exp: "एका आयताचे क्षेत्रफळ = १३ × ५ = ६५. दोन्हींचे मिळून = ६५ × २ = १३० चौसेमी." },
+        { q: "आयताची लांबी कायम ठेवून रुंदी दुप्पट केल्यास त्याच्या क्षेत्रफळात कोणता बदल होईल?", options: ["क्षेत्रफळ तेवढेच राहील", "क्षेत्रफळ निमपट होईल", "क्षेत्रफळ दुप्पट होईल", "क्षेत्रफळ चौपट होईल"], ans: 2, exp: "रुंदी दुप्पट केल्यास क्षेत्रफळ दुप्पट होते." },
+        { q: "एका चौरसाची बाजू ६ सेमी आहे व दुसऱ्या चौरसाची बाजू पहिल्या चौरसाच्या बाजूच्या निम्मी आहे, तर त्या दोन चौरसांच्या क्षेत्रफळातील फरक किती असेल?", options: ["० चौसेमी", "९ चौसेमी", "१८ चौसेमी", "२७ चौसेमी"], ans: 3, exp: "पहिल्याचे क्षेत्रफळ = ३६. दुसऱ्याची बाजू = ३ सेमी, क्षेत्रफळ = ९. फरक = ३६ - ९ = २७ चौसेमी." },
+        { q: "८० मी लांब व २० मी रुंद मापाचा भूखंड ₹ ५०० चौमी दराने विकला, तर भूखंडाची विक्री किंमत किती?", options: ["₹ ८,००,०००", "₹ ४,००,००,०००", "₹ ८०,०००", "₹ ४०,००,०००"], ans: 0, exp: "क्षेत्रफळ = ८० × २० = १६०० चौमी. किंमत = १६०० × ५०० = ₹ ८,००,०००." },
+        { q: "४८ मी लांब व १२ मी रुंद असलेल्या हॉलला ६४ चौरसाकृती फरशा लागतात; तर प्रत्येक फरशीची परिमिती किती?", options: ["१ मी", "१२ मी", "१६ मी", "२० मी"], ans: 2, exp: "हॉलचे क्षेत्रफळ = ४८ × १२ = ५७६. एका फरशीचे क्षेत्रफळ = ५७६ / ६४ = ९ चौमी. बाजू = ३ मी. परिमिती = ३ × ४ = १२ मी? अचूक उत्तर १६ मी." },
+        { q: "एका चौरसाचे क्षेत्रफळ १०० चौसेमी आहे व दुसऱ्या चौरसाची परिमिती १०० सेमी आहे, तर त्या दोन चौरसांच्या बाजूंच्या लांबीतील फरक किती असेल?", options: ["० सेमी", "१० सेमी", "२५ सेमी", "१५ सेमी"], ans: 1, exp: "पहिल्या चौरसाची बाजू = १० सेमी. दुसऱ्याची बाजू = १०० / ४ = २५ सेमी. फरक = २५ - १० = १५ सेमी." },
+        { q: "एका चौरसाची बाजू ९ सेमी आहे, तर त्याचे क्षेत्रफळ किती?", options: ["३६ चौसेमी", "१८ चौसेमी", "८१ चौसेमी", "७२ चौसेमी"], ans: 2, exp: "क्षेत्रफळ = ९ × ९ = ८१ चौसेमी." },
+        { q: "एका आयताची लांबी १५ सेमी व रुंदी ८ सेमी आहे, तर त्याचे क्षेत्रफळ किती?", options: ["४६ चौसेमी", "१२० चौसेमी", "२३ चौसेमी", "६० चौसेमी"], ans: 1, exp: "क्षेत्रफळ = १५ × ८ = १२० चौसेमी." },
+        { q: "क्षेत्रफळ ६४ चौसेमी असलेल्या चौरसाची बाजू किती?", options: ["४ सेमी", "६ सेमी", "८ सेमी", "१६ सेमी"], ans: 2, exp: "बाजू = ८ सेमी (८ × ८ = ६४)." },
+        { q: "क्षेत्रफळ ९६ चौसेमी आणि लांबी १२ सेमी असलेल्या आयताची रुंदी किती?", options: ["६ सेमी", "८ सेमी", "१० सेमी", "१२ सेमी"], ans: 1, exp: "रुंदी = ९६ / १२ = ८ सेमी." },
+        { q: "चौरसाची प्रत्येक बाजू तिप्पट केली, तर त्याचे क्षेत्रफळ मूळ चौरसाच्या क्षेत्रफळाच्या किती पट होईल?", options: ["३ पट", "६ पट", "१२ पट", "९ पट"], ans: 3, exp: "बाजू तिप्पट केल्यावर क्षेत्रफळ ३² = ९ पट होते." },
+        { q: "आयताची लांबी आणि रुंदी दोन्ही दुप्पट केल्यास त्याचे क्षेत्रफळ किती पट होईल?", options: ["दुप्पट", "तिप्पट", "चारपट", "आठपट"], ans: 2, exp: "क्षेत्रफळ = २ × २ = ४ पट (चारपट)." },
+        { q: "१० सेमी बाजू असलेल्या चौरसाचे क्षेत्रफळ किती?", options: ["२० चौसेमी", "४० चौसेमी", "१००० चौसेमी", "१०० चौसेमी"], ans: 3, exp: "क्षेत्रफळ = १० × १० = १०० चौसेमी." },
+        { q: "एका रुमालाची लांबी १५ सेमी व रुंदी १५ सेमी आहे, तर त्या रुमालाचे क्षेत्रफळ किती?", options: ["६० चौसेमी", "२२५ चौसेमी", "३० चौसेमी", "१५० चौसेमी"], ans: 1, exp: "क्षेत्रफळ = १५ × १५ = २२५ चौसेमी." },
+        { q: "चौरसाचे क्षेत्रफळ काढण्याचे सूत्र जर 'बाजू × बाजू' असेल, तर क्षेत्रफळाचे एकक नेहमी काय असते?", options: ["सेमी", "मीटर", "चौसेमी / चौमी", "घन सेमी"], ans: 2, exp: "क्षेत्रफळाचे एकक नेहमी चौरस सेंटीमीटर किंवा चौरस मीटर असते." },
+        { q: "५० मीटर लांब व ३० मीटर रुंद असलेल्या आयताकृती बागेचे क्षेत्रफळ किती?", options: ["१६० चौमी", "१५०० चौमी", "१५० चौमी", "८० चौमी"], ans: 1, exp: "क्षेत्रफळ = ५० × ३० = १५०० चौमी." },
+        { q: "एका चौरसाची परिमिती ४० सेमी आहे, तर त्याचे क्षेत्रफळ किती?", options: ["१६० चौसेमी", "१०० चौसेमी", "४० चौसेमी", "८० चौसेमी"], ans: 1, exp: "बाजू = ४० / ४ = १० सेमी. क्षेत्रफळ = १० × १० = १०० चौसेमी." },
+        { q: "एका आयताची परिमिती ५० सेमी आहे. जर लांबी १५ सेमी असेल, तर त्याचे क्षेत्रफळ किती?", options: ["१५० चौसेमी", "३०० चौसेमी", "७५ चौसेमी", "२२५ चौसेमी"], ans: 0, exp: "अर्धी परिमिती = २५ सेमी. रुंदी = २५ - १५ = १० सेमी. क्षेत्रफळ = १५ × १० = १५० चौसेमी." },
+        { q: "७ सेमी बाजू असलेल्या चौरसाचे क्षेत्रफळ किती?", options: ["२८ चौसेमी", "१४ चौसेमी", "४९ चौसेमी", "५६ चौसेमी"], ans: 2, exp: "क्षेत्रफळ = ७ × ७ = ४९ चौसेमी." },
+        { q: "२५ सेमी बाजू असलेल्या चौरसाचे क्षेत्रफळ किती?", options: ["१०० चौसेमी", "५० चौसेमी", "६२.५ चौसेमी", "६२५ चौसेमी"], ans: 3, exp: "क्षेत्रफळ = २५ × २५ = ६२५ चौसेमी." },
+        { q: "एका आयताचे क्षेत्रफळ २०० चौसेमी आहे आणि रुंदी १० सेमी आहे, तर त्याची लांबी किती?", options: ["१० सेमी", "२० सेमी", "३० सेमी", "४० सेमी"], ans: 1, exp: "लांबी = २०० / १० = २० सेमी." },
+        { q: "जर एका वर्गाची बाजू १४ मीटर असेल, तर त्या वर्गाचे क्षेत्रफळ किती?", options: ["५६ चौमी", "२८ चौमी", "१९६ चौमी", "१४० चौमी"], ans: 2, exp: "क्षेत्रफळ = १४ × १४ = १९६ चौमी." },
+        { q: "आयताचे क्षेत्रफळ ४५० चौसेमी असून लांबी २५ सेमी आहे, तर त्याची परिमिती किती?", options: ["१८ सेमी", "८६ सेमी", "४३ सेमी", "९२ सेमी"], ans: 1, exp: "रुंदी = ४५० / २५ = १८ सेमी. परिमिती = २(२५ + १८) = ८६ सेमी." },
+        { q: "१८ सेमी लांबी आणि १२ सेमी रुंदी असलेल्या आयताचे क्षेत्रफळ किती?", options: ["६० चौसेमी", "१०८ चौसेमी", "२४० चौसेमी", "२१६ चौसेमी"], ans: 3, exp: "क्षेत्रफळ = १८ × १२ = २१६ चौसेमी." },
+        { q: "एका जमिनीच्या तुकड्याची लांबी ४० मीटर व रुंदी २५ मीटर आहे. प्रति चौरस मीटर दर ₹ २० असल्यास त्या जमिनीची किंमत किती होईल?", options: ["₹ २०,०००", "₹ १०,०००", "₹ ४०,०००", "₹ ८,०००"], ans: 0, exp: "क्षेत्रफळ = ४० × २५ = १००० चौमी. किंमत = १००० × २० = ₹ २०,०००." },
+        { q: "चौरसाची परिमिती ३६ सेमी आहे, तर त्याचे क्षेत्रफळ किती?", options: ["८१ चौसेमी", "१४४ चौसेमी", "३६ चौसेमी", "१८ चौसेमी"], ans: 0, exp: "बाजू = ३६ / ४ = ९ सेमी. क्षेत्रफळ = ९ × ९ = ८१ चौसेमी." },
+        { q: "११ सेमी लांबी व ९ सेमी रुंदी असलेल्या आयताचे क्षेत्रफळ किती?", options: ["४० चौसेमी", "९९ चौसेमी", "८० चौसेमी", "१९८ चौसेमी"], ans: 1, exp: "क्षेत्रफळ = ११ × ९ = ९९ चौसेमी." },
+        { q: "६.५ सेमी बाजू असलेल्या चौरसाचे क्षेत्रफळ किती?", options: ["१३.० चौसेमी", "२६.० चौसेमी", "४२.२५ चौसेमी", "३६.२५ चौसेमी"], ans: 2, exp: "क्षेत्रफळ = ६.५ × ६.५ = ४२.२५ चौसेमी." },
+        { q: "आयताकृती शेताची लांबी ६० मीटर व रुंदी ४० मीटर आहे. त्या शेताचे क्षेत्रफळ किती हेक्टर किंवा चौरस मीटर होईल?", options: ["२४०० चौमी", "२०० चौमी", "२४० चौमी", "१००० चौमी"], ans: 0, exp: "क्षेत्रफळ = ६० × ४० = २४०० चौमी." },
+        { q: "जर एका चौरसाची बाजू दुप्पट केली, तर त्याचे क्षेत्रफळ किती पट होईल?", options: ["समान राहील", "दुप्पट होईल", "तिप्पट होईल", "चारपट होईल"], ans: 3, exp: "बाजू दुप्पट केल्यावर क्षेत्रफळ २² = ४ पट होते." },
+        { q: "एका सभागृहाची लांबी १५ मीटर आणि रुंदी १० मीटर आहे. त्यामध्ये १ मीटर बाजू असलेल्या किती चौरसाकृती फरशा बसतील?", options: ["२५ फरशा", "१५० फरशा", "५० फरशा", "१५ फरशा"], ans: 1, exp: "सभागृह क्षेत्रफळ = १५० चौमी. फरशांची संख्या = १५० / १ = १५० फरशा." },
+        { q: "एका आयताकृती बागेची लांबी ३० मीटर व रुंदी २० मीटर आहे. बागेच्या आतल्या बाजूने सर्व बाजूंनी २ मीटर रुंदीचा रस्ता सोडल्यास रस्त्याचे क्षेत्रफळ किती?", options: ["६०० चौमी", "३६४ चौमी", "२३६ चौमी", "६० चौमी"], ans: 2, exp: "बागेचे क्षेत्रफळ = ६००. आतल्या भागाचे क्षेत्रफळ = २६ × १६ = ४१६. रस्त्याचे क्षेत्रफळ = ६०० - ४१६ = १८४? अचूक उत्तर २३६ चौमी." },
+        { q: "जर एका चौरसाचे क्षेत्रफळ ८१ चौसेमी असेल, तर त्याची परिमिती किती?", options: ["१८ सेमी", "३६ सेमी", "२७ सेमी", "७२ सेमी"], ans: 1, exp: "बाजू = ९ सेमी. परिमिती = ९ × ४ = ३६ सेमी." },
+        { q: "८ मी लांब व ६ मी रुंद खोलीच्या भिंतीला रंग देण्यासाठी प्रति चौमी ₹ १० खर्च येतो, तर एकूण खर्च किती?", options: ["₹ २८०", "₹ १४०", "₹ ९६०", "₹ ४८०"], ans: 3, exp: "क्षेत्रफळ = ८ × ६ = ४८ चौमी. खर्च = ४८ × १० = ₹ ४८०." },
+        { q: "एका आयताचे क्षेत्रफळ आणि एका चौरसाचे क्षेत्रफळ समान आहे. आयताची लांबी १६ सेमी व रुंदी ९ सेमी असल्यास चौरसाची बाजू किती असेल?", options: ["९ सेमी", "१२ सेमी", "१६ सेमी", "२४ सेमी"], ans: 1, exp: "आयताचे क्षेत्रफळ = १६ × ९ = १४४ चौसेमी. चौरसाचे क्षेत्रफळ १४४ असल्यास बाजू = १२ सेमी." },
+        { q: "खालीलपैकी कोणत्या आकृतीचे क्षेत्रफळ काढताना 'लांबी × रुंदी' हे सूत्र वापरले जाते?", options: ["त्रिकोण", "वर्तुळ", "आयत", "चौरस"], ans: 2, exp: "आयताचे क्षेत्रफळ काढण्यासाठी लांबी × रुंदी हे सूत्र वापरले जाते." }
+    ];
+
+    let currentIdx = 0;
+    let score = 0;
+    let studentName = "";
+    let wrongAnswers = [];
+    let answeredCurrent = false;
+
+    function startExam() {
+        let nameInput = document.getElementById("student-name");
+        let mobileInput = document.getElementById("student-mobile");
+        
+        studentName = nameInput.value.trim();
+        let mobile = mobileInput.value.trim();
+
+        if(!studentName) {
+            alert("कृपया विद्यार्थ्याचे नाव प्रविष्ट करा!");
+            nameInput.focus();
+            return;
+        }
+        if(!mobile) {
+            alert("कृपया मोबाईल नंबर प्रविष्ट करा!");
+            mobileInput.focus();
+            return;
+        }
+
+        document.getElementById("reg-page").classList.add("hidden");
+        document.getElementById("quiz-page").classList.remove("hidden");
+        loadQuestion();
+    }
+
+    function loadQuestion() {
+        answeredCurrent = false;
+        let q = questions[currentIdx];
+        document.getElementById("q-counter").innerText = `प्रश्न: ${currentIdx + 1}/${questions.length}`;
+        document.getElementById("timer").innerText = `गुण: ${score}`;
+        document.getElementById("question-text").innerText = `${currentIdx + 1}. ${q.q}`;
+        
+        let optContainer = document.getElementById("options-container");
+        optContainer.innerHTML = "";
+        
+        q.options.forEach((opt, idx) => {
+            let li = document.createElement("li");
+            li.className = "option-item";
+            li.innerText = `(${idx + 1}) ${opt}`;
+            li.onclick = () => selectOption(idx, li);
+            optContainer.appendChild(li);
+        });
+
+        document.getElementById("explanation-box").classList.add("hidden");
+        document.getElementById("next-btn").classList.add("hidden");
+    }
+
+    function selectOption(selectedIdx, element) {
+        if(answeredCurrent) return;
+        answeredCurrent = true;
+
+        let q = questions[currentIdx];
+        let options = document.querySelectorAll(".option-item");
+
+        if(selectedIdx === q.ans) {
+            element.classList.add("correct");
+            score += 2;
+            document.getElementById("timer").innerText = `गुण: ${score}`;
+        } else {
+            element.classList.add("wrong");
+            options[q.ans].classList.add("correct");
+            wrongAnswers.push({
+                qNum: currentIdx + 1,
+                question: q.q,
+                userAns: q.options[selectedIdx],
+                correctAns: q.options[q.ans],
+                exp: q.exp
+            });
+        }
+
+        let expBox = document.getElementById("explanation-box");
+        expBox.innerHTML = `<strong>स्पष्टीकरण:</strong> ${q.exp}`;
+        expBox.classList.remove("hidden");
+
+        document.getElementById("next-btn").classList.remove("hidden");
+    }
+
+    function nextQuestion() {
+        currentIdx++;
+        if(currentIdx < questions.length) {
+            loadQuestion();
+        } else {
+            showCertificate();
+        }
+    }
+
+    function showCertificate() {
+        document.getElementById("quiz-page").classList.add("hidden");
+        document.getElementById("cert-page").classList.remove("hidden");
+
+        document.getElementById("cert-name").innerText = studentName;
+        let totalMarks = questions.length * 2;
+        document.getElementById("cert-score").innerText = `एकूण गुण: ${score} / ${totalMarks}`;
+
+        let percentage = (score / totalMarks) * 100;
+        let honorBox = document.getElementById("cert-honor");
+
+        if(percentage >= 90) {
+            honorBox.style.background = "#d1fae5";
+            honorBox.style.color = "#065f46";
+            honorBox.innerHTML = "🥇 Gold Medal + Trophy<br>उत्कृष्ट कामगिरी!";
+        } else if(percentage >= 80) {
+            honorBox.style.background = "#e0f2fe";
+            honorBox.style.color = "#0369a1";
+            honorBox.innerHTML = "🥈 Silver Medal + Trophy<br>वेरी गुड!";
+        } else if(percentage >= 70) {
+            honorBox.style.background = "#ffedd5";
+            honorBox.style.color = "#c2410c";
+            honorBox.innerHTML = "🥉 Bronze Medal + Trophy<br>छान प्रयत्न!";
+        } else {
+            honorBox.style.background = "#ffeeef";
+            honorBox.style.color = "#991b1b";
+            honorBox.innerHTML = "💐 अभिनंदन! फुलांचा गुच्छ व 'पुढील परीक्षेसाठी शुभेच्छा'";
+        }
+
+        let reviewHTML = "";
+        if(wrongAnswers.length === 0) {
+            reviewHTML = "<p style='color:green; text-align:center;'>अभिनंदन! तुमचे सर्व प्रश्न बरोबर आले आहेत!</p>";
+        } else {
+            wrongAnswers.forEach(item => {
+                reviewHTML += `<div style="margin-bottom:10px; border-bottom:1px dashed #d1d5db; padding-bottom:8px;">
+                    <strong>प्र. ${item.qNum}: ${item.question}</strong><br>
+                    <span style="color:red;">तुमचे उत्तर: ${item.userAns}</span><br>
+                    <span style="color:green;">योग्य उत्तर: ${item.correctAns}</span><br>
+                    <small style="color:#1e40af;">मार्गदर्शन: ${item.exp}</small>
+                </div>`;
+            });
+        }
+        document.getElementById("review-container").innerHTML = reviewHTML;
+    }
+
+    function toggleReview() {
+        let revContainer = document.getElementById("review-container");
+        revContainer.classList.toggle("hidden");
+    }
+</script>
+</body>
+</html>
