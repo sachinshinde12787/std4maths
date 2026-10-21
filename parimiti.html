@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang="mr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>परिमिती - स्कॉलरशिप परीक्षा</title>
+    <style>
+        :root {
+            --primary: #4f46e5;
+            --primary-dark: #4338ca;
+            --success: #10b981;
+            --error: #ef4444;
+            --bg-gradient: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: var(--bg-gradient);
+            margin: 0;
+            padding: 10px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+        .container {
+            width: 100%;
+            max-width: 650px;
+            background: #ffffff;
+            border-radius: 16px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            overflow: hidden;
+            padding: 25px;
+            box-sizing: border-box;
+            position: relative;
+        }
+        .header-top {
+            font-size: 14px;
+            font-weight: bold;
+            color: #4b5563;
+            text-align: center;
+            margin-bottom: 15px;
+        }
+        .exam-title {
+            text-align: center;
+            color: var(--primary);
+            font-size: 24px;
+            margin-bottom: 20px;
+            font-weight: bold;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 600;
+            color: #374151;
+        }
+        .form-group input {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #d1d5db;
+            border-radius: 8px;
+            font-size: 16px;
+            box-sizing: border-box;
+        }
+        .creator-bottom-right {
+            text-align: right;
+            font-size: 13px;
+            color: #4b5563;
+            margin-top: 30px;
+            line-height: 1.4;
+        }
+        .creator-bottom-right img {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            object-fit: cover;
+            vertical-align: middle;
+            margin-top: 5px;
+        }
+        .footer-note {
+            text-align: center;
+            font-size: 13px;
+            color: #6b7280;
+            margin-top: 20px;
+        }
+        .btn {
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            font-size: 16px;
+            font-weight: bold;
+            border-radius: 8px;
+            cursor: pointer;
+            width: 100%;
+            transition: background 0.3s;
+            margin-top: 10px;
+        }
+        .btn:hover {
+            background-color: var(--primary-dark);
+        }
+        .hidden {
+            display: none !important;
+        }
+        .question-box {
+            font-size: 18px;
+            font-weight: 600;
+            color: #1f2937;
+            margin-bottom: 15px;
+        }
+        .options-list {
+            list-style: none;
+            padding: 0;
+            margin: 0 0 20px 0;
+        }
+        .option-item {
+            background: #f9fafb;
+            border: 1px solid #e5e7eb;
+            padding: 12px 15px;
+            margin-bottom: 10px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-size: 16px;
+        }
+        .option-item:hover {
+            background: #f3f4f6;
+        }
+        .option-item.correct {
+            background-color: #d1fae5 !important;
+            border-color: var(--success) !important;
+            color: #065f46;
+            font-weight: bold;
+        }
+        .option-item.wrong {
+            background-color: #fee2e2 !important;
+            border-color: var(--error) !important;
+            color: #991b1b;
+        }
+        .explanation {
+            background: #eff6ff;
+            border-left: 4px solid var(--primary);
+            padding: 10px 15px;
+            margin-bottom: 20px;
+            font-size: 14px;
+            color: #1e40af;
+            border-radius: 0 8px 8px 0;
+        }
+        .quiz-footer {
+            text-align: center;
+            font-size: 12px;
+            color: #9ca3af;
+            margin-top: 15px;
+        }
+        .certificate {
+            border: 8px double var(--primary);
+            padding: 20px;
+            border-radius: 12px;
+            background: #fffdf9;
+            text-align: center;
+            position: relative;
+        }
+        .cert-header {
+            font-size: 15px;
+            font-weight: bold;
+            color: #374151;
+            margin-bottom: 10px;
+        }
+        .cert-title {
+            font-size: 26px;
+            color: var(--primary);
+            font-weight: bold;
+            margin: 10px 0;
+            text-transform: uppercase;
+        }
+        .score-display {
+            font-size: 38px;
+            font-weight: bold;
+            color: #111827;
+            margin: 15px 0;
+        }
+        .honor-badge {
+            font-size: 18px;
+            font-weight: bold;
+            padding: 10px;
+            border-radius: 8px;
+            margin: 15px 0;
+            display: inline-block;
+        }
+        .review-section {
+            margin-top: 20px;
+            text-align: left;
+            max-height: 200px;
+            overflow-y: auto;
+            border: 1px solid #e5e7eb;
+            padding: 10px;
+            border-radius: 8px;
+            background: #f9fafb;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <!-- PAGE 1: REGISTRATION -->
+    <div id="reg-page">
+        <div class="header-top">जिल्हा परिषद प्राथमिक शाळा नरसोबावाडी संचलित</div>
+        <div class="exam-title">परिमिती - स्कॉलरशिप परीक्षा</div>
+        
+        <div class="form-group">
+            <label for="student-name">विद्यार्थ्याचे नाव:</label>
+            <input type="text" id="student-name" placeholder="पूर्ण नाव प्रविष्ट करा" required>
+        </div>
+        <div class="form-group">
+            <label for="student-mobile">मोबाईल नंबर:</label>
+            <input type="tel" id="student-mobile" placeholder="१० अंकी मोबाईल नंबर" required>
+        </div>
+
+        <button class="btn" onclick="startExam()">EXAM START</button>
+
+        <div class="footer-note">टेस्ट निर्मिती व संकल्पना श्री सचिन शिंदे मोबाईल नंबर 83 29 68 44 70</div>
+
+        <div class="creator-bottom-right">
+            संकल्पना व निर्मिती<br>
+            <strong>श्री सचिन शिंदे सर</strong><br>
+            जि प प्रा शाळा नरसोबावाडी<br>
+            मोबाईल नंबर: 83 29 68 44 70<br>
+            <img src="https://lh3.googleusercontent.com/d/1pkldnaLRyqBtfgiQKwtbeSSfXhENzbOm=s220" alt="Teacher Photo" onerror="this.style.display='none'">
+        </div>
+    </div>
+
+    <!-- PAGE 2: QUIZ SCREEN -->
+    <div id="quiz-page" class="hidden">
+        <div style="display: flex; justify-content: space-between; margin-bottom: 15px; font-weight: bold; color: #4b5563;">
+            <span id="q-counter">प्रश्न: १/४०</span>
+            <span id="timer">गुण: ८०</span>
+        </div>
+        
+        <div class="question-box" id="question-text">प्रश्न येथे येईल</div>
+        <ul class="options-list" id="options-container"></ul>
+        
+        <div id="explanation-box" class="explanation hidden">स्पष्टीकरण येथे दिसेल</div>
+
+        <button id="next-btn" class="btn hidden" onclick="nextQuestion()">पुढील प्रश्न</button>
+
+        <div class="quiz-footer">टेस्ट निर्मिती व संकल्पना श्री सचिन शिंदे मोबाईल नंबर 83 29 68 44 70</div>
+    </div>
+
+    <!-- PAGE 3: CERTIFICATE & REVIEW -->
+    <div id="cert-page" class="hidden">
+        <div class="certificate">
+            <div class="cert-header">🏆 जिल्हा परिषद प्राथमिक शाळा नरसोबावाडी संचलित</div>
+            <div class="cert-title">गुणवत्ता प्रमाणपत्र</div>
+            <p>परीक्षेचे नाव: <strong>परिमिती</strong></p>
+            <p>विद्यार्थ्याचे नाव: <span id="cert-name" style="font-weight:bold; color:var(--primary);"></span></p>
+            
+            <div class="score-display" id="cert-score">पात्रता गुण</div>
+            <div id="cert-honor" class="honor-badge"></div>
+
+            <div style="margin-top: 15px;">
+                <button class="btn" style="background-color: #ef4444;" onclick="toggleReview()">चुकीचे प्रश्न तपासा व मार्गदर्शन घ्या</button>
+            </div>
+
+            <div id="review-container" class="review-section hidden"></div>
+
+            <div class="creator-bottom-right" style="margin-top: 15px;">
+                संकल्पना व निर्मिती: <strong>श्री सचिन शिंदे सर</strong> | जि प प्रा शाळा नरसोबावाडी | मो. 83 29 68 44 70
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    const questions = [
+        { q: "कोणत्याही बंदिस्त आकृतीच्या सर्व बाजूंच्या लांबीच्या बेरजेला काय म्हणतात?", options: ["क्षेत्रफळ", "व्यास", "परिघ", "परिमिती"], ans: 3, exp: "सर्व बाजूंच्या लांबीच्या बेरजेला त्या आकृतीची परिमिती म्हणतात." },
+        { q: "चौरसाच्या परिमितीचे सूत्र खालीलपैकी कोणते आहे?", options: ["बाजू × बाजू", "४ × बाजू", "२ × बाजू", "बाजू ÷ ४"], ans: 1, exp: "चौरसाची परिमिती = ४ × बाजू." },
+        { q: "आयताच्या परिमितीचे सूत्र खालीलपैकी कोणते आहे?", options: ["लांबी × रुंदी", "४ × बाजू", "लांबी + रुंदी", "२ × (लांबी + रुंदी)"], ans: 3, exp: "आयताची परिमिती = २ × (लांबी + रुंदी)." },
+        { q: "त्रिकोणाला किती बाजू असतात?", options: ["दोन", "तीन", "चार", "पाच"], ans: 1, exp: "त्रिकोणाला तीन बाजू असतात." },
+        { q: "त्रिकोणाची परिमिती काढण्यासाठी काय करावे लागते?", options: ["तिन्ही बाजूंच्या लांबीची बेरीज", "दोन बाजूंचा गुणाकार", "तिन्ही बाजूंचा गुणाकार", "लांबी व रुंदीची बेरीज"], ans: 0, exp: "त्रिकोणाच्या तिन्ही बाजूंची बेरीज केल्यास परिमिती मिळते." },
+        { q: "एका चौरसाची बाजू ५ सेमी आहे, तर त्या चौरसाची परिमिती किती?", options: ["१० सेमी", "१५ सेमी", "२० सेमी", "२५ सेमी"], ans: 2, exp: "परिमीती = ४ × ५ = २० सेमी." },
+        { q: "एका आयताची लांबी ८ सेमी व रुंदी ५ सेमी आहे, तर त्या आयताची परिमिती किती?", options: ["१३ सेमी", "४० सेमी", "१८ सेमी", "२६ सेमी"], ans: 3, exp: "परिमीती = २ × (८ + ५) = २ × १३ = २६ सेमी." },
+        { q: "समभुज त्रिकोणाची एक बाजू ७ सेमी आहे, तर त्या त्रिकोणाची परिमिती किती?", options: ["१४ सेमी", "२१ सेमी", "२८ सेमी", "४९ सेमी"], ans: 1, exp: "समभुज त्रिकोणाची परिमीती = ३ × ७ = २१ सेमी." },
+        { q: "एका चौरसाची परिमिती ३६ सेमी आहे, तर त्या चौरसाची बाजू किती?", options: ["६ सेमी", "९ सेमी", "१२ सेमी", "१८ सेमी"], ans: 1, exp: "बाजू = ३६ ÷ ४ = ९ सेमी." },
+        { q: "एका आयताची परिमिती ४० सेमी असून त्याची लांबी १२ सेमी आहे, तर त्या आयताची रुंदी किती?", options: ["१० सेमी", "१४ सेमी", "२० सेमी", "८ सेमी"], ans: 3, exp: "अर्धी परिमीती = ४० ÷ २ = २० सेमी. रुंदी = २० - १२ = ८ सेमी." },
+        { q: "एका त्रिकोणाच्या तीन बाजू अनुक्रमे ६ सेमी, ८ सेमी आणि १० सेमी आहेत, तर त्या त्रिकोणाची परिमिती किती?", options: ["१४ सेमी", "१८ सेमी", "२४ सेमी", "४८ सेमी"], ans: 2, exp: "परिमीती = ६ + ८ + १० = २४ सेमी." },
+        { q: "चौरसाची प्रत्येक बाजू दुप्पट केली, तर त्याची परिमिती मूळ चौरसाच्या परिमितीच्या किती पट होईल?", options: ["समान राहील", "दुप्पट होईल", "तिप्पट होईल", "चारपट होईल"], ans: 1, exp: "बाजू दुप्पट केल्यावर परिमिती देखील दुप्पट होते." },
+        { q: "आयताची लांबी व रुंदी समान केली, तर तो काय बनतो?", options: ["त्रिकोण", "वर्तुळ", "समांतरभुज चौकोन", "चौरस"], ans: 3, exp: "लांबी व रुंदी समान झाल्यास आयत चौरस बनतो." },
+        { q: "परिमिती म्हणजे भौमितिक आकृतीच्या कडेची एकूण लांबी. हे विधान सत्य आहे की असत्य?", options: ["सत्य", "असत्य", "सांगता येत नाही", "यापैकी नाही"], ans: 0, exp: "भौमितिक आकृतीच्या कडेच्या सर्व लांबींची बेरीज म्हणजेच परिमिती होय, हे विधान सत्य आहे." },
+        { q: "१० सेमी बाजू असलेल्या चौरसाभोवती तारेचे २ फेरे मारण्यासाठी एकूण किती लांबीची तार लागेल?", options: ["४० सेमी", "८० सेमी", "१०० सेमी", "२०० सेमी"], ans: 1, exp: "एका फेऱ्याची परिमिती = ४ × १० = ४० सेमी. २ फेऱ्यांसाठी = ४० × २ = ८० सेमी." },
+        { q: "१५ सेमी लांबी व १० सेमी रुंदी असलेल्या आयताकृती शेताभोवती कुंपणाचे ३ फेरे घालायचे आहेत, तर एकूण किती मीटर कुंपण लागेल?", options: ["५ सेमी", "१५० सेमी", "३०० सेमी", "७५ सेमी"], ans: 2, exp: "एका फेऱ्याची परिमिती = २ × (१५ + १०) = ५० सेमी. ३ फेऱ्यांसाठी = ५० × ३ = १५० सेमी." },
+        { q: "समद्विभुज त्रिकोणाच्या समान बाजूंची लांबी प्रत्येकी ८ सेमी आहे आणि तिसरी बाजू ६ सेमी आहे, तर त्या त्रिकोणाची परिमिती किती?", options: ["१४ सेमी", "२२ सेमी", "२० सेमी", "२४ सेमी"], ans: 1, exp: "परिमीती = ८ + ८ + ६ = २२ सेमी." },
+        { q: "परिमिती मोजमापाचे एकक काय असते?", options: ["चौसेमी / चौमी", "घन सेमी", "लिटर", "सेमी / मीटर"], ans: 3, exp: "परिमिती ही लांबी दर्शवते, त्यामुळे तिचे एकक सेमी किंवा मीटर असते." },
+        { q: "९ सेमी बाजू असलेल्या चौरसाची परिमिती किती?", options: ["१८ सेमी", "२७ सेमी", "३६ सेमी", "८१ सेमी"], ans: 2, exp: "परिमीती = ४ × ९ = ३६ सेमी." },
+        { q: "एका आयताची परिमिती ५० सेमी आहे. जर त्याची रुंदी १० सेमी असेल, तर लांबी किती?", options: ["१५ सेमी", "२५ सेमी", "३० सेमी", "२० सेमी"], ans: 1, exp: "अर्धी परिमीती = ५० ÷ २ = २५ सेमी. लांबी = २५ - १० = १५ सेमी." },
+        { q: "विषमभुज त्रिकोणाच्या बाजू अनुक्रमे ५ सेमी, ७ सेमी आणि ९ सेमी आहेत, तर त्याची परिमिती किती?", options: ["१२ सेमी", "१६ सेमी", "२१ सेमी", "३१५ सेमी"], ans: 2, exp: "परिमीती = ५ + ७ + ९ = २१ सेमी." },
+        { q: "चौरसाची परिमिती काढण्याचे सूत्र जर '४ × बाजू' असेल, तर एका बाजूची लांबी काढण्यासाठी परिमितीला कितीने भागले पाहिजे?", options: ["२", "३", "५", "४"], ans: 3, exp: "बाजू काढण्यासाठी परिमितीला ४ ने भागले पाहिजे." },
+        { q: "एका आयताची लांबी त्याच्या रुंदीच्या दुप्पट आहे. जर रुंदी ६ सेमी असेल, तर त्या आयताची परिमिती किती?", options: ["१८ सेमी", "३६ सेमी", "२४ सेमी", "१२ सेमी"], ans: 1, exp: "रुंदी = ६ सेमी, लांबी = १२ सेमी. परिमिती = २ × (१२ + ६) = ३६ सेमी." },
+        { q: "खालीलपैकी कोणत्या आकृतीची परिमिती काढण्यासाठी चारही बाजूंची बेरीज करावी लागते?", options: ["त्रिकोण", "वर्तुळ", "रेषा", "चौरस"], ans: 3, exp: "चौरसाच्या चारही बाजू समान असतात व त्यांची बेरीज किंवा ४ × बाजू करून परिमिती काढली जाते." },
+        { q: "एका चौरसाची परिमिती ६४ सेमी आहे, तर त्याची बाजू किती?", options: ["८ सेमी", "१६ सेमी", "३२ सेमी", "१२८ सेमी"], ans: 1, exp: "बाजू = ६४ ÷ ४ = १६ सेमी." },
+        { q: "एका आयताची परिमिती ६० सेमी आहे. जर लांबी २० सेमी असेल, तर रुंदी किती?", options: ["१० सेमी", "१५ सेमी", "३० सेमी", "४० सेमी"], ans: 0, exp: "अर्धी परिमिती = ३० सेमी. रुंदी = ३० - २० = १० सेमी." },
+        { q: "समभुज त्रिकोणाची परिमिती ४५ सेमी आहे, तर त्याची एक बाजू किती?", options: ["९ सेमी", "१३५ सेमी", "५ सेमी", "१५ सेमी"], ans: 3, exp: "बाजू = ४५ ÷ ३ = १५ सेमी." },
+        { q: "एका कागदाचा तुकडा आयताकृती असून त्याची लांबी २५ सेमी व रुंदी १५ सेमी आहे. त्या कागदाची परिमिती किती?", options: ["४० सेमी", "८० सेमी", "३७५ सेमी", "७० सेमी"], ans: 1, exp: "परिमिती = २ × (२५ + १५) = २ × ४० = ८० सेमी." },
+        { q: "चौरसाची परिमिती ही त्याच्या एका बाजूच्या किती पट असते?", options: ["२ पट", "३ पट", "४ पट", "८ पट"], ans: 2, exp: "चौरसाची परिमिती ही बाजूच्या ४ पट असते." },
+        { q: "आयताची परिमिती काढताना सूत्रात लांबी आणि रुंदीची बेरीज करून त्याला कितीने गुणले जाते?", options: ["१", "२", "३", "४"], ans: 1, exp: "आयताची परिमिती = २ × (लांबी + रुंदी)." },
+        { q: "एका त्रिकोणाच्या तिन्ही बाजू समान आहेत. जर परिमिती ३० सेमी असेल, तर प्रत्येक बाजूची लांबी किती?", options: ["५ सेमी", "१० सेमी", "१५ सेमी", "६० सेमी"], ans: 1, exp: "प्रत्येक बाजू = ३० ÷ ३ = १० सेमी." },
+        { q: "१२ सेमी बाजू असलेल्या चौरसाची परिमिती किती?", options: ["२४ सेमी", "३६ सेमी", "४८ सेमी", "१४४ सेमी"], ans: 2, exp: "परिमीती = ४ × १२ = ४८ सेमी." },
+        { q: "११ सेमी लांबी आणि ९ सेमी रुंदी असलेल्या आयताची परिमिती किती?", options: ["२० सेमी", "९९ सेमी", "३० सेमी", "४० सेमी"], ans: 3, exp: "परिमीती = २ × (११ + ९) = २ × २० = ४० सेमी." },
+        { q: "जर दोन वेगवेगळ्या चौरसांपैकी एकाची बाजू दुसऱ्या चौरसाच्या बाजूच्या दुप्पट असेल, तर मोठ्या चौरसाची परिमिती लहान चौरसाच्या परिमितीच्या किती पट असेल?", options: ["समान", "दुप्पट", "तिप्पट", "चारपट"], ans: 1, exp: "बाजू दुप्पट झाल्यास परिमिती देखील दुप्पट होते." },
+        { q: "एका वर्गाची लांबी १८ मीटर व रुंदी १२ मीटर आहे, तर त्या खोलीची परिमिती किती?", options: ["३० मीटर", "२१६ मीटर", "४५ मीटर", "६० मीटर"], ans: 3, exp: "परिमीती = २ × (१८ + १२) = २ × ३० = ६० मीटर." },
+        { q: "त्रिकोणाच्या परिमितीचे सूत्र सांगताना खालीलपैकी कोणती कृती करावी लागते?", options: ["वजाबाकी", "गुणाकार", "भागाकार", "बेरीज"], ans: 3, exp: "तिन्ही बाजूंच्या लांबीची बेरीज करावी लागते." },
+        { q: "चौकोनाचे प्रकार असणाऱ्या 'आयत' आणि 'चौरस' यांच्या परिमितीसंदर्भात खालीलपैकी कोणते विधान बरोबर आहे?", options: ["दोघांचे परिमिती काढण्याचे सूत्र सारखेच असते.", "दोघांच्या परिमितीचे सूत्र वेगवेगळे असते.", "चौरसाला परिमिती नसते.", "आयताला परिमिती नसते."], ans: 1, exp: "चौरसाचे सूत्र ४ × बाजू तर आयताचे सूत्र २ × (लांबी + रुंदी) असे वेगवेगळे असते." },
+        { q: "एका बागेची लांबी ५० मीटर आणि रुंदी ३० मीटर आहे. त्या बागेभोवती १ फेरी मारल्यास कव्हर झालेले अंतर किती?", options: ["८० मीटर", "१६० मीटर", "१५०० मीटर", "२०० मीटर"], ans: 1, exp: "अंतर = परिमिती = २ × (५० + ३०) = १६० मीटर." },
+        { q: "समद्विभुज त्रिकोणाची परिमिती २५ सेमी आहे. जर असमान बाजू ७ सेमी असेल, तर उर्वरित दोन्ही समान बाजूंपैकी एका बाजूची लांबी किती?", options: ["९ सेमी", "१८ सेमी", "७ सेमी", "१२ सेमी"], ans: 0, exp: "दोन समान बाजूंची बेरीज = २५ - ७ = १८ सेमी. एका बाजूची लांबी = १८ ÷ २ = ९ सेमी." },
+        { q: "एका चौरसाकृती रूमालाची बाजू १४ सेमी आहे, तर त्या रूमालाची परिमिती किती?", options: ["२८ सेमी", "४२ सेमी", "५६ सेमी", "१९६ सेमी"], ans: 2, exp: "परिमीती = ४ × १४ = ५६ सेमी." },
+        { q: "आयताकृती बागेची लांबी ४० मीटर आणि रुंदी २५ मीटर आहे. बागेची परिमिती काढा.", options: ["६५ मीटर", "१००० मीटर", "११५ मीटर", "१३० मीटर"], ans: 3, exp: "परिमीती = २ × (४० + २५) = २ × ६५ = १३० मीटर." },
+        { q: "कोणत्याही त्रिकोणाच्या दोन बाजूंची बेरीज ही तिसऱ्या बाजूपेक्षा कशी असते?", options: ["लहान असते", "मोठी असते", "समान असते", "शून्य असते"], ans: 1, exp: "त्रिकोणाच्या कोणत्याही दोन बाजूंच्या लांबीची बेरीज ही तिसऱ्या बाजूपेक्षा नेहमी मोठी असते." },
+        { q: "८ सेमी, ८ सेमी आणि ८ सेमी बाजू असणाऱ्या त्रिकोणाचे नाव काय?", options: ["समभुज त्रिकोण", "विषमभुज त्रिकोण", "काटकोन त्रिकोण", "समद्विभुज त्रिकोण"], ans: 0, exp: "तिन्ही बाजू समान असल्याने त्याला समभुज त्रिकोण म्हणतात." },
+        { q: "एका चौरसाची परिमिती २० सेमी आहे, तर त्याचे क्षेत्रफळ किती? (चौरसाची बाजू ५ सेमी)", options: ["२० चौसेमी", "२५ चौसेमी", "१० चौसेमी", "४० चौसेमी"], ans: 1, exp: "बाजू = ५ सेमी, क्षेत्रफळ = बाजू × बाजू = २५ चौसेमी." },
+        { q: "जर एका आयताची परिमिती १०० सेमी असेल आणि लांबी ३५ सेमी असेल, तर रुंदी किती?", options: ["१५ सेमी", "३० सेमी", "६५ सेमी", "५० सेमी"], ans: 0, exp: "अर्धी परिमिती = ५० सेमी. रुंदी = ५० - ३५ = १५ सेमी." },
+        { q: "त्रिकोणाच्या तीन बाजूंची लांबी अनुक्रमे १० सेमी, १२ सेमी आणि १४ सेमी आहे, तर परिमिती किती?", options: ["२२ सेमी", "२६ सेमी", "३६ सेमी", "२४ सेमी"], ans: 2, exp: "परिमीती = १० + १२ + १४ = ३६ सेमी." },
+        { q: "खालीलपैकी कोणत्या आकृतीला परिमिती नसते?", options: ["त्रिकोण", "आयत", "चौरस", "उघडी रेषा"], ans: 3, exp: "फक्त बंदिस्त आकृत्यांनाच परिमिती असते, उघड्या रेषेला परिमिती नसते." },
+        { q: "एका चौरसाची बाजू ७.५ सेमी आहे, तर त्याची परिमिती किती?", options: ["१५ सेमी", "२२.५ सेमी", "३० सेमी", "३७.५ सेमी"], ans: 2, exp: "परिमीती = ४ × ७.५ = ३० सेमी." },
+        { q: "आयताची लांबी एल (L) आणि रुंदी बी (B) असल्यास परिमितीचे बीजगिणितीय रूप कोणते?", options: ["L × B", "2(L + B)", "4L", "L + B"], ans: 1, exp: "आयताची परिमिती = 2(L + B)." },
+        { q: "जर एका धावपटूने ५० मीटर बाजू असलेल्या चौरसाकृती मैदानाचे ४ फेरे मारले, तर त्याने एकूण किती अंतर पार केले?", options: ["२०० मीटर", "४०० मीटर", "८०० मीटर", "१००० मीटर"], ans: 2, exp: "एका फेऱ्याची परिमिती = ४ × ५० = २०० मीटर. ४ फेऱ्यांचे अंतर = २०० × ४ = ८०० मीटर." }
+    ];
+let currentIdx = 0;
+    let score = 0;
+    let studentName = "";
+    let wrongAnswers = [];
+    let answeredCurrent = false;
+
+    function startExam() {
+        let nameInput = document.getElementById("student-name");
+        let mobileInput = document.getElementById("student-mobile");
+        
+        studentName = nameInput.value.trim();
+        let mobile = mobileInput.value.trim();
+
+        if(!studentName) {
+            alert("कृपया विद्यार्थ्याचे नाव प्रविष्ट करा!");
+            nameInput.focus();
+            return;
+        }
+        if(!mobile || mobile.length < 10) {
+            alert("कृपया वैध १० अंकी मोबाईल नंबर प्रविष्ट करा!");
+            mobileInput.focus();
+            return;
+        }
+
+        document.getElementById("reg-page").classList.add("hidden");
+        document.getElementById("quiz-page").classList.remove("hidden");
+        loadQuestion();
+    }
+
+    function loadQuestion() {
+        answeredCurrent = false;
+        let q = questions[currentIdx];
+        document.getElementById("q-counter").innerText = `प्रश्न: ${currentIdx + 1}/${questions.length}`;
+        document.getElementById("timer").innerText = `गुण: ${score}`;
+        document.getElementById("question-text").innerText = `${currentIdx + 1}. ${q.q}`;
+        
+        let optContainer = document.getElementById("options-container");
+        optContainer.innerHTML = "";
+        
+        q.options.forEach((opt, idx) => {
+            let li = document.createElement("li");
+            li.className = "option-item";
+            li.innerText = `(${idx + 1}) ${opt}`;
+            li.onclick = () => selectOption(idx, li);
+            optContainer.appendChild(li);
+        });
+
+        document.getElementById("explanation-box").classList.add("hidden");
+        document.getElementById("next-btn").classList.add("hidden");
+    }
+
+    function selectOption(selectedIdx, element) {
+        if(answeredCurrent) return;
+        answeredCurrent = true;
+
+        let q = questions[currentIdx];
+        let options = document.querySelectorAll(".option-item");
+
+        if(selectedIdx === q.ans) {
+            element.classList.add("correct");
+            score += 2;
+            document.getElementById("timer").innerText = `गुण: ${score}`;
+        } else {
+            element.classList.add("wrong");
+            options[q.ans].classList.add("correct");
+            wrongAnswers.push({
+                qNum: currentIdx + 1,
+                question: q.q,
+                userAns: q.options[selectedIdx],
+                correctAns: q.options[q.ans],
+                exp: q.exp
+            });
+        }
+
+        let expBox = document.getElementById("explanation-box");
+        expBox.innerHTML = `<strong>स्पष्टीकरण:</strong> ${q.exp}`;
+        expBox.classList.remove("hidden");
+
+        document.getElementById("next-btn").classList.remove("hidden");
+    }
+
+    function nextQuestion() {
+        currentIdx++;
+        if(currentIdx < questions.length) {
+            loadQuestion();
+        } else {
+            showCertificate();
+        }
+    }
+
+    function showCertificate() {
+        document.getElementById("quiz-page").classList.add("hidden");
+        document.getElementById("cert-page").classList.remove("hidden");
+
+        document.getElementById("cert-name").innerText = studentName;
+        let totalMarks = questions.length * 2;
+        document.getElementById("cert-score").innerText = `एकूण गुण: ${score} / ${totalMarks}`;
+
+        let percentage = (score / totalMarks) * 100;
+        let honorBox = document.getElementById("cert-honor");
+
+        if(percentage >= 90) {
+            honorBox.style.background = "#d1fae5";
+            honorBox.style.color = "#065f46";
+            honorBox.innerHTML = "🥇 Gold Medal + Trophy<br>उत्कृष्ट कामगिरी!";
+        } else if(percentage >= 80) {
+            honorBox.style.background = "#e0f2fe";
+            honorBox.style.color = "#0369a1";
+            honorBox.innerHTML = "🥈 Silver Medal + Trophy<br>वेरी गुड!";
+        } else if(percentage >= 70) {
+            honorBox.style.background = "#ffedd5";
+            honorBox.style.color = "#c2410c";
+            honorBox.innerHTML = "🥉 Bronze Medal + Trophy<br>छान प्रयत्न!";
+        } else {
+            honorBox.style.background = "#ffeeef";
+            honorBox.style.color = "#991b1b";
+            honorBox.innerHTML = "💐 अभिनंदन! फुलांचा गुच्छ व 'पुढील परीक्षेसाठी शुभेच्छा'";
+        }
+
+        let reviewHTML = "";
+        if(wrongAnswers.length === 0) {
+            reviewHTML = "<p style='color:green; text-align:center;'>अभिनंदन! तुमचे सर्व प्रश्न बरोबर आले आहेत!</p>";
+        } else {
+            wrongAnswers.forEach(item => {
+                reviewHTML += `<div style="margin-bottom:10px; border-bottom:1px dashed #d1d5db; padding-bottom:8px;">
+                    <strong>प्र. ${item.qNum}: ${item.question}</strong><br>
+                    <span style="color:red;">तुमचे उत्तर: ${item.userAns}</span><br>
+                    <span style="color:green;">योग्य उत्तर: ${item.correctAns}</span><br>
+                    <small style="color:#1e40af;">मार्गदर्शन: ${item.exp}</small>
+                </div>`;
+            });
+        }
+        document.getElementById("review-container").innerHTML = reviewHTML;
+    }
+
+    function toggleReview() {
+        let revContainer = document.getElementById("review-container");
+        revContainer.classList.toggle("hidden");
+    }
+</script>
+</body>
+</html>
+
+    
