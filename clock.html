@@ -1,0 +1,530 @@
+<!DOCTYPE html>
+<html lang="mr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Clock Exam - ZPPS Narsobawadi</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #f5f7fa, #c3cfe2);
+            margin: 0;
+            padding: 10px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+        .container {
+            background: #ffffff;
+            width: 100%;
+            max-width: 650px;
+            padding: 25px;
+            border-radius: 16px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+            box-sizing: border-box;
+        }
+        .header-title {
+            text-align: center;
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+        .creator-top-box {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: #f8f9fa;
+            padding: 12px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            border: 1px solid #e2e8f0;
+        }
+        .creator-info {
+            font-size: 0.9rem;
+            color: #333;
+            line-height: 1.4;
+        }
+        .creator-info strong {
+            color: #2c3e50;
+            font-size: 1rem;
+        }
+        .creator-photo {
+            width: 110px;
+            height: 130px;
+            border-radius: 8px;
+            object-fit: cover;
+            border: 3px solid #3498db;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+        h2.exam-heading {
+            text-align: center;
+            color: #e74c3c;
+            margin: 10px 0 20px 0;
+            font-size: 1.5rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 6px;
+            font-weight: 600;
+            color: #333;
+        }
+        .form-group input {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-size: 1rem;
+            box-sizing: border-box;
+            transition: border-color 0.3s;
+        }
+        .form-group input:focus {
+            border-color: #3498db;
+            outline: none;
+        }
+        .footer-note {
+            text-align: center;
+            font-size: 0.9rem;
+            color: #555;
+            margin: 20px 0 15px 0;
+            font-weight: 600;
+        }
+        .btn {
+            background: linear-gradient(135deg, #2ecc71, #27ae60);
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            border-radius: 8px;
+            cursor: pointer;
+            width: 100%;
+            transition: background 0.3s, transform 0.1s;
+            box-shadow: 0 4px 10px rgba(46, 204, 113, 0.3);
+        }
+        .btn:hover {
+            background: linear-gradient(135deg, #27ae60, #219653);
+        }
+        .btn:active {
+            transform: scale(0.98);
+        }
+        .question-box {
+            font-size: 1.15rem;
+            font-weight: 600;
+            color: #2c3e50;
+            margin-bottom: 20px;
+            line-height: 1.5;
+        }
+        .options-list {
+            list-style: none;
+            padding: 0;
+            margin: 0 0 20px 0;
+        }
+        .option-item {
+            background: #f8f9fa;
+            border: 2px solid #e9ecef;
+            padding: 12px 15px;
+            margin-bottom: 10px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: all 0.2s ease;
+        }
+        .option-item:hover {
+            background: #e2e8f0;
+            border-color: #cbd5e1;
+        }
+        .option-item.selected-correct {
+            background: #d4edda !important;
+            border-color: #28a745 !important;
+            color: #155724;
+            font-weight: bold;
+        }
+        .option-item.selected-wrong {
+            background: #f8d7da !important;
+            border-color: #dc3545 !important;
+            color: #721c24;
+            font-weight: bold;
+        }
+        .option-item.correct-reveal {
+            background: #d4edda !important;
+            border-color: #28a745 !important;
+            color: #155724;
+        }
+        .explanation {
+            background: #e8f4fd;
+            border-left: 4px solid #3498db;
+            padding: 12px;
+            margin-bottom: 20px;
+            border-radius: 4px;
+            font-size: 0.95rem;
+            color: #2980b9;
+            display: none;
+        }
+        .quiz-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 20px;
+            border-top: 1px solid #eee;
+            padding-top: 15px;
+        }
+        .progress-text {
+            font-size: 0.9rem;
+            color: #666;
+            font-weight: 600;
+        }
+        /* Certificate Styles */
+        .certificate {
+            border: 8px double #d4af37;
+            padding: 25px;
+            border-radius: 12px;
+            background: #fffdf0;
+            text-align: center;
+            position: relative;
+        }
+        .cert-header {
+            font-size: 1.1rem;
+            font-weight: bold;
+            color: #b7950b;
+            margin-bottom: 10px;
+        }
+        .cert-title {
+            font-size: 1.8rem;
+            color: #b7950b;
+            margin: 10px 0;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+        .cert-score {
+            font-size: 2.8rem;
+            color: #2c3e50;
+            font-weight: bold;
+            margin: 15px 0;
+        }
+        .cert-performance {
+            font-size: 1.2rem;
+            margin: 15px 0;
+            font-weight: bold;
+            padding: 10px;
+            border-radius: 6px;
+            display: inline-block;
+        }
+        .badge-gold { background: #fef9e7; color: #d4ac0d; border: 1px solid #f39c12; }
+        .badge-silver { background: #f2f4f4; color: #5d6d7e; border: 1px solid #bdc3c7; }
+        .badge-bronze { background: #fbeee6; color: #d35400; border: 1px solid #e67e22; }
+        .badge-flower { background: #e8f8f5; color: #16a085; border: 1px solid #1abc9c; }
+
+        .review-section {
+            margin-top: 25px;
+            text-align: left;
+            max-height: 250px;
+            overflow-y: auto;
+            border-top: 1px dashed #ccc;
+            padding-top: 15px;
+        }
+        .review-item {
+            background: #fff;
+            padding: 10px;
+            margin-bottom: 8px;
+            border-radius: 6px;
+            border: 1px solid #e2e8f0;
+            font-size: 0.9rem;
+        }
+        .hidden { display: none !important; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Top Creator & School Header -->
+        <div class="header-title">जिल्हा परिषद प्राथमिक शाळा नरसोबावाडी संचलित</div>
+        
+        <div class="creator-top-box">
+            <div class="creator-info">
+                संकल्पना व निर्मिती<br>
+                <strong>श्री सचिन शिंदे सर</strong><br>
+                जि प प्रा शाळा नरसोबावाडी<br>
+                मोबाईल: 8329684470
+            </div>
+            <div>
+                <img src="https://lh3.googleusercontent.com/d/1pkldnaLRyqBtfgiQKwtbeSSfXhENzbOm" alt="Teacher Photo" class="creator-photo" onerror="this.src='https://via.placeholder.com/110x130?text=Photo'">
+            </div>
+        </div>
+
+        <!-- Welcome / Registration Screen -->
+        <div id="welcome-screen">
+            <h2 class="exam-heading">TEST NAME: CLOCK</h2>
+            <div class="form-group">
+                <label for="student-name">विद्यार्थ्याचे नाव (Student Name):</label>
+                <input type="text" id="student-name" placeholder="आपले पूर्ण नाव लिहा...">
+            </div>
+            <div class="form-group">
+                <label for="student-mobile">मोबाईल नंबर (Mobile Number):</label>
+                <input type="tel" id="student-mobile" maxlength="10" placeholder="10 अंकी मोबाईल नंबर...">
+            </div>
+            <div class="footer-note">टेस्ट निर्मिती व संकल्पना श्री सचिन शिंदे मोबाईल नंबर 8329684470</div>
+            <button class="btn" onclick="startQuiz()">EXAM START</button>
+        </div>
+
+        <!-- Quiz Screen -->
+        <div id="quiz-screen" class="hidden">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+                <span id="q-counter" style="font-weight: bold; color: #e74c3c;">Question 1 of 50</span>
+                <span style="font-size: 0.85rem; color: #555;">Marks: <span id="current-score">0</span></span>
+            </div>
+            <div class="question-box" id="question-text">प्रश्न येथे येईल...</div>
+            <ul class="options-list" id="options-container">
+                <!-- Options injected via JS -->
+            </ul>
+            <div class="explanation" id="explanation-box"></div>
+            
+            <div class="footer-note" style="margin: 10px 0;">टेस्ट निर्मिती व संकल्पना श्री सचिन शिंदे मोबाईल नंबर 8329684470</div>
+            
+            <div class="quiz-footer">
+                <span class="progress-text" id="progress-indicator">प्रश्नाचे उत्तर निवडा</span>
+                <button class="btn" id="next-btn" onclick="nextQuestion()" disabled style="width: auto; opacity: 0.5; cursor: not-allowed;">NEXT</button>
+            </div>
+        </div>
+
+        <!-- Result / Certificate Screen -->
+        <div id="result-screen" class="hidden">
+            <div class="certificate">
+                <div class="cert-header">🏆 जिल्हा परिषद प्राथमिक शाळा नरसोबावाडी संचलित</div>
+                <div class="cert-title">Exam Certificate</div>
+                <div id="cert-student-details" style="font-size: 1.1rem; font-weight: bold; color: #333; margin: 5px 0;"></div>
+                <div class="cert-score" id="final-score-display">0 / 100</div>
+                <div id="performance-badge" class="cert-performance"></div>
+                
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 20px; text-align: left; border-top: 1px dashed #d4af37; padding-top: 15px;">
+                    <div style="font-size: 0.85rem; color: #555; line-height: 1.4;">
+                        संकल्पना व निर्मिती<br>
+                        <strong>श्री सचिन शिंदे सर</strong><br>
+                        जि प प्रा शाळा नरसोबावाडी<br>
+                        मोबाईल: 8329684470
+                    </div>
+                    <div>
+                        <img src="https://lh3.googleusercontent.com/d/1pkldnaLRyqBtfgiQKwtbeSSfXhENzbOm" alt="Teacher Photo" style="width: 70px; height: 85px; border-radius: 6px; object-fit: cover; border: 2px solid #d4af37;">
+                    </div>
+                </div>
+            </div>
+
+            <div style="margin-top: 20px; text-align: center;">
+                <button class="btn" onclick="toggleReview()" style="background: #3498db; margin-bottom: 15px;">चुकलेले प्रश्न व मार्गदर्शन पहा (Review Mistakes)</button>
+            </div>
+
+            <div id="review-container" class="review-section hidden">
+                <!-- Mistakes review will load here -->
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const questions = [
+            { q: "What is the correct way to write 3:00 in words?", options: ["Three o'clock", "Three past", "Half three", "Three zero"], answer: 0, exp: "Exact hours are written using 'o'clock'. Hence, 3:00 is Three o'clock." },
+            { q: "How do you write 'Half past four' in figures?", options: ["4:15", "4:30", "4:45", "3:30"], answer: 1, exp: "Half past means 30 minutes past the hour. 4:30 is half past four." },
+            { q: "What is 5:15 expressed in words?", options: ["Half past five", "Quarter to five", "Quarter past five", "Five past five"], answer: 2, exp: "15 minutes past an hour is called 'Quarter past'. Hence, 5:15 is Quarter past five." },
+            { q: "How do you write 'Quarter to seven' in figures?", options: ["7:15", "7:45", "6:15", "6:45"], answer: 3, exp: "Quarter to means 15 minutes before the next hour (7:00), which is 6:45." },
+            { q: "What time is represented by 'Ten past seven'?", options: ["7:10", "7:50", "10:07", "6:50"], answer: 0, exp: "Ten past seven means 10 minutes after 7 o'clock, which is 7:10." },
+            { q: "How do you express 8:50 in words using 'to'?", options: ["Fifty past eight", "Ten to nine", "Ten past eight", "Nine to ten"], answer: 1, exp: "8:50 has 10 minutes remaining to reach 9:00, so it is 'Ten to nine'." },
+            { q: "What time is 9:20 written in words?", options: ["Twenty past nine", "Twenty to nine", "Nine past twenty", "Half past nine"], answer: 2, exp: "20 minutes past 9:00 is written as 'Twenty past nine'." },
+            { q: "What is 'Half past ten' in figures?", options: ["10:15", "10:45", "10:30", "9:30"], answer: 2, exp: "Half past ten means 30 minutes past 10, which is 10:30." },
+            { q: "Which abbreviation is used to denote time from midnight to noon (morning)?", options: ["PM", "AM", "BC", "AD"], answer: 1, exp: "AM stands for Ante Meridiem, used from midnight to noon." },
+            { q: "Which abbreviation represents afternoon and night time hours?", options: ["AM", "PM", "HR", "SEC"], answer: 1, exp: "PM stands for Post Meridiem, used from noon to midnight." },
+            { q: "What is the time 1 hour after 3:15?", options: ["3:45", "4:15", "5:15", "4:30"], answer: 1, exp: "Adding 1 hour to 3:15 gives 4:15." },
+            { q: "What time was it 30 minutes before 2:00?", options: ["2:30", "1:30", "1:00", "2:00"], answer: 1, exp: "Subtracting 30 minutes from 2:00 gives 1:30." },
+            { q: "How do you write 12:00 in the daytime in words?", options: ["Midnight", "Twelve o'clock noon", "Half past twelve", "Quarter past twelve"], answer: 1, exp: "12:00 in the daytime is twelve o'clock noon." },
+            { q: "What is 2:45 expressed in words?", options: ["Quarter past two", "Quarter to two", "Quarter to three", "Half past two"], answer: 2, exp: "2:45 is 15 minutes before 3:00, so it is 'Quarter to three'." },
+            { q: "If the clock shows 11:05, how is it read in words?", options: ["Five past eleven", "Five to eleven", "Eleven past five", "Half past eleven"], answer: 0, exp: "5 minutes past 11:00 is 'Five past eleven'." },
+            { q: "What is 'Twenty-five past six' in figures?", options: ["6:35", "6:25", "5:25", "6:20"], answer: 1, exp: "25 minutes past 6 is written as 6:25." },
+            { q: "What is 1:55 written in words?", options: ["Fifty-five past one", "Five to one", "Five to two", "Two to five"], answer: 2, exp: "1:55 has 5 minutes remaining to 2:00, so it's 'Five to two'." },
+            { q: "Which time indicates 15 minutes before 9:00?", options: ["9:15", "8:45", "8:15", "9:45"], answer: 1, exp: "15 minutes before 9:00 is 8:45." },
+            { q: "What time is 35 minutes past 4:00?", options: ["4:35", "5:05", "4:25", "3:25"], answer: 0, exp: "35 minutes past 4 is written as 4:35." },
+            { q: "If it is currently 10:10, what time will it be in 20 minutes?", options: ["10:20", "10:30", "10:40", "11:00"], answer: 1, exp: "10:10 + 20 minutes = 10:30." },
+            { q: "What is 12:00 at night called?", options: ["Noon", "Midnight", "Morning", "Evening"], answer: 1, exp: "12:00 at night is called midnight." },
+            { q: "How do you write 'Twenty to five' in figures?", options: ["5:20", "4:40", "4:20", "5:40"], answer: 1, exp: "Twenty minutes before 5:00 is 4:40." },
+            { q: "What is 7:30 expressed in words?", options: ["Quarter past seven", "Half past seven", "Quarter to seven", "Seven o'clock"], answer: 1, exp: "7:30 is half past seven." },
+            { q: "If a clock's short hand is at 2 and the long hand is at 12, what time is it?", options: ["12:02", "2:12", "2:00", "12:00"], answer: 2, exp: "Short hand on 2 and long hand on 12 means exactly 2:00." },
+            { q: "What is 11:45 in words?", options: ["Quarter past eleven", "Quarter to twelve", "Half past eleven", "Quarter to eleven"], answer: 1, exp: "11:45 is 15 minutes to 12, so it's 'Quarter to twelve'." },
+            { q: "How do you write 'Ten past two' in figures?", options: ["2:10", "2:50", "10:02", "1:50"], answer: 0, exp: "Ten past two is 2:10." },
+            { q: "What time is 1 hour before 6:15?", options: ["7:15", "5:15", "6:00", "5:45"], answer: 1, exp: "1 hour before 6:15 is 5:15." },
+            { q: "What is 6:05 expressed in words?", options: ["Five to six", "Six past five", "Five past six", "Half past six"], answer: 2, exp: "6:05 is five past six." },
+            { q: "How do you write 'Quarter past eight' in figures?", options: ["8:45", "8:15", "7:15", "8:30"], answer: 1, exp: "Quarter past eight is 8:15." },
+            { q: "Which time represents 10 minutes before 4:00?", options: ["4:10", "3:50", "3:40", "4:50"], answer: 1, exp: "10 minutes before 4:00 is 3:50." },
+            { q: "What is 1:15 in words?", options: ["Quarter to one", "Quarter past one", "Half past one", "One o'clock"], answer: 1, exp: "1:15 is quarter past one." },
+            { q: "How do you write 'Five to twelve' in figures?", options: ["12:05", "11:55", "12:55", "11:05"], answer: 1, exp: "Five to twelve means 5 minutes before 12:00, which is 11:55." },
+            { q: "What is 9:40 expressed in words?", options: ["Forty past nine", "Twenty past nine", "Twenty to ten", "Ten to nine"], answer: 2, exp: "9:40 has 20 minutes remaining to 10:00, so it is 'Twenty to ten'." },
+            { q: "If it is 3:30, what will the time be after 30 minutes?", options: ["3:00", "4:00", "4:30", "3:45"], answer: 1, exp: "3:30 + 30 minutes = 4:00." },
+            { q: "What time is represented by the minute hand pointing at 6 and the hour hand halfway between 10 and 11?", options: ["10:30", "11:30", "6:10", "6:55"], answer: 0, exp: "Minute hand on 6 (30 mins) and hour hand past 10 means 10:30." },
+            { q: "How do you write 'Twenty-five to two' in figures?", options: ["2:25", "1:35", "2:35", "1:25"], answer: 1, exp: "25 minutes before 2:00 is 1:35." },
+            { q: "What is 10:50 written in words?", options: ["Fifty past ten", "Ten to eleven", "Ten past ten", "Eleven to ten"], answer: 1, exp: "10:50 is 10 minutes to eleven." },
+            { q: "If it is 7:15, what was the time 15 minutes ago?", options: ["7:30", "7:00", "6:45", "7:10"], answer: 1, exp: "7:15 - 15 minutes = 7:00." },
+            { q: "How do you write 'Five past six' in figures?", options: ["6:05", "6:50", "5:06", "6:55"], answer: 0, exp: "Five past six is 6:05." },
+            { q: "What is 4:00 PM in terms of time of day?", options: ["In the morning", "In the afternoon", "At midnight", "At sunrise"], answer: 1, exp: "4:00 PM falls in the afternoon." },
+            { q: "What is 2:20 expressed in words?", options: ["Twenty past two", "Twenty to two", "Two past twenty", "Half past two"], answer: 0, exp: "2:20 is twenty past two." },
+            { q: "How do you write 'Quarter to four' in figures?", options: ["4:15", "3:45", "4:45", "3:15"], answer: 1, exp: "Quarter to four is 3:45." },
+            { q: "What is 5:50 written in words?", options: ["Fifty past five", "Ten past five", "Ten to six", "Six to five"], answer: 2, exp: "5:50 is ten to six." },
+             { q: "If it is 8:00 AM, what time of day is it?", options: ["In the morning", "In the evening", "At night", "In the afternoon"], answer: 0, exp: "8:00 AM is in the morning." },
+            { q: "What is 12:15 expressed in words?", options: ["Quarter to twelve", "Quarter past twelve", "Half past twelve", "Twelve o'clock"], answer: 1, exp: "12:15 is quarter past twelve." },
+            { q: "How do you write 'Half past nine' in figures?", options: ["9:15", "9:45", "9:30", "10:30"], answer: 2, exp: "Half past nine is 9:30." },
+            { q: "What time is 45 minutes past 2:00?", options: ["2:45", "3:15", "2:15", "3:45"], answer: 0, exp: "45 minutes past 2:00 is 2:45." },
+            { q: "If the current time is 1:45, what time will it be in 15 minutes?", options: ["1:30", "2:00", "2:15", "1:00"], answer: 1, exp: "1:45 + 15 minutes = 2:00." },
+            { q: "What is 6:00 in words?", options: ["Six o'clock", "Half past six", "Quarter to six", "Six past six"], answer: 0, exp: "6:00 is six o'clock." },
+            { q: "How do you write 'Twenty past eleven' in figures?", options: ["11:40", "11:20", "10:20", "11:25"], answer: 1, exp: "Twenty past eleven is 11:20." }
+        ];
+
+        let currentQuestionIndex = 0;
+        let score = 0;
+        let studentName = "";
+        let studentMobile = "";
+        let userAnswersRecord = [];
+        let answeredCurrent = false;
+
+        function startQuiz() {
+            const nameInput = document.getElementById("student-name").value.trim();
+            const mobileInput = document.getElementById("student-mobile").value.trim();
+
+            if (!nameInput || !mobileInput) {
+                alert("कृपया विद्यार्थी नाव आणि मोबाईल नंबर दोन्ही प्रविष्ट करा!");
+                return;
+            }
+
+            studentName = nameInput;
+            studentMobile = mobileInput;
+
+            document.getElementById("welcome-screen").classList.add("hidden");
+            document.getElementById("quiz-screen").classList.remove("hidden");
+            loadQuestion();
+        }
+
+        function loadQuestion() {
+            answeredCurrent = false;
+            const q = questions[currentQuestionIndex];
+            document.getElementById("q-counter").innerText = `Question ${currentQuestionIndex + 1} of ${questions.length}`;
+            document.getElementById("question-text").innerText = `${currentQuestionIndex + 1}. ${q.q}`;
+            
+            const optionsContainer = document.getElementById("options-container");
+            optionsContainer.innerHTML = "";
+
+            q.options.forEach((opt, idx) => {
+                const li = document.createElement("li");
+                li.className = "option-item";
+                li.innerText = `${String.fromCharCode(65 + idx)}) ${opt}`;
+                li.onclick = () => selectOption(idx);
+                optionsContainer.appendChild(li);
+            });
+
+            document.getElementById("explanation-box").style.display = "none";
+            document.getElementById("next-btn").disabled = true;
+            document.getElementById("next-btn").style.opacity = "0.5";
+            document.getElementById("next-btn").style.cursor = "not-allowed";
+            document.getElementById("progress-indicator").innerText = "प्रश्नाचे उत्तर निवडा";
+        }
+
+        function selectOption(selectedIndex) {
+            if (answeredCurrent) return;
+            answeredCurrent = true;
+
+            const q = questions[currentQuestionIndex];
+            const optionsList = document.getElementById("options-container").children;
+            
+            userAnswersRecord.push({
+                question: q.q,
+                selected: q.options[selectedIndex],
+                correct: q.options[q.answer],
+                isCorrect: selectedIndex === q.answer,
+                explanation: q.exp
+            });
+
+            if (selectedIndex === q.answer) {
+                score += 2; // प्रत्येक प्रश्नाला २ गुण
+                optionsList[selectedIndex].classList.add("selected-correct");
+                document.getElementById("progress-indicator").innerText = "अतिउत्तम! बरोबर उत्तर.";
+            } else {
+                optionsList[selectedIndex].classList.add("selected-wrong");
+                optionsList[q.answer].classList.add("correct-reveal");
+                document.getElementById("progress-indicator").innerText = "चूक! योग्य उत्तर हिरव्या रंगात दर्शवले आहे.";
+            }
+
+            document.getElementById("current-score").innerText = score;
+
+            const expBox = document.getElementById("explanation-box");
+            expBox.innerHTML = `<strong>स्पष्टीकरण (Explanation):</strong> ${q.exp}`;
+            expBox.style.display = "block";
+
+            const nextBtn = document.getElementById("next-btn");
+            nextBtn.disabled = false;
+            nextBtn.style.opacity = "1";
+            nextBtn.style.cursor = "pointer";
+
+            if (currentQuestionIndex === questions.length - 1) {
+                nextBtn.innerText = "SUBMIT EXAM";
+            }
+        }
+
+        function nextQuestion() {
+            currentQuestionIndex++;
+            if (currentQuestionIndex < questions.length) {
+                loadQuestion();
+            } else {
+                showResult();
+            }
+        }
+
+        function showResult() {
+            document.getElementById("quiz-screen").classList.add("hidden");
+            document.getElementById("result-screen").classList.remove("hidden");
+
+            document.getElementById("cert-student-details").innerText = `विद्यार्थ्याचे नाव: ${studentName} | मोबाईल: ${studentMobile}`;
+            document.getElementById("final-score-display").innerText = `${score} / 100`;
+
+            const percentage = (score / 100) * 100;
+            const badgeEl = document.getElementById("performance-badge");
+
+            if (percentage >= 90) {
+                badgeEl.className = "cert-performance badge-gold";
+                badgeEl.innerHTML = "🥇 कामगिरी: Gold Medal + Trophy (उत्कृष्ट!)";
+            } else if (percentage >= 80) {
+                badgeEl.className = "cert-performance badge-silver";
+                badgeEl.innerHTML = "🥈 कामगिरी: Silver Medal + Trophy (छान!)";
+            } else if (percentage >= 70) {
+                badgeEl.className = "cert-performance badge-bronze";
+                badgeEl.innerHTML = "🥉 कामगिरी: Bronze Medal + Trophy (चांगली कामगिरी)";
+            } else {
+                badgeEl.className = "cert-performance badge-flower";
+                badgeEl.innerHTML = "💐 अभिनंदन! फुलांचा गुच्छ व 'पुढील परीक्षेसाठी शुभेच्छा'";
+            }
+
+            // Populate Review Section
+            const reviewContainer = document.getElementById("review-container");
+            reviewContainer.innerHTML = "<h3 style='margin-top:0; color:#c0392b;'>चुकलेल्या प्रश्नांचे मार्गदर्शन (Review Mistakes)</h3>";
+            
+            const incorrectList = userAnswersRecord.filter(item => !item.isCorrect);
+            if (incorrectList.length === 0) {
+                reviewContainer.innerHTML += "<p style='color: #27ae60; font-weight: bold;'>अभिनंदन! तुमचे सर्व प्रश्न बरोबर आले आहेत!</p>";
+            } else {
+                incorrectList.forEach((item, idx) => {
+                    reviewContainer.innerHTML += `
+                        <div class="review-item">
+                            <strong>${idx + 1}. ${item.question}</strong><br>
+                            <span style="color: #e74c3c;">तुमचे उत्तर: ${item.selected}</span><br>
+                            <span style="color: #27ae60;">योग्य उत्तर: ${item.correct}</span><br>
+                            <span style="color: #2980b9; font-size: 0.85rem;">मार्गदर्शन: ${item.explanation}</span>
+                        </div>
+                    `;
+                });
+            }
+        }
+
+        function toggleReview() {
+            const rev = document.getElementById("review-container");
+            rev.classList.toggle("hidden");
+        }
+    </script>
+</body>
+</html>
