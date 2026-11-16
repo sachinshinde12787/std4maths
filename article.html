@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+<html lang="mr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>इयत्ता चौथी शिष्यवृत्ती परीक्षा - Articles</title>
+    <style>
+        :root {
+            --primary-color: #4a90e2;
+            --secondary-color: #f5f7fa;
+            --accent-color: #27ae60;
+            --wrong-color: #e74c3c;
+            --text-color: #333;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--secondary-color);
+            color: var(--text-color);
+            margin: 0;
+            padding: 10px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+        .container {
+            background: #fff;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            width: 100%;
+            max-width: 650px;
+            box-sizing: border-box;
+            position: relative;
+        }
+        .school-header {
+            text-align: center;
+            font-size: 15px;
+            font-weight: bold;
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+        .footer-credit {
+            text-align: center;
+            font-size: 13px;
+            color: #666;
+            margin-top: 20px;
+            border-top: 1px solid #eee;
+            padding-top: 10px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+        }
+        .footer-credit img {
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid var(--primary-color);
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
+        .screen {
+            display: none;
+        }
+        .screen.active {
+            display: block;
+        }
+        h2 {
+            color: #2c3e50;
+            text-align: center;
+            font-size: 20px;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 600;
+        }
+        input[type="text"], input[type="tel"] {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            box-sizing: border-box;
+            font-size: 16px;
+        }
+        .btn {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 6px;
+            cursor: pointer;
+            width: 100%;
+            font-size: 16px;
+            font-weight: bold;
+            margin-top: 10px;
+            transition: background 0.3s;
+        }
+        .btn:hover {
+            background-color: #357abd;
+        }
+        .btn:disabled {
+            background-color: #bdc3c7;
+            cursor: not-allowed;
+        }
+        .quiz-header {
+            display: flex;
+            justify-content: space-between;
+            font-weight: bold;
+            margin-bottom: 15px;
+            color: #e67e22;
+        }
+        .question-box {
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+        .options-list {
+            list-style: none;
+            padding: 0;
+        }
+        .option-item {
+            background: #f8f9fa;
+            border: 1px solid #ddd;
+            padding: 12px;
+            margin-bottom: 8px;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .option-item:hover {
+            background: #e2e6ea;
+        }
+        .option-item.correct {
+            background-color: #d4edda;
+            border-color: #c3e6cb;
+            color: #155724;
+        }
+        .option-item.wrong {
+            background-color: #f8d7da;
+            border-color: #f5c6cb;
+            color: #721c24;
+        }
+        .explanation {
+            margin-top: 15px;
+            padding: 10px;
+            background: #eef2f7;
+            border-left: 4px solid var(--primary-color);
+            font-size: 14px;
+            display: none;
+        }
+        .certificate {
+            border: 4px double #d4af37;
+            padding: 20px;
+            text-align: center;
+            background: #fffdf9;
+            border-radius: 8px;
+        }
+        .certificate h3 {
+            color: #b7950b;
+            margin: 5px 0;
+        }
+        .score-display {
+            font-size: 32px;
+            font-weight: bold;
+            color: #27ae60;
+            margin: 10px 0;
+        }
+        .review-box {
+            max-height: 250px;
+            overflow-y: auto;
+            text-align: left;
+            margin-top: 15px;
+            padding: 10px;
+            border: 1px solid #ddd;
+            background: #fff;
+            border-radius: 5px;
+        }
+        .review-item {
+            margin-bottom: 12px;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 8px;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <!-- First Screen: Welcome & Details -->
+    <div id="start-screen" class="screen active">
+        <div class="school-header">जिल्हा परिषद प्राथमिक शाळा नरसोबावाडी संचलित</div>
+        <h2>इयत्ता चौथी शिष्यवृत्ती परीक्षा</h2>
+        <h3 style="text-align:center; color: #555;">English Grammar (Articles: A, An, The)</h3>
+        <p style="text-align: center; font-size: 14px; color: #666;">एकूण प्रश्न: १०० | गुण: २०० (प्रत्येक प्रश्नाला २ गुण)</p>
+        
+        <div class="form-group">
+            <label for="student-name">विद्यार्थ्याचे नाव:</label>
+            <input type="text" id="student-name" placeholder="पूर्ण नाव प्रविष्ट करा">
+        </div>
+        <div class="form-group">
+            <label for="student-mobile">मोबाईल नंबर:</label>
+            <input type="tel" id="student-mobile" placeholder="मोबाईल नंबर प्रविष्ट करा" maxlength="10">
+        </div>
+        
+        <button class="btn" onclick="startQuiz()">EXAM START</button>
+
+        <div class="footer-credit">
+            <div>
+                टेस्ट निर्मिती व संकल्पना: श्री. सचिन शिंदे सर<br>
+                जि.प.प्रा. शाळा नरसोबावाडी | मोबाईल: 8329684470
+            </div>
+            <!-- Fixed Google Drive Image Preview Link -->
+            <img src="https://lh3.googleusercontent.com/d/1pkldnaLRyqBtfgiQKwtbeSSfXhENzbOm=s220" alt="Sachin Shinde Sir" onerror="this.src='https://via.placeholder.com/70?text=Photo'">
+        </div>
+    </div>
+
+    <!-- Second Screen: Quiz Interface -->
+    <div id="quiz-screen" class="screen">
+        <div class="quiz-header">
+            <span id="q-counter">प्रश्न: 1 / 100</span>
+            <span id="q-score">गुण: 0</span>
+        </div>
+        <div class="question-box" id="question-text">प्रश्न येथे येईल</div>
+        <ul class="options-list" id="options-list">
+            <!-- Options injected dynamically -->
+        </ul>
+        <div class="explanation" id="explanation-box"></div>
+        <button class="btn" id="next-btn" onclick="nextQuestion()" disabled>पुढील प्रश्न (Next)</button>
+        
+        <div class="footer-credit" style="margin-top: 15px; font-size: 12px; border:none; padding-top:5px;">
+            टेस्ट निर्मिती व संकल्पना श्री. सचिन शिंदे सर मोबाईल नंबर 8329684470
+        </div>
+    </div>
+
+    <!-- Third Screen: Certificate & Results -->
+    <div id="result-screen" class="screen">
+        <div class="certificate" id="cert-container">
+            <div id="cert-school" style="font-weight: bold; font-size: 15px;">🏆 जिल्हा परिषद प्राथमिक शाळा नरसोबावाडी संचालित</div>
+            <h3>गुणवत्ता प्रमाणपत्र</h3>
+            <p>परीक्षेचे नाव: <strong>English Grammar (Articles)</strong></p>
+            <p>विद्यार्थ्याचे नाव: <span id="cert-name" style="font-weight: bold;"></span></p>
+            
+            <div class="score-display" id="cert-score-text">गुण: 0 / 200</div>
+            <p id="cert-percentage" style="font-weight: bold; font-size: 16px;"></p>
+            <p id="cert-award" style="font-size: 15px; color: #d35400; font-weight: bold;"></p>
+            
+            <div id="review-container" style="display: none;">
+                <h4 style="margin: 10px 0 5px 0; color: #c0392b;">चुकीचे प्रश्न व मार्गदर्शन:</h4>
+                <div class="review-box" id="review-list"></div>
+            </div>
+
+            <button class="btn" id="review-toggle-btn" onclick="toggleReview()" style="background-color: #e67e22; margin-top: 10px;">चुकीचे प्रश्न तपासा (Review Mistakes)</button>
+            <button class="btn" onclick="location.reload()" style="background-color: #27ae60; margin-top: 5px;">पुन्हा परीक्षा द्या</button>
+        </div>
+
+        <div class="footer-credit">
+            <div>
+                संकल्पना व निर्मिती: श्री. सचिन शिंदे सर<br>
+                जि प प्रा शाळा नरसोबावाडी | मोबाईल नंबर 8329684470
+            </div>
+            <img src="https://lh3.googleusercontent.com/d/1pkldnaLRyqBtfgiQKwtbeSSfXhENzbOm=s220" alt="Sachin Shinde Sir" onerror="this.src='https://via.placeholder.com/70?text=Photo'">
+        </div>
+    </div>
+</div>
+
+<script>
+    const questions = [
+        { q: "१. Fill in the blank with the correct article: He is ___ tall boy.", options: ["A", "An", "The", "No article"], correct: 0, exp: "येथे 'boy' हा एकवचनी countable noun असून तो व्यंजन (consonant sound) ने सुरू होतो, म्हणून 'A' वापरतात." },
+        { q: "२. Fill in the blank: She eats ___ apple every day.", options: ["A", "An", "The", "No article"], correct: 1, exp: "'apple' हा शब्द स्वराने (vowel sound 'अ') सुरू होतो, म्हणून 'An' वापरले जाते." },
+        { q: "३. Fill in the blank: ___ Sun rises in the east.", options: ["A", "An", "The", "No article"], correct: 2, exp: "जगातील एकमेव किंवा अद्वितीय (unique) वस्तू किंवा खगोलीय वस्तूंपूर्वी 'The'Article वापरतात." },
+        { q: "४. Choose the correct article: Ramesh is ___ honest boy.", options: ["A", "An", "The", "No article"], correct: 1, exp: "'honest' या शब्दात 'h' अक्षर सायलेंट असते आणि उच्चार 'ऑनेस्ट' असा स्वराने होतो, म्हणून 'An' येते." },
+        { q: "५. Fill in the blanks: I saw ___ dog. ___ dog was black.", options: ["a, a", "the, a", "a, the", "the, the"], correct: 2, exp: "पहिल्यांदा उल्लेख करताना 'a' आणि त्याच गोष्टीचा पुन्हा उल्लेख करताना 'the' वापरतात." },
+        { q: "६. Choose the correct option: I like ___ milk.", options: ["a", "an", "the", "No article (Zero article)"], correct: 3, exp: "milk (द्रव्यवाचक नाम/Uncountable noun) सामान्य अर्थाने आल्यास कोणतेही article लागत नाही." },
+        { q: "७. Find out the error: 'He is an teacher.' Identify the correct sentence.", options: ["He is a teacher.", "He is the teacher.", "He is teacher.", "He an teacher is."], correct: 0, exp: "'teacher' ची सुरुवात 't' या व्यंजनाने होते, त्यामुळे 'an' ऐवजी 'a' यायला हवे." },
+        { q: "८. Choose the correct article: She has ___ big umbrella in her hand.", options: ["A", "An", "The", "No article"], correct: 0, exp: "येथे umbrella आधी 'big' हे विशेषण आल्यामुळे रिक्त जागा 'big' च्या उच्चारानुसार ('b' व्यंजन) 'A' घेईल." },
+        { q: "९. Choose the correct article: I have ___ cat at home.", options: ["A", "An", "The", "None"], correct: 0, exp: "'cat' हे व्यंजन ध्वनीने सुरू होणारे एकवचनी सामान्यनाम आहे, म्हणून 'A' येईल." },
+        { q: "१०. Choose the correct article: I saw ___ elephant in the zoo.", options: ["A", "The", "An", "None"], correct: 2, exp: "'elephant' चा उच्चार 'ए' (vowel sound) ने होतो, म्हणून 'An' योग्य आहे." },
+        { q: "११. Choose the correct article: ___ Ganga is a holy river.", options: ["A", "An", "The", "None"], correct: 2, exp: "पवित्र नद्यांच्या नावापूर्वी 'The' Article वापरतात." },
+        { q: "१२. Fill in the blank: He will return in ___ hour.", options: ["A", "An", "The", "None"], correct: 1, exp: "'hour' मध्ये 'h' उच्चारला जात नाही, उच्चार 'आवर' (vowel) असा होतो म्हणून 'An' येते." },
+        { q: "१३. Choose the correct option: She bought ___ pen. ___ pen is red.", options: ["the, a", "a, the", "an, the", "the, the"], correct: 1, exp: "पहिल्यांदा पेनचा उल्लेख करताना 'a' आणि नंतर निश्चित केलेल्या त्याच पेनसाठी 'the' वापरतात." },
+        { q: "१४. Fill in the blank: Ramesh lives in ___ Pune.", options: ["a", "an", "the", "No article"], correct: 3, exp: "प्रसिद्ध शहरांच्या (Proper Noun) नावापूर्वी सामान्यतः कोणतेही Article वापरले जात नाही." },
+        { q: "१५. Identify the sentence with the correct article:", options: ["He reads a book.", "He reads an book.", "He reads book.", "He read book."], correct: 0, exp: "'book' चे सामान्यनाम एकवचनी असल्याने 'a book' योग्य ठरते." },
+        { q: "१६. Choose the correct article: He is flying ___ colourful kite in the sky.", options: ["An", "The", "A", "No article"], correct: 2, exp: "'colourful' ची सुरुवात 'c' (व्यंजन) ने होते, म्हणून 'A' वापरतात." },
+        { q: "१७. Fill in the blank: My mother bought ___ new book for me.", options: ["A", "An", "The", "No article"], correct: 0, exp: "'new' शब्दाची सुरुवात 'n' व्यंजनाने होते, त्यामुळे 'A' येईल." },
+        { q: "१८. Fill in the blank: He found ___ old coin in the garden.", options: ["A", "An", "The", "No article"], correct: 1, exp: "'old' चा उच्चार स्वराने होतो, म्हणून 'An' योग्य आहे." },
+        { q: "१९. Fill in the blank: Look at ___ moon in the sky.", options: ["A", "An", "The", "No article"], correct: 2, exp: "चंद्र (moon) ही एकच अद्वितीय गोष्ट असल्यामुळे 'The' वापरतात." },
+        { q: "२०. Choose the correct article: My cousin studies at ___ university.", options: ["An", "A", "The", "No article"], correct: 1, exp: "'university' चा उच्चार 'यू' (Yuwani) असा व्यंजनासारखा होतो, त्यामुळे 'A' वापरतात." },
+        { q: "२१. Fill in the blanks: He has ___ umbrella. ___ umbrella is blue.", options: ["a, the", "an, the", "the, an", "an, a"], correct: 1, exp: "पहिल्यांदा 'umbrella' साठी 'an' आणि नंतर त्याच गोष्टीसाठी 'the' वापरले जाते." },
+        { q: "२२. Choose the correct alternative: She speaks ___ English.", options: ["a", "an", "the", "No article"], correct: 3, exp: "भाषांच्या नावापूर्वी (Languages) सहसा Article वापरले जात नाही." },
+        { q: "२३. Identify the article in the sentence: 'She has an umbrella.'", options: ["She", "has", "an", "umbrella"], correct: 2, exp: "या वाक्यात 'an' हे Article आहे." },
+        { q: "२४. Choose the correct article: Visitors come to see ___ Taj Mahal in Agra.", options: ["A", "An", "The", "None"], correct: 2, exp: "ऐतिहासिक वास्तूंच्या नावापूर्वी 'The' वापरतात." },
+        { q: "२५. Select the correct alternative: There is ___ dog in the street.", options: ["An", "A", "The", "Zero article"], correct: 1, exp: "'dog' हे एकवचनी सामान्यनाम व्यंजन ध्वनीने सुरू होते, म्हणून 'A' येईल." },
+        { q: "२६. Select the correct option: Mother is cutting ___ orange.", options: ["A", "An", "The", "None"], correct: 1, exp: "'orange' स्वराने सुरू होते, म्हणून 'An' वापरतात." },
+        { q: "२७. Select the right option: ___ Bible is a holy book.", options: ["A", "An", "The", "None"], correct: 2, exp: "धार्मिक ग्रंथांच्या नावापूर्वी 'The' लावले जाते." },
+        { q: "२८. Fill in the blank: This is ___ useful book.", options: ["An", "The", "A", "None"], correct: 2, exp: "'useful' चा उच्चार 'यू' ने (व्यंजन ध्वनी) सुरू होतो, म्हणून 'A' येते." },
+        { q: "२९. Select the correct articles: Once upon a time, there lived ___ king. ___ king was very wise.", options: ["the, a", "a, a", "a, the", "the, the"], correct: 2, exp: "पहिल्यांदा उल्लेख करताना 'a king' आणि नंतर 'the king' वापरतात." },
+        { q: "३०. Fill in the blank: ___ Gold is a yellow metal.", options: ["A", "An", "The", "No article"], correct: 3, exp: "Gold (Material noun/पदार्थवाचक नाम) सामान्य अर्थाने आल्यास article लागत नाही." },
+        { q: "३१. Identify the article in the sentence: 'The Sun is hot.'", options: ["Sun", "is", "hot", "The"], correct: 3, exp: "'The' हे या वाक्यातील Article आहे." },
+        { q: "३२. Choose the correct article to complete the sentence: Mumbai is ___ big city.", options: ["an", "the", "a", "no article"], correct: 2, exp: "'big' च्या सुरुवातीला 'b' व्यंजन असल्याने 'a' येईल." },
+        { q: "३३. Fill in the blank: She wants to buy ___ car.", options: ["A", "An", "The", "None"], correct: 0, exp: "'car' हे व्यंजन ध्वनी असलेले सामान्यनाम आहे, म्हणून 'A' येईल." },
+        { q: "३४. Fill in the blank: There is ___ ant on the table.", options: ["An", "A", "The", "Zero article"], correct: 0, exp: "'ant' स्वराने सुरू होते, त्यामुळे 'An' योग्य आहे." },
+        { q: "३५. Fill in the blank: The earth moves around ___ Sun.", options: ["A", "An", "The", "Zero article"], correct: 2, exp: "सूर्य हा खगोलीय गोल असल्याने त्याच्यापूर्वी 'The' येते." },
+        { q: "३६. Select the right article: He is ___ European.", options: ["An", "A", "The", "Zero article"], correct: 1, exp: "'European' चा उच्चार 'यू' (व्यंजन) असा होतो, म्हणून 'A' वापरतात." },
+        { q: "३७. Fill in the blanks: I ate ___ apple. ___ apple was sweet.", options: ["a, the", "an, the", "the, the", "an, an"], correct: 1, exp: "पहिल्यांदा 'an' आणि निश्चित केलेल्या सफरचंदासाठी 'the' वापरतात." },
+        { q: "३८. Select the right option: ___ Mumbai is a big city.", options: ["A", "An", "The", "No article"], correct: 3, exp: "Mumbai हे विशेषनाम (City Name) असल्यामुळे Article लागत नाही." },
+        { q: "३९. Find the incorrect sentence:", options: ["This is a pen.", "That is an owl.", "He is an boy.", "She is a girl."], correct: 2, exp: "'boy' च्या आधी 'an' चालत नाही, तिथे 'a boy' पाहिजे, म्हणून हा पर्याय चुकीचा आहे." },
+        { q: "४०. Select the correct option for the blank: She has ___ inkpot on her desk.", options: ["a", "an", "the", "no article"], correct: 1, exp: "'inkpot' ची सुरुवात 'i' स्वराने होते, म्हणून 'an' येईल." },
+        { q: "४१. Complete the sentence with a suitable article: He is ___ good singer.", options: ["An", "The", "A", "No article"], correct: 2, exp: "'good' च्या उच्चारानुसार 'A' योग्य आहे." },
+        { q: "४२. Choose the correct alternative: My uncle is ___ engineer.", options: ["A", "The", "An", "None"], correct: 2, exp: "'engineer' चा उच्चार 'इ' स्वराने होतो, म्हणून 'An' येईल." },
+        { q: "४३. Choose the correct alternative: ___ Himalayas are the highest mountains.", options: ["A", "An", "The", "None"], correct: 2, exp: "पर्वतांच्या रांगांच्या (Mountain Ranges) नावापूर्वी 'The' वापरतात." },
+        { q: "४४. Fill in the blank: She is ___ M.A. student.", options: ["A", "An", "The", "None"], correct: 1, exp: "'M.A.' चा उच्चार 'एम' (ए ने सुरू होणारा स्वर ध्वनी) असा होतो, म्हणून 'An' येते." },
+        { q: "४५. Choose the correct articles: She met ___ girl in the garden. ___ girl was crying.", options: ["the, a", "a, the", "a, a", "the, the"], correct: 1, exp: "अनिश्चित नामासाठी 'a' आणि निश्चित केलेल्या मुलीसाठी 'the' येते." },
+        { q: "४६. Fill in the blank: We go to school on ___ Monday.", options: ["a", "an", "the", "No article"], correct: 3, exp: "वारांच्या नावापूर्वी सामान्यतः Article वापरले जात नाही." },
+        { q: "४७. Choose the correct sentence:", options: ["A Sun rises in a east.", "The Sun rises in the east.", "Sun rises in east.", "An Sun rises in east."], correct: 1, exp: "निसर्गातील अद्वितीय घटक आणि दिशांच्या नावापूर्वी 'The' वापरतात." },
+        { q: "४८. Choose the correct option: Rahul has ___ bat.", options: ["A", "An", "The", "None"], correct: 0, exp: "'bat' हे व्यंजन ध्वनीचे नाम असल्याने 'A' येईल." },
+        { q: "४९. Fill in the blank: He gave me ___ umbrella when it started raining.", options: ["A", "An", "The", "No article"], correct: 1, exp: "'umbrella' स्वराने सुरू होते, म्हणून 'An' योग्य आहे." },
+        { q: "५०. Fill in the blank: He is ___ best boy in the class.", options: ["A", "An", "The", "No article"], correct: 2, exp: "'best' हे superlative degree चे विशेषण असल्याने त्यापूर्वी 'The' येते." },
+        { q: "५१. Choose the correct option: He bought ___ uniform for school.", options: ["An", "A", "The", "No article"], correct: 1, exp: "'uniform' चा उच्चार 'यु' (व्यंजन) असा होतो, म्हणून 'A' येईल." },
+        { q: "५२. Fill in the blanks: We saw ___ elephant. ___ elephant was big.", options: ["a, the", "an, a", "an, the", "the, an"], correct: 2, exp: "elephant साठी 'an' आणि नंतर 'the' वापरतात." },
+        { q: "५३. Choose the correct option: My birthday is in ___ January.", options: ["a", "an", "the", "No article"], correct: 3, exp: "महिन्यांच्या नावापूर्वी Article लागत नाही." },
+        { q: "५४. Identify the article in the sentence: 'I bought a new car.'", options: ["bought", "new", "car", "a"], correct: 3, exp: "'a' हे या वाक्यातील Article आहे." },
+        { q: "५५. Fill in the blank: We live in ___ big house.", options: ["An", "A", "The", "Zero article"], correct: 1, exp: "'big' च्या आधी 'A' योग्य ठरेल." },
+        { q: "५६. Select the right article: Open ___ inkpot, please.", options: ["A", "The", "An", "None"], correct: 2, exp: "'inkpot' हे स्वराने सुरू होते, म्हणून 'An' येईल." },
+        { q: "५७. Select the correct article: Which is ___ tallest building in Mumbai?", options: ["A", "An", "The", "None"], correct: 2, exp: "'tallest' हे superlative रूप असल्यामुळे 'The' वापरतात." },
+        { q: "५८. Fill in the blank: I saw ___ one-eyed man yesterday.", options: ["An", "The", "A", "None"], correct: 2, exp: "'one' चा उच्चार 'वन्' (व्यंजन) असा होतो, म्हणून 'A' वापरतात." },
+        { q: "५९. Select the correct combination: Father gave me ___ toy. ___ toy is made of wood.", options: ["a, the", "the, a", "an, the", "a, a"], correct: 0, exp: "पहिल्यांदा 'a' आणि नंतर 'the' वापरतात." },
+        { q: "६०. Fill in the blank: Children love ___ playing cricket.", options: ["a", "an", "the", "No article"], correct: 3, exp: "खेळांच्या नावापूर्वी (Sports) Article वापरले जात नाही." },
+        { q: "६१. Find out the error: 'She is reading a interesting story.' -> Correct:", options: ["She is reading an interesting story.", "She is reading the interesting story.", "She is reading a interesting story.", "She is reading interesting story."], correct: 0, exp: "'interesting' ची सुरुवात 'i' या स्वराने होते, त्यामुळे 'a' ऐवजी 'an' पाहिजे." },
+        { q: "६२. Select the right article: Birds build ___ nest in the tree.", options: ["An", "The", "A", "None"], correct: 2, exp: "'nest' हे व्यंजन ध्वनीने सुरू होणारे एकवचनी नाम आहे, म्हणून 'A' येईल." },
+        { q: "६३. Fill in the blank: She wrote ___ essay on cows.", options: ["A", "The", "An", "No article"], correct: 2, exp: "'essay' चा उच्चार 'ए' स्वराने होतो, म्हणून 'An' येते." },
+        { q: "६४. Fill in the blank: ___ sky is blue.", options: ["A", "An", "The", "No article"], correct: 2, exp: "sky (आकाश) पूर्वी 'The' वापरतात." },
+        { q: "६५. Select the correct article: He is ___ honorary secretary.", options: ["A", "An", "The", "Zero article"], correct: 1, exp: "'honorary' मध्ये 'h' सायलेंट असतो आणि उच्चार 'ऑनररी' होतो, म्हणून 'An' येईल." },
+        { q: "६६. Fill in the blanks: She found ___ orange. ___ orange was sour.", options: ["a, the", "an, the", "the, a", "an, an"], correct: 1, exp: "orange साठी 'an' आणि नंतर निश्चित नामासाठी 'the' येते." },
+        { q: "६७. Select the right option: Cats love ___ milk.", options: ["a", "an", "the", "No article"], correct: 3, exp: "पदार्थवाचक नामापूर्वी सामान्य संदर्भात Article लागत नाही." },
+        { q: "६८. Identify the articles in the sentence: 'The dog chased a cat.'", options: ["dog, cat", "The, a", "chased, cat", "The, chased"], correct: 1, exp: "'The' आणि 'a' ही दोन्ही Articles आहेत." },
+        { q: "६९. Fill in the blank: My father is ___ doctor.", options: ["An", "The", "A", "No article"], correct: 2, exp: "'doctor' व्यंजनाने सुरू होते, म्हणून 'A' येईल." },
+        { q: "७०. Choose the correct option: Rohit ate ___ egg for breakfast.", options: ["A", "An", "The", "None"], correct: 1, exp: "'egg' ची सुरुवात 'e' स्वराने होते, म्हणून 'An' येईल." },
+        { q: "७१. Choose the correct option: She read ___ Ramayana.", options: ["A", "An", "The", "None"], correct: 2, exp: "धार्मिक ग्रंथाच्या नावापूर्वी 'The' वापरतात." },
+        { q: "७२. Fill in the blank: She ate ___ ice cream.", options: ["A", "An", "The", "None"], correct: 1, exp: "'ice cream' स्वराने सुरू होते, म्हणून 'An' योग्य आहे." },
+        { q: "७३. Choose the correct alternative: He caught ___ bird. ___ bird flew away.", options: ["a, the", "the, a", "an, the", "a, a"], correct: 0, exp: "पहिल्यांदा 'a' आणि नंतर 'the' वापरले जाते." },
+        { q: "७४. Fill in the blank: ___ India is our country.", options: ["A", "An", "The", "No article"], correct: 3, exp: "देशांच्या नावापूर्वी (Proper noun) सामान्यतः Article वापरत नाहीत." },
+        { q: "७५. Choose the correct sentence:", options: ["Honest man is respected.", "An honest man is respected.", "A honest man is respected.", "The honest man is respected."], correct: 1, exp: "'honest' च्या उच्चारामुळे 'An' वापरले जाते." },
+        { q: "७६. Fill in the blank: ___ Pacific is the largest ocean.", options: ["A", "An", "The", "No article"], correct: 2, exp: "महासागरांच्या (Oceans) नावापूर्वी 'The' वापरतात." },
+        { q: "७७. Choose the correct article: He is ___ heir to the throne.", options: ["A", "An", "The", "No article"], correct: 1, exp: "'heir' चा उच्चार 'एर' असा होतो (h silent), म्हणून 'An' येते." },
+        { q: "७८. Fill in the blanks: There is ___ cat in the room. ___ cat is sleeping.", options: ["the, a", "a, the", "an, the", "a, a"], correct: 1, exp: "पहिल्या उल्लेखासाठी 'a' आणि दुसऱ्यासाठी 'the' योग्य आहे." },
+        { q: "७९. Fill in the blank: ___ Water is essential for life.", options: ["A", "An", "The", "No article"], correct: 3, exp: "Water (Uncountable Noun) सामान्य अर्थाने आल्यास article लागत नाही." },
+        { q: "८०. Identify the article in: 'Open the door.'", options: ["Open", "door", "The", "None"], correct: 2, exp: "'The' हे या वाक्यातील Article आहे." },
+        { q: "८१. Select the right article: Honesty is ___ best policy.", options: ["A", "An", "The", "None"], correct: 2, exp: "'best' हे superlative degree चे रूप आहे, म्हणून 'The' येते." },
+        { q: "८२. Fill in the blank: This is ___ unique painting.", options: ["An", "A", "The", "None"], correct: 1, exp: "'unique' चा उच्चार 'युनिक' (व्यंजन ध्वनी) असा होतो, म्हणून 'A' येते." },
+        { q: "८३. Select the correct option: My brother brought ___ book. ___ book is interesting.", options: ["a, the", "the, the", "an, the", "a, a"], correct: 0, exp: "निश्चित नसलेल्या गोष्टीसाठी 'a' आणि निश्चितसाठी 'the' वापरतात." },
+        { q: "८४. Fill in the blank: She likes ___ flowers.", options: ["a", "an", "the", "No article"], correct: 3, exp: "अनेकवचनी सामान्यनाम जेव्हा सर्वसाधारण अर्थाने येते तेव्हा Article वापरत नाहीत." },
+        { q: "८५. Spot the error in: 'He is best player.' -> Correct:", options: ["He is a best player.", "He is an best player.", "He is the best player.", "He is best player."], correct: 2, exp: "Superlative degree पूर्वी 'the' अनिवार्य असते." },
+        { q: "८६. Fill in the blank: Taj Mahal is on ___ bank of the Yamuna.", options: ["a", "an", "the", "no article"], correct: 2, exp: "नदीच्या काठाच्या उल्ह्रेशासाठी 'the bank' वापरले जाते." },
+        { q: "८७. Select the right option: She needs ___ F.I.R. copy.", options: ["A", "An", "The", "None"], correct: 1, exp: "'F.I.R.' चा उच्चार 'एफ' (ए ने सुरू होणारा स्वर) असा होतो, म्हणून 'An' येते." },
+        { q: "८८. Fill in the blanks: I have ___ horse. ___ horse runs very fast.", options: ["the, the", "an, the", "a, the", "a, a"], correct: 2, exp: "पहिली वेळ 'a' व नंतर 'the' वापरतात." },
+        { q: "८९. Select the right alternative: Father is at ___ work.", options: ["a", "an", "the", "No article"], correct: 3, exp: "'at work' ही रूढ वाक्प्रचार रचना आहे, यात article येत नाही." },
+        { q: "९०. Choose the correct sentence:", options: ["Ganga is a holy river.", "The Ganga is a holy river.", "A Ganga is a holy river.", "An Ganga is a holy river."], correct: 1, exp: "नदीच्या नावापूर्वी 'The' येते." },
+        { q: "९१. Choose the correct option: Let us play ___ guitar.", options: ["A", "An", "The", "None"], correct: 2, exp: "संगीत वाद्यांच्या (Musical instruments) नावापूर्वी 'The' वापरतात." },
+        { q: "९२. Fill in the blank: He is ___ S.B.I. officer.", options: ["A", "An", "The", "No article"], correct: 1, exp: "'S' चा उच्चार 'एस' (स्वरापासून) होतो, म्हणून 'An' येते." },
+        { q: "९३. Choose the right articles: She wore ___ dress. ___ dress was costly.", options: ["a, the", "the, a", "an, the", "a, a"], correct: 0, exp: "साधा नियम: प्रथम 'a', नंतर 'the'." },
+        { q: "९४. Fill in the blank: We speak ___ Marathi at home.", options: ["a", "an", "the", "No article"], correct: 3, exp: "भाषेच्या नावापूर्वी article लागत नाही." },
+        { q: "९५. Which article appears first in: 'An ant is a small insect.'", options: ["a", "an", "the", "none"], correct: 1, exp: "वाक्यात सर्वात आधी 'An' आले आहे." },
+        { q: "९६. Fill in the blank: ___ principal is in his office.", options: ["A", "An", "The", "No article"], correct: 2, exp: "शाळेतील विशिष्ट मुख्यध्यापकांचा उल्लेख असल्याने 'The' येते." },
+        { q: "९७. Choose the correct article: It is ___ easy question.", options: ["A", "An", "The", "None"], correct: 1, exp: "'easy' ची सुरुवात 'e' स्वराने होते, म्हणून 'An' येते." },
+        { q: "९८. Fill in the blanks: We visited ___ village. ___ village was very clean.", options: ["a, a", "the, the", "a, the", "an, the"], correct: 2, exp: "पहिल्यांदा 'a' आणि नंतर 'the' वापरतात." },
+        { q: "९९. Choose the correct option: Dogs are ___ faithful animals.", options: ["a", "an", "the", "No article"], correct: 3, exp: "अनेकवचनी नाम सर्वसाधारण अर्थाने आल्यास article लागत नाही." },
+        { q: "१००. Choose the correct sentence:", options: ["Give me one-rupee coin.", "Give me a one-rupee coin.", "Give me an one-rupee coin.", "Give me the one-rupee coin."], correct: 1, exp: "'one' चा उच्चार 'वन्' (व्यंजन) असल्याने 'a' वापरतात." }
+    ];
+
+    let currentQuestion = 0;
+    let score = 0;
+    let selectedAnswers = [];
+    let studentName = "";
+    let studentMobile = "";
+
+    function startQuiz() {
+        let nameInput = document.getElementById("student-name");
+        let mobileInput = document.getElementById("student-mobile");
+
+        studentName = nameInput.value.trim();
+        studentMobile = mobileInput.value.trim();
+
+        if (studentName === "" || studentMobile === "") {
+            alert("कृपया विद्यार्थ्याचे नाव आणि १० अंकी मोबाईल नंबर प्रविष्ट करा!");
+            return;
+        }
+
+        if (studentMobile.length < 10) {
+            alert("कृपया वैध १० अंकी मोबाईल नंबर प्रविष्ट करा!");
+            return;
+        }
+
+        document.getElementById("start-screen").classList.remove("active");
+        document.getElementById("quiz-screen").classList.add("active");
+        loadQuestion();
+    }
+
+    function loadQuestion() {
+        let q = questions[currentQuestion];
+        document.getElementById("q-counter").innerText = `प्रश्न: ${currentQuestion + 1} / ${questions.length}`;
+        document.getElementById("q-score").innerText = `गुण: ${score}`;
+        document.getElementById("question-text").innerText = q.q;
+
+        let optionsList = document.getElementById("options-list");
+        optionsList.innerHTML = "";
+
+        q.options.forEach((opt, index) => {
+            let li = document.createElement("li");
+            li.className = "option-item";
+            li.innerText = opt;
+            li.onclick = () => selectOption(index, li);
+            optionsList.appendChild(li);
+        });
+
+        document.getElementById("explanation-box").style.display = "none";
+        document.getElementById("next-btn").disabled = true;
+    }
+
+    function selectOption(selectedIndex, element) {
+        let q = questions[currentQuestion];
+        let options = document.querySelectorAll(".option-item");
+
+        options.forEach(opt => opt.onclick = null);
+
+        let isCorrect = (selectedIndex === q.correct);
+        if (isCorrect) {
+            element.classList.add("correct");
+            score += 2;
+        } else {
+            element.classList.add("wrong");
+            options[q.correct].classList.add("correct");
+        }
+
+        selectedAnswers.push({
+            qNum: currentQuestion + 1,
+            question: q.q,
+            userAns: q.options[selectedIndex],
+            correctAns: q.options[q.correct],
+            isCorrect: isCorrect,
+            exp: q.exp
+        });
+
+        let expBox = document.getElementById("explanation-box");
+        expBox.innerHTML = `<strong>स्पष्टीकरण:</strong> ${q.exp}`;
+        expBox.style.display = "block";
+
+        document.getElementById("q-score").innerText = `गुण: ${score}`;
+        document.getElementById("next-btn").disabled = false;
+    }
+
+    function nextQuestion() {
+        currentQuestion++;
+        if (currentQuestion < questions.length) {
+            loadQuestion();
+        } else {
+            showResult();
+        }
+    }
+
+    function showResult() {
+        document.getElementById("quiz-screen").classList.remove("active");
+        document.getElementById("result-screen").classList.add("active");
+
+        document.getElementById("cert-name").innerText = studentName;
+        let totalMarks = questions.length * 2;
+        let percentage = (score / totalMarks) * 100;
+
+        document.getElementById("cert-score-text").innerText = `गुण: ${score} / ${totalMarks} (${percentage.toFixed(1)}%)`;
+
+        let awardText = "";
+        if (percentage >= 90) {
+            awardText = "🥇 Gold Medal + Trophy (उत्कृष्ट कामगिरी!)";
+        } else if (percentage >= 80) {
+            awardText = "🥈 Silver Medal + Trophy (छान कामगिरी!)";
+        } else if (percentage >= 70) {
+            awardText = "🥉 Bronze/Merit Recognition (चांगली कामगिरी!)";
+        } else {
+            awardText = "💐 अभिनंदन! फुलांचा गुच्छ व 'पुढील परीक्षेसाठी शुभेच्छा'";
+        }
+        document.getElementById("cert-award").innerText = awardText;
+
+        let reviewList = document.getElementById("review-list");
+        reviewList.innerHTML = "";
+        let incorrects = selectedAnswers.filter(a => !a.isCorrect);
+
+        if (incorrects.length === 0) {
+            reviewList.innerHTML = "<p style='color: green; text-align: center;'>अतिउत्तम! तुमचे सर्व प्रश्न बरोबर आले आहेत!</p>";
+        } else {
+            incorrects.forEach(item => {
+                let div = document.createElement("div");
+                div.className = "review-item";
+                div.innerHTML = `<strong>प्र. ${item.qNum}: ${item.question}</strong><br>` +
+                                `<span style="color: red;">तुमचे उत्तर: ${item.userAns}</span> | ` +
+                                `<span style="color: green;">योग्य उत्तर: ${item.correctAns}</span><br>` +
+                                `<small>स्पष्टीकरण: ${item.exp}</small>`;
+                reviewList.appendChild(div);
+            });
+        }
+    }
+
+    function toggleReview() {
+        let revContainer = document.getElementById("review-container");
+        let btn = document.getElementById("review-toggle-btn");
+        if (revContainer.style.display === "none") {
+            revContainer.style.display = "block";
+            btn.innerText = "चुकीचे प्रश्न लपवा";
+        } else {
+            revContainer.style.display = "none";
+            btn.innerText = "चुकीचे प्रश्न तपासा (Review Mistakes)";
+        }
+    }
+</script>
+
+</body>
+</html>
