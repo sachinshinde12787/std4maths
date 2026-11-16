@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Singular and Plural Exam</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #f5f7fa, #c3cfe2);
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+        .container {
+            background: #ffffff;
+            width: 100%;
+            max-width: 700px;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            position: relative;
+        }
+        .header-top {
+            font-weight: bold;
+            color: #2c3e50;
+            margin-bottom: 15px;
+            font-size: 1.1rem;
+        }
+        .footer-right {
+            text-align: right;
+            margin-top: 30px;
+            font-size: 0.95rem;
+            color: #34495e;
+            line-height: 1.4;
+        }
+        .footer-right img {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            object-fit: cover;
+            vertical-align: middle;
+            margin-left: 10px;
+            border: 2px solid #3498db;
+        }
+        .center-footer {
+            text-align: center;
+            font-size: 0.9rem;
+            color: #7f8c8d;
+            margin: 20px 0;
+        }
+        .btn {
+            background-color: #27ae60;
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            font-size: 1rem;
+            border-radius: 8px;
+            cursor: pointer;
+            display: block;
+            width: 100%;
+            margin-top: 20px;
+            transition: background 0.3s;
+        }
+        .btn:hover { background-color: #219653; }
+        .btn:disabled { background-color: #bdc3c7; cursor: not-allowed; }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #333;
+        }
+        .form-group input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            font-size: 1rem;
+            box-sizing: border-box;
+        }
+        .question-box {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: #2c3e50;
+            margin-bottom: 20px;
+        }
+        .option-btn {
+            display: block;
+            width: 100%;
+            text-align: left;
+            background: #f8f9fa;
+            border: 1px solid #dcdde1;
+            padding: 12px 15px;
+            margin-bottom: 10px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: all 0.2s;
+        }
+        .option-btn:hover { background: #e1f5fe; }
+        .option-btn.correct { background: #d4edda !important; border-color: #28a745; color: #155724; }
+        .option-btn.wrong { background: #f8d7da !important; border-color: #dc3545; color: #721c24; }
+        .explanation {
+            margin-top: 15px;
+            padding: 12px;
+            background: #fff3cd;
+            border: 1px solid #ffeeba;
+            color: #856404;
+            border-radius: 6px;
+            display: none;
+        }
+        .certificate {
+            border: 5px double #f1c40f;
+            padding: 25px;
+            text-align: center;
+            background: #fffdf0;
+            border-radius: 10px;
+        }
+        .certificate h2 { color: #d35400; margin-top: 0; }
+        .score-display { font-size: 2.5rem; font-weight: bold; color: #2980b9; margin: 15px 0; }
+        .hidden { display: none !important; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <!-- START PAGE -->
+    <div id="start-page">
+        <div class="header-top">जिल्हा परिषद प्राथमिक शाळा नरसोबावाडी संचलित</div>
+        <h2 style="text-align: center; color: #2c3e50;">Exam Name: Singular and Plural</h2>
+        
+        <div class="form-group">
+            <label>Student's Name (विद्यार्थ्याचे नाव):</label>
+            <input type="text" id="student-name" placeholder="Enter your full name">
+        </div>
+        <div class="form-group">
+            <label>Mobile Number (मोबाईल नंबर):</label>
+            <input type="text" id="student-mobile" placeholder="Enter mobile number" maxlength="10">
+        </div>
+
+        <div class="center-footer">
+            टेस्ट निर्मिती व संकल्पना श्री सचिन शिंदे मोबाईल नंबर 83 29 68 44 70
+        </div>
+
+        <button class="btn" onclick="startExam()">EXAM START</button>
+
+        <div class="footer-right">
+            संकल्पना व निर्मिती<br>
+            श्री सचिन शिंदे सर<br>
+            जि प प्रा शाळा नरसोबावाडी<br>
+            मोबाईल नंबर 83 29 68 44 70<br>
+            <img src="https://lh3.googleusercontent.com/d/1pkldnaLRyqBtfgiQKwtbeSSfXhENzbOm" alt="Sachin Shinde">
+        </div>
+    </div>
+
+    <!-- QUIZ PAGE -->
+    <div id="quiz-page" class="hidden">
+        <div style="display: flex; justify-content: space-between; margin-bottom: 15px; font-weight: bold; color: #7f8c8d;">
+            <span id="question-tracker">Question 1 of 100</span>
+            <span id="marks-tracker">Score: 0</span>
+        </div>
+        <div class="question-box" id="question-text"></div>
+        <div id="options-container"></div>
+        <div class="explanation" id="explanation-box"></div>
+        <button class="btn" id="next-btn" onclick="nextQuestion()" disabled>Next Question</button>
+    </div>
+
+    <!-- RESULT / CERTIFICATE PAGE -->
+    <div id="result-page" class="hidden">
+        <div class="certificate">
+            <h2>🏆 जिल्हा परिषद प्राथमिक शाळा नरसोबावाडी संचालित</h2>
+            <p><b>Exam Name:</b> Singular and Plural</p>
+            <p><b>Student Name:</b> <span id="res-name"></span></p>
+            
+            <div class="score-display" id="res-score">0 / 200</div>
+            <p id="performance-msg" style="font-size: 1.2rem; font-weight: bold;"></p>
+
+            <button class="btn" id="review-btn" onclick="showReview()" style="background-color: #e67e22; margin-top: 15px;">चुकलेले प्रश्न पहा (Review Incorrect Questions)</button>
+        </div>
+
+        <div class="footer-right">
+            संकल्पना व निर्मिती<br>
+            श्री सचिन शिंदे सर<br>
+            जि प प्रा शाळा नरसोबावाडी<br>
+            मोबाईल नंबर 83 29 68 44 70<br>
+            <img src="https://lh3.googleusercontent.com/d/1pkldnaLRyqBtfgiQKwtbeSSfXhENzbOm" alt="Sachin Shinde">
+        </div>
+    </div>
+
+    <!-- REVIEW PAGE -->
+    <div id="review-page" class="hidden">
+        <h2>Incorrect Questions Review</h2>
+        <div id="review-container" style="max-height: 400px; overflow-y: auto; margin-bottom: 20px;"></div>
+        <button class="btn" onclick="location.reload()">Restart Exam</button>
+    </div>
+</div>
+
+<script>
+const quizData = [
+    { q: "What is the plural form of 'Book'?", o: ["Books", "Bookes", "Bookies", "Book"], a: 0, exp: "Most nouns form their plural by adding '-s' to the singular form." },
+    { q: "Identify the plural form of 'Pen'.", o: ["Pene", "Penes", "Penies", "Pens"], a: 3, exp: "The plural of 'Pen' is formed by adding '-s', making it 'Pens'." },
+    { q: "Which suffix is added to make the plural of 'Bus'?", o: ["-es", "-ies", "-s", "-ves"], a: 0, exp: "Nouns ending in '-s' take '-es' to form their plural." },
+    { q: "Which of the following is the correct plural of 'Box'?", o: ["Boxs", "Boxies", "Boxes", "Boxen"], a: 2, exp: "Nouns ending in '-x' take '-es' to form their plural." },
+    { q: "What is the plural form of 'Mango'?", o: ["Mangos", "Mangoses", "Mangoes", "Mangoies"], a: 2, exp: "Nouns ending in '-o' preceded by a consonant usually take '-es'." },
+    { q: "Which of the following is the correct plural of 'Baby'?", o: ["Babys", "Babies", "Babyes", "Babyies"], a: 1, exp: "Nouns ending in 'y' preceded by a consonant change 'y' to 'ies'." },
+    { q: "Identify the plural form of 'City'.", o: ["Citys", "Cites", "Cities", "Cityes"], a: 2, exp: "City ends in a consonant + y, so it becomes 'Cities'." },
+    { q: "What replaces 'f' or 'fe' when making the plural of 'Leaf'?", o: ["-s", "-ies", "-es", "-ves"], a: 3, exp: "Words ending in 'f' or 'fe' drop them and add '-ves'." },
+    { q: "What is the plural form of 'Wife'?", o: ["Wifes", "Wifves", "Wives", "Wifees"], a: 1, exp: "The 'fe' in 'Wife' is replaced with '-ves' to form 'Wives'." },
+    { q: "What is the irregular plural form of 'Man'?", o: ["Mans", "Men", "Manes", "Menes"], a: 1, exp: "'Man' is an irregular noun; its plural form changes the vowel to 'Men'." },
+    { q: "Identify the plural form of 'Woman'.", o: ["Womans", "Womens", "Women", "Womanes"], a: 2, exp: "The plural of 'Woman' is 'Women'." },
+    { q: "What is the correct plural form of 'Child'?", o: ["Childs", "Childes", "Childrens", "Children"], a: 3, exp: "'Child' takes the irregular plural suffix '-ren' to become 'Children'." },
+    { q: "What is the plural form of 'Foot'?", o: ["Foots", "Feets", "Feet", "Footen"], a: 2, exp: "'Foot' changes its internal vowel to form the plural 'Feet'." },
+    { q: "Choose the correct plural for 'Tooth'.", o: ["Tooths", "Toothes", "Teeth", "Teethes"], a: 2, exp: "The vowel change turns 'Tooth' into 'Teeth'." },
+    { q: "Which of the following is the plural of 'Mouse'?", o: ["Mouses", "Mice", "Mices", "Meese"], a: 1, exp: "The irregular plural of 'Mouse' is 'Mice'." },
+    { q: "What is the plural form of 'Sheep'?", o: ["Sheeps", "Sheepes", "Sheep", "Sheepen"], a: 2, exp: "'Sheep' has the same form in both singular and plural." },
+    { q: "Identify the plural form of 'Deer'.", o: ["Deers", "Deeres", "Deer", "Deeren"], a: 2, exp: "'Deer' remains unchanged in its plural form." },
+    { q: "What is generally considered the plural of 'Fish'?", o: ["Fishes", "Fishs", "Fish", "Fishies"], a: 2, exp: "'Fish' is commonly used as both singular and plural." },
+    { q: "What is the plural form of 'Potato'?", o: ["Potatos", "Potatoies", "Potatoes", "Potatoe"], a: 2, exp: "'Potato' ends in 'o' and takes '-es' in the plural." },
+    { q: "Choose the correct plural for 'Tomato'.", o: ["Tomatos", "Tomatoes", "Tomatoses", "Tomatoies"], a: 1, exp: "Tomatoes is the correct plural form." },
+    { q: "What is the plural form of 'Photo'?", o: ["Photoes", "Photies", "Photos", "Photoves"], a: 2, exp: "Some words ending in 'o' simply take '-s', like 'Photos'." },
+    { q: "Which of the following is the plural of 'Piano'?", o: ["Pianos", "Pianoes", "Pianoves", "Pianies"], a: 0, exp: "Piano takes '-s' to form 'Pianos'." },
+    { q: "What is the plural form of 'Goose'?", o: ["Gooses", "Geeses", "Goosen", "Geese"], a: 3, exp: "'Goose' changes to 'Geese' in the plural." },
+    { q: "Identify the plural form of 'Boy'.", o: ["Boies", "Boyes", "Boys", "Boisen"], a: 2, exp: "When 'y' is preceded by a vowel, we just add '-s'." },
+    { q: "What is the plural form of 'Story'?", o: ["Storys", "Storeis", "Stories", "Storeyes"], a: 2, exp: "Story ends in a consonant + y, so it becomes 'Stories'." },
+    { q: "What is the plural form of 'Thief'?", o: ["Thiefs", "Thiefes", "Thieves", "Thievs"], a: 2, exp: "'Thief' changes 'f' to '-ves' to become 'Thieves'." },
+    { q: "Choose the correct plural for 'Ox'.", o: ["Oxs", "Oxes", "Oxen", "Oxies"], a: 2, exp: "Ox forms its plural by adding '-en', becoming 'Oxen'." },
+    { q: "The plural form of 'Tooth' is based on which rule?", o: ["Adding 's'", "Adding 'es'", "Vowel Change", "Same Singular and Plural"], a: 2, exp: "It involves a vowel change from 'oo' to 'ee'." },
+    { q: "Under which category does the plural of 'Deer' fall?", o: ["Irregular Plurals", "Words ending in 'y'", "Vowel Change", "Same Singular and Plural"], a: 3, exp: "Deer has the exact same form for singular and plural." },
+    { q: "Which of the following shows an incorrect plural? (Error Identification)", o: ["Boys", "Babys", "Cities", "Mangoes"], a: 1, exp: "'Babys' is incorrect; the correct plural is 'Babies'." },
+    { q: "Which word is used as the plural for the singular 'This'?", o: ["That", "Those", "Them", "These"], a: 3, exp: "The plural demonstrative of 'This' is 'These'." },
+    { q: "What is the plural of the demonstrative pronoun 'That'?", o: ["This", "These", "Their", "Those"], a: 3, exp: "The plural of 'That' is 'Those'." },
+    { q: "Fill in the blank: \"This is a pen. Those _____ pens.\"", o: ["is", "am", "are", "was"], a: 2, exp: "Plural subject 'Those' takes the plural verb 'are'." },
+    { q: "Choose the correct verb to fill in the blank: \"The cat _____ sleeping.\"", o: ["is", "are", "am", "be"], a: 0, exp: "Singular subject 'The cat' takes 'is'." },
+    { q: "Choose the correct verb to fill in the blank: \"The cats _____ running.\"", o: ["is", "am", "was", "are"], a: 3, exp: "Plural subject 'The cats' takes 'are'." },
+    { q: "What is the plural form of 'Family'?", o: ["Familys", "Familyes", "Families", "Familiy"], a: 2, exp: "Family changes to 'Families'." },
+    { q: "Identify the plural form of 'Knife'.", o: ["Knifes", "Knifes", "Knives", "Knivs"], a: 2, exp: "'Knife' changes 'fe' to 'ves' to form 'Knives'." },
+    { q: "Which of the following is the plural of 'Hero'?", o: ["Heros", "Heroes", "Heroies", "Heroos"], a: 2, exp: "Hero takes '-es' to become 'Heroes'." },
+    { q: "What is the plural form of 'Brush'?", o: ["Brushs", "Brushe", "Brushes", "Brushies"], a: 2, exp: "Words ending in 'sh' take '-es'." },
+    { q: "Which of the following words has the same singular and plural?", o: ["Dog", "Cat", "Fish", "Horse"], a: 2, exp: "Fish remains fish in plural context." },
+    { q: "What is the plural of 'Story'?", o: ["Storys", "Stories", "Storeys", "Storeis"], a: 1, exp: "Stories is the correct spelling." },
+    { q: "Identify the error in the sentence: \"There are many childs in the park.\"", o: ["There are", "many", "childs", "in the park"], a: 2, exp: "'childs' is incorrect; it should be 'children'." },
+    { q: "Fill in the blank: \"This book _____ mine.\"", o: ["is", "are", "am", "be"], a: 0, exp: "'This book' is singular, so it uses 'is'." },
+    { q: "Fill in the blank: \"These books _____ interesting.\"", o: ["is", "am", "was", "are"], a: 3, exp: "'These books' is plural, so it uses 'are'." },
+    { q: "What is added to the end of 'Mango' to form its plural?", o: ["-s", "-es", "-ies", "-ves"], a: 1, exp: "The suffix '-es' is added." },
+    { q: "The plural of 'Man' is 'Men'. This rule belongs to:", o: ["Adding 's'", "Adding 'es'", "Vowel Change / Irregular Plural", "Same Singular and Plural"], a: 2, exp: "It is an irregular plural through vowel change." },
+    { q: "Identify the plural form of 'Watch'.", o: ["Watchs", "Watchies", "Watchen", "Watches"], a: 3, exp: "Words ending in 'ch' take '-es'." },
+    { q: "What is the plural form of 'Fly'?", o: ["Flys", "Flies", "Flyes", "Flis"], a: 1, exp: "Fly changes to 'Flies'." },
+    { q: "Choose the correct pair:", o: ["Box - Boxies", "City - Citys", "Woman - Womans", "Leaf - Leaves"], a: 3, exp: "Leaf correctly changes to Leaves." },
+    { q: "What is the plural form of \"That is a star.\"?", o: ["This is a star.", "These are stars.", "Those are stars.", "Those is stars."], a: 2, exp: "That becomes Those, is becomes are, star becomes stars." },
+    { q: "Identify the plural form of 'Hero'.", o: ["Heros", "Heroies", "Hero's", "Heroes"], a: 3, exp: "Hero becomes Heroes." },
+    { q: "Which of the following is the plural form of 'Radio'?", o: ["Radioes", "Radios", "Radioies", "Radioses"], a: 1, exp: "Radio takes '-s' to form Radios." },
+    { q: "What must be done to form the plural of 'Half'?", o: ["Halfs", "Halfes", "Halfies", "Halves"], a: 3, exp: "'f' changes to '-ves'." },
+    { q: "What is the plural form of 'Wolf'?", o: ["Wolfs", "Wolfes", "Wolves", "Wolvves"], a: 2, exp: "Wolf becomes Wolves." },
+    { q: "According to which rule is the plural of 'Ox' formed?", o: ["Adding 's'", "Adding 'es'", "Irregular Plural", "Same Singular and Plural"], a: 2, exp: "Ox takes '-en' (Irregular Plural)." },
+    { q: "The change from 'Tooth' to 'Teeth' is an example of:", o: ["Consonant change", "Adding 'es' suffix", "No change", "Vowel Change"], a: 3, exp: "It is a vowel change." },
+    { q: "Which of the following words is always singular?", o: ["Books", "Children", "Men", "Milk"], a: 3, exp: "Milk is an uncountable noun, treated as singular." },
+    { q: "Change the sentence to plural: \"That is a flower.\"", o: ["Those are flowers.", "These are flowers.", "That are flowers.", "Those is flowers."], a: 0, exp: "That becomes Those and flower becomes flowers." },
+    { q: "Change the sentence to singular: \"These are mangoes.\"", o: ["This is a mango.", "That is a mango.", "These is a mango.", "This are mango."], a: 1, exp: "These changes to That/This, are to is, mangoes to a mango." },
+    { q: "What is added to the end of 'Potato' and 'Tomato' in their plural forms?", o: ["-s", "-es", "-ies", "-ves"], a: 1, exp: "Both take '-es'." },
+    { q: "Following the 'Mango - Mangoes' rule, which of the following is correct?", o: ["Potato - Potatoes", "Photo - Photoes", "Piano - Pianoes", "Zoo - Zooes"], a: 0, exp: "Potato becomes Potatoes." },
+    { q: "In the 'Baby - Babies' rule, what happens to 'y' at the end?", o: ["It becomes -s", "It becomes -ies", "It is removed", "No change occurs"], a: 1, exp: "'y' is replaced with '-ies'." },
+    { q: "What is the plural form of 'Key'? (Note: preceded by a vowel)", o: ["Kiees", "Keies", "Keyees", "Keys"], a: 3, exp: "Since 'y' follows a vowel, we just add '-s'." },
+    { q: "Identify the plural form of 'Monkey'.", o: ["Monkies", "Monkeys", "Monkees", "Monkes"], a: 1, exp: "Monkey becomes Monkeys." },
+    { q: "Similar to 'Hero', which of the following words takes the 'es' suffix?", o: ["Photo", "Piano", "Solo", "Echo"], a: 3, exp: "Echo becomes Echoes." },
+    { q: "What is the plural form of 'Story'?", o: ["Storys", "Storeis", "Storeys", "Stories"], a: 3, exp: "Story becomes Stories." },
+    { q: "The plural of 'Thief' is 'Thieves'. What is the plural of 'Chief'?", o: ["Chieves", "Chiefes", "Chiefies", "Chiefs"], a: 3, exp: "Chief is an exception and simply takes '-s' to become Chiefs." },
+    { q: "Identify the plural form of 'Life'.", o: ["Lifes", "Lifves", "Livees", "Lives"], a: 3, exp: "Life becomes Lives." },
+    { q: "What is the plural form of 'Mouse'?", o: ["Mouses", "Mices", "Meese", "Mice"], a: 3, exp: "Mouse becomes Mice." },
+    { q: "Foot becomes Feet. What does Goose become?", o: ["Gooses", "Geeses", "Goosen", "Geese"], a: 3, exp: "Goose becomes Geese." },
+    { q: "What is the plural form of 'Matrix'?", o: ["Matrixes", "Matrises", "Matrix", "Matrices"], a: 3, exp: "Matrix becomes Matrices." },
+    { q: "Identify the plural form of 'Radius'.", o: ["Radiuses", "Radia", "Radios", "Radii"], a: 3, exp: "Radius becomes Radii." },
+    { q: "Which of the following is the plural form of 'Child'?", o: ["Childs", "Childes", "Childrens", "Children"], a: 3, exp: "Child becomes Children." },
+    { q: "Choose the correct option: \"There _____ a book on the table.\"", o: ["is", "are", "am", "be"], a: 0, exp: "'a book' is singular, so it uses 'is'." },
+    { q: "Choose the correct option: \"There _____ many books on the table.\"", o: ["is", "am", "was", "are"], a: 3, exp: "'many books' is plural, so it uses 'are'." },
+    { q: "What is the plural of 'This' in the sentence \"This is my pen.\"?", o: ["That", "Those", "Them", "These"], a: 3, exp: "This changes to These." },
+    { q: "What is the plural of 'That' in the sentence \"That is a bird.\"?", o: ["This", "These", "Them", "Those"], a: 3, exp: "That changes to Those." },
+     { q: "Identify the incorrect pair (Error Identification):", o: ["Boy - Boys", "City - Cities", "Box - Boxes", "Hero - Heros"], a: 3, exp: "'Hero - Heros' is incorrect; it should be Heroes." },
+    { q: "Identify the incorrect plural pair:", o: ["Man - Men", "Woman - Women", "Tooth - Teeth", "Child - Childs"], a: 3, exp: "'Child - Childs' is incorrect; it should be Children." },
+    { q: "What is the plural form of 'Furniture'?", o: ["Furnitures", "Furniturs", "Furnituries", "Furniture"], a: 3, exp: "Furniture is an uncountable noun and remains unchanged." },
+    { q: "Which is the plural form of 'Information'?", o: ["Informations", "Informates", "Informas", "Information"], a: 3, exp: "Information is uncountable and does not change." },
+    { q: "In which number is the word 'Scissors' always used?", o: ["Singular", "Uncountable", "Not determinable", "Plural"], a: 3, exp: "Scissors is treated as a plural noun." },
+    { q: "What is the number of the word 'Spectacles'?", o: ["Singular", "Uncountable", "None", "Plural"], a: 3, exp: "Spectacles is a plural noun." },
+    { q: "The word 'Mathematics' ends with 's', but what type of word is it?", o: ["Plural", "Both", "Uncertain", "Singular"], a: 3, exp: "Mathematics is a singular subject noun." },
+    { q: "How is the word 'People' generally considered?", o: ["Singular", "Uncountable", "None", "Plural"], a: 3, exp: "People is treated as a plural noun." },
+    { q: "How is the word 'Family' considered when denoting a collective group in a sentence?", o: ["Singular (or Plural depending on context)", "Always Plural", "Always uncertain", "Only Plural"], a: 0, exp: "Family can be singular or plural depending on collective usage." },
+    { q: "The plural of 'Bus' is 'Buses'. This rule is related to:", o: ["Adding 's'", "Words ending in 'y'", "Irregular Plurals", "Adding 'es'"], a: 3, exp: "It involves adding '-es'." },
+    { q: "Identify the plural form of 'Dish'.", o: ["Dishs", "Dishies", "Dishen", "Dishes"], a: 3, exp: "Dish becomes Dishes." },
+    { q: "Similar to 'Mango - Mangoes', what is the plural of 'Echo'?", o: ["Echos", "Echoies", "Echos'", "Echoes"], a: 3, exp: "Echo becomes Echoes." },
+    { q: "What is the plural form of 'Zebra'?", o: ["Zebras", "Zebres", "Zebries", "Zebren"], a: 0, exp: "Zebra takes '-s' to become Zebras." },
+    { q: "In 'Monkeys', 'y' takes an 's' because it is preceded by which vowel?", o: ["e", "i", "o", "a"], a: 3, exp: "It is preceded by a vowel 'a'." },
+    { q: "Fly becomes Flies because before 'y' there is a:", o: ["Vowel", "Number", "Nothing", "Consonant"], a: 3, exp: "It is preceded by a consonant 'l'." },
+    { q: "Change the sentence to plural: \"The baby is crying.\"", o: ["The baby are crying.", "The babys are crying.", "The babies is crying.", "The babies are crying."], a: 3, exp: "Baby becomes babies, is becomes are." },
+    { q: "Change the sentence to plural: \"The leaf falls from the tree.\"", o: ["The leafs falls from the trees.", "The leaf fall from the tree.", "The leaves falls from the tree.", "The leaves fall from the trees."], a: 3, exp: "Leaf->leaves, falls->fall, tree->trees." },
+    { q: "Change the sentence to plural: \"This man is wise.\"", o: ["This men are wise.", "These mans are wise.", "That men is wise.", "These men are wise."], a: 3, exp: "This->These, man->men, is->are." },
+    { q: "Change the sentence to plural: \"That child is playing.\"", o: ["That children is playing.", "These childs are playing.", "Those childs is playing.", "Those children are playing."], a: 3, exp: "That->Those, child->children, is->are." },
+    { q: "Which of the following groups belongs to 'Same Singular and Plural'?", o: ["Man, Woman, Child", "Book, Pen, Pencil", "Bus, Box, Mango", "Sheep, Deer, Fish"], a: 3, exp: "Sheep, Deer, and Fish do not change in plural form." },
+    { q: "Which of the following groups belongs to 'Irregular Plurals'?", o: ["Sheep, Deer, Fish", "Boy, Toy, Key", "City, Baby, Lady", "Man, Foot, Tooth"], a: 3, exp: "Man, Foot, and Tooth are irregular plurals." },
+    { q: "What is the plural form of 'Class'?", o: ["Classs", "Classies", "Classen", "Classes"], a: 3, exp: "Class becomes Classes." },
+    { q: "Identify the plural form of 'Match'.", o: ["Matchs", "Matchies", "Matchen", "Matches"], a: 3, exp: "Match becomes Matches." }
+];
+
+let currentQuestion = 0;
+let score = 0;
+let studentName = "";
+let studentMobile = "";
+let userAnswers = [];
+
+function startExam() {
+    studentName = document.getElementById("student-name").value.trim();
+    studentMobile = document.getElementById("student-mobile").value.trim();
+
+    if (!studentName || !studentMobile) {
+        alert("कृपया विद्यार्थ्याचे नाव आणि मोबाईल नंबर दोन्ही प्रविष्ट करा!");
+        return;
+    }
+
+    document.getElementById("start-page").classList.add("hidden");
+    document.getElementById("quiz-page").classList.remove("hidden");
+    loadQuestion();
+}
+
+function loadQuestion() {
+    let q = quizData[currentQuestion];
+    document.getElementById("question-tracker").innerText = `Question ${currentQuestion + 1} of 100`;
+    document.getElementById("marks-tracker").innerText = `Score: ${score}`;
+    document.getElementById("question-text").innerText = `${currentQuestion + 1}. ${q.q}`;
+    
+    let optionsHtml = "";
+    q.o.forEach((opt, index) => {
+        optionsHtml += `<button class="option-btn" onclick="checkAnswer(${index})">${String.fromCharCode(65 + index)}) ${opt}</button>`;
+    });
+    
+    document.getElementById("options-container").innerHTML = optionsHtml;
+    document.getElementById("explanation-box").style.display = "none";
+    document.getElementById("next-btn").disabled = true;
+}
+
+function checkAnswer(selectedIndex) {
+    let q = quizData[currentQuestion];
+    let buttons = document.querySelectorAll(".option-btn");
+    
+    buttons.forEach(btn => btn.disabled = true);
+
+    if (selectedIndex === q.a) {
+        buttons[selectedIndex].classList.add("correct");
+        score += 2; 
+        document.getElementById("marks-tracker").innerText = `Score: ${score}`;
+    } else {
+        buttons[selectedIndex].classList.add("wrong");
+        buttons[q.a].classList.add("correct");
+        
+        let expBox = document.getElementById("explanation-box");
+        expBox.innerText = `Incorrect! Explanation: ${q.exp}`;
+        expBox.style.display = "block";
+    }
+
+    userAnswers.push({
+        question: q.q,
+        selected: q.o[selectedIndex],
+        correct: q.o[q.a],
+        isCorrect: selectedIndex === q.a,
+        exp: q.exp
+    });
+
+    document.getElementById("next-btn").disabled = false;
+}
+
+function nextQuestion() {
+    currentQuestion++;
+    if (currentQuestion < quizData.length) {
+        loadQuestion();
+    } else {
+        showResult();
+    }
+}
+
+function showResult() {
+    document.getElementById("quiz-page").classList.add("hidden");
+    document.getElementById("result-page").classList.remove("hidden");
+
+    document.getElementById("res-name").innerText = studentName;
+    document.getElementById("res-score").innerText = `${score} / 200`;
+
+    let percentage = (score / 200) * 100;
+    let msg = "";
+    if (percentage >= 90) {
+        msg = "🥇 Gold Medal + Trophy! उत्कृष्ट कामगिरी!";
+    } else if (percentage >= 80) {
+        msg = "🥈 Silver Medal + Trophy! खूप छान कामगिरी!";
+    } else if (percentage >= 70) {
+        msg = "🥉 Bronze Medal + Trophy! उत्तम प्रयत्न!";
+    } else {
+        msg = "💐 अभिनंदन! फुलांचा गुच्छ व पुढील परीक्षेसाठी शुभेच्छा!";
+    }
+    document.getElementById("performance-msg").innerText = msg;
+}
+
+function showReview() {
+    document.getElementById("result-page").classList.add("hidden");
+    document.getElementById("review-page").classList.remove("hidden");
+
+    let reviewHtml = "";
+    userAnswers.forEach((item, index) => {
+        if (!item.isCorrect) {
+            reviewHtml += `
+                <div style="background: #fff; padding: 15px; margin-bottom: 10px; border-radius: 6px; border-left: 5px solid #e74c3c;">
+                    <b>Q${index + 1}: ${item.question}</b><br>
+                    <span style="color: #c0392b;">Your Answer: ${item.selected}</span><br>
+                    <span style="color: #27ae60;">Correct Answer: ${item.correct}</span><br>
+                    <small style="color: #555;">Explanation: ${item.exp}</small>
+                </div>
+            `;
+        }
+    });
+
+    if (reviewHtml === "") {
+        reviewHtml = "<p style='text-align:center; color:green; font-weight:bold;'>अतिउत्कृष्ट! तुमचे सर्व प्रश्न बरोबर आले आहेत!</p>";
+    }
+
+    document.getElementById("review-container").innerHTML = reviewHtml;
+}
+</script>
+</body>
+</html>
