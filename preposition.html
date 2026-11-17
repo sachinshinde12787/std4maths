@@ -232,19 +232,108 @@
 </div>
 
 <script>
-    // दिलेली 100 प्रश्नमंजुषा डेटा (उदाहरणादाखल सर्व मुख्य प्रकार समाविष्ट केले आहेत)
+    // सर्व 100 प्रश्न आणि त्यांचे मराठी स्पष्टीकरण
     const questions = [
         { q: "He gets up early ___ the morning.", options: ["on", "at", "in", "by"], correct: 2, exp: "सकाळ, दुपारी किंवा संध्याकाळ दर्शवण्यासाठी 'in' वापरतात." },
-        { q: "My birthday is ___ 15th August.", options: ["in", "at", "from", "on"], correct: 3, exp: "विशिष्ट तारखेपूर्वी 'on' वापरले जाते." },
-        { q: "The train leaves ___ 5 PM.", options: ["in", "on", "by", "at"], correct: 3, exp: "अचूक वेळेपूर्वी 'at' वापरतात." },
+        { q: "My birthday is ___ 15th August.", options: ["in", "on", "at", "from"], correct: 1, exp: "विशिष्ट तारखेपूर्वी 'on' वापरले जाते." },
+        { q: "The train leaves ___ 5 PM.", options: ["in", "on", "at", "by"], correct: 2, exp: "निश्चित वेळेपूर्वी 'at' वापरतात." },
         { q: "He has been living in Mumbai ___ 2015.", options: ["for", "from", "in", "since"], correct: 3, exp: "निश्चित वर्षापासून वेळ मोजण्यासाठी 'since' वापरतात." },
-        { q: "She studied for the exam ___ three hours.", options: ["since", "in", "during", "for"], correct: 3, exp: "कालावधीचा साठा दर्शवण्यासाठी 'for' वापरतात." },
+        { q: "She studied for the exam ___ three hours.", options: ["since", "for", "in", "during"], correct: 1, exp: "कालावधीचा साठा दर्शवण्यासाठी 'for' वापरतात." },
+        { q: "We celebrate Republic Day ___ 26th January.", options: ["in", "on", "at", "by"], correct: 1, exp: "विशिष्ट दिनांकापूर्वी 'on' चा वापर होतो." },
+        { q: "The meeting will start ___ 10 AM.", options: ["in", "on", "at", "by"], correct: 2, exp: "अचूक वेळेपूर्वी 'at' वापरले जाते." },
+        { q: "He was born ___ 1998.", options: ["in", "on", "at", "from"], correct: 0, exp: "वर्ष किंवा महिन्यापूर्वी 'in' वापरतात." },
+        { q: "Banks are closed ___ Sundays.", options: ["in", "on", "at", "during"], correct: 1, exp: "वारांच्या आधी नेहमी 'on' वापरतात." },
+        { q: "He works hard ___ the night.", options: ["in", "on", "at", "by"], correct: 2, exp: "रात्रीच्या वेळेसाठी 'at night' वापरतात." },
+        { q: "I will finish this work ___ a week.", options: ["on", "at", "for", "in"], correct: 3, exp: "एखाद्या ठराविक मुदतीत काम पूर्ण होणार हे सांगण्यासाठी 'in' वापरतात." },
+        { q: "She has been waiting here ___ morning.", options: ["for", "from", "since", "at"], correct: 2, exp: "सकाळपासून ही वेळ निश्चित असल्याने 'since' योग्य आहे." },
+        { q: "He slept ___ four hours.", options: ["since", "for", "during", "in"], correct: 1, exp: "४ तास हा कालावधी असल्याने 'for' वापरले आहे." },
+        { q: "The sun shines brightly ___ the day.", options: ["in", "on", "at", "by"], correct: 0, exp: "दिवसाच्या वेळी 'in the day' असे म्हटले जाते." },
+        { q: "We usually eat dinner ___ 8 PM.", options: ["in", "on", "by", "at"], correct: 3, exp: "वेळेच्या आधी 'at' वापरतात." },
         { q: "The cat is sitting ___ the table.", options: ["in", "on", "at", "under"], correct: 3, exp: "खाली बसण्यासाठी 'under' वापरले जाते." },
         { q: "The ceiling fan is rotating ___ my head.", options: ["under", "over", "above", "on"], correct: 2, exp: "डोक्याच्या वर स्पर्श न करता असणाऱ्या वस्तूंसाठी 'above' वापरतात." },
-        { q: "Distribute these sweets ___ the two children.", options: ["among", "with", "between", "to"], correct: 2, exp: "फक्त दोन लोकांसाठी 'between' वापरतात." },
+        { q: "Distribute these sweets ___ the two children.", options: ["among", "between", "with", "to"], correct: 1, exp: "फक्त दोन लोकांसाठी 'between' वापरतात." },
         { q: "The prize was shared ___ all the team members.", options: ["between", "in", "with", "among"], correct: 3, exp: "दोनापेक्षा जास्त लोकांसाठी 'among' वापरतात." },
-        { q: "He jumped ___ the swimming pool.", options: ["in", "on", "onto", "into"], correct: 3, exp: "गतीसह आत जाण्यासाठी 'into' वापरतात." }
-        // टीप: हवी असल्यास तुम्ही या अरे (Array) मध्ये बाकीची सर्व 100 प्रश्ने याच फॉरमॅटने वाढवू शकता.
+        { q: "The cat is sleeping ___ the room.", options: ["on", "in", "at", "under"], correct: 3, exp: "खोलीच्या आत असल्यामुळे 'in' वापरले जाते." },
+        { q: "Sit down ___ me so we can talk.", options: ["besides", "beside", "behind", "between"], correct: 1, exp: "शेजारी बसण्यासाठी 'beside' वापरतात." },
+        { q: "___ Hindi, he knows English and French.", options: ["Beside", "Besides", "Except", "Between"], correct: 1, exp: "'याव्यतिरिक्त' या अर्थासाठी 'Besides' वापरतात." },
+        { q: "The post office is located ___ the bank.", options: ["in front of", "opposite", "behind", "under"], correct: 1, exp: "विरुद्ध दिशेला किंवा समोरसाठी 'opposite' वापरतात." },
+        { q: "The cat is hiding ___ the door.", options: ["in", "on", "behind", "above"], correct: 2, exp: "मागे लपण्यासाठी 'behind' वापरतात." },
+        { q: "The airplane flew ___ the clouds.", options: ["under", "over", "above", "in"], correct: 3, exp: "कव्हर करून किंवा वरून जाण्यासाठी 'over' वापरतात." },
+        { q: "Water flows ___ the bridge.", options: ["over", "under", "above", "across"], correct: 1, exp: "पुलाखालून पाणी वाहते म्हणून 'under' वापरतात." },
+        { q: "He stood ___ the crowd to get a better view.", options: ["below", "above", "under", "over"], correct: 1, exp: "गर्दीच्या वर किंवा वरच्या पातळीवर असण्यासाठी 'above' वापरतात." },
+        { q: "The temperature fell ___ freezing point.", options: ["above", "below", "under", "over"], correct: 1, exp: "पातळीच्या खाली जाण्यासाठी 'below' वापरतात." },
+        { q: "He sat ___ me in the classroom.", options: ["beside", "besides", "behind", "between"], correct: 0, exp: "शेजारी बसण्यासाठी 'beside' वापरतात." },
+        { q: "There is a bridge ___ the river.", options: ["over", "under", "above", "across"], correct: 0, exp: "नदीच्या वर पूल असतो म्हणून 'over' वापरतात." },
+        { q: "The books are kept ___ the shelf.", options: ["in", "on", "at", "under"], correct: 1, exp: "पृष्ठभागावर ठेवण्यासाठी 'on' वापरतात." },
+        { q: "He waited for me ___ the bus stop.", options: ["in", "on", "at", "under"], correct: 2, exp: "लहान ठिकाण किंवा स्थान दर्शवण्यासाठी 'at' वापरतात." },
+        { q: "She lives ___ Mumbai.", options: ["at", "on", "in", "from"], correct: 2, exp: "मोठ्या शहरांपू्र्वी 'in' वापरतात." },
+        { q: "He was standing ___ the corner of the room.", options: ["in", "on", "at", "by"], correct: 2, exp: "कोपऱ्यात किंवा विशिष्ट बिंदूवर 'at' वापरतात." },
+        { q: "The village is situated ___ the foot of the mountain.", options: ["in", "on", "at", "under"], correct: 2, exp: "तळाशी किंवा पायथ्याशी दर्शवण्यासाठी 'at' वापरतात." },
+        { q: "He jumped ___ the swimming pool.", options: ["in", "into", "on", "onto"], correct: 1, exp: "गतीसह आत जाण्यासाठी 'into' वापरतात." },
+        { q: "He walked ___ the bridge to cross the river.", options: ["through", "across", "along", "over"], correct: 1, exp: "एका टोकापासून दुसऱ्या टोकापर्यंत जाण्यासाठी 'across' वापरतात." },
+        { q: "The travelers walked ___ the dense forest.", options: ["across", "through", "along", "over"], correct: 1, exp: "जंगलासारख्या दाट भागातून मधून जाण्यासाठी 'through' वापरतात." },
+        { q: "The cat jumped ___ the wall.", options: ["in", "into", "on", "onto"], correct: 3, exp: "गतीसह पृष्ठभागावर जाण्यासाठी 'onto' वापरतात." },
+        { q: "He put the file ___ the table.", options: ["in", "into", "on", "onto"], correct: 3, exp: "टेबलवर फायली ठेवण्याच्या गतीसाठी 'onto' वापरतात." },
+        { q: "He came ___ Pune yesterday.", options: ["to", "from", "at", "in"], correct: 1, exp: "एखाद्या ठिकाणाहून येण्यासाठी 'from' वापरतात." },
+        { q: "They are traveling ___ Delhi ___ Agra.", options: ["from, to", "to, from", "in, out", "at, by"], correct: 0, exp: "एका ठिकाणाहून दुसऱ्या ठिकाणापर्यंत 'from... to' वापरतात." },
+        { q: "The bridge runs ___ the river.", options: ["through", "across", "along", "over"], correct: 1, exp: "नदीच्या पलीकडे जाणाऱ्या पुलासाठी 'across' वापरतात." },
+        { q: "He walked ___ the path, enjoying the scenery.", options: ["across", "through", "along", "over"], correct: 2, exp: "रस्त्याच्या कडेने चालण्यासाठी 'along' वापरतात." },
+        { q: "He walked ___ the room and sat down.", options: ["in", "into", "on", "onto"], correct: 1, exp: "खोलीत प्रवेश करण्याच्या गतीसाठी 'into' वापरतात." },
+        { q: "She looked ___ the mirror to check her hair.", options: ["in", "into", "at", "on"], correct: 1, exp: "आरशात पाहण्यासाठी 'into' वापरतात." },
+        { q: "The river flows ___ the valley.", options: ["through", "across", "along", "over"], correct: 0, exp: "खोऱ्यामधून वाहण्यासाठी 'through' वापरतात." },
+        { q: "He threw the ball ___ the well.", options: ["in", "into", "on", "onto"], correct: 1, exp: "विहिरीत फेकून मारण्याच्या गतीसाठी 'into' वापरतात." },
+        { q: "The train is going ___ Mumbai.", options: ["at", "to", "from", "in"], correct: 1, exp: "एखाद्या दिशेने जाण्यासाठी 'to' वापरतात." },
+        { q: "She ran ___ me when she saw me.", options: ["towards", "to", "at", "in"], correct: 0, exp: "च्या दिशेने धाव घेण्यासाठी 'towards' वापरतात." },
+        { q: "He is afraid ___ dogs.", options: ["at", "in", "of", "with"], correct: 2, exp: "'afraid' या शब्दासोबत नेहमी 'of' हे Preposition येते." },
+        { q: "She is good ___ mathematics.", options: ["in", "at", "on", "with"], correct: 1, exp: "'good at' एखाद्या विषयात हुशार असणे असा अर्थ होतो." },
+        { q: "He congratulated me ___ my success.", options: ["in", "on", "at", "for"], correct: 1, exp: "'congratulate' नंतर नेहमी 'on' वापरतात." },
+        { q: "She is angry ___ my behavior.", options: ["with", "at", "on", "to"], correct: 1, exp: "एखाद्या कृतीवर किंवा गोष्टीवर राग असल्यास 'angry at' वापरतात." },
+        { q: "He is angry ___ his younger brother.", options: ["at", "with", "on", "to"], correct: 1, exp: "एखाद्या व्यक्तीवर राग असल्यास 'angry with' वापरतात." },
+        { q: "Smoking is harmful ___ health.", options: ["to", "for", "against", "in"], correct: 0, exp: "'harmful to' आरोग्यासाठी घातक." },
+        { q: "Prevention is better ___ cure.", options: ["then", "than", "to", "from"], correct: 1, exp: "तुलना करण्यासाठी 'than' वापरले जाते." },
+        { q: "He deals ___ stationery items.", options: ["in", "with", "at", "on"], correct: 0, exp: "व्यापार करणे या अर्थासाठी 'deal in' वापरतात." },
+        { q: "She knows how to deal ___ difficult customers.", options: ["in", "with", "at", "on"], correct: 1, exp: "कठीण प्रसंगाचा सामना करणे यासाठी 'deal with' वापरतात." },
+        { q: "He died ___ malaria.", options: ["from", "of", "with", "by"], correct: 1, exp: "आजारामुळे मृत्यू झाल्यास 'die of' वापरतात." },
+        { q: "He died ___ a wound received in battle.", options: ["of", "from", "with", "in"], correct: 1, exp: "युद्धातील जखमेमुळे मृत्यू झाल्यास 'die from' वापरतात." },
+        { q: "She is blind ___ one eye.", options: ["of", "in", "to", "with"], correct: 1, exp: "एका डोळ्याने अंध असण्यासाठी 'blind in' वापरतात." },
+        { q: "Parents are often blind ___ the faults of their children.", options: ["of", "in", "to", "with"], correct: 2, exp: "दुर्लक्ष करणे किंवा दोषांकडे दुर्लक्ष करणे यासाठी 'blind to' वापरतात." },
+        { q: "He is senior ___ me in college.", options: ["than", "to", "from", "with"], correct: 1, exp: "'senior' नंतर नेहमी 'to' वापरतात." },
+        { q: "This cloth is superior ___ that one.", options: ["than", "to", "from", "with"], correct: 1, exp: "'superior' नंतर नेहमी 'to' वापरतात." },
+        { q: "He prefers coffee ___ tea.", options: ["than", "to", "over", "from"], correct: 1, exp: "'prefer' नंतर नेहमी 'to' वापरतात." },
+        { q: "Look ___ the blackboard carefully.", options: ["at", "to", "on", "in"], correct: 0, exp: "'look at' पाहणे." },
+        { q: "Please listen ___ my advice.", options: ["at", "to", "on", "for"], correct: 1, exp: "'listen to' ऐकणे." },
+        { q: "He arrived ___ Mumbai late at night.", options: ["at", "in", "on", "to"], correct: 1, exp: "मोठ्या शहरात पोहोचण्यासाठी 'arrive in' वापरतात." },
+        { q: "The train arrived ___ the station on time.", options: ["in", "at", "on", "to"], correct: 1, exp: "स्थानकावर पोहोचण्यासाठी 'arrive at' वापरतात." },
+        { q: "He laughed ___ the poor beggar.", options: ["at", "on", "upon", "with"], correct: 0, exp: "'laugh at' कोणावर तरी हसणे." },
+        { q: "He is searching ___ his lost keys.", options: ["at", "for", "after", "to"], correct: 1, exp: "'search for' शोध घेणे." },
+        { q: "She reminded me ___ my promise.", options: ["about", "of", "to", "for"], correct: 1, exp: "'remind of' आठवण करून देणे." },
+        { q: "He warned her ___ the danger.", options: ["about", "of", "against", "from"], correct: 1, exp: "'warn of' धोका दर्शवणे." },
+        { q: "She is proud ___ her son's achievements.", options: ["about", "of", "for", "in"], correct: 1, exp: "'proud of' अभिमान असणे." },
+        { q: "He is tired ___ walking long distances.", options: ["of", "from", "with", "at"], correct: 0, exp: "'tired of' कंटाळलेला असणे." },
+        { q: "The book was written ___ Shakespeare.", options: ["with", "by", "from", "through"], correct: 1, exp: "कर्त्याद्वारे केलेल्या कृतीसाठी 'by' वापरतात." },
+        { q: "He cut the cake ___ a sharp knife.", options: ["by", "with", "using", "through"], correct: 1, exp: "हत्यार किंवा साधनासाठी 'with' वापरतात." },
+        { q: "He succeeded ___ dint of hard work.", options: ["by", "through", "with", "in"], correct: 0, exp: "'by dint of' च्या जोरावर." },
+        { q: "She acted ___ accordance with the rules.", options: ["by", "in", "with", "on"], correct: 3, exp: "'in accordance with' नियमांनुसार." },
+        { q: "He resigned ___ his post due to corruption.", options: ["from", "of", "off", "out"], correct: 0, exp: "राजीनामा देण्यासोबत 'resign from' वापरतात." },
+        { q: "She persisted ___ asking awkward questions.", options: ["on", "in", "at", "with"], correct: 1, exp: "'persist in' सतत प्रयत्न करणे." },
+        { q: "He insisted ___ going there alone.", options: ["on", "in", "at", "upon"], correct: 0, exp: "'insist on' आग्रह धरणी." },
+        { q: "He is capable ___ doing this difficult task.", options: ["of", "to", "in", "for"], correct: 0, exp: "'capable of' सक्षम असणे." },
+        { q: "He abstains ___ drinking alcohol.", options: ["from", "of", "off", "out"], correct: 0, exp: "'abstain from' परावृत्त राहणे." },
+        { q: "He refrained ___ making any comments.", options: ["from", "of", "out", "against"], correct: 0, exp: "'refrain from' लांब राहणे." },
+        { q: "The police prevented him ___ entering the building.", options: ["from", "to", "against", "of"], correct: 0, exp: "'prevent from' रोखणे." },
+        { q: "He is charged ___ murder.", options: ["of", "with", "for", "on"], correct: 1, exp: "'charged with' आरोप असणे." },
+        { q: "He was accused ___ theft.", options: ["with", "of", "for", "from"], correct: 1, exp: "'accused of' आरोपी असणे." },
+        { q: "He believes ___ God.", options: ["on", "in", "at", "upon"], correct: 1, exp: "'believe in' विश्वास ठेवणे." },
+        { q: "Trust ___ your own hard work.", options: ["on", "in", "at", "upon"], correct: 1, exp: "'trust in' विश्वास ठेवणे." },
+        { q: "He confided ___ his close friend.", options: ["to", "in", "with", "into"], correct: 1, exp: "'confide in' विश्वास टाळणे." },
+        { q: "She despaired ___ success after failing thrice.", options: ["of", "in", "from", "at"], correct: 0, exp: "'despair of' निराशा होणे." },
+        { q: "He hopes ___ winning the gold medal.", options: ["to", "for", "of", "in"], correct: 1, exp: "'hope for' आशा बाळगणे." },
+        { q: "The climate of Pune is congenial ___ health.", options: ["for", "to", "with", "in"], correct: 1, exp: "'congenial to' आरोग्याला अनुकूल." },
+        { q: "Smoking is injurious ___ health.", options: ["for", "to", "with", "against"], correct: 1, exp: "'injurious to' हानिकारक." },
+        { q: "He has a great taste ___ music.", options: ["of", "for", "in", "to"], correct: 1, exp: "'taste for' आवड असणे." },
+        { q: "She has good taste ___ modern art.", options: ["of", "for", "to", "in"], correct: 3, exp: "कला किंवा कपड्यांच्या बाबतीत चव असण्यासाठी 'taste in' वापरतात." },
+        { q: "He is qualified ___ the post of manager.", options: ["to", "for", "of", "in"], correct: 1, exp: "'qualified for' पात्र असणे." },
+        { q: "He is proficient ___ English grammar.", options: ["at", "of", "with", "in"], correct: 3, exp: "'proficient in' प्राविण्य मिळवलेला." }
     ];
 
     let currentIdx = 0;
@@ -291,7 +380,6 @@
         let q = questions[currentIdx];
         let buttons = document.querySelectorAll(".option-btn");
         
-        // Disable all buttons after selection
         buttons.forEach(b => b.disabled = true);
 
         let isCorrect = (selectedIdx === q.correct);
@@ -354,7 +442,6 @@
 
         document.getElementById("res-grade").innerText = gradeText;
 
-        // Display wrong answers review
         let wrongContainer = document.getElementById("wrong-answers-container");
         let wrongList = userAnswers.filter(a => !a.isCorrect);
 
